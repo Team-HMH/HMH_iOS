@@ -67,8 +67,9 @@
 		365CD6BB2B7E4C4F00245CDD /* HMH_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */,
-				365CD6BE2B7E4C4F00245CDD /* ContentView.swift */,
+				365CD6DF2B7E4ECC00245CDD /* Global */,
+				365CD6E22B7E4F4300245CDD /* Presentation */,
+				365CD6E12B7E4F2D00245CDD /* Network */,
 				365CD6C02B7E4C5100245CDD /* Assets.xcassets */,
 				365CD6C22B7E4C5100245CDD /* Preview Content */,
 			);
@@ -81,6 +82,101 @@
 				365CD6C32B7E4C5100245CDD /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		365CD6DF2B7E4ECC00245CDD /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */,
+				365CD6E62B7E4FB700245CDD /* Extension */,
+				365CD6E52B7E4F8F00245CDD /* Manager */,
+				365CD6E72B7E4FD100245CDD /* Protocols */,
+				365CD6E42B7E4F8300245CDD /* Resource */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		365CD6E12B7E4F2D00245CDD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				365CD6EE2B7E524300245CDD /* Service */,
+				365CD6E32B7E4F7A00245CDD /* Base */,
+				365CD6E92B7E501E00245CDD /* Foundation */,
+				365CD6EB2B7E504000245CDD /* Router */,
+				365CD6E82B7E501000245CDD /* DTO */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		365CD6E22B7E4F4300245CDD /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				365CD6BE2B7E4C4F00245CDD /* ContentView.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		365CD6E32B7E4F7A00245CDD /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		365CD6E42B7E4F8300245CDD /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		365CD6E52B7E4F8F00245CDD /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		365CD6E62B7E4FB700245CDD /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		365CD6E72B7E4FD100245CDD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		365CD6E82B7E501000245CDD /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		365CD6E92B7E501E00245CDD /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		365CD6EB2B7E504000245CDD /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		365CD6EE2B7E524300245CDD /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
