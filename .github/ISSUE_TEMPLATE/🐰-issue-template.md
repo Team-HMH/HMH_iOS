@@ -2,7 +2,7 @@
 name: "\U0001F430 issue template"
 about: zoe의 새로운 이슈 추가
 title: "[Feat]"
-labels: "\U0001F430 지희"
+labels: "\U0001F430지희"
 assignees: Zoe0929
 
 ---
