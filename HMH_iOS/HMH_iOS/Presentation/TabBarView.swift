@@ -11,22 +11,33 @@ enum Tab: CaseIterable {
     case challengeView
     case homeView
     case myPageView
-
+    
     @ViewBuilder
-        var view: some View {
-            switch self {
-            case .challengeView: ChallengeView()
-            case .homeView: HomeView()
-            case .myPageView: MyPageView()
-            }
+    var view: some View {
+        switch self {
+        case .challengeView: ChallengeView()
+        case .homeView: HomeView()
+        case .myPageView: MyPageView()
         }
+    }
 }
 
 struct TabBarView: View {
+    @State var selectedTab: Tab = .homeView
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        NavigationStack{
+            VStack(spacing: 0) {
+                selectedTab.view
+                CustomTabView(selectedTab: $selectedTab)
+            }
+            .ignoresSafeArea(.keyboard)
+        }
     }
+    
 }
+
 
 #Preview {
     TabBarView()

@@ -11,6 +11,7 @@
 		0B3C296D2BA01C2000435B30 /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C296C2BA01C2000435B30 /* ChallengeView.swift */; };
 		0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C296E2BA01C2800435B30 /* HomeView.swift */; };
 		0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29702BA01C3000435B30 /* MyPageView.swift */; };
+		0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29722BA01DCE00435B30 /* CustomTabView.swift */; };
 		365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */; };
 		365CD6BF2B7E4C4F00245CDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365CD6BE2B7E4C4F00245CDD /* ContentView.swift */; };
 		365CD6C12B7E4C5100245CDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 		0B3C296C2BA01C2000435B30 /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		0B3C296E2BA01C2800435B30 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0B3C29702BA01C3000435B30 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		0B3C29722BA01DCE00435B30 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		365CD6B92B7E4C4F00245CDD /* HMH_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMH_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMH_iOSApp.swift; sourceTree = "<group>"; };
 		365CD6BE2B7E4C4F00245CDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				365CD6BE2B7E4C4F00245CDD /* ContentView.swift */,
 				0B3C296A2BA01BD200435B30 /* TabBarView.swift */,
+				0B3C29722BA01DCE00435B30 /* CustomTabView.swift */,
 				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
 				0B3C296E2BA01C2800435B30 /* HomeView.swift */,
 				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
@@ -284,6 +287,7 @@
 				0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */,
+				0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

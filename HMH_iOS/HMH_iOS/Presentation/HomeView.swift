@@ -9,7 +9,11 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Home")
+            .foregroundColor(.white) // Set text color to white
+            .padding() // Add some padding around the text
+            .frame(maxWidth: .infinity, maxHeight: .infinity) 
+            .background(Color.red) 
     }
 }
 
