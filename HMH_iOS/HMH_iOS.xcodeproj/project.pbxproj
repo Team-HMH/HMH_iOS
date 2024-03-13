@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B9ACF362BA14FDB00EC0BDE /* Main-F-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */; };
+		0B9ACF372BA14FDB00EC0BDE /* Main-B-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */; };
+		0B9ACF382BA14FDB00EC0BDE /* Main-D-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF322BA14FDB00EC0BDE /* Main-D-final.json */; };
+		0B9ACF392BA14FDB00EC0BDE /* Main-C-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF332BA14FDB00EC0BDE /* Main-C-final.json */; };
+		0B9ACF3A2BA14FDB00EC0BDE /* Main-A-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF342BA14FDB00EC0BDE /* Main-A-final.json */; };
+		0B9ACF3B2BA14FDB00EC0BDE /* Main-E-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF352BA14FDB00EC0BDE /* Main-E-final.json */; };
 		0BD2D6722B9F385100733843 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6702B9F385000733843 /* Pretendard-Regular.otf */; };
 		0BD2D6732B9F385100733843 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6712B9F385100733843 /* Pretendard-SemiBold.otf */; };
 		0BD2D6752B9F386B00733843 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6742B9F386B00733843 /* Pretendard-Medium.otf */; };
@@ -27,6 +33,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-F-final.json"; sourceTree = "<group>"; };
+		0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-B-final.json"; sourceTree = "<group>"; };
+		0B9ACF322BA14FDB00EC0BDE /* Main-D-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-D-final.json"; sourceTree = "<group>"; };
+		0B9ACF332BA14FDB00EC0BDE /* Main-C-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-C-final.json"; sourceTree = "<group>"; };
+		0B9ACF342BA14FDB00EC0BDE /* Main-A-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-A-final.json"; sourceTree = "<group>"; };
+		0B9ACF352BA14FDB00EC0BDE /* Main-E-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-E-final.json"; sourceTree = "<group>"; };
 		0BD2D6702B9F385000733843 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		0BD2D6712B9F385100733843 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		0BD2D6742B9F386B00733843 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -59,6 +71,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B9ACF2F2BA14FBA00EC0BDE /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				0B9ACF342BA14FDB00EC0BDE /* Main-A-final.json */,
+				0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */,
+				0B9ACF332BA14FDB00EC0BDE /* Main-C-final.json */,
+				0B9ACF322BA14FDB00EC0BDE /* Main-D-final.json */,
+				0B9ACF352BA14FDB00EC0BDE /* Main-E-final.json */,
+				0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		0BD2D66F2B9F378E00733843 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +173,7 @@
 		365CD6E42B7E4F8300245CDD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0B9ACF2F2BA14FBA00EC0BDE /* Lottie */,
 				0BD2D66F2B9F378E00733843 /* Fonts */,
 				0BD2D6772B9F39EF00733843 /* Font.swift */,
 				0BD2D67B2B9F5A7B00733843 /* String.swift */,
@@ -279,10 +305,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B9ACF362BA14FDB00EC0BDE /* Main-F-final.json in Resources */,
 				365CD6C42B7E4C5100245CDD /* Preview Assets.xcassets in Resources */,
 				0BD2D6752B9F386B00733843 /* Pretendard-Medium.otf in Resources */,
+				0B9ACF3A2BA14FDB00EC0BDE /* Main-A-final.json in Resources */,
 				0BD2D6722B9F385100733843 /* Pretendard-Regular.otf in Resources */,
+				0B9ACF392BA14FDB00EC0BDE /* Main-C-final.json in Resources */,
+				0B9ACF372BA14FDB00EC0BDE /* Main-B-final.json in Resources */,
+				0B9ACF3B2BA14FDB00EC0BDE /* Main-E-final.json in Resources */,
 				365CD6C12B7E4C5100245CDD /* Assets.xcassets in Resources */,
+				0B9ACF382BA14FDB00EC0BDE /* Main-D-final.json in Resources */,
 				0BD2D6732B9F385100733843 /* Pretendard-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
