@@ -13,18 +13,26 @@ struct CustomTabView: View {
     @Binding var selectedTab: Tab
     
     var body: some View {
-        HStack(spacing: 30) {
+        
+        VStack {
+            Rectangle()
+                .fill(.gray8)
+                .frame(height: 1)
             Spacer()
-            TabButton(tab: .challengeView, selectedTab: $selectedTab, imageName: "calendar-check", text: "챌린지")
-            Spacer()
-            TabButton(tab: .homeView, selectedTab: $selectedTab, imageName: "home", text: "홈")
-            Spacer()
-            TabButton(tab: .myPageView, selectedTab: $selectedTab, imageName: "user", text: "마이페이지")
-            Spacer()
+            HStack(spacing: 30) {
+                Spacer()
+                TabButton(tab: .challengeView, selectedTab: $selectedTab, imageName: "calendar-check", text: "챌린지")
+                Spacer()
+                TabButton(tab: .homeView, selectedTab: $selectedTab, imageName: "home", text: "홈")
+                Spacer()
+                TabButton(tab: .myPageView, selectedTab: $selectedTab, imageName: "user", text: "마이페이지")
+                Spacer()
+            }
         }
-        .frame(height: 100)
+        .frame(height: 66)
         .background(Color.gray7)
     }
+    
 }
 
 struct TabButton: View {
