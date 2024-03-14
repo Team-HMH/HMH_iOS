@@ -7,17 +7,14 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct CustomTabView: View {
     @Binding var selectedTab: Tab
     
     var body: some View {
         
         VStack {
-            Rectangle()
-                .fill(.gray8)
-                .frame(height: 1)
+            Divider()
+                .background(Color.gray8)
             Spacer()
             HStack(spacing: 30) {
                 Spacer()
@@ -40,6 +37,9 @@ struct TabButton: View {
     @Binding var selectedTab: Tab
     let imageName: String
     let text: String
+    private var selectedImageName: String {
+        selectedTab == tab ? imageName : "\(imageName)Unselected"
+    }
     
     var body: some View {
         Button(action: {
@@ -59,7 +59,4 @@ struct TabButton: View {
         }
     }
     
-    private var selectedImageName: String {
-        selectedTab == tab ? imageName : "\(imageName)Unselected"
-    }
 }

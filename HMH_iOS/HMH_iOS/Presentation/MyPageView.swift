@@ -10,8 +10,8 @@ import SwiftUI
 struct MyPageView: View {
     var body: some View {
         Text("myPage")
-            .foregroundColor(.white) // Set text color to white
-            .padding() // Add some padding around the text
+            .foregroundColor(.white)
+            .padding() 
             .frame(maxWidth: .infinity, maxHeight: .infinity) 
             .background(Color.red) 
     }

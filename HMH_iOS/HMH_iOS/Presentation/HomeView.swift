@@ -10,8 +10,8 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         Text("Home")
-            .foregroundColor(.white) // Set text color to white
-            .padding() // Add some padding around the text
+            .foregroundColor(.white)
+            .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity) 
             .background(Color.red) 
     }
