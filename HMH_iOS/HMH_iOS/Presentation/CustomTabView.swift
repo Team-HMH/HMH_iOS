@@ -7,51 +7,49 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct CustomTabView: View {
     @Binding var selectedTab: Tab
     
     var body: some View {
         HStack(spacing: 30) {
             Spacer()
-            Button() {
-                selectedTab = .challengeView
-            } label: {
-                VStack {
-                    Image(systemName: "1.square.fill")
-                    Text("챌린지")
-                }
-                .frame(width: 60, height: 49)
-            }
+            TabButton(tab: .challengeView, selectedTab: $selectedTab, imageName: "calendar-check", text: "챌린지")
             Spacer()
-            Button {
-                selectedTab = .homeView
-            } label: {
-                VStack {
-                    Image(systemName: "1.square.fill")
-                    Text("챌린지")
-                }
-                .frame(width: 60, height: 49)
-                .background(Color.yellow)
-            }
+            TabButton(tab: .homeView, selectedTab: $selectedTab, imageName: "home", text: "홈")
             Spacer()
-            Button {
-                selectedTab = .myPageView
-            } label: {
-                VStack {
-                    Image(systemName: "1.square.fill")
-                    Text("챌린지")
-                }
-                .frame(width: 60, height: 49)
-            }
+            TabButton(tab: .myPageView, selectedTab: $selectedTab, imageName: "user", text: "마이페이지")
             Spacer()
         }
-        .frame(height: 100) // Set height of the HStack
-        .background(.gray) // Set background color for the HStack
+        .frame(height: 100)
+        .background(Color.gray7)
     }
-    
 }
 
-//    #Preview {
-////        @Binding var selectedTab: Tab
-//        CustomTabView(selectedTab: $selectedTab)
-//    }
+struct TabButton: View {
+    let tab: Tab
+    @Binding var selectedTab: Tab
+    let imageName: String
+    let text: String
+    
+    var body: some View {
+        
+        Button(action: {
+            selectedTab = tab
+        }) {
+            VStack {
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 28, height: 28)
+                
+                Text(text)
+                    .font(.detail3_semibold_12)
+            }
+            .frame(width: 60, height: 49)
+            .tint(selectedTab == tab ? .whiteBtn : .gray3)
+        }
+        
+    }
+}
