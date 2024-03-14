@@ -34,12 +34,11 @@ struct TabButton: View {
     let text: String
     
     var body: some View {
-        
         Button(action: {
             selectedTab = tab
         }) {
             VStack {
-                Image(imageName)
+                Image(selectedImageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 28, height: 28)
@@ -50,6 +49,9 @@ struct TabButton: View {
             .frame(width: 60, height: 49)
             .tint(selectedTab == tab ? .whiteBtn : .gray3)
         }
-        
+    }
+    
+    private var selectedImageName: String {
+        selectedTab == tab ? imageName : "\(imageName)Unselected"
     }
 }
