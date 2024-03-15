@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "calendar-check.svg",
+      "filename" : "calendar-checkSelected.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "calendar-check@2x.png",
+      "filename" : "calendar-checkSelected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "calendar-check@3x.png",
+      "filename" : "calendar-checkSelected@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
