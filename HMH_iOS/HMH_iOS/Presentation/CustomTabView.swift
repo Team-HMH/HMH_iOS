@@ -18,11 +18,11 @@ struct CustomTabView: View {
             Spacer()
             HStack(spacing: 30) {
                 Spacer()
-                TabButton(tab: .challengeView, selectedTab: $selectedTab, imageName: "calendar-check", text: "챌린지")
+                TabButton(tab: .challengeView, selectedTab: $selectedTab, imageName: "calendar-check", text: StringLiteral.TabBar.challengeTitle)
                 Spacer()
-                TabButton(tab: .homeView, selectedTab: $selectedTab, imageName: "home", text: "홈")
+                TabButton(tab: .homeView, selectedTab: $selectedTab, imageName: "home", text: StringLiteral.TabBar.homeTitle)
                 Spacer()
-                TabButton(tab: .myPageView, selectedTab: $selectedTab, imageName: "user", text: "마이페이지")
+                TabButton(tab: .myPageView, selectedTab: $selectedTab, imageName: "user", text: StringLiteral.TabBar.myPageTitle)
                 Spacer()
             }
         }

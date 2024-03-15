@@ -32,7 +32,6 @@ struct TabBarView: View {
                 selectedTab.view
                 CustomTabView(selectedTab: $selectedTab)
             }
-            .ignoresSafeArea(.keyboard)
         }
     }
     
