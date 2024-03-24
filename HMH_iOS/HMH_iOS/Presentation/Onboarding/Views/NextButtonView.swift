@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct NextButtonView: View {
+    
+    @State
+    private var isActive = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Button {
+                
+            } label: {
+                Text("권한 설정하러 가기")
+                    .font(.text4_semibold_16)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 52)
+            .foregroundColor(isActive ? .whiteBtn : .gray2)
+            .background(isActive ? .bluePurpleButton : .gray5)
+            .clipShape(RoundedRectangle(cornerRadius: 4))
+        }
     }
 }
 
