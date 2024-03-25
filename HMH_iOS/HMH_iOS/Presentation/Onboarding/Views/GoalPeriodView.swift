@@ -10,6 +10,8 @@ import SwiftUI
 struct GoalPeriodView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.green) 
     }
 }
 

@@ -12,3 +12,5 @@ struct SurveyButtonInfo: Identifiable {
     var buttonTitle: String
     var isSelected: Bool
 }
+
+

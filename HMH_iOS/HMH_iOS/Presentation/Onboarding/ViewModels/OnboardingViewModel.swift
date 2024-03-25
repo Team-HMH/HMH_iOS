@@ -12,7 +12,16 @@ class OnboardingViewModel: ObservableObject {
     @Published
     var surveyButtonItems: [SurveyButtonInfo]
     
+    @Published
+    var OnboardingState: Int
+    
     init() {
-        self.surveyButtonItems = []
+        self.surveyButtonItems = [
+            SurveyButtonInfo(buttonTitle: "1-6", isSelected: false),
+            SurveyButtonInfo(buttonTitle: "3-6", isSelected: false),
+            SurveyButtonInfo(buttonTitle: "1-6", isSelected: false),
+            SurveyButtonInfo(buttonTitle: "1-6", isSelected: false),
+        ]
+        self.OnboardingState = 0
     }
 }
