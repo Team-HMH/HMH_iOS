@@ -13,14 +13,28 @@ struct OnboardingContentView: View {
     var viewModel = OnboardingViewModel()
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
+            Spacer(minLength: 0)
+                .frame(height: 60)
             OnboardingProgressView()
+            Spacer(minLength: 0)
+                .frame(height: 31)
+            VStack(alignment: .leading, spacing: 8) {
+                Text(viewModel.getOnboardigMain())
+                    .font(.title3_semibold_22)
+                    .lineSpacing(1.5)
+                    .foregroundStyle(.whiteText)
+                Text(viewModel.getOnboardigSub())
+                    .font(.detail1_regular_14)
+                    .lineSpacing(1.5)
+                    .foregroundStyle(.gray2)
+            }
             SurveyContainerView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             NextButtonView()
                 .environmentObject(viewModel)
         }
-        .padding(.horizontal, 20)
+        .padding(20)
         .background(.blackground, ignoresSafeAreaEdges: .all)
     }
 }
@@ -49,9 +63,9 @@ extension OnboardingContentView {
             case 0:
                 SurveyAmountView(viewModel: viewModel)
             case 1:
-                SurveyProblemView()
+                SurveyAmountView(viewModel: viewModel)
             case 2:
-                GoalPeriodView()
+                SurveyAmountView(viewModel: viewModel)
             case 3:
                 GoalTimeView()
             case 4:
