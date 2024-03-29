@@ -30,6 +30,3 @@ struct SurveyButton: View {
     }
 }
 
-//#Preview {
-//    SurveyButton()
-//}

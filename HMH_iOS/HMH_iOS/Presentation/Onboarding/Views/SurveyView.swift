@@ -19,7 +19,3 @@ struct SurveyView: View {
         
     }
 }
-//
-//#Preview {
-//    SurveyAmountView()
-//}
