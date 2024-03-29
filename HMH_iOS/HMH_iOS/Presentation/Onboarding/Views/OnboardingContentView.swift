@@ -31,8 +31,7 @@ struct OnboardingContentView: View {
             }
             SurveyContainerView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            NextButtonView()
-                .environmentObject(viewModel)
+            NextButtonView(viewModel: viewModel)
         }
         .padding(20)
         .background(.blackground, ignoresSafeAreaEdges: .all)
@@ -61,11 +60,11 @@ extension OnboardingContentView {
         VStack {
             switch viewModel.OnboardingState {
             case 0:
-                SurveyAmountView(viewModel: viewModel)
+                SurveyView(viewModel: viewModel)
             case 1:
-                SurveyAmountView(viewModel: viewModel)
+                SurveyView(viewModel: viewModel)
             case 2:
-                SurveyAmountView(viewModel: viewModel)
+                SurveyView(viewModel: viewModel)
             case 3:
                 GoalTimeView()
             case 4:

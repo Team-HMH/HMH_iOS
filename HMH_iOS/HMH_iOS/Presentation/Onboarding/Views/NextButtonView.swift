@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NextButtonView: View {
     
-    @EnvironmentObject var viewModel: OnboardingViewModel
+    @ObservedObject var viewModel: OnboardingViewModel
     
     var body: some View {
         VStack {

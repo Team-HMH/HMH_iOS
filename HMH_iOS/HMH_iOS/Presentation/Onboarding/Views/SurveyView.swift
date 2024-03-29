@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SurveyAmountView: View {
+struct SurveyView: View {
     @ObservedObject var viewModel: OnboardingViewModel
     
     var body: some View {

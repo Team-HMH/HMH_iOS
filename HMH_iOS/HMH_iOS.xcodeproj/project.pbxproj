@@ -22,7 +22,7 @@
 		0BC0E5A92BB03EE400FB0330 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5A82BB03EE400FB0330 /* OnboardingModel.swift */; };
 		0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5AA2BB03F8100FB0330 /* OnboardingViewModel.swift */; };
 		0BC0E5AD2BB0404500FB0330 /* OnboardingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5AC2BB0404500FB0330 /* OnboardingContentView.swift */; };
-		0BC0E5AF2BB04B7100FB0330 /* SurveyAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5AE2BB04B7100FB0330 /* SurveyAmountView.swift */; };
+		0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5AE2BB04B7100FB0330 /* SurveyView.swift */; };
 		0BC0E5B12BB04BA800FB0330 /* SurveyProblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5B02BB04BA800FB0330 /* SurveyProblemView.swift */; };
 		0BC0E5B32BB04BC600FB0330 /* GoalPeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5B22BB04BC600FB0330 /* GoalPeriodView.swift */; };
 		0BC0E5B52BB04BD100FB0330 /* GoalTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5B42BB04BD100FB0330 /* GoalTimeView.swift */; };
@@ -65,7 +65,7 @@
 		0BC0E5A82BB03EE400FB0330 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		0BC0E5AA2BB03F8100FB0330 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		0BC0E5AC2BB0404500FB0330 /* OnboardingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContentView.swift; sourceTree = "<group>"; };
-		0BC0E5AE2BB04B7100FB0330 /* SurveyAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyAmountView.swift; sourceTree = "<group>"; };
+		0BC0E5AE2BB04B7100FB0330 /* SurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
 		0BC0E5B02BB04BA800FB0330 /* SurveyProblemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyProblemView.swift; sourceTree = "<group>"; };
 		0BC0E5B22BB04BC600FB0330 /* GoalPeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPeriodView.swift; sourceTree = "<group>"; };
 		0BC0E5B42BB04BD100FB0330 /* GoalTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeView.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				0BC0E5AC2BB0404500FB0330 /* OnboardingContentView.swift */,
-				0BC0E5AE2BB04B7100FB0330 /* SurveyAmountView.swift */,
+				0BC0E5AE2BB04B7100FB0330 /* SurveyView.swift */,
 				0BC0E5B02BB04BA800FB0330 /* SurveyProblemView.swift */,
 				0BC0E5B22BB04BC600FB0330 /* GoalPeriodView.swift */,
 				0BC0E5B42BB04BD100FB0330 /* GoalTimeView.swift */,
@@ -415,7 +415,7 @@
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
 				0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */,
 				0BC0E5B32BB04BC600FB0330 /* GoalPeriodView.swift in Sources */,
-				0BC0E5AF2BB04B7100FB0330 /* SurveyAmountView.swift in Sources */,
+				0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
