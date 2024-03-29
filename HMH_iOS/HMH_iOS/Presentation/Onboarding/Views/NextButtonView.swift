@@ -9,25 +9,22 @@ import SwiftUI
 
 struct NextButtonView: View {
     
-    @State
-    private var isActive = true
-    
-    @Binding
-    var onboardingState: Int
+    @EnvironmentObject var viewModel: OnboardingViewModel
     
     var body: some View {
         VStack {
             Button {
-                onboardingState += 1
+                viewModel.addOnboardingState()
             } label: {
                 Text("권한 설정하러 가기")
                     .font(.text4_semibold_16)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 52)
-            .foregroundColor(isActive ? .whiteBtn : .gray2)
-            .background(isActive ? .bluePurpleButton : .gray5)
+            .foregroundColor(viewModel.isCompleted ? .whiteBtn : .gray2)
+            .background(viewModel.isCompleted ? .bluePurpleButton : .gray5)
             .clipShape(RoundedRectangle(cornerRadius: 4))
+            .disabled(!viewModel.isCompleted)
         }
     }
 }

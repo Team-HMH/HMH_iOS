@@ -9,18 +9,16 @@ import SwiftUI
 
 struct OnboardingContentView: View {
     
-    @StateObject
-    private var viewModel = OnboardingViewModel()
-    
-    @State
-    private var OnboardingState = OnboardingViewModel().OnboardingState
+    @ObservedObject
+    var viewModel = OnboardingViewModel()
     
     var body: some View {
         VStack {
-            OnboardingProgressView(onboardingState: $OnboardingState)
+            OnboardingProgressView()
             SurveyContainerView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            NextButtonView(onboardingState : $OnboardingState)
+            NextButtonView()
+                .environmentObject(viewModel)
         }
         .padding(.horizontal, 20)
         .background(.blackground, ignoresSafeAreaEdges: .all)
@@ -28,7 +26,7 @@ struct OnboardingContentView: View {
 }
 
 extension OnboardingContentView {
-    private func OnboardingProgressView(onboardingState: Binding<Int>) -> some View {
+    private func OnboardingProgressView() -> some View {
         VStack {
             ZStack(alignment: .leading) {
                 Rectangle()
@@ -38,7 +36,7 @@ extension OnboardingContentView {
                     .cornerRadius(1.0)
                 Rectangle()
                     .foregroundColor(.bluePurpleLine)
-                    .frame(width: CGFloat(onboardingState.wrappedValue) / CGFloat(6) * 334, height: 4)
+                    .frame(width: CGFloat(viewModel.OnboardingState) / CGFloat(6) * 334, height: 4)
                     .cornerRadius(10.0)
                     .animation(.spring())
             }
@@ -46,10 +44,10 @@ extension OnboardingContentView {
     }
     
     private func SurveyContainerView() -> some View {
-        ZStack {
-            switch OnboardingState {
+        VStack {
+            switch viewModel.OnboardingState {
             case 0:
-                SurveyAmountView()
+                SurveyAmountView(viewModel: viewModel)
             case 1:
                 SurveyProblemView()
             case 2:

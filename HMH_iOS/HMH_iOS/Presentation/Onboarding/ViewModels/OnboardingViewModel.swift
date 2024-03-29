@@ -15,6 +15,27 @@ class OnboardingViewModel: ObservableObject {
     @Published
     var OnboardingState: Int
     
+    @Published
+    var isCompleted: Bool
+    
+    func addOnboardingState() {
+        OnboardingState += 1
+    }
+    
+    func toggleIsCompleted() {
+        isCompleted.toggle()
+    }
+    
+    func changeSurveyButtonStatus(num: Int) {
+        for index in 0..<surveyButtonItems.count {
+            if index == num {
+                surveyButtonItems[index].isSelected = true
+            } else {
+                surveyButtonItems[index].isSelected = false
+            }
+        }
+    }
+    
     init() {
         self.surveyButtonItems = [
             SurveyButtonInfo(buttonTitle: "1-6", isSelected: false),
@@ -23,5 +44,6 @@ class OnboardingViewModel: ObservableObject {
             SurveyButtonInfo(buttonTitle: "1-6", isSelected: false),
         ]
         self.OnboardingState = 0
+        self.isCompleted = false
     }
 }

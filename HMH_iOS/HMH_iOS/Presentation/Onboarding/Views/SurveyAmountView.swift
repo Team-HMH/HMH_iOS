@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct SurveyAmountView: View {
+    @ObservedObject var viewModel: OnboardingViewModel
+    
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("안녕하세요")
+                Text(StringLiteral.OnboardigMain.goalTimeSelect)
                     .font(.title3_semibold_22)
                     .foregroundStyle(.whiteText)
-                Text("반갑습니다. 김선우입니다.")
+                Text(StringLiteral.OnboardigSub.goalTimeSelect)
                     .font(.detail1_regular_14)
                     .foregroundStyle(.gray2)
             }
@@ -22,13 +24,13 @@ struct SurveyAmountView: View {
                 .frame(height: 61)
             VStack(spacing: 8) {
                 ForEach(0..<4) { item in
-                    SurveyButton(onboardingState: 0, numberOfRow: item)
+                    SurveyButton(numberOfRow: item, viewModel: viewModel)
                 }
             }
         }
     }
 }
-
-#Preview {
-    SurveyAmountView()
-}
+//
+//#Preview {
+//    SurveyAmountView()
+//}
