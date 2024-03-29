@@ -15,8 +15,9 @@ struct NextButtonView: View {
         VStack {
             Button {
                 viewModel.addOnboardingState()
+                viewModel.offIsCompleted()
             } label: {
-                Text("권한 설정하러 가기")
+                Text(viewModel.getNextButton())
                     .font(.text4_semibold_16)
             }
             .frame(maxWidth: .infinity)
