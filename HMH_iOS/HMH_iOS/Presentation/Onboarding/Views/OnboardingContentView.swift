@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingContentView: View {
     
-    @ObservedObject
+    @StateObject
     var viewModel = OnboardingViewModel()
     
     var body: some View {
@@ -19,16 +19,7 @@ struct OnboardingContentView: View {
             OnboardingProgressView()
             Spacer(minLength: 0)
                 .frame(height: 31)
-            VStack(alignment: .leading, spacing: 8) {
-                Text(viewModel.getOnboardigMain())
-                    .font(.title3_semibold_22)
-                    .lineSpacing(1.5)
-                    .foregroundStyle(.whiteText)
-                Text(viewModel.getOnboardigSub())
-                    .font(.detail1_regular_14)
-                    .lineSpacing(1.5)
-                    .foregroundStyle(.gray2)
-            }
+            OnboardingTitleView()
             SurveyContainerView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             NextButtonView(viewModel: viewModel)
@@ -49,21 +40,30 @@ extension OnboardingContentView {
                     .cornerRadius(1.0)
                 Rectangle()
                     .foregroundColor(.bluePurpleLine)
-                    .frame(width: CGFloat(viewModel.OnboardingState) / CGFloat(6) * 334, height: 4)
+                    .frame(width: CGFloat(viewModel.onboardingState) / CGFloat(6) * 334, height: 4)
                     .cornerRadius(10.0)
                     .animation(.spring())
             }
         }
     }
     
+    private func OnboardingTitleView() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(viewModel.getOnboardigMain())
+                .font(.title3_semibold_22)
+                .lineSpacing(1.5)
+                .foregroundStyle(.whiteText)
+            Text(viewModel.getOnboardigSub())
+                .font(.detail1_regular_14)
+                .lineSpacing(1.5)
+                .foregroundStyle(.gray2)
+        }
+    }
+    
     private func SurveyContainerView() -> some View {
         VStack {
-            switch viewModel.OnboardingState {
-            case 0:
-                SurveyView(viewModel: viewModel)
-            case 1:
-                SurveyView(viewModel: viewModel)
-            case 2:
+            switch viewModel.onboardingState {
+            case 0, 1, 2:
                 SurveyView(viewModel: viewModel)
             case 3:
                 GoalTimeView()

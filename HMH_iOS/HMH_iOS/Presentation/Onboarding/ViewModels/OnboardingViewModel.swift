@@ -13,13 +13,13 @@ class OnboardingViewModel: ObservableObject {
     var surveyButtonItems: [[SurveyButtonInfo]]
     
     @Published
-    var OnboardingState: Int
+    var onboardingState: Int
     
     @Published
     var isCompleted: Bool
     
     func addOnboardingState() {
-        OnboardingState += 1
+        onboardingState += 1
     }
     
     func onIsCompleted() {
@@ -31,21 +31,21 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func getSurveyState() -> Int {
-        return OnboardingState <= 2 ? OnboardingState : 0
+        return onboardingState <= 2 ? onboardingState : 0
     }
     
     func changeSurveyButtonStatus(num: Int) {
         for index in 0..<4{
             if index == num {
-                surveyButtonItems[OnboardingState][index].isSelected = true
+                surveyButtonItems[onboardingState][index].isSelected = true
             } else {
-                surveyButtonItems[OnboardingState][index].isSelected = false
+                surveyButtonItems[onboardingState][index].isSelected = false
             }
         }
     }
     
     func getOnboardigMain() -> String {
-        switch OnboardingState {
+        switch onboardingState {
         case 0:
             StringLiteral.OnboardigMain.timeSurveySelect
         case 1:
@@ -66,7 +66,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func getOnboardigSub() -> String {
-        switch OnboardingState {
+        switch onboardingState {
         case 0:
             ""
         case 1:
@@ -87,14 +87,8 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func getNextButton() -> String {
-        switch OnboardingState {
-        case 0:
-            StringLiteral.OnboardingButton.next
-        case 1:
-            StringLiteral.OnboardingButton.next
-        case 2:
-            StringLiteral.OnboardingButton.next
-        case 3:
+        switch onboardingState {
+        case 0, 1, 2, 3:
             StringLiteral.OnboardingButton.next
         case 4:
             StringLiteral.OnboardingButton.permission
@@ -128,7 +122,7 @@ class OnboardingViewModel: ObservableObject {
                 SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.fourthSelect, isSelected: false),
             ]
         ]
-        self.OnboardingState = 0
+        self.onboardingState = 0
         self.isCompleted = false
     }
 }
