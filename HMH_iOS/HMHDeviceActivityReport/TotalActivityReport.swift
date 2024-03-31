@@ -1,6 +1,6 @@
 //
 //  TotalActivityReport.swift
-//  DeviceActivityReport
+//  HMHDeviceActivityReport
 //
 //  Created by 이지희 on 3/31/24.
 //
