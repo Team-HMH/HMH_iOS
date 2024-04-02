@@ -18,6 +18,9 @@ class OnboardingViewModel: ObservableObject {
     @Published
     var isCompleted: Bool
     
+    @Published
+    var isSelectedPicker: String
+    
     func addOnboardingState() {
         onboardingState += 1
     }
@@ -124,5 +127,6 @@ class OnboardingViewModel: ObservableObject {
         ]
         self.onboardingState = 0
         self.isCompleted = false
+        self.isSelectedPicker = ""
     }
 }

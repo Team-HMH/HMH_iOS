@@ -10,11 +10,11 @@ import SwiftUI
 
 struct GoalTimeView: View {
     var colors = ["2", "3", "4", "5", "0"]
-    @State var selectedColor = ""
+    @ObservedObject var viewModel: OnboardingViewModel
     
     var body: some View {
         HStack {
-            PickerExampleView(colors: colors, selectedColor: $selectedColor)
+            PickerView(colors: colors, selectedColor: $viewModel.isSelectedPicker, viewModel: viewModel)
                 .frame(width: 67)
             Text("시간")
                 .font(.text2_medium_20)
@@ -23,9 +23,10 @@ struct GoalTimeView: View {
     }
 }
 
-struct PickerExampleView: UIViewRepresentable {
+struct PickerView: UIViewRepresentable {
     var colors: [String]
     @Binding var selectedColor: String
+    @ObservedObject var viewModel: OnboardingViewModel
     
     func makeUIView(context: Context) -> UIPickerView {
         let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -43,17 +44,19 @@ struct PickerExampleView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> PickerCoordinator {
-        return PickerCoordinator(colors: colors, selectedColor: $selectedColor)
+        return PickerCoordinator(colors: colors, selectedColor: $selectedColor, viewModel: viewModel)
     }
 }
 
 class PickerCoordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
+    @ObservedObject var viewModel: OnboardingViewModel
     var colors: [String]
     var selectedColor: Binding<String>
     
-    init(colors: [String], selectedColor: Binding<String>) {
+    init(colors: [String], selectedColor: Binding<String>, viewModel: OnboardingViewModel) {
         self.colors = colors
         self.selectedColor = selectedColor
+        self.viewModel = viewModel
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -83,6 +86,7 @@ class PickerCoordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource 
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedColor.wrappedValue = colors[row]
+        viewModel.isCompleted = true
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -91,6 +95,6 @@ class PickerCoordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource 
 }
 
 
-#Preview {
-    GoalTimeView()
-}
+//#Preview {
+//    GoalTimeView(, selectedColor: <#Binding<String>#>)
+//}

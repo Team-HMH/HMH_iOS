@@ -66,7 +66,7 @@ extension OnboardingContentView {
             case 0, 1, 2:
                 SurveyView(viewModel: viewModel)
             case 3:
-                GoalTimeView()
+                GoalTimeView(viewModel: viewModel)
             case 4:
                 PermissionView()
             case 5:
