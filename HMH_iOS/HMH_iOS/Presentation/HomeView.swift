@@ -14,7 +14,7 @@ struct HomeView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity) 
             .background(Color.red)
-            .customNavigationBar(title: "내 이용시간",
+            .customNavigationBar(title: StringLiteral.NavigationBar.home,
                                  showBackButton: false,
                                  showPointButton: false)
     }

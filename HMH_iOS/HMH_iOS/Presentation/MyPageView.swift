@@ -14,7 +14,7 @@ struct MyPageView: View {
             .padding() 
             .frame(maxWidth: .infinity, maxHeight: .infinity) 
             .background(Color.red)
-            .customNavigationBar(title: "마이페이지",
+            .customNavigationBar(title: StringLiteral.NavigationBar.myPage,
                                  showBackButton: false,
                                  showPointButton: false)
     }

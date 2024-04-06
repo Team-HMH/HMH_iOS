@@ -14,7 +14,9 @@ struct ChallengeView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.green)
 
-        .customNavigationBar(title: "챌린지", showBackButton: false, showPointButton: true)
+            .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
+                                 showBackButton: false,
+                                 showPointButton: true)
     }
 }
 
