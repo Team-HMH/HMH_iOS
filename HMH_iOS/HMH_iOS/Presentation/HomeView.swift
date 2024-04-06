@@ -13,7 +13,10 @@ struct HomeView: View {
             .foregroundColor(.white)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity) 
-            .background(Color.red) 
+            .background(Color.red)
+            .customNavigationBar(title: "내 이용시간",
+                                 showBackButton: false,
+                                 showPointButton: false)
     }
 }
 

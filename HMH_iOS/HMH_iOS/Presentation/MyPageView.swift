@@ -13,7 +13,10 @@ struct MyPageView: View {
             .foregroundColor(.white)
             .padding() 
             .frame(maxWidth: .infinity, maxHeight: .infinity) 
-            .background(Color.red) 
+            .background(Color.red)
+            .customNavigationBar(title: "마이페이지",
+                                 showBackButton: false,
+                                 showPointButton: false)
     }
 }
 
