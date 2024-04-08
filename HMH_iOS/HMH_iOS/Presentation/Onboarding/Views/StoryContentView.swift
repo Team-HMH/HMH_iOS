@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StoryContentView: View {
-    @State var StoryState = 0
+    @State var storyState = 0
     
     var body: some View {
         VStack {
@@ -27,8 +27,8 @@ struct StoryContentView: View {
         .background(.blackground, ignoresSafeAreaEdges: .all)
         .navigationBarBackButtonHidden()
         .onTapGesture {
-            self.StoryState += 1
-            if StoryState == 3 {
+            self.storyState += 1
+            if storyState == 3 {
                 // TabBarView로 이동 하는 함수로 구현
             }
         }
@@ -37,7 +37,7 @@ struct StoryContentView: View {
 
 extension StoryContentView {
     func getStoryImage() -> String {
-        switch StoryState {
+        switch storyState {
         case 0:
             "StoryFirst"
         case 1:
@@ -52,7 +52,7 @@ extension StoryContentView {
     }
     
     func getStoryText() -> String {
-        switch StoryState {
+        switch storyState {
         case 0:
             "StoryTextFirst"
         case 1:

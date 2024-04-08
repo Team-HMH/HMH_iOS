@@ -26,7 +26,7 @@ struct NextButtonView: View {
             .foregroundColor(viewModel.isCompleted ? .whiteBtn : .gray2)
             .background(viewModel.isCompleted ? .bluePurpleButton : .gray5)
             .clipShape(RoundedRectangle(cornerRadius: 4))
-//            .disabled(!viewModel.isCompleted)
+            .disabled(!viewModel.isCompleted)
         }
     }
 }

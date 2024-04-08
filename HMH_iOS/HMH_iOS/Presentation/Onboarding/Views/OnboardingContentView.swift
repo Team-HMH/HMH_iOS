@@ -67,21 +67,12 @@ extension OnboardingContentView {
                 SurveyView(viewModel: viewModel)
             case 3:
                 GoalTimeView(viewModel: viewModel)
-            case 4:
-                PermissionView()
-            case 5:
-                AppSelectView()
             case 6:
                 AppGoalTimeView(viewModel: viewModel)
             default:
-                RoundedRectangle(cornerRadius: 25.0 )
-                    .foregroundColor(.green)
+                EmptyView()
             }
         }
     }
 }
 
-
-#Preview {
-    OnboardingContentView()
-}
