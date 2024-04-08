@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct AppGoalTimeView: View {
+    var timesHour = Array(0...23).map { String($0) }
+    var timesMinute = Array(0...59).map { String($0) }
+    @ObservedObject var viewModel: OnboardingViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            PickerView(times: timesHour, selectedTimes: $viewModel.selectedAppHour, viewModel: viewModel)
+                .frame(width: 67)
+            Text("시간")
+                .font(.text2_medium_20)
+                .foregroundColor(.gray2)
+            PickerView(times: timesMinute, selectedTimes: $viewModel.selectedAppMinute, viewModel: viewModel)
+                .frame(width: 67)
+            Text("분")
+                .font(.text2_medium_20)
+                .foregroundColor(.gray2)
+        }
     }
 }
 
-#Preview {
-    AppGoalTimeView()
-}

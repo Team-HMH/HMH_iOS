@@ -71,6 +71,8 @@ extension OnboardingContentView {
                 PermissionView()
             case 5:
                 AppSelectView()
+            case 6:
+                AppGoalTimeView(viewModel: viewModel)
             default:
                 RoundedRectangle(cornerRadius: 25.0 )
                     .foregroundColor(.green)

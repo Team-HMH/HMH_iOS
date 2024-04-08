@@ -19,7 +19,13 @@ class OnboardingViewModel: ObservableObject {
     var isCompleted: Bool
     
     @Published
-    var isSelectedPicker: String
+    var selectedGoalTime: String
+    
+    @Published
+    var selectedAppHour: String
+    
+    @Published
+    var selectedAppMinute: String
     
     func addOnboardingState() {
         onboardingState += 1
@@ -127,6 +133,8 @@ class OnboardingViewModel: ObservableObject {
         ]
         self.onboardingState = 0
         self.isCompleted = false
-        self.isSelectedPicker = ""
+        self.selectedGoalTime = ""
+        self.selectedAppHour = ""
+        self.selectedAppMinute = ""
     }
 }
