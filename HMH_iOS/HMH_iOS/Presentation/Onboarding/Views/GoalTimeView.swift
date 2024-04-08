@@ -13,13 +13,18 @@ struct GoalTimeView: View {
     @ObservedObject var viewModel: OnboardingViewModel
     
     var body: some View {
-        HStack {
-            PickerView(times: times, selectedTimes: $viewModel.selectedGoalTime, viewModel: viewModel)
-                .frame(width: 67)
-            Text("시간")
-                .font(.text2_medium_20)
-                .foregroundColor(.gray2)
+        VStack {
+            Spacer()
+            HStack {
+                PickerView(times: times, selectedTimes: $viewModel.selectedGoalTime, viewModel: viewModel)
+                    .frame(width: 67)
+                Text("시간")
+                    .font(.text2_medium_20)
+                    .foregroundColor(.gray2)
+            }
+            .padding(.bottom, 200)
         }
+        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
     }
 }
 
