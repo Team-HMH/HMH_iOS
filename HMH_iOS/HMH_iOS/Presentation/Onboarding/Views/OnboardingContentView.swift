@@ -42,7 +42,7 @@ extension OnboardingContentView {
                     .foregroundColor(.bluePurpleLine)
                     .frame(width: CGFloat(viewModel.onboardingState) / CGFloat(6) * 334, height: 4)
                     .cornerRadius(10.0)
-                    .animation(.spring())
+                    .animation(Animation.spring(duration: 0.5), value: viewModel.onboardingState)
             }
         }
     }
