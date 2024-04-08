@@ -25,6 +25,7 @@ struct StoryContentView: View {
         }
         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
         .background(.blackground, ignoresSafeAreaEdges: .all)
+        .navigationBarBackButtonHidden()
         .onTapGesture {
             self.StoryState += 1
             if StoryState == 3 {
