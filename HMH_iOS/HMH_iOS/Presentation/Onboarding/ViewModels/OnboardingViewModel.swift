@@ -43,6 +43,12 @@ class OnboardingViewModel: ObservableObject {
         return onboardingState <= 2 ? onboardingState : 0
     }
     
+    func pushToComplete() {
+//        if onboardingState == 6 {
+//            NavigationLink(PermissionView)
+//        }
+    }
+    
     func changeSurveyButtonStatus(num: Int) {
         for index in 0..<4{
             if index == num {

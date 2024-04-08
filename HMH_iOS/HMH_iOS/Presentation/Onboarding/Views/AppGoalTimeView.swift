@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppGoalTimeView: View {
-    var timesHour = Array(0...23).map { String($0) }
+    var timesHour = Array(0...1).map { String($0) }
     var timesMinute = Array(0...59).map { String($0) }
     @ObservedObject var viewModel: OnboardingViewModel
     
