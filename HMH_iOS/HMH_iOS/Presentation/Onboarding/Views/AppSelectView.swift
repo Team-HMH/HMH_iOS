@@ -13,6 +13,4 @@ struct AppSelectView: View {
     }
 }
 
-#Preview {
-    AppSelectView()
-}
+

@@ -74,7 +74,7 @@ class OnboardingViewModel: ObservableObject {
         case 5:
             StringLiteral.OnboardigMain.appSelect
         case 6:
-            StringLiteral.OnboardigSub.appGoalTimeSelect
+            StringLiteral.OnboardigMain.appGoalTimeSelect
         default:
             "error"
         }
