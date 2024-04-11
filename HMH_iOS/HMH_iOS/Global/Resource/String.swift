@@ -85,4 +85,10 @@ enum StringLiteral {
         static var thirdSelect = "20일"
         static var fourthSelect = "30일"
     }
+    
+    enum OnboardingComplete {
+        static var title = "회원가입 완료!"
+        static var subTitle = "하면함의 챌린저가 되신 걸 환영해요\n그럼, 블랙홀 탈출 스토리부터 알아볼까요?"
+        static var button = "탈출 스토리 보기"
+    }
 }

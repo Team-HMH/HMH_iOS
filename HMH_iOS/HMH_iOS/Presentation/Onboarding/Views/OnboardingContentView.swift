@@ -42,7 +42,7 @@ extension OnboardingContentView {
                     .foregroundColor(.bluePurpleLine)
                     .frame(width: CGFloat(viewModel.onboardingState) / CGFloat(6) * 334, height: 4)
                     .cornerRadius(10.0)
-                    .animation(.spring())
+                    .animation(Animation.spring(duration: 0.5), value: viewModel.onboardingState)
             }
         }
     }
@@ -66,20 +66,13 @@ extension OnboardingContentView {
             case 0, 1, 2:
                 SurveyView(viewModel: viewModel)
             case 3:
-                GoalTimeView()
-            case 4:
-                PermissionView()
-            case 5:
-                AppSelectView()
+                GoalTimeView(viewModel: viewModel)
+            case 6:
+                AppGoalTimeView(viewModel: viewModel)
             default:
-                RoundedRectangle(cornerRadius: 25.0 )
-                    .foregroundColor(.green)
+                EmptyView()
             }
         }
     }
 }
 
-
-#Preview {
-    OnboardingContentView()
-}

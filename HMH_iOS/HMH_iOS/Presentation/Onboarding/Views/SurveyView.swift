@@ -16,6 +16,5 @@ struct SurveyView: View {
                 SurveyButton(numberOfRow: item, viewModel: viewModel)
             }
         }
-        
     }
 }
