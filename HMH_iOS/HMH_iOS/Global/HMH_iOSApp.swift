@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct HMH_iOSApp: App {
     @State private var isLoading: Bool = true
-    @AppStorage("isOnboarding") var isOnboarding : Bool = true
+    @AppStorage("isOnboarding") var isOnboarding : Bool = false
     
     var body: some Scene {
         WindowGroup {
@@ -19,7 +19,7 @@ struct HMH_iOSApp: App {
                     SplashView(isLoading: $isLoading)
                 } else {
                     if isOnboarding {
-                       TabBarView()
+                        TabBarView()
                     } else {
                         OnboardingContentView()
                     }
@@ -28,4 +28,4 @@ struct HMH_iOSApp: App {
         }
     }
 }
-        
+

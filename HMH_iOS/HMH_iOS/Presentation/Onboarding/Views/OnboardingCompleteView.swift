@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingCompleteView: View {
+    @AppStorage("isOnboarding") var isOnboarding: Bool = true
     
     var body: some View {
         NavigationView {
