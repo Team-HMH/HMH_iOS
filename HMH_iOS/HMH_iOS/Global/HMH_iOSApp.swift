@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct HMH_iOSApp: App {
     @State private var isLoading: Bool = true
-    @AppStorage("isOnboarding") var isOnboarding : Bool = false
+    @AppStorage("isOnboarding") var isOnboarding : Bool = true
     
     var body: some Scene {
         WindowGroup {
