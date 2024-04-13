@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct MyPageContentView: View {
+    
+    @StateObject
+    var viewModel = MyPageViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ProfileView()
+            MyInfoView()
+            HMHInfoView()
+            AccountControlView()
+        }
     }
 }
 
 #Preview {
     MyPageContentView()
+}
+
+extension MyPageContentView {
+    private func ProfileView() -> some View {
+        VStack {}
+    }
+    private func MyInfoView() -> some View {
+        VStack {}
+    }
+    private func HMHInfoView() -> some View {
+        VStack {}
+    }
+    private func AccountControlView() -> some View {
+        VStack {}
+    }
+    
 }
