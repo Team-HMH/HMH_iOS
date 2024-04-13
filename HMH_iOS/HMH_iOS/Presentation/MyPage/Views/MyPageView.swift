@@ -1,13 +1,13 @@
 //
-//  MyPageContentView.swift
+//  MyPageView.swift
 //  HMH_iOS
 //
-//  Created by Seonwoo Kim on 4/12/24.
+//  Created by Seonwoo Kim on 3/12/24.
 //
 
 import SwiftUI
 
-struct MyPageContentView: View {
+struct MyPageView: View {
     
     @StateObject
     var viewModel = MyPageViewModel()
@@ -19,16 +19,28 @@ struct MyPageContentView: View {
             HMHInfoView()
             AccountControlView()
         }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.blackground)
     }
 }
 
 #Preview {
-    MyPageContentView()
+    MyPageView()
 }
 
-extension MyPageContentView {
+extension MyPageView {
     private func ProfileView() -> some View {
-        VStack {}
+        VStack {
+            Image(.home)
+                .frame(width: 54, height: 54)
+            Text("김하면함")
+                .font(.title4_semibold_20)
+            HStack {
+                Text("내 포인트")
+                Text("100P")
+            }
+        }
     }
     private func MyInfoView() -> some View {
         VStack {}
@@ -39,5 +51,4 @@ extension MyPageContentView {
     private func AccountControlView() -> some View {
         VStack {}
     }
-    
 }

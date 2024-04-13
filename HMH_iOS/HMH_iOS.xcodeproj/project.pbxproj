@@ -13,7 +13,6 @@
 		0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29702BA01C3000435B30 /* MyPageView.swift */; };
 		0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29722BA01DCE00435B30 /* CustomTabView.swift */; };
 		0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */; };
-		0B82ECAE2BC91522002D5CF3 /* MyPageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECAD2BC91522002D5CF3 /* MyPageContentView.swift */; };
 		0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */; };
 		0B82ECB22BC916C6002D5CF3 /* MyPageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */; };
 		0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9834DB2BC8234700A1457A /* SplashView.swift */; };
@@ -84,7 +83,6 @@
 		0B3C29702BA01C3000435B30 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		0B3C29722BA01DCE00435B30 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyButton.swift; sourceTree = "<group>"; };
-		0B82ECAD2BC91522002D5CF3 /* MyPageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageContentView.swift; sourceTree = "<group>"; };
 		0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageButton.swift; sourceTree = "<group>"; };
 		0B9834DB2BC8234700A1457A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -153,7 +151,7 @@
 		0B82ECAB2BC91501002D5CF3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0B82ECAD2BC91522002D5CF3 /* MyPageContentView.swift */,
+				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
 				0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */,
 			);
 			path = Views;
@@ -306,7 +304,6 @@
 				0B3C29722BA01DCE00435B30 /* CustomTabView.swift */,
 				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
 				0B3C296E2BA01C2800435B30 /* HomeView.swift */,
-				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
 				0BF56C922BC39127003ECFB1 /* PickerView.swift */,
 				0B9834DB2BC8234700A1457A /* SplashView.swift */,
 			);
@@ -490,7 +487,6 @@
 				0BF56C972BC3B871003ECFB1 /* StoryContentView.swift in Sources */,
 				0B3C296D2BA01C2000435B30 /* ChallengeView.swift in Sources */,
 				365CD6BF2B7E4C4F00245CDD /* ContentView.swift in Sources */,
-				0B82ECAE2BC91522002D5CF3 /* MyPageContentView.swift in Sources */,
 				0B82ECB22BC916C6002D5CF3 /* MyPageButton.swift in Sources */,
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
 				0BF56C952BC39BE9003ECFB1 /* OnboardingCompleteView.swift in Sources */,
