@@ -47,6 +47,9 @@ struct HomeView: View {
                                         bottom: 0,
                                         trailing: 20))
                     .tint(.whiteText)
+                List {
+                    
+                }
                 
                 
                 
