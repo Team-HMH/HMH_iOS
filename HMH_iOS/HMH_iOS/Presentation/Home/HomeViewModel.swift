@@ -9,10 +9,10 @@ import Foundation
 
 import Combine
 
-class HomeViewModel {
-    @Published var totalGoalTime: TimeInterval // 전체 목표 사용 시간
-    @Published var currentTotalUsage: TimeInterval // 현재 총 사용량
-    @Published var appsUsage: [AppUsage] // 앱별 사용 정보
+class HomeViewModel: ObservableObject {
+    @Published var totalGoalTime: TimeInterval
+    @Published var currentTotalUsage: TimeInterval
+    @Published var appsUsage: [AppUsage] = []
 
     init(totalGoalTime: TimeInterval = 3600, currentTotalUsage: TimeInterval = 0, appsUsage: [AppUsage] = []) {
         self.totalGoalTime = totalGoalTime
@@ -20,7 +20,6 @@ class HomeViewModel {
         self.appsUsage = appsUsage
     }
 
-    // 남은 앱 사용 시간 계산
     func remainingTimeForApp(appId: String) -> TimeInterval {
         if let appUsage = appsUsage.first(where: { $0.appId == appId }) {
             return max(appUsage.goalTime - appUsage.usedTime, 0)
@@ -28,16 +27,22 @@ class HomeViewModel {
         return 0
     }
 
-    // 앱 사용 시간 업데이트
     func updateUsage(forApp appId: String, time: TimeInterval) {
         if let index = appsUsage.firstIndex(where: { $0.appId == appId }) {
             appsUsage[index].usedTime += time
             currentTotalUsage += time
         }
     }
+    
+    func generateDummyData() {
+            appsUsage = [
+                AppUsage(appId: "1", appName: "Instagram", goalTime: 60, usedTime: 45),
+                AppUsage(appId: "2", appName: "YouTube", goalTime: 45, usedTime: 30),
+                AppUsage(appId: "3", appName: "Twitter", goalTime: 30, usedTime: 15)
+            ]
+        }
 }
 
-// 각 앱의 사용 정보를 저장할 구조체
 struct AppUsage: Identifiable {
     var id = UUID()
     var appId: String // 앱 고유 식별자
