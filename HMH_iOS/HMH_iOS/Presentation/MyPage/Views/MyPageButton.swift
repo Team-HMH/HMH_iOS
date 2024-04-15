@@ -32,6 +32,9 @@ struct MyPageButton: View {
             .foregroundColor(buttonType == .travel ? .gray5 : .whiteText)
         }
         .background(.blackground)
+        .onTapGesture {
+            viewModel.myPageButtonClick(type: buttonType)
+        }
     }
 }
 

@@ -42,14 +42,14 @@ extension MyPageView {
             Image(.profile)
                 .frame(width: 54, height: 54)
                 .padding(10)
-            Text("김하면함")
+            Text(viewModel.getUserName())
                 .font(.title4_semibold_20)
             Spacer()
                 .frame(height: 16)
             HStack {
                 Text("내 포인트")
                     .font(.text6_medium_14)
-                Text("100P")
+                Text(viewModel.getUserPoint())
                     .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)

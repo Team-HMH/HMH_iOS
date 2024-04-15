@@ -38,4 +38,25 @@ class MyPageViewModel: ObservableObject {
             return nil
         }
     }
+    
+    func getUserName() -> String {
+        "김하면함"
+    }
+    
+    func getUserPoint() -> String {
+        "100p"
+    }
+    
+    func myPageButtonClick(type: MyPageButtonType) {
+        switch type {
+        case .term:
+            guard let url = URL(string: StringLiteral.MyPageURL.term) else {return print("3")}
+            return UIApplication.shared.open(url)
+        case .info:
+            guard let url = URL(string: StringLiteral.MyPageURL.info) else { return }
+            return UIApplication.shared.open(url)
+        default:
+            return
+        }
+    }
 }
