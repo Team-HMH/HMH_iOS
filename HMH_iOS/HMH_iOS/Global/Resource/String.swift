@@ -31,7 +31,7 @@ enum StringLiteral {
     }
     
     enum AlertTitle {
-
+        
     }
     
     enum AlertDescription {
@@ -100,6 +100,7 @@ enum StringLiteral {
     }
     
     enum MyPageAccountControl {
+        static var point = "내 포인트"
         static var logout = "로그아웃"
         static var revoke = "회원탈퇴"
     }

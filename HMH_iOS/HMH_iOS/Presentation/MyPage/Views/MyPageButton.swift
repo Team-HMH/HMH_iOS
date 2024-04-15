@@ -16,11 +16,11 @@ struct MyPageButton: View {
         ZStack {
             HStack() {
                 if let image = viewModel.getButtonImage(type: buttonType) {
-                     Image(image)
-                         .resizable()
-                         .aspectRatio(contentMode: .fit)
-                         .frame(width: 24, height: 24)
-                         .padding(.trailing, 15)
+                    Image(image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                        .padding(.trailing, 15)
                 }
                 Text(viewModel.getButtonTitle(type: buttonType))
                     .font(.text5_medium_16)
@@ -38,6 +38,3 @@ struct MyPageButton: View {
     }
 }
 
-//#Preview {
-//    MyPageButton(title: "", imageName: "home")
-//}

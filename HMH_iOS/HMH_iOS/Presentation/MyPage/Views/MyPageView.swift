@@ -32,10 +32,6 @@ struct MyPageView: View {
     }
 }
 
-#Preview {
-    MyPageView()
-}
-
 extension MyPageView {
     private func ProfileView() -> some View {
         VStack {
@@ -47,7 +43,7 @@ extension MyPageView {
             Spacer()
                 .frame(height: 16)
             HStack {
-                Text("내 포인트")
+                Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
                 Text(viewModel.getUserPoint())
                     .font(.text6_medium_14)
