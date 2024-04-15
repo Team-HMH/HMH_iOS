@@ -91,4 +91,16 @@ enum StringLiteral {
         static var subTitle = "하면함의 챌린저가 되신 걸 환영해요\n그럼, 블랙홀 탈출 스토리부터 알아볼까요?"
         static var button = "탈출 스토리 보기"
     }
+    
+    enum MyPageButton {
+        static var travel = "지금까지의 여정"
+        static var market = "우주 상점"
+        static var term = "이용약관"
+        static var info = "개인정보"
+    }
+    
+    enum MyPageAccountControl {
+        static var logout = "로그아웃"
+        static var revoke = "회원탈퇴"
+    }
 }
