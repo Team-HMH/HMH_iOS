@@ -9,6 +9,8 @@
 	<key>com.apple.developer.family-controls</key>
 	<true/>
 	<key>com.apple.security.application-groups</key>
-	<array/>
+	<array>
+		<string>group.HMH</string>
+	</array>
 </dict>
 </plist>
