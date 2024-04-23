@@ -7,6 +7,19 @@ import Lottie
 struct HomeView: View {
     
     @StateObject var usageTimeData = HomeViewModel()
+    let userDefault = UserDefaults(suiteName: "gorup.HMH")
+    
+    @State var context: DeviceActivityReport.Context = .init(rawValue: "Total Activity")
+    @State var filter = DeviceActivityFilter(
+        segment: .daily(
+            during: Calendar.current.dateInterval(
+                of: .weekOfYear, for: .now
+            )!
+        ),
+        users: .all,
+        devices: .init([.iPhone, .iPad])
+    )
+    
     
     var body: some View {
         ScrollView {
@@ -36,9 +49,8 @@ struct HomeView: View {
                                                     bottom: 0,
                                                     trailing: 0))
                             HStack {
-                                Text("20분 사용")
-                                    .font(.title2_semibold_24)
-                                    .foregroundStyle(.whiteText)
+                                DeviceActivityReport(context, filter: filter)
+                                    .frame(maxHeight: 35, alignment: .leading)
                                 Spacer()
                                 Text("20분 남음")
                                     .font(.detail3_semibold_12)
@@ -63,7 +75,6 @@ struct HomeView: View {
                 ForEach(usageTimeData.appsUsage) { appUsage  in
                     UsageTimeListItemView(appName: appUsage.appName,
                                           usageTime: Int(appUsage.usedTime), remainingTime: "\(appUsage.goalTime - appUsage.usedTime)")
-                    
                 }
             }
             .background(.blackground)
