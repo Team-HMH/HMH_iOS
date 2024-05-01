@@ -60,6 +60,7 @@
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
 		368C5DA02BCC41990035A1AC /* HMHDeviceActivityReport.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +143,7 @@
 		368CAA942BB9617A00FA83B3 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
 		368CAABC2BB961D900FA83B3 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
 		368CAADD2BB97FE000FA83B3 /* HMH_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HMH_iOS.entitlements; sourceTree = "<group>"; };
+		36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,6 +402,7 @@
 				368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */,
 				368C5D9C2BCC41990035A1AC /* Info.plist */,
 				368C5D9D2BCC41990035A1AC /* HMHDeviceActivityReport.entitlements */,
+				36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */,
 			);
 			path = HMHDeviceActivityReport;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 			files = (
 				361C61EA2BD6B7F200EF0D8B /* Font.swift in Sources */,
 				368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */,
+				36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */,
 				368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */,
 				368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */,
 			);
