@@ -30,8 +30,8 @@ extension TotalActivityView {
                   return nil
         }
 
-        let hoursText = String(format: "%02d", hours)
-        let minutesText = String(format: "%02d", minutes)
+        let hoursText = String(format: "%d", hours)
+        let minutesText = String(format: "%d", minutes)
         
         return "\(hoursText)시간 \(minutesText)분"
     }
