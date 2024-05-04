@@ -19,7 +19,7 @@ struct HMH_iOSApp: App {
                     SplashView(isLoading: $isLoading)
                 } else {
                     if isOnboarding {
-                        TabBarView()
+                        LoginView()
                     } else {
                         OnboardingContentView()
                     }

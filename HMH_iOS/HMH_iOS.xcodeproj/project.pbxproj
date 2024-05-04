@@ -12,7 +12,9 @@
 		0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C296E2BA01C2800435B30 /* HomeView.swift */; };
 		0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29702BA01C3000435B30 /* MyPageView.swift */; };
 		0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29722BA01DCE00435B30 /* CustomTabView.swift */; };
+		0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5140532BE3A2D600C78B9F /* LoginView.swift */; };
 		0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */; };
+		0B8693772BE5CB46000D7CE1 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8693762BE5CB46000D7CE1 /* SwipeView.swift */; };
 		0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9834DB2BC8234700A1457A /* SplashView.swift */; };
 		0B9ACF362BA14FDB00EC0BDE /* Main-F-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */; };
 		0B9ACF372BA14FDB00EC0BDE /* Main-B-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */; };
@@ -80,7 +82,9 @@
 		0B3C296E2BA01C2800435B30 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0B3C29702BA01C3000435B30 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		0B3C29722BA01DCE00435B30 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; usesTabs = 0; };
+		0B5140532BE3A2D600C78B9F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyButton.swift; sourceTree = "<group>"; };
+		0B8693762BE5CB46000D7CE1 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		0B9834DB2BC8234700A1457A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-F-final.json"; sourceTree = "<group>"; };
 		0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-B-final.json"; sourceTree = "<group>"; };
@@ -135,6 +139,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B5140522BE3A25900C78B9F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0B8693752BE5CB36000D7CE1 /* Views */,
+				0B5140532BE3A2D600C78B9F /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		0B8693752BE5CB36000D7CE1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B8693762BE5CB46000D7CE1 /* SwipeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		0B9ACF2F2BA14FBA00EC0BDE /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +288,7 @@
 		365CD6E22B7E4F4300245CDD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				0B5140522BE3A25900C78B9F /* Login */,
 				0BC0E5A42BB03E4F00FB0330 /* Onboarding */,
 				365CD6BE2B7E4C4F00245CDD /* ContentView.swift */,
 				0B3C296A2BA01BD200435B30 /* TabBarView.swift */,
@@ -460,12 +482,14 @@
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
 				0BF56C952BC39BE9003ECFB1 /* OnboardingCompleteView.swift in Sources */,
 				0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */,
+				0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */,
 				0BC0E5B32BB04BC600FB0330 /* GoalPeriodView.swift in Sources */,
 				0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
 				0BC0E5A92BB03EE400FB0330 /* OnboardingModel.swift in Sources */,
+				0B8693772BE5CB46000D7CE1 /* SwipeView.swift in Sources */,
 				0BD2D6782B9F39EF00733843 /* Font.swift in Sources */,
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
 				0BC0E5B52BB04BD100FB0330 /* GoalTimeView.swift in Sources */,
