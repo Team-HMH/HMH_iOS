@@ -18,6 +18,15 @@ class OnboardingViewModel: ObservableObject {
     @Published
     var isCompleted: Bool
     
+    @Published
+    var selectedGoalTime: String
+    
+    @Published
+    var selectedAppHour: String
+    
+    @Published
+    var selectedAppMinute: String
+    
     func addOnboardingState() {
         onboardingState += 1
     }
@@ -32,6 +41,12 @@ class OnboardingViewModel: ObservableObject {
     
     func getSurveyState() -> Int {
         return onboardingState <= 2 ? onboardingState : 0
+    }
+    
+    func pushToComplete() {
+//        if onboardingState == 6 {
+//            NavigationLink(PermissionView)
+//        }
     }
     
     func changeSurveyButtonStatus(num: Int) {
@@ -59,7 +74,7 @@ class OnboardingViewModel: ObservableObject {
         case 5:
             StringLiteral.OnboardigMain.appSelect
         case 6:
-            StringLiteral.OnboardigSub.appGoalTimeSelect
+            StringLiteral.OnboardigMain.appGoalTimeSelect
         default:
             "error"
         }
@@ -124,5 +139,8 @@ class OnboardingViewModel: ObservableObject {
         ]
         self.onboardingState = 0
         self.isCompleted = false
+        self.selectedGoalTime = ""
+        self.selectedAppHour = ""
+        self.selectedAppMinute = ""
     }
 }

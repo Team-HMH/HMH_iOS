@@ -14,6 +14,12 @@ enum StringLiteral {
         static var myPageTitle = "마이페이지"
     }
     
+    enum NavigationBar {
+        static let home = "내 이용시간"
+        static let challenge = "챌린지"
+        static let myPage = "마이페이지"
+    }
+    
     enum Home {
         static let usageStatusA = "별조각을 잘 따라가고 있어요\n오늘도 화이팅!"
         static let usageStatusB = "별조각이 살짝 멀어졌어요\n조금 더 힘을 내요!"
@@ -29,7 +35,7 @@ enum StringLiteral {
         
     }
     
-    enum myPage {
+    enum MyPage {
         
     }
     
@@ -91,5 +97,11 @@ enum StringLiteral {
         static var secondSelect = "14일"
         static var thirdSelect = "20일"
         static var fourthSelect = "30일"
+    }
+    
+    enum OnboardingComplete {
+        static var title = "회원가입 완료!"
+        static var subTitle = "하면함의 챌린저가 되신 걸 환영해요\n그럼, 블랙홀 탈출 스토리부터 알아볼까요?"
+        static var button = "탈출 스토리 보기"
     }
 }
