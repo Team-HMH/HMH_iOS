@@ -13,7 +13,7 @@ struct HomeView: View {
     @State var filter = DeviceActivityFilter(
         segment: .daily(
             during: Calendar.current.dateInterval(
-                of: .weekOfYear, for: .now
+                of: .weekday, for: .now
             )!
         ),
         users: .all,

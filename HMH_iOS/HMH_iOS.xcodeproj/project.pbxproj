@@ -238,6 +238,23 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		360B432D2BE7BE6A006945E8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B3C296E2BA01C2800435B30 /* HomeView.swift */,
+				3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		360B432E2BE7BE73006945E8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				3601C8352BC6E8FB005790F7 /* HomeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		365CD6B02B7E4C4F00245CDD = {
 			isa = PBXGroup;
 			children = (
@@ -387,9 +404,8 @@
 		368C5D6C2BCC1BA00035A1AC /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				0B3C296E2BA01C2800435B30 /* HomeView.swift */,
-				3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */,
-				3601C8352BC6E8FB005790F7 /* HomeViewModel.swift */,
+				360B432E2BE7BE73006945E8 /* ViewModels */,
+				360B432D2BE7BE6A006945E8 /* Views */,
 			);
 			path = Home;
 			sourceTree = "<group>";
