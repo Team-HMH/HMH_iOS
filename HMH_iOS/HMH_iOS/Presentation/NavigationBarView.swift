@@ -18,6 +18,15 @@ struct NavigationBarView: View {
         ZStack {
             Color.blackground
                 .ignoresSafeArea()
+            OnboardingTitleView()
+        }
+        .frame(height: 60)
+    }
+}
+
+extension NavigationBarView {
+    private func OnboardingTitleView() -> some View {
+        var titleView: some View {
             HStack{
                 if showBackButton {
                     Button(action: {
@@ -50,7 +59,7 @@ struct NavigationBarView: View {
                 }
             }
         }
-        .frame(height: 60)
+        return titleView
     }
 }
 
