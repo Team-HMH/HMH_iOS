@@ -78,8 +78,10 @@ struct HomeView: View {
                 }
             }
             .background(.blackground)
+            .customNavigationBar(title: StringLiteral.NavigationBar.home,
+                                 showBackButton: false,
+                                 showPointButton: false)
         }
-        
         .onAppear {
             homeViewModel.requestAuthorization()
             homeViewModel.generateDummyData()
