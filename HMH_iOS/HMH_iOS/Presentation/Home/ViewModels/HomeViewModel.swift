@@ -10,7 +10,6 @@ import SwiftUI
 import FamilyControls
 import DeviceActivity
 import Combine
-import _DeviceActivity_SwiftUI
 
 class HomeViewModel: ObservableObject {
     @Published var totalGoalTime: TimeInterval
@@ -43,6 +42,16 @@ class HomeViewModel: ObservableObject {
             AppUsage(appId: "2", appName: "YouTube", goalTime: 45, usedTime: 30),
             AppUsage(appId: "3", appName: "Twitter", goalTime: 30, usedTime: 15)
         ]
+    }
+    
+    func requestAuthorization() {
+        Task {
+            do {
+                try await AuthorizationCenter.shared.requestAuthorization(for: FamilyControlsMember.individual)
+            } catch {
+                print("스크린타임 권한 설정이 실패: \(error.localizedDescription)")
+            }
+        }
     }
 }
 
