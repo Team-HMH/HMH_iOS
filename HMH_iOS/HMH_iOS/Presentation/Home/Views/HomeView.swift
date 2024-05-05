@@ -6,14 +6,14 @@ import Lottie
 
 struct HomeView: View {
     
-    @StateObject var usageTimeData = HomeViewModel()
+    @StateObject var homeViewModel = HomeViewModel()
     let userDefault = UserDefaults(suiteName: "gorup.HMH")
     
     @State var context: DeviceActivityReport.Context = .init(rawValue: "Total Activity")
     @State var filter = DeviceActivityFilter(
         segment: .daily(
             during: Calendar.current.dateInterval(
-                of: .weekday, for: .now
+                of: .day, for: .now
             )!
         ),
         users: .all,
@@ -72,7 +72,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.bottom, 60)
-                ForEach(usageTimeData.appsUsage) { appUsage  in
+                ForEach(homeViewModel.appsUsage) { appUsage  in
                     UsageTimeListItemView(appName: appUsage.appName,
                                           usageTime: Int(appUsage.usedTime), remainingTime: "\(appUsage.goalTime - appUsage.usedTime)")
                 }
@@ -81,23 +81,10 @@ struct HomeView: View {
         }
         
         .onAppear {
-            requestAuthorization()
-            usageTimeData.generateDummyData()
+            homeViewModel.requestAuthorization()
+            homeViewModel.generateDummyData()
         }
         .background(.blackground)
-    }
-}
-
-extension HomeView {
-    func requestAuthorization() {
-        AuthorizationCenter.shared.revokeAuthorization { result in
-            switch result {
-            case .success():
-                break
-            case .failure(let error):
-                print("Error for Family Controls: \(error)")
-            }
-        }
     }
 }
 
