@@ -26,7 +26,6 @@ struct TabBarView: View {
     @State var selectedTab: Tab = .homeView
     
     var body: some View {
-        
         NavigationStack{
             VStack(spacing: 0) {
                 selectedTab.view
