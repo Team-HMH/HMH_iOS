@@ -14,6 +14,12 @@ enum StringLiteral {
         static var myPageTitle = "마이페이지"
     }
     
+    enum NavigationBar {
+        static let home = "내 이용시간"
+        static let challenge = "챌린지"
+        static let myPage = "마이페이지"
+    }
+    
     enum Home {
         
     }
@@ -22,7 +28,7 @@ enum StringLiteral {
         
     }
     
-    enum myPage {
+    enum MyPage {
         
     }
     

@@ -49,6 +49,8 @@
 		365CD6D82B7E4D0700245CDD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6D72B7E4D0700245CDD /* Kingfisher */; };
 		365CD6DB2B7E4D3600245CDD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6DA2B7E4D3600245CDD /* SnapKit */; };
 		365CD6DE2B7E4D4E00245CDD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6DD2B7E4D4E00245CDD /* Then */; };
+		368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */; };
+		368CAAE22BB9B26000FA83B3 /* CustomNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,9 +113,14 @@
 		365CD6BE2B7E4C4F00245CDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		365CD6C02B7E4C5100245CDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		365CD6C32B7E4C5100245CDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+
+		368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarModifier.swift; sourceTree = "<group>"; };
+
 		368CAA942BB9617A00FA83B3 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
 		368CAABC2BB961D900FA83B3 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
 		368CAADD2BB97FE000FA83B3 /* HMH_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HMH_iOS.entitlements; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +255,7 @@
 				365CD6E52B7E4F8F00245CDD /* Manager */,
 				365CD6E72B7E4FD100245CDD /* Protocols */,
 				365CD6E42B7E4F8300245CDD /* Resource */,
+				368CAAE02BB9B23C00FA83B3 /* Struct */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -274,6 +282,7 @@
 				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
 				0B3C296E2BA01C2800435B30 /* HomeView.swift */,
 				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
+				368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */,
 				0BF56C922BC39127003ECFB1 /* PickerView.swift */,
 				0B9834DB2BC8234700A1457A /* SplashView.swift */,
 			);
@@ -347,6 +356,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		368CAAE02BB9B23C00FA83B3 /* Struct */ = {
+			isa = PBXGroup;
+			children = (
+				368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */,
+			);
+			path = Struct;
+      sourceTree = "<group>";
+    };
 		368CAA932BB9617A00FA83B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +474,8 @@
 				0BF56C972BC3B871003ECFB1 /* StoryContentView.swift in Sources */,
 				0B3C296D2BA01C2000435B30 /* ChallengeView.swift in Sources */,
 				365CD6BF2B7E4C4F00245CDD /* ContentView.swift in Sources */,
+				368CAAE22BB9B26000FA83B3 /* CustomNavigationBarModifier.swift in Sources */,
+				368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */,
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
 				0BF56C952BC39BE9003ECFB1 /* OnboardingCompleteView.swift in Sources */,
 				0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */,
@@ -622,6 +641,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -656,6 +676,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
