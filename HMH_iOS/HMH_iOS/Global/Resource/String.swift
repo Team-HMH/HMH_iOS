@@ -21,7 +21,14 @@ enum StringLiteral {
     }
     
     enum Home {
-        
+        static let usageStatusA = "별조각을 잘 따라가고 있어요\n오늘도 화이팅!"
+        static let usageStatusB = "별조각이 살짝 멀어졌어요\n조금 더 힘을 내요!"
+        static let usageStatusC = "이런, 별조각이 희미해요\n방향을 잃지 않게 조심하세요"
+        static let usageStatusD = "블랙홀이 더 가까워졌어요.\n유혹을 이겨내세요!"
+        static let usageStatusE = "블랙홀이 눈앞에 있어요!\n지금 더 사용하면 실패해요."
+        static let goalTime = "목표 사용 시간"
+        static let use = "사용"
+        static let leftTime = "남음"
     }
     
     enum Challenge {
@@ -37,7 +44,7 @@ enum StringLiteral {
     }
     
     enum AlertTitle {
-
+        
     }
     
     enum AlertDescription {
@@ -96,5 +103,23 @@ enum StringLiteral {
         static var title = "회원가입 완료!"
         static var subTitle = "하면함의 챌린저가 되신 걸 환영해요\n그럼, 블랙홀 탈출 스토리부터 알아볼까요?"
         static var button = "탈출 스토리 보기"
+    }
+    
+    enum MyPageButton {
+        static var travel = "지금까지의 여정"
+        static var market = "우주 상점"
+        static var term = "이용약관"
+        static var info = "개인정보"
+    }
+    
+    enum MyPageAccountControl {
+        static var point = "내 포인트"
+        static var logout = "로그아웃"
+        static var revoke = "회원탈퇴"
+    }
+    
+    enum MyPageURL {
+        static var term = "https://hmhteam.notion.site/33acb29be57245f394eb93ddb2e3b8cc"
+        static var info = "https://www.notion.so/hmhteam/7006ac1eb36545c38ea2bdfc7e34d2cb?pvs=4"
     }
 }
