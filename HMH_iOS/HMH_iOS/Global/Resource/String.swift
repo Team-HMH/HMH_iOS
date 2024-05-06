@@ -21,7 +21,14 @@ enum StringLiteral {
     }
     
     enum Home {
-        
+        static let usageStatusA = "별조각을 잘 따라가고 있어요\n오늘도 화이팅!"
+        static let usageStatusB = "별조각이 살짝 멀어졌어요\n조금 더 힘을 내요!"
+        static let usageStatusC = "이런, 별조각이 희미해요\n방향을 잃지 않게 조심하세요"
+        static let usageStatusD = "블랙홀이 더 가까워졌어요.\n유혹을 이겨내세요!"
+        static let usageStatusE = "블랙홀이 눈앞에 있어요!\n지금 더 사용하면 실패해요."
+        static let goalTime = "목표 사용 시간"
+        static let use = "사용"
+        static let leftTime = "남음"
     }
     
     enum Challenge {
