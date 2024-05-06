@@ -10,9 +10,13 @@ import SwiftUI
 struct ChallengeView: View {
     var body: some View {
         Text("Challenge")
-            .foregroundColor(.white) 
+            .foregroundColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.green)
+
+            .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
+                                 showBackButton: false,
+                                 showPointButton: true)
     }
 }
 

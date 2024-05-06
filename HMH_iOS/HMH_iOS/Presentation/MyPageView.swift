@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  MyPageView.swift
 //  HMH_iOS
 //
 //  Created by Seonwoo Kim on 3/12/24.
@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct MyPageView: View {
     var body: some View {
-        Text("Home")
+        Text("myPage")
             .foregroundColor(.white)
-            .padding()
+            .padding() 
             .frame(maxWidth: .infinity, maxHeight: .infinity) 
             .background(Color.red)
-            .customNavigationBar(title: StringLiteral.NavigationBar.home,
+            .customNavigationBar(title: StringLiteral.NavigationBar.myPage,
                                  showBackButton: false,
                                  showPointButton: false)
     }
 }
 
 #Preview {
-    HomeView()
+    MyPageView()
 }
