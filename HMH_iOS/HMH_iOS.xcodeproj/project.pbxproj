@@ -17,6 +17,7 @@
 		0B8693772BE5CB46000D7CE1 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8693762BE5CB46000D7CE1 /* SwipeView.swift */; };
 		0B86937B2BE727DA000D7CE1 /* AppleLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B86937A2BE727DA000D7CE1 /* AppleLoginModel.swift */; };
 		0B86937D2BE727E5000D7CE1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B86937C2BE727E5000D7CE1 /* LoginViewModel.swift */; };
+		0B86937F2BE87A5F000D7CE1 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B86937E2BE87A5F000D7CE1 /* LoginButton.swift */; };
 		0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9834DB2BC8234700A1457A /* SplashView.swift */; };
 		0B9ACF362BA14FDB00EC0BDE /* Main-F-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */; };
 		0B9ACF372BA14FDB00EC0BDE /* Main-B-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */; };
@@ -89,6 +90,7 @@
 		0B8693762BE5CB46000D7CE1 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		0B86937A2BE727DA000D7CE1 /* AppleLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginModel.swift; sourceTree = "<group>"; };
 		0B86937C2BE727E5000D7CE1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		0B86937E2BE87A5F000D7CE1 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		0B9834DB2BC8234700A1457A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-F-final.json"; sourceTree = "<group>"; };
 		0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-B-final.json"; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				0B8693762BE5CB46000D7CE1 /* SwipeView.swift */,
+				0B86937E2BE87A5F000D7CE1 /* LoginButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */,
 				0BC0E5B32BB04BC600FB0330 /* GoalPeriodView.swift in Sources */,
 				0B86937D2BE727E5000D7CE1 /* LoginViewModel.swift in Sources */,
+				0B86937F2BE87A5F000D7CE1 /* LoginButton.swift in Sources */,
 				0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
