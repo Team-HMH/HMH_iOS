@@ -13,7 +13,7 @@ enum SignInProvider {
     case apple
     case kakao
     
-    var logoImage: String {
+    var signInLogoImage: String {
         switch self {
         case .apple:
             return "appleLogo"
@@ -24,7 +24,7 @@ enum SignInProvider {
 }
 
 struct LoginButton: View {
-    let provider: SignInProvider
+    private let provider: SignInProvider
     @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
@@ -40,7 +40,7 @@ struct LoginButton: View {
                 .foregroundColor(provider == .apple ? .whiteBtn : .yelloBtn)
                 .overlay(
                     HStack {
-                        Image(provider.logoImage)
+                        Image(provider.signInLogoImage)
                             .resizable()
                             .frame(width: 24, height: 24)
                             .padding(.leading, 14)
