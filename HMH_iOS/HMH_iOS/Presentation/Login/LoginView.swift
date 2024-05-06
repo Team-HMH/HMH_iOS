@@ -11,11 +11,13 @@ import AuthenticationServices
 
 struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
-
+    
     var body: some View {
-        VStack {
+        VStack(spacing: 10) {
             SwipeView(imageNames: [.onboardingFirst, .onboardingFirst, .onboardingThird])
-            AppleSigninButton(viewModel: viewModel)
+            Spacer()
+            LoginButton(provider: .kakao, viewModel: viewModel)
+            LoginButton(provider: .apple, viewModel: viewModel)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.blackground, ignoresSafeAreaEdges: .all)
@@ -26,26 +28,3 @@ struct LoginView: View {
     LoginView()
 }
 
-struct AppleSigninButton: View {
-    @ObservedObject var viewModel: LoginViewModel
-    
-    var body: some View {
-        SignInWithAppleButton { request in
-            request.requestedScopes = [.fullName, .email]
-        } onCompletion: { result in
-            switch result {
-            case .success(let authResults):
-                switch authResults.credential {
-                case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                    viewModel.handleAppleIDCredential(appleIDCredential)
-                default:
-                    break
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        .frame(width: UIScreen.main.bounds.width * 0.9, height: 50)
-        .cornerRadius(5)
-    }
-}

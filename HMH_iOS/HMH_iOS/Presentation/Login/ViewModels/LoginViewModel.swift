@@ -19,6 +19,10 @@ class LoginViewModel: NSObject, ObservableObject {
         authorizationController.delegate = self
         authorizationController.performRequests()
     }
+    
+    func handleKakaoLogin() {
+        
+    }
 }
 
 extension LoginViewModel: ASAuthorizationControllerDelegate {
