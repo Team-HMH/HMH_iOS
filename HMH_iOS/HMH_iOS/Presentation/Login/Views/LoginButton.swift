@@ -8,7 +8,6 @@
 import SwiftUI
 import AuthenticationServices
 
-
 enum SignInProvider {
     case apple
     case kakao
@@ -24,28 +23,28 @@ enum SignInProvider {
 }
 
 struct LoginButton: View {
-    private let provider: SignInProvider
+    let loginProvider: SignInProvider
     @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
         Button(action: {
-            if provider == .apple {
+            if loginProvider == .apple {
                 viewModel.handleAppleLogin()
-            } else if provider == .kakao {
+            } else if loginProvider == .kakao {
                 viewModel.handleKakaoLogin()
             }
         }) {
             RoundedRectangle(cornerRadius: 6.3)
                 .frame(width:336, height: 51)
-                .foregroundColor(provider == .apple ? .whiteBtn : .yelloBtn)
+                .foregroundColor(loginProvider == .apple ? .whiteBtn : .yelloBtn)
                 .overlay(
                     HStack {
-                        Image(provider.signInLogoImage)
+                        Image(loginProvider.signInLogoImage)
                             .resizable()
                             .frame(width: 24, height: 24)
                             .padding(.leading, 14)
-                            .padding(.trailing, provider == .apple ? 63 : 75)
-                        Text(provider == .apple ? StringLiteral.LoginButton.apple : StringLiteral.LoginButton.kakao)
+                            .padding(.trailing, loginProvider == .apple ? 63 : 75)
+                        Text(loginProvider == .apple ? StringLiteral.LoginButton.apple : StringLiteral.LoginButton.kakao)
                             .foregroundColor(.gray8)
                             .font(.text4_semibold_16)
                         Spacer()

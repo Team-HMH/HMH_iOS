@@ -7,6 +7,8 @@
 
 import Foundation
 
-struct AppleLoginInfo: Codable {
-    var token: String?
+struct SocialLoginInfo: Codable {
+    var platform: String?
+    var idToken: String?
+    var name: String?
 }
