@@ -60,12 +60,13 @@
 		365CD6D82B7E4D0700245CDD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6D72B7E4D0700245CDD /* Kingfisher */; };
 		365CD6DB2B7E4D3600245CDD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6DA2B7E4D3600245CDD /* SnapKit */; };
 		365CD6DE2B7E4D4E00245CDD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6DD2B7E4D4E00245CDD /* Then */; };
-		368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */; };
-		368CAAE22BB9B26000FA83B3 /* CustomNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */; };
+		367243B02BE9347C007A5A7B /* ChallengeAppListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243AF2BE9347C007A5A7B /* ChallengeAppListView.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
 		368C5DA02BCC41990035A1AC /* HMHDeviceActivityReport.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */; };
+		368CAAE22BB9B26000FA83B3 /* CustomNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */; };
 		36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,18 +135,17 @@
 		0BD2D6762B9F393400733843 /* HMH-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HMH-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0BD2D6772B9F39EF00733843 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		0BD2D67B2B9F5A7B00733843 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		3601C8352BC6E8FB005790F7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTimeListItemView.swift; sourceTree = "<group>"; };
 		0BF56C922BC39127003ECFB1 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		0BF56C942BC39BE9003ECFB1 /* OnboardingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompleteView.swift; sourceTree = "<group>"; };
 		0BF56C962BC3B871003ECFB1 /* StoryContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryContentView.swift; sourceTree = "<group>"; };
+		3601C8352BC6E8FB005790F7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTimeListItemView.swift; sourceTree = "<group>"; };
 		365CD6B92B7E4C4F00245CDD /* HMH_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMH_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMH_iOSApp.swift; sourceTree = "<group>"; };
 		365CD6BE2B7E4C4F00245CDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		365CD6C02B7E4C5100245CDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		365CD6C32B7E4C5100245CDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
-		368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarModifier.swift; sourceTree = "<group>"; };
+		367243AF2BE9347C007A5A7B /* ChallengeAppListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAppListView.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -155,6 +155,8 @@
 		368CAA942BB9617A00FA83B3 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
 		368CAABC2BB961D900FA83B3 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
 		368CAADD2BB97FE000FA83B3 /* HMH_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HMH_iOS.entitlements; sourceTree = "<group>"; };
+		368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarModifier.swift; sourceTree = "<group>"; };
 		36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,7 +198,6 @@
 		0B82ECAB2BC91501002D5CF3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
 				0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */,
 			);
 			path = Views;
@@ -362,13 +363,13 @@
 		365CD6E22B7E4F4300245CDD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				367243AC2BE93383007A5A7B /* Challenge */,
 				368C5D6C2BCC1BA00035A1AC /* Home */,
 				0B82ECAA2BC9141D002D5CF3 /* MyPage */,
 				0BC0E5A42BB03E4F00FB0330 /* Onboarding */,
 				365CD6BE2B7E4C4F00245CDD /* ContentView.swift */,
 				0B3C296A2BA01BD200435B30 /* TabBarView.swift */,
 				0B3C29722BA01DCE00435B30 /* CustomTabView.swift */,
-				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
 				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
 				368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */,
 				0BF56C922BC39127003ECFB1 /* PickerView.swift */,
@@ -444,14 +445,31 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		368CAAE02BB9B23C00FA83B3 /* Struct */ = {
+		367243AC2BE93383007A5A7B /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
-				368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */,
+				367243AE2BE9339A007A5A7B /* ViewModels */,
+				367243AD2BE93390007A5A7B /* Views */,
 			);
-			path = Struct;
-            sourceTree = "<group>";
-        };
+			path = Challenge;
+			sourceTree = "<group>";
+		};
+		367243AD2BE93390007A5A7B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
+				367243AF2BE9347C007A5A7B /* ChallengeAppListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		367243AE2BE9339A007A5A7B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		368C5D6C2BCC1BA00035A1AC /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,6 +499,14 @@
 				368CAABC2BB961D900FA83B3 /* ManagedSettings.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		368CAAE02BB9B23C00FA83B3 /* Struct */ = {
+			isa = PBXGroup;
+			children = (
+				368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */,
+			);
+			path = Struct;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,9 +663,9 @@
 				0BC0E5B52BB04BD100FB0330 /* GoalTimeView.swift in Sources */,
 				0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */,
 				0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */,
+				367243B02BE9347C007A5A7B /* ChallengeAppListView.swift in Sources */,
 				0BF56C932BC39127003ECFB1 /* PickerView.swift in Sources */,
 				0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */,
-				0BC0E5B72BB04BEC00FB0330 /* PermissionView.swift in Sources */,
 				3601C8382BC6EC5C005790F7 /* UsageTimeListItemView.swift in Sources */,
 				0BC0E5B12BB04BA800FB0330 /* SurveyProblemView.swift in Sources */,
 				0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */,
