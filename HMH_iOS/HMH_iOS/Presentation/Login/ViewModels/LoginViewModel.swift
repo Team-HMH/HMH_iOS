@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AuthenticationServices
+
 import KakaoSDKUser
 
 class LoginViewModel: NSObject, ObservableObject {
@@ -30,7 +31,6 @@ class LoginViewModel: NSObject, ObservableObject {
                 }
                 if let oauthToken = oauthToken{
                     if let idToken = oauthToken.idToken {
-                        print("🍀 idToken: \(idToken)")
                         self.updateLoginModel(platform: "kakao", idToken: idToken, name: "")
                     }
                 }
