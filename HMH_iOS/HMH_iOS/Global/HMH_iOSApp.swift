@@ -7,10 +7,18 @@
 
 import SwiftUI
 
+import KakaoSDKCommon
+import KakaoSDKAuth
+
 @main
 struct HMH_iOSApp: App {
     @State private var isLoading: Bool = true
     @AppStorage("isOnboarding") var isOnboarding : Bool = true
+    let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
+    
+    init() {
+        KakaoSDK.initSDK(appKey: kakaoAPIKey)
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -21,7 +29,12 @@ struct HMH_iOSApp: App {
                     SplashView(isLoading: $isLoading)
                 } else {
                     if isOnboarding {
-                        TabBarView()
+                        LoginView()
+                            .onOpenURL { url in
+                                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                                    _ = AuthController.handleOpenUrl(url: url)
+                                }
+                            }
                     } else {
                         OnboardingContentView()
                     }

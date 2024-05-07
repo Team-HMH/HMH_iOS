@@ -11,6 +11,15 @@
       }
     },
     {
+      "identity" : "kakao-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao/kakao-ios-sdk",
+      "state" : {
+        "revision" : "ab226a7a3625d64e73a52aa3800595dab810156b",
+        "version" : "2.22.1"
+      }
+    },
+    {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher",
