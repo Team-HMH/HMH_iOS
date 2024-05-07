@@ -23,6 +23,8 @@ struct HMH_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
+                Color(.blackground)
+                
                 if isLoading {
                     SplashView(isLoading: $isLoading)
                 } else {

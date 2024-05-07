@@ -13,7 +13,10 @@ struct MyPageView: View {
             .foregroundColor(.white)
             .padding() 
             .frame(maxWidth: .infinity, maxHeight: .infinity) 
-            .background(Color.red) 
+            .background(Color.red)
+            .customNavigationBar(title: StringLiteral.NavigationBar.myPage,
+                                 showBackButton: false,
+                                 showPointButton: false)
     }
 }
 
