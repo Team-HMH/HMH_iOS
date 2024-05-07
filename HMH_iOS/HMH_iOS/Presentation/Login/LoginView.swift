@@ -15,6 +15,7 @@ struct LoginView: View {
         VStack(spacing: 10) {
             SwipeView(imageNames: [.onboardingFirst, .onboardingFirst, .onboardingThird])
             Spacer()
+                .frame(height: 75)
             LoginButton(loginProvider: .kakao, viewModel: viewModel)
             LoginButton(loginProvider: .apple, viewModel: viewModel)
             Spacer()
