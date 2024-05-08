@@ -13,7 +13,7 @@ struct LoginView: View {
 
     var body: some View {
         VStack(spacing: 10) {
-            SwipeView(imageNames: [.onboardingFirst, .onboardingFirst, .onboardingThird])
+            SwipeView(imageNames: [.onboardingFirst, .onboardingSecond, .onboardingThird])
             Spacer()
                 .frame(height: 75)
             LoginButton(loginProvider: .kakao, viewModel: viewModel)
