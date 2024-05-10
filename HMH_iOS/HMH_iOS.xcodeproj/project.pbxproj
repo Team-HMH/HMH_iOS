@@ -97,6 +97,9 @@
 		367243FD2BEDEB32007A5A7B /* EmptyResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243F22BEDEB32007A5A7B /* EmptyResponseDTO.swift */; };
 		367243FE2BEDEB32007A5A7B /* MidnightRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243F32BEDEB32007A5A7B /* MidnightRequestDTO.swift */; };
 		367244012BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244002BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift */; };
+		367244052BEDEC4A007A5A7B /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244022BEDEC4A007A5A7B /* AuthRouter.swift */; };
+		367244062BEDEC4A007A5A7B /* ChallengeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244032BEDEC4A007A5A7B /* ChallengeRouter.swift */; };
+		367244072BEDEC4A007A5A7B /* MyPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244042BEDEC4A007A5A7B /* MyPageRouter.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -219,6 +222,9 @@
 		367243F22BEDEB32007A5A7B /* EmptyResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyResponseDTO.swift; sourceTree = "<group>"; };
 		367243F32BEDEB32007A5A7B /* MidnightRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidnightRequestDTO.swift; sourceTree = "<group>"; };
 		367244002BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserDataResponseDTO.swift; sourceTree = "<group>"; };
+		367244022BEDEC4A007A5A7B /* AuthRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
+		367244032BEDEC4A007A5A7B /* ChallengeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRouter.swift; sourceTree = "<group>"; };
+		367244042BEDEC4A007A5A7B /* MyPageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageRouter.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -541,9 +547,9 @@
 		365CD6E82B7E501000245CDD /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				367243FF2BEDEBC6007A5A7B /* MyPage */,
-				367243D92BEDEAD2007A5A7B /* Challenge */,
 				367243D82BEDEAC9007A5A7B /* Auth */,
+				367243D92BEDEAD2007A5A7B /* Challenge */,
+				367243FF2BEDEBC6007A5A7B /* MyPage */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -565,6 +571,9 @@
 		365CD6EB2B7E504000245CDD /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				367244022BEDEC4A007A5A7B /* AuthRouter.swift */,
+				367244032BEDEC4A007A5A7B /* ChallengeRouter.swift */,
+				367244042BEDEC4A007A5A7B /* MyPageRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -808,6 +817,7 @@
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
 				367243F42BEDEB32007A5A7B /* AddAppResponseDTO.swift in Sources */,
 				367243F72BEDEB32007A5A7B /* CreateChallengeResponseDTO.swift in Sources */,
+				367244052BEDEC4A007A5A7B /* AuthRouter.swift in Sources */,
 				0BF56C952BC39BE9003ECFB1 /* OnboardingCompleteView.swift in Sources */,
 				0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */,
 				0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */,
@@ -820,6 +830,7 @@
 				367244012BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift in Sources */,
 				0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
+				367244062BEDEC4A007A5A7B /* ChallengeRouter.swift in Sources */,
 				367243F92BEDEB32007A5A7B /* GetDummyResponseDTO.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
@@ -841,6 +852,7 @@
 				367243E32BEDEAF8007A5A7B /* SocialLoginResponseDTO.swift in Sources */,
 				3601C8382BC6EC5C005790F7 /* UsageTimeListItemView.swift in Sources */,
 				367243FA2BEDEB32007A5A7B /* GetHomeChallengeResponseDTO.swift in Sources */,
+				367244072BEDEC4A007A5A7B /* MyPageRouter.swift in Sources */,
 				367243E82BEDEAF8007A5A7B /* LogoutResponseDTO.swift in Sources */,
 				0BC0E5B12BB04BA800FB0330 /* SurveyProblemView.swift in Sources */,
 				367243D72BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift in Sources */,
