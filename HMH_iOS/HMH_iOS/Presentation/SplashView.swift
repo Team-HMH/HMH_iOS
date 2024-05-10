@@ -7,18 +7,29 @@
 
 import SwiftUI
 
+import Lottie
+
 struct SplashView: View {
     @Binding var isLoading: Bool
     
     var body: some View {
-        VStack {}
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.bluePurpleLine, ignoresSafeAreaEdges: .all)
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                    isLoading.toggle()
-                })
-            }
+        ZStack {
+            LottieView(animation: .named("Splash_Bg.json"))
+                .playing(loopMode: .autoReverse)
+                .opacity(0.3)
+                .scaleEffect(4)
+            LottieView(animation: .named("Logo_wordmark_white.json"))
+                .playing(loopMode: .autoReverse)
+                .frame(width: 213)
+                .aspectRatio(contentMode: .fit)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.blackground, ignoresSafeAreaEdges: .all)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, execute: {
+                isLoading.toggle()
+            })
+        }
     }
 }
 
