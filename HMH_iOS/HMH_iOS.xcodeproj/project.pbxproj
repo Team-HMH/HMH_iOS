@@ -100,6 +100,7 @@
 		367244052BEDEC4A007A5A7B /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244022BEDEC4A007A5A7B /* AuthRouter.swift */; };
 		367244062BEDEC4A007A5A7B /* ChallengeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244032BEDEC4A007A5A7B /* ChallengeRouter.swift */; };
 		367244072BEDEC4A007A5A7B /* MyPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244042BEDEC4A007A5A7B /* MyPageRouter.swift */; };
+		367244092BEDEC7F007A5A7B /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244082BEDEC7F007A5A7B /* Providers.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -225,6 +226,7 @@
 		367244022BEDEC4A007A5A7B /* AuthRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		367244032BEDEC4A007A5A7B /* ChallengeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRouter.swift; sourceTree = "<group>"; };
 		367244042BEDEC4A007A5A7B /* MyPageRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageRouter.swift; sourceTree = "<group>"; };
+		367244082BEDEC7F007A5A7B /* Providers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -581,6 +583,7 @@
 		365CD6EE2B7E524300245CDD /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				367244082BEDEC7F007A5A7B /* Providers.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				0BC0E5B12BB04BA800FB0330 /* SurveyProblemView.swift in Sources */,
 				367243D72BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift in Sources */,
 				367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */,
+				367244092BEDEC7F007A5A7B /* Providers.swift in Sources */,
 				367243D52BEDE9F6007A5A7B /* NetworkRequest.swift in Sources */,
 				367243D22BEDE9F6007A5A7B /* Config.swift in Sources */,
 				367243D62BEDE9F6007A5A7B /* APIConstants.swift in Sources */,
