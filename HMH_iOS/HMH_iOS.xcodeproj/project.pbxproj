@@ -78,6 +78,13 @@
 		367243D52BEDE9F6007A5A7B /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243CE2BEDE9F6007A5A7B /* NetworkRequest.swift */; };
 		367243D62BEDE9F6007A5A7B /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243CF2BEDE9F6007A5A7B /* APIConstants.swift */; };
 		367243D72BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243D02BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift */; };
+		367243E22BEDEAF8007A5A7B /* SocialLoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243DB2BEDEAF7007A5A7B /* SocialLoginRequestDTO.swift */; };
+		367243E32BEDEAF8007A5A7B /* SocialLoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243DC2BEDEAF7007A5A7B /* SocialLoginResponseDTO.swift */; };
+		367243E42BEDEAF8007A5A7B /* SignUpResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243DD2BEDEAF7007A5A7B /* SignUpResponseDTO.swift */; };
+		367243E52BEDEAF8007A5A7B /* RevokeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243DE2BEDEAF8007A5A7B /* RevokeResponseDTO.swift */; };
+		367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243DF2BEDEAF8007A5A7B /* SignUpRequestDTO.swift */; };
+		367243E72BEDEAF8007A5A7B /* RefreshTokenResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243E02BEDEAF8007A5A7B /* RefreshTokenResponseDTO.swift */; };
+		367243E82BEDEAF8007A5A7B /* LogoutResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243E12BEDEAF8007A5A7B /* LogoutResponseDTO.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -181,6 +188,13 @@
 		367243CE2BEDE9F6007A5A7B /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		367243CF2BEDE9F6007A5A7B /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		367243D02BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
+		367243DB2BEDEAF7007A5A7B /* SocialLoginRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialLoginRequestDTO.swift; sourceTree = "<group>"; };
+		367243DC2BEDEAF7007A5A7B /* SocialLoginResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialLoginResponseDTO.swift; sourceTree = "<group>"; };
+		367243DD2BEDEAF7007A5A7B /* SignUpResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpResponseDTO.swift; sourceTree = "<group>"; };
+		367243DE2BEDEAF8007A5A7B /* RevokeResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevokeResponseDTO.swift; sourceTree = "<group>"; };
+		367243DF2BEDEAF8007A5A7B /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
+		367243E02BEDEAF8007A5A7B /* RefreshTokenResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseDTO.swift; sourceTree = "<group>"; };
+		367243E12BEDEAF8007A5A7B /* LogoutResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutResponseDTO.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -503,6 +517,8 @@
 		365CD6E82B7E501000245CDD /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				367243D92BEDEAD2007A5A7B /* Challenge */,
+				367243D82BEDEAC9007A5A7B /* Auth */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -533,6 +549,27 @@
 			children = (
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		367243D82BEDEAC9007A5A7B /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				367243E12BEDEAF8007A5A7B /* LogoutResponseDTO.swift */,
+				367243E02BEDEAF8007A5A7B /* RefreshTokenResponseDTO.swift */,
+				367243DE2BEDEAF8007A5A7B /* RevokeResponseDTO.swift */,
+				367243DF2BEDEAF8007A5A7B /* SignUpRequestDTO.swift */,
+				367243DD2BEDEAF7007A5A7B /* SignUpResponseDTO.swift */,
+				367243DB2BEDEAF7007A5A7B /* SocialLoginRequestDTO.swift */,
+				367243DC2BEDEAF7007A5A7B /* SocialLoginResponseDTO.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		367243D92BEDEAD2007A5A7B /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Challenge;
 			sourceTree = "<group>";
 		};
 		368C5D6C2BCC1BA00035A1AC /* Home */ = {
@@ -727,9 +764,11 @@
 				0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */,
 				0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */,
 				361C61EB2BD6B7FF00EF0D8B /* TotalActivityView.swift in Sources */,
+				367243E52BEDEAF8007A5A7B /* RevokeResponseDTO.swift in Sources */,
 				0BC0E5B32BB04BC600FB0330 /* GoalPeriodView.swift in Sources */,
 				0B86937D2BE727E5000D7CE1 /* LoginViewModel.swift in Sources */,
 				0B86937F2BE87A5F000D7CE1 /* LoginButton.swift in Sources */,
+				367243E22BEDEAF8007A5A7B /* SocialLoginRequestDTO.swift in Sources */,
 				0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
@@ -745,9 +784,12 @@
 				0BF56C932BC39127003ECFB1 /* PickerView.swift in Sources */,
 				367243D12BEDE9F6007A5A7B /* NetworkHelper.swift in Sources */,
 				0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */,
+				367243E32BEDEAF8007A5A7B /* SocialLoginResponseDTO.swift in Sources */,
 				3601C8382BC6EC5C005790F7 /* UsageTimeListItemView.swift in Sources */,
+				367243E82BEDEAF8007A5A7B /* LogoutResponseDTO.swift in Sources */,
 				0BC0E5B12BB04BA800FB0330 /* SurveyProblemView.swift in Sources */,
 				367243D72BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift in Sources */,
+				367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */,
 				367243D52BEDE9F6007A5A7B /* NetworkRequest.swift in Sources */,
 				367243D22BEDE9F6007A5A7B /* Config.swift in Sources */,
 				367243D62BEDE9F6007A5A7B /* APIConstants.swift in Sources */,
@@ -755,6 +797,8 @@
 				0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */,
 				0BC0E5AD2BB0404500FB0330 /* OnboardingContentView.swift in Sources */,
 				0BC0E5BB2BB04C0B00FB0330 /* AppGoalTimeView.swift in Sources */,
+				367243E72BEDEAF8007A5A7B /* RefreshTokenResponseDTO.swift in Sources */,
+				367243E42BEDEAF8007A5A7B /* SignUpResponseDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
