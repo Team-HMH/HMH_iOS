@@ -96,6 +96,7 @@
 		367243FC2BEDEB32007A5A7B /* HomeChallengeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243F12BEDEB31007A5A7B /* HomeChallengeResponseDTO.swift */; };
 		367243FD2BEDEB32007A5A7B /* EmptyResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243F22BEDEB32007A5A7B /* EmptyResponseDTO.swift */; };
 		367243FE2BEDEB32007A5A7B /* MidnightRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243F32BEDEB32007A5A7B /* MidnightRequestDTO.swift */; };
+		367244012BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244002BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -217,6 +218,7 @@
 		367243F12BEDEB31007A5A7B /* HomeChallengeResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChallengeResponseDTO.swift; sourceTree = "<group>"; };
 		367243F22BEDEB32007A5A7B /* EmptyResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyResponseDTO.swift; sourceTree = "<group>"; };
 		367243F32BEDEB32007A5A7B /* MidnightRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidnightRequestDTO.swift; sourceTree = "<group>"; };
+		367244002BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserDataResponseDTO.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 		365CD6E82B7E501000245CDD /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				367243FF2BEDEBC6007A5A7B /* MyPage */,
 				367243D92BEDEAD2007A5A7B /* Challenge */,
 				367243D82BEDEAC9007A5A7B /* Auth */,
 			);
@@ -603,6 +606,14 @@
 				367243F32BEDEB32007A5A7B /* MidnightRequestDTO.swift */,
 			);
 			path = Challenge;
+			sourceTree = "<group>";
+		};
+		367243FF2BEDEBC6007A5A7B /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				367244002BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		368C5D6C2BCC1BA00035A1AC /* Home */ = {
@@ -806,6 +817,7 @@
 				0B86937D2BE727E5000D7CE1 /* LoginViewModel.swift in Sources */,
 				0B86937F2BE87A5F000D7CE1 /* LoginButton.swift in Sources */,
 				367243E22BEDEAF8007A5A7B /* SocialLoginRequestDTO.swift in Sources */,
+				367244012BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift in Sources */,
 				0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				367243F92BEDEB32007A5A7B /* GetDummyResponseDTO.swift in Sources */,
