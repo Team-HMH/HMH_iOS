@@ -44,6 +44,10 @@ class ChallengeViewModel: ObservableObject {
             }
         }
     }
+    
+    func edit() {
+        
+    }
 }
 
 struct ChallengeDTO: Codable {
