@@ -12,20 +12,26 @@ struct NavigationBarView: View {
     
     let showBackButton: Bool
     let showPointButton: Bool
+    let isPointView: Bool
     let title: String
+    let point = 100
     
     var body: some View {
         ZStack {
             Color.blackground
                 .ignoresSafeArea()
-            OnboardingTitleView()
+            if isPointView {
+                SecondaryTitleView()
+            } else {
+                TitleView()
+            }
         }
         .frame(height: 60)
     }
 }
 
 extension NavigationBarView {
-    private func OnboardingTitleView() -> some View {
+    private func TitleView() -> some View {
         var titleView: some View {
             HStack{
                 if showBackButton {
@@ -47,11 +53,8 @@ extension NavigationBarView {
                     .frame(maxWidth: .infinity,
                            alignment: .center)
                 if showPointButton {
-                    Button(action: {
-                        print("포인트 버튼")
-                    }) {
+                    Button(action: { }) {
                         Image(.navigationPoint)
-                        
                     }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
                 } else {
                     Image(.navigationPoint).hidden()
@@ -61,8 +64,41 @@ extension NavigationBarView {
         }
         return titleView
     }
+    
+    private func SecondaryTitleView() -> some View {
+        var titleView: some View {
+            HStack{
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(.chevronLeft)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20,height: 20)
+                }
+                .padding(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 8))
+                Text(title).foregroundStyle(Color.gray1)
+                    .font(.text3_semibold_18)
+                Spacer()
+                if showPointButton {
+                    Label {
+                        Text("\(point)p")
+                            .font(.text4_semibold_16)
+                            .foregroundColor(.whiteText)
+                    } icon : {
+                        Image(.navigationPoint)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                    }
+                    .padding(.trailing, 20)
+                }
+            }
+        }
+        
+        return titleView
+    }
 }
 
 #Preview {
-    NavigationBarView(showBackButton: false, showPointButton: false, title: "마이페이지")
+    NavigationBarView(showBackButton: false, showPointButton: true, isPointView: true, title: "마이페이지")
 }
