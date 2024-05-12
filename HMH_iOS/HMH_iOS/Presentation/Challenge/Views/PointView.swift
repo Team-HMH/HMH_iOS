@@ -27,6 +27,8 @@ extension PointView {
     private var main: some View {
         ScrollView {
             listView
+                .padding(.vertical, 16)
+                .padding(.horizontal, 20)
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.point,
                              showBackButton: true,
@@ -58,7 +60,6 @@ extension PointView {
                 })
             }
             .frame(height: 80)
-            .padding(.horizontal, 20)
         }
     }
 }
