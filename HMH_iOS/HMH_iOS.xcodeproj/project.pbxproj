@@ -62,6 +62,8 @@
 		365CD6DE2B7E4D4E00245CDD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6DD2B7E4D4E00245CDD /* Then */; };
 		367243B22BE9ABCC007A5A7B /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B12BE9ABCC007A5A7B /* ChallengeViewModel.swift */; };
 		367243B62BED3830007A5A7B /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
+		367244152BF0956B007A5A7B /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244142BF0956B007A5A7B /* PointView.swift */; };
+		367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244162BF095AF007A5A7B /* PointViewModel.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -148,6 +150,8 @@
 		365CD6C32B7E4C5100245CDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		367243B12BE9ABCC007A5A7B /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
 		367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeViewModel.swift; sourceTree = "<group>"; };
+		367244142BF0956B007A5A7B /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
+		367244162BF095AF007A5A7B /* PointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointViewModel.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -460,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
+				367244142BF0956B007A5A7B /* PointView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -469,6 +474,7 @@
 			children = (
 				367243B12BE9ABCC007A5A7B /* ChallengeViewModel.swift */,
 				367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */,
+				367244162BF095AF007A5A7B /* PointViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -662,8 +668,10 @@
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
+				367244152BF0956B007A5A7B /* PointView.swift in Sources */,
 				0BC0E5A92BB03EE400FB0330 /* OnboardingModel.swift in Sources */,
 				0BD2D6782B9F39EF00733843 /* Font.swift in Sources */,
+				367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */,
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
 				0BC0E5B52BB04BD100FB0330 /* GoalTimeView.swift in Sources */,
 				0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */,
