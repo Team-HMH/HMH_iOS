@@ -87,7 +87,6 @@
 		367243F62BEDEB32007A5A7B /* DeleteAppRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243EB2BEDEB31007A5A7B /* DeleteAppRequestDTO.swift */; };
 		367243F72BEDEB32007A5A7B /* CreateChallengeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243EC2BEDEB31007A5A7B /* CreateChallengeResponseDTO.swift */; };
 		367243F82BEDEB32007A5A7B /* GetChallengeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243ED2BEDEB31007A5A7B /* GetChallengeResponseDTO.swift */; };
-		367243F92BEDEB32007A5A7B /* GetDummyResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243EE2BEDEB31007A5A7B /* GetDummyResponseDTO.swift */; };
 		367243FA2BEDEB32007A5A7B /* GetHomeChallengeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243EF2BEDEB31007A5A7B /* GetHomeChallengeResponseDTO.swift */; };
 		367243FB2BEDEB32007A5A7B /* CreateChallengeRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243F02BEDEB31007A5A7B /* CreateChallengeRequestDTO.swift */; };
 		367243FC2BEDEB32007A5A7B /* HomeChallengeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243F12BEDEB31007A5A7B /* HomeChallengeResponseDTO.swift */; };
@@ -211,7 +210,6 @@
 		367243EB2BEDEB31007A5A7B /* DeleteAppRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAppRequestDTO.swift; sourceTree = "<group>"; };
 		367243EC2BEDEB31007A5A7B /* CreateChallengeResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateChallengeResponseDTO.swift; sourceTree = "<group>"; };
 		367243ED2BEDEB31007A5A7B /* GetChallengeResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChallengeResponseDTO.swift; sourceTree = "<group>"; };
-		367243EE2BEDEB31007A5A7B /* GetDummyResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetDummyResponseDTO.swift; sourceTree = "<group>"; };
 		367243EF2BEDEB31007A5A7B /* GetHomeChallengeResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetHomeChallengeResponseDTO.swift; sourceTree = "<group>"; };
 		367243F02BEDEB31007A5A7B /* CreateChallengeRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateChallengeRequestDTO.swift; sourceTree = "<group>"; };
 		367243F12BEDEB31007A5A7B /* HomeChallengeResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeChallengeResponseDTO.swift; sourceTree = "<group>"; };
@@ -610,7 +608,6 @@
 				367243EB2BEDEB31007A5A7B /* DeleteAppRequestDTO.swift */,
 				367243F22BEDEB32007A5A7B /* EmptyResponseDTO.swift */,
 				367243ED2BEDEB31007A5A7B /* GetChallengeResponseDTO.swift */,
-				367243EE2BEDEB31007A5A7B /* GetDummyResponseDTO.swift */,
 				367243EF2BEDEB31007A5A7B /* GetHomeChallengeResponseDTO.swift */,
 				367243F12BEDEB31007A5A7B /* HomeChallengeResponseDTO.swift */,
 				367243F32BEDEB32007A5A7B /* MidnightRequestDTO.swift */,
@@ -833,7 +830,6 @@
 				0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				367244062BEDEC4A007A5A7B /* ChallengeRouter.swift in Sources */,
-				367243F92BEDEB32007A5A7B /* GetDummyResponseDTO.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
 				367244112BF08684007A5A7B /* BaseModel.swift in Sources */,
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
