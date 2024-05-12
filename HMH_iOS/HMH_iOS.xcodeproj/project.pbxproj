@@ -64,6 +64,7 @@
 		367243B62BED3830007A5A7B /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		367244152BF0956B007A5A7B /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244142BF0956B007A5A7B /* PointView.swift */; };
 		367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244162BF095AF007A5A7B /* PointViewModel.swift */; };
+		367244192BF102A6007A5A7B /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244182BF102A6007A5A7B /* ActivityModel.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -152,6 +153,7 @@
 		367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeViewModel.swift; sourceTree = "<group>"; };
 		367244142BF0956B007A5A7B /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
 		367244162BF095AF007A5A7B /* PointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointViewModel.swift; sourceTree = "<group>"; };
+		367244182BF102A6007A5A7B /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -491,12 +493,13 @@
 		368C5D952BCC41990035A1AC /* HMHDeviceActivityReport */ = {
 			isa = PBXGroup;
 			children = (
+				367244182BF102A6007A5A7B /* ActivityModel.swift */,
+				36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */,
 				368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */,
 				368C5D982BCC41990035A1AC /* TotalActivityReport.swift */,
 				368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */,
 				368C5D9C2BCC41990035A1AC /* Info.plist */,
 				368C5D9D2BCC41990035A1AC /* HMHDeviceActivityReport.entitlements */,
-				36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */,
 			);
 			path = HMHDeviceActivityReport;
 			sourceTree = "<group>";
@@ -693,6 +696,7 @@
 			files = (
 				361C61EA2BD6B7F200EF0D8B /* Font.swift in Sources */,
 				368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */,
+				367244192BF102A6007A5A7B /* ActivityModel.swift in Sources */,
 				36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */,
 				368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */,
 				368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */,
