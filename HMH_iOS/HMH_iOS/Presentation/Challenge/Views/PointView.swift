@@ -8,11 +8,61 @@
 import SwiftUI
 
 struct PointView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    @State var viewModel = PointViewModel()
+    var challengeDay = 14
+    
+    public init(viewModel: PointViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    public var body: some View {
+        main
+            .onAppear {
+                
+            }
+    }
+}
+
+extension PointView {
+    private var main: some View {
+        ScrollView {
+            listView
+        }
+        .customNavigationBar(title: StringLiteral.NavigationBar.point,
+                             showBackButton: true,
+                             showPointButton: true,
+                             isPointView: true)
+        .background(.blackground)
+    }
+    
+    private var listView: some View {
+        ForEach(1...challengeDay + 1, id: \.self) { day in
+            HStack{
+                VStack(alignment: .leading){
+                    Text("\(day)" + StringLiteral.Challenge.pointTitle)
+                        .font(.text4_semibold_16)
+                        .foregroundStyle(.whiteText)
+                        .padding(.bottom, 2)
+                    Text("\(challengeDay)" + StringLiteral.Challenge.pointSubTitle)
+                        .font(.detail4_medium_12)
+                        .foregroundStyle(.gray2)
+                }
+                Spacer()
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Text(StringLiteral.Challenge.pointButton)
+                        .font(.text4_semibold_16)
+                        .foregroundStyle(.whiteBtn)
+                        .frame(width: 73, height: 40)
+                        .background(.bluePurpleButton)
+                        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 3, height: 3)))
+                })
+            }
+            .frame(height: 80)
+            .padding(.horizontal, 20)
+        }
     }
 }
 
 #Preview {
-    PointView()
+    PointView(viewModel: .init())
 }
