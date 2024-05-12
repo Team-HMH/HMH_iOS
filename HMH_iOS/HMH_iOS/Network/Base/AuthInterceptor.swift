@@ -2,14 +2,14 @@
 //  AuthInterceptor.swift
 //  HMH_iOS
 //
-//  Created by 지희의 MAC on 1/12/24.
+//  Created by 이지희 on 5/12/24.
+//
 //
 
 import Foundation
 
 import Alamofire
 import Moya
-import UIKit
 
 ///// 토큰 만료 시 자동으로 refresh를 위한 서버 통신
 final class AuthInterceptor: RequestInterceptor {
@@ -41,29 +41,17 @@ final class AuthInterceptor: RequestInterceptor {
                 provider.request(target: .tokenRefresh, instance: BaseResponse<RefreshTokebResponseDTO>.self) { result in
                     if result.status == 200 {
                         if let data = result.data {
-                            UserManager.shared.updateToken(data.token.accessToken, data.token.refreshToken)
+//                            UserManager.shared.updateToken(data.token.accessToken, data.token.refreshToken)
                         }
                         print("🪄토큰 재발급에 성공했습니다🪄")
                         completion(.retry)
                     } else if statusCode == 401 {
-                        UserManager.shared.clearData()
-                        let navigationController = UINavigationController(rootViewController: LoginViewController())
-                        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-                        guard let delegate = sceneDelegate else {
-                            return
-                        }
-                        delegate.window?.rootViewController = navigationController
+                        /// 리프레쉬 토큰도 만료된 상황
                     }
                 }
             }
         } else if statusCode == 404 {
-            UserManager.shared.clearData()
-            let navigationController = UINavigationController(rootViewController: LoginViewController())
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-            guard let delegate = sceneDelegate else {
-                return
-            }
-            delegate.window?.rootViewController = navigationController
+            /// 유저를 찾을 수 없는 상태
         } else {
             if request.retryCount > retryLimit {
                 print("🚨재시도 횟수가 너무 많습니다🚨")

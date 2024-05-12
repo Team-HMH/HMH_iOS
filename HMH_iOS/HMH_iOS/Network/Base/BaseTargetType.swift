@@ -2,8 +2,9 @@
 //  BaseTargetType.swift
 //  HMH_iOS
 //
-//  Created by 지희의 MAC on 1/11/24.
+//  Created by 이지희 on 5/12/24.
 //
+
 
 import Foundation
 import Moya

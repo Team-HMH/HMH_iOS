@@ -1,11 +1,13 @@
 //
-//  NetworkWrapper.swift
+//  NetworkProvider.swift
 //  HMH_iOS
 //
-//  Created by 지희의 MAC on 1/11/24.
+//  Created by 이지희 on 5/12/24.
 //
+//
+
+import SwiftUI
 import Moya
-import UIKit
 
 class NetworkProvider<Provider : TargetType> : MoyaProvider<Provider> {
     func request<Model : Codable>(target : Provider, instance : BaseResponse<Model>.Type , viewController: UIViewController, completion : @escaping(BaseResponse<Model>) -> ()){
@@ -34,7 +36,6 @@ class NetworkProvider<Provider : TargetType> : MoyaProvider<Provider> {
                 } else {
                     print(error.localizedDescription)
                 }
-                viewController.view.showToast(message: "네트워크 통신을 확인해주세요")
             }
         }
     }

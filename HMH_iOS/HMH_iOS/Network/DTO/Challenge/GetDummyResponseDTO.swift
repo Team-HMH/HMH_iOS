@@ -8,10 +8,10 @@
 import Foundation
 
 struct GetDummyResponseDTO: Codable {
-    let apps: [App]
+    let apps: [Application]
 }
 
-struct App: Codable {
+struct Application: Codable {
     let appName: String
     let appImageURL: String
     let goalTime, usageTime: Int
