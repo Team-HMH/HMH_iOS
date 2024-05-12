@@ -5,7 +5,8 @@
 //  Created by 이지희 on 5/7/24.
 //
 
-import Foundation
+import SwiftUI
+import FamilyControls
 
 class ChallengeViewModel: ObservableObject {
     @Published var startDate = "5월 5일"
