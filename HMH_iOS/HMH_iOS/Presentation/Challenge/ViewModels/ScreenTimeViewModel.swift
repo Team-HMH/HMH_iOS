@@ -13,12 +13,52 @@ import ManagedSettings
 
 class ScreenTimeViewModel: ObservableObject {
     static let shared = ScreenTimeViewModel()
+    let authorizationCenter = AuthorizationCenter.shared
+    
     
     private init() {}
     
     @AppStorage("application", store: UserDefaults(suiteName: "group.HMH"))
     var selectionToDiscourage = FamilyActivitySelection()
-    var application: AppDeviceActivity?
+    
+    @AppStorage("permission", store: UserDefaults(suiteName: "group.HMH"))
+    var hasScreenTimePermission: Bool = false {
+        didSet {
+            print("Changed: ", hasScreenTimePermission)
+            updateHasScreenTimePermission()
+        }
+    }
+    
+    @Published
+    var sharedHasScreenTimePermission = false
+    
+    func requestAuthorization() {
+        if authorizationCenter.authorizationStatus == .approved {
+            print("approved")
+        } else {
+            Task {
+                do {
+                    try await authorizationCenter.requestAuthorization(for: .individual)
+                    hasScreenTimePermission = true
+                    // 동의함
+                } catch {
+                    //동의 X
+                    print("Failed to enroll Aniyah with error: \(error)")
+                    hasScreenTimePermission = false
+                    // 사용자가 허용안함.
+                    // Error Domain=FamilyControls.FamilyControlsError Code=5 "(null)
+                }
+            }
+        }
+    }
+    
+    func updateHasScreenTimePermission() {
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.sharedHasScreenTimePermission = self.hasScreenTimePermission
+            }
+        }
+    }
     
 }
 
