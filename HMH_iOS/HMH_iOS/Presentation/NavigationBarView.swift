@@ -53,9 +53,10 @@ extension NavigationBarView {
                     .frame(maxWidth: .infinity,
                            alignment: .center)
                 if showPointButton {
-                    Button(action: { }) {
+                    NavigationLink(destination: PointView(viewModel: .init())) {
                         Image(.navigationPoint)
-                    }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
+                    }
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
                 } else {
                     Image(.navigationPoint).hidden()
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
@@ -100,5 +101,5 @@ extension NavigationBarView {
 }
 
 #Preview {
-    NavigationBarView(showBackButton: false, showPointButton: true, isPointView: true, title: "마이페이지")
+    NavigationBarView(showBackButton: false, showPointButton: true, isPointView: false, title: "마이페이지")
 }
