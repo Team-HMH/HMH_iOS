@@ -19,7 +19,18 @@ struct HomeView: View {
         users: .all,
         devices: .init([.iPhone, .iPad])
     )
-    
+    @State var appContext: DeviceActivityReport.Context = .init(rawValue: "App Activity")
+    @State var appFilter = DeviceActivityFilter(
+        segment: .daily(
+            during: Calendar.current.dateInterval(
+                of: .day, for: .now
+            )!
+        ),
+        users: .all,
+        devices: .init([.iPhone, .iPad]),
+        applications: ScreenTimeViewModel.shared.selectionToDiscourage.applicationTokens,
+        categories: ScreenTimeViewModel.shared.selectionToDiscourage.categoryTokens
+    )
     
     var body: some View {
         ScrollView {
@@ -72,10 +83,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.bottom, 60)
-                ForEach(homeViewModel.appsUsage) { appUsage  in
-                    UsageTimeListItemView(appName: appUsage.appName,
-                                          usageTime: Int(appUsage.usedTime), remainingTime: "\(appUsage.goalTime - appUsage.usedTime)")
-                }
+                DeviceActivityReport(appContext, filter: appFilter)
             }
             .background(.blackground)
             .customNavigationBar(title: StringLiteral.NavigationBar.home,
@@ -83,8 +91,19 @@ struct HomeView: View {
                                  showPointButton: false)
         }
         .onAppear {
-            homeViewModel.requestAuthorization()
-            homeViewModel.generateDummyData()
+            ScreenTimeViewModel.shared.requestAuthorization()
+            
+            appFilter = DeviceActivityFilter(
+                segment: .daily(
+                    during: Calendar.current.dateInterval(
+                        of: .day, for: .now
+                    ) ?? DateInterval()
+                ),
+                users: .all,
+                devices: .init([.iPhone]),
+                applications: ScreenTimeViewModel.shared.selectionToDiscourage.applicationTokens,
+                categories: ScreenTimeViewModel.shared.selectionToDiscourage.categoryTokens
+            )
         }
         .background(.blackground)
     }
