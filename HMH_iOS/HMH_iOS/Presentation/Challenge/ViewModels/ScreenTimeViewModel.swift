@@ -40,13 +40,10 @@ class ScreenTimeViewModel: ObservableObject {
                 do {
                     try await authorizationCenter.requestAuthorization(for: .individual)
                     hasScreenTimePermission = true
-                    // 동의함
                 } catch {
                     //동의 X
                     print("Failed to enroll Aniyah with error: \(error)")
                     hasScreenTimePermission = false
-                    // 사용자가 허용안함.
-                    // Error Domain=FamilyControls.FamilyControlsError Code=5 "(null)
                 }
             }
         }
