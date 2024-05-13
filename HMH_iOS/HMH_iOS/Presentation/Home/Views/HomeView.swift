@@ -5,7 +5,7 @@ import DeviceActivity
 import Lottie
 
 struct HomeView: View {
-    
+    @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @StateObject var homeViewModel = HomeViewModel()
     let userDefault = UserDefaults(suiteName: "gorup.HMH")
     
@@ -27,9 +27,7 @@ struct HomeView: View {
             )!
         ),
         users: .all,
-        devices: .init([.iPhone, .iPad]),
-        applications: ScreenTimeViewModel.shared.selectionToDiscourage.applicationTokens,
-        categories: ScreenTimeViewModel.shared.selectionToDiscourage.categoryTokens
+        devices: .init([.iPhone, .iPad])
     )
     
     var body: some View {
@@ -91,7 +89,7 @@ struct HomeView: View {
                                  showPointButton: false)
         }
         .onAppear {
-            ScreenTimeViewModel.shared.requestAuthorization()
+            screenTimeViewModel.requestAuthorization()
             
             appFilter = DeviceActivityFilter(
                 segment: .daily(
@@ -101,8 +99,8 @@ struct HomeView: View {
                 ),
                 users: .all,
                 devices: .init([.iPhone]),
-                applications: ScreenTimeViewModel.shared.selectionToDiscourage.applicationTokens,
-                categories: ScreenTimeViewModel.shared.selectionToDiscourage.categoryTokens
+                applications: screenTimeViewModel.selectionToDiscourage.applicationTokens,
+                categories: screenTimeViewModel.selectionToDiscourage.categoryTokens
             )
         }
         .background(.blackground)

@@ -9,12 +9,13 @@ import SwiftUI
 import FamilyControls
 
 struct ChallengeView: View {
+    @StateObject var screenTimeViewMode = ScreenTimeViewModel()
     @State var viewModel: ChallengeViewModel
     @State var list = [AppDeviceActivity]()
     @State var isPresented = false
     @State private var selection = FamilyActivitySelection() {
         didSet {
-            ScreenTimeViewModel.shared.selectionToDiscourage = selection
+            screenTimeViewMode.selectionToDiscourage = selection
         }
     }
     var challengeDays = 14
@@ -111,7 +112,7 @@ extension ChallengeView {
         }
         .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 20))
         .onAppear() {
-            selection = ScreenTimeViewModel.shared.selectionToDiscourage
+            selection = screenTimeViewMode.selectionToDiscourage
         }
     }
     
