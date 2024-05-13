@@ -12,11 +12,9 @@ import ManagedSettings
 
 
 class ScreenTimeViewModel: ObservableObject {
-    static let shared = ScreenTimeViewModel()
     let authorizationCenter = AuthorizationCenter.shared
     
-    
-    private init() {}
+    public init() {}
     
     @AppStorage("application", store: UserDefaults(suiteName: "group.HMH"))
     var selectionToDiscourage = FamilyActivitySelection()
