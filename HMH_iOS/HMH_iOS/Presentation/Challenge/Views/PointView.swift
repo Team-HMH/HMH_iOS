@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PointView: View {
     @State var viewModel = PointViewModel()
-    var challengeDay = 14
     
     public init(viewModel: PointViewModel) {
         self.viewModel = viewModel
@@ -38,14 +37,14 @@ extension PointView {
     }
     
     private var listView: some View {
-        ForEach(1...challengeDay + 1, id: \.self) { day in
+        ForEach(1...viewModel.challengeDay + 1, id: \.self) { day in
             HStack{
                 VStack(alignment: .leading){
                     Text("\(day)" + StringLiteral.Challenge.pointTitle)
                         .font(.text4_semibold_16)
                         .foregroundStyle(.whiteText)
                         .padding(.bottom, 2)
-                    Text("\(challengeDay)" + StringLiteral.Challenge.pointSubTitle)
+                    Text("\(viewModel.challengeDay)" + StringLiteral.Challenge.pointSubTitle)
                         .font(.detail4_medium_12)
                         .foregroundStyle(.gray2)
                 }
