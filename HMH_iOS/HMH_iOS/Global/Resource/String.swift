@@ -55,6 +55,11 @@ enum StringLiteral {
         
     }
     
+    enum LoginButton {
+        static var apple = "Apple ID로 계속하기"
+        static var kakao = "Kakao로 계속하기"
+    }
+    
     enum OnboardingButton {
         static var next = "다음"
         static var permission = "권한 허용하러 가기"
