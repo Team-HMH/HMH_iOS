@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FamilyControls
+import DeviceActivity
 
 struct ChallengeView: View {
     @StateObject var screenTimeViewMode = ScreenTimeViewModel()
@@ -19,6 +20,17 @@ struct ChallengeView: View {
         }
     }
     var challengeDays = 14
+    
+    @State var context: DeviceActivityReport.Context = .init(rawValue: "Challenge Activity")
+    @State var filter = DeviceActivityFilter(
+        segment: .daily(
+            during: Calendar.current.dateInterval(
+                of: .day, for: .now
+            )!
+        ),
+        users: .all,
+        devices: .init([.iPhone, .iPad])
+    )
     
     public init(viewModel: ChallengeViewModel) {
         self.viewModel = viewModel
@@ -76,24 +88,11 @@ extension ChallengeView {
                 Button("편집", action: viewModel.edit)
                     .font(.text4_semibold_16)
                     .foregroundStyle(.bluePurpleButton)
+                    .frame(height: 48)
             }
-            .frame(height: 48)
-            if (selection.applicationTokens.count > 0 || selection.categoryTokens.count > 0) {
-                ForEach(Array(selection.applicationTokens), id: \.self) { token in
-                    HStack {
-                        Label(token)
-                            .labelStyle(.iconOnly)
-                            .scaleEffect(1.5)
-                        Label(token)
-                            .labelStyle(.titleOnly)
-                            .font(.text5_medium_16)
-                            .foregroundStyle(.gray2)
-                        Spacer()
-                        Text("2시간")
-                    }
-                    .frame(height: 62)
-                }
-            }
+            .padding(.horizontal, 20)
+            DeviceActivityReport(context, filter: filter)
+                .frame(height: 72 * CGFloat(screenTimeViewMode.selectionToDiscourage.applicationTokens.count))
             Button(action: {
                 isPresented = true
             }, label: {
@@ -103,16 +102,21 @@ extension ChallengeView {
                                   selection: $selection)
             .onChange(of: selection) { newSelection in
                 selection = newSelection
-                selection.applications.forEach { application in
-                    list.append(AppDeviceActivity(id: application.bundleIdentifier ?? "nil",
-                                                  displayName: application.localizedDisplayName ?? "nil",
-                                                  token: application.token!))
-                }
             }
         }
-        .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 20))
         .onAppear() {
             selection = screenTimeViewMode.selectionToDiscourage
+            filter = DeviceActivityFilter(
+                segment: .daily(
+                    during: Calendar.current.dateInterval(
+                        of: .day, for: .now
+                    ) ?? DateInterval()
+                ),
+                users: .all,
+                devices: .init([.iPhone]),
+                applications: screenTimeViewMode.selectionToDiscourage.applicationTokens,
+                categories: screenTimeViewMode.selectionToDiscourage.categoryTokens
+            )
         }
     }
     
