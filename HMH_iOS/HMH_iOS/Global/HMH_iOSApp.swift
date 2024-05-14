@@ -15,6 +15,7 @@ struct HMH_iOSApp: App {
     @State private var isLoading: Bool = true
     @AppStorage("isOnboarding") var isOnboarding : Bool = true
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init() {
         KakaoSDK.initSDK(appKey: kakaoAPIKey)
