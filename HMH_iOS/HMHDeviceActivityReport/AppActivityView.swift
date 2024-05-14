@@ -9,38 +9,68 @@ import SwiftUI
 import FamilyControls
 
 struct AppActivityView: View {
-    let totalActivity: String
+    var activityReport: ActivityReport
+    var body: some View {
+        Text("앱별 사용시간")
+        VStack(spacing: 4) {
+            List {
+                Section {
+                    ForEach(activityReport.apps) { eachApp in
+                        ListRow(eachApp: eachApp)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct ListRow: View {
+    var eachApp: AppDeviceActivity
     
     var body: some View {
-        if let timeString = convertStringToTime(totalActivity) {
-            Text("\(timeString) 사용")
-                .font(.title2_semibold_24)
-                .foregroundStyle(.whiteText)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        VStack(spacing: 4) {
+            HStack(spacing: 0) {
+                if let token = eachApp.token {
+                    Label(token)
+                        .labelStyle(.iconOnly)
+                        .offset(x: -4)
+                }
+                Text(eachApp.displayName)
+                Spacer()
+                VStack(alignment: .trailing, spacing: 2) {
+                    HStack(spacing: 4) {
+                        Text("화면 깨우기")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .frame(width: 72, alignment: .leading)
+                        Text("\(eachApp.numberOfPickups)회")
+                            .font(.headline)
+                            .bold()
+                            .frame(minWidth: 52, alignment: .trailing)
+                    }
+                    HStack(spacing: 4) {
+                        Text("모니터링 시간")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .frame(width: 72, alignment: .leading)
+                        Text(String(eachApp.duration.toString()))
+                            .font(.headline)
+                            .bold()
+                            .frame(minWidth: 52, alignment: .trailing)
+                    }
+                }
+            }
+            HStack {
+                Text("앱 ID")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                Text(eachApp.id)
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .bold()
+                Spacer()
+            }
         }
+        .background(.clear)
     }
-}
-
-extension AppActivityView {
-    func convertStringToTime(_ string: String) -> String? {
-        let components = string.components(separatedBy: " ")
-        guard components.count == 3,
-              let hours = Int(components[0].replacingOccurrences(of: "h", with: "")),
-              let minutes = Int(components[1].replacingOccurrences(of: "m", with: "")),
-              let seconds = Int(components[2].replacingOccurrences(of: "s", with: "")) else {
-                  return nil
-        }
-
-        let hoursText = String(format: "%02d", hours)
-        let minutesText = String(format: "%02d", minutes)
-        
-        return "\(hoursText)시간 \(minutesText)분"
-    }
-}
-
-// In order to support previews for your extension's custom views, make sure its source files are
-// members of your app's Xcode target as well as members of your extension's target. You can use
-// Xcode's File Inspector to modify a file's Target Membership.
-#Preview {
-    AppActivityView(totalActivity: "1h 23m")
 }

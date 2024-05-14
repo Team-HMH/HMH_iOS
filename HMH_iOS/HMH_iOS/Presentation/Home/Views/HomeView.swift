@@ -5,7 +5,7 @@ import DeviceActivity
 import Lottie
 
 struct HomeView: View {
-    
+    @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @StateObject var homeViewModel = HomeViewModel()
     let userDefault = UserDefaults(suiteName: "gorup.HMH")
     
@@ -19,7 +19,16 @@ struct HomeView: View {
         users: .all,
         devices: .init([.iPhone, .iPad])
     )
-    
+    @State var appContext: DeviceActivityReport.Context = .init(rawValue: "App Activity")
+    @State var appFilter = DeviceActivityFilter(
+        segment: .daily(
+            during: Calendar.current.dateInterval(
+                of: .day, for: .now
+            )!
+        ),
+        users: .all,
+        devices: .init([.iPhone, .iPad])
+    )
     
     var body: some View {
         ScrollView {
@@ -72,10 +81,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.bottom, 60)
-                ForEach(homeViewModel.appsUsage) { appUsage  in
-                    UsageTimeListItemView(appName: appUsage.appName,
-                                          usageTime: Int(appUsage.usedTime), remainingTime: "\(appUsage.goalTime - appUsage.usedTime)")
-                }
+                DeviceActivityReport(appContext, filter: appFilter)
             }
             .background(.blackground)
             .customNavigationBar(title: StringLiteral.NavigationBar.home,
@@ -83,8 +89,19 @@ struct HomeView: View {
                                  showPointButton: false)
         }
         .onAppear {
-            homeViewModel.requestAuthorization()
-            homeViewModel.generateDummyData()
+            screenTimeViewModel.requestAuthorization()
+            
+            appFilter = DeviceActivityFilter(
+                segment: .daily(
+                    during: Calendar.current.dateInterval(
+                        of: .day, for: .now
+                    ) ?? DateInterval()
+                ),
+                users: .all,
+                devices: .init([.iPhone]),
+                applications: screenTimeViewModel.selectionToDiscourage.applicationTokens,
+                categories: screenTimeViewModel.selectionToDiscourage.categoryTokens
+            )
         }
         .background(.blackground)
     }

@@ -43,16 +43,6 @@ class HomeViewModel: ObservableObject {
             AppUsage(appId: "3", appName: "Twitter", goalTime: 30, usedTime: 15)
         ]
     }
-    
-    func requestAuthorization() {
-        Task {
-            do {
-                try await AuthorizationCenter.shared.requestAuthorization(for: FamilyControlsMember.individual)
-            } catch {
-                print("스크린타임 권한 설정이 실패: \(error.localizedDescription)")
-            }
-        }
-    }
 }
 
 struct AppUsage: Identifiable {
