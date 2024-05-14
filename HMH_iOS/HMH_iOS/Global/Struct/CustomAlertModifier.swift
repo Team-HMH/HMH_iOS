@@ -22,25 +22,6 @@ enum CustomAlertType {
     case challengeCreationComplete
     case logout
     
-    var cancelWidth: CGFloat {
-        switch self {
-        case .unlock:
-            160
-        case .unlockComplete:
-            0
-        case .insufficientPoints:
-            160
-        case .usePoints:
-            236
-        case .withdraw:
-            129
-        case .challengeCreationComplete:
-            238
-        case .logout:
-            129
-        }
-    }
-    
     var frameHeight: CGFloat {
         switch self {
         case .unlock:
@@ -59,60 +40,7 @@ enum CustomAlertType {
             190
         }
     }
-    
-    var image: UIImage {
-        switch self {
-        case .unlock:
-                .challengeWarn
-        case .unlockComplete:
-                .challengeFail
-        case .insufficientPoints:
-                .point
-        case .usePoints:
-                .lock
-        case .challengeCreationComplete:
-                .challengeCreate
-        default:
-                UIImage()
-        }
-    }
-    
-    var title: String {
-        switch self {
-        case .unlock:
-            StringLiteral.AlertTitle.unlock
-        case .unlockComplete:
-            StringLiteral.AlertTitle.unlockComplete
-        case .insufficientPoints:
-            StringLiteral.AlertTitle.insufficientPoints
-        case .usePoints:
-            StringLiteral.AlertTitle.usePoints
-        case .withdraw:
-            StringLiteral.AlertTitle.withdraw
-        case .challengeCreationComplete:
-            StringLiteral.AlertTitle.challengeCreationComplete
-        case .logout:
-            StringLiteral.AlertTitle.logout
-        }
-    }
-    
-    var subTitle: String {
-        switch self {
-        case .unlock:
-            StringLiteral.AlertDescription.unlock
-        case .unlockComplete:
-            StringLiteral.AlertDescription.unlock
-        case .insufficientPoints:
-            StringLiteral.AlertDescription.insufficientPoints
-        case .withdraw:
-            StringLiteral.AlertDescription.withdraw
-        case .challengeCreationComplete:
-            StringLiteral.AlertDescription.challengeCreationComplete
-        default:
-            ""
-        }
-    }
-    
+        
     var confirmButtonText: String {
         switch self {
         case .unlock:

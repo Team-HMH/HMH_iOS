@@ -22,7 +22,7 @@ struct UnlockAlertView: View {
                 .foregroundColor(.gray1)
                 .font(.text6_medium_14)
                 .multilineTextAlignment(.center)
-            Image(uiImage: CustomAlertType.unlock.image)
+            Image(uiImage: .unlock)
                 .resizable()
                 .frame(width: 120, height: 120)
             HStack(spacing: 8) {
