@@ -61,7 +61,6 @@
 		3601C8362BC6E8FB005790F7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3601C8352BC6E8FB005790F7 /* HomeViewModel.swift */; };
 		3601C8382BC6EC5C005790F7 /* UsageTimeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */; };
 		361C61EA2BD6B7F200EF0D8B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2D6772B9F39EF00733843 /* Font.swift */; };
-		361C61EB2BD6B7FF00EF0D8B /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
 		361C61EC2BD6B8CC00EF0D8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
 		361C61ED2BD6BA6900EF0D8B /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6702B9F385000733843 /* Pretendard-Regular.otf */; };
 		361C61EE2BD6BA6C00EF0D8B /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6712B9F385100733843 /* Pretendard-SemiBold.otf */; };
@@ -79,6 +78,13 @@
 		365CD6D82B7E4D0700245CDD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6D72B7E4D0700245CDD /* Kingfisher */; };
 		365CD6DB2B7E4D3600245CDD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6DA2B7E4D3600245CDD /* SnapKit */; };
 		365CD6DE2B7E4D4E00245CDD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 365CD6DD2B7E4D4E00245CDD /* Then */; };
+		367243B22BE9ABCC007A5A7B /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B12BE9ABCC007A5A7B /* ChallengeViewModel.swift */; };
+		367243B62BED3830007A5A7B /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
+		367244152BF0956B007A5A7B /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244142BF0956B007A5A7B /* PointView.swift */; };
+		367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244162BF095AF007A5A7B /* PointViewModel.swift */; };
+		367244192BF102A6007A5A7B /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244182BF102A6007A5A7B /* ActivityModel.swift */; };
+		3672441C2BF13048007A5A7B /* AppActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3672441B2BF13048007A5A7B /* AppActivityReport.swift */; };
+		3672441E2BF14133007A5A7B /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
 		367243D12BEDE9F6007A5A7B /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243CA2BEDE9F5007A5A7B /* NetworkHelper.swift */; };
 		367243D22BEDE9F6007A5A7B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243CB2BEDE9F5007A5A7B /* Config.swift */; };
 		367243D32BEDE9F6007A5A7B /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243CC2BEDE9F5007A5A7B /* ResponseData.swift */; };
@@ -110,6 +116,7 @@
 		3672440F2BF08664007A5A7B /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3672440E2BF08664007A5A7B /* NetworkProvider.swift */; };
 		367244112BF08684007A5A7B /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244102BF08684007A5A7B /* BaseModel.swift */; };
 		367244132BF086A7007A5A7B /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244122BF086A7007A5A7B /* AuthInterceptor.swift */; };
+
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -210,6 +217,13 @@
 		365CD6BE2B7E4C4F00245CDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		365CD6C02B7E4C5100245CDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		365CD6C32B7E4C5100245CDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+
+		367243B12BE9ABCC007A5A7B /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
+		367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeViewModel.swift; sourceTree = "<group>"; };
+		367244142BF0956B007A5A7B /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
+		367244162BF095AF007A5A7B /* PointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointViewModel.swift; sourceTree = "<group>"; };
+		367244182BF102A6007A5A7B /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
+		3672441B2BF13048007A5A7B /* AppActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivityReport.swift; sourceTree = "<group>"; };
 		367243CA2BEDE9F5007A5A7B /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		367243CB2BEDE9F5007A5A7B /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		367243CC2BEDE9F5007A5A7B /* ResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
@@ -524,6 +538,7 @@
 		365CD6E22B7E4F4300245CDD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				367243AC2BE93383007A5A7B /* Challenge */,
 				0BBF287B2BF2F7EF00101F40 /* Common */,
 				0B5140522BE3A25900C78B9F /* Login */,
 				368C5D6C2BCC1BA00035A1AC /* Home */,
@@ -532,7 +547,6 @@
 				365CD6BE2B7E4C4F00245CDD /* ContentView.swift */,
 				0B3C296A2BA01BD200435B30 /* TabBarView.swift */,
 				0B3C29722BA01DCE00435B30 /* CustomTabView.swift */,
-				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
 				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
 				368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */,
 				0BF56C922BC39127003ECFB1 /* PickerView.swift */,
@@ -625,6 +639,34 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		367243AC2BE93383007A5A7B /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				367243AE2BE9339A007A5A7B /* ViewModels */,
+				367243AD2BE93390007A5A7B /* Views */,
+			);
+			path = Challenge;
+			sourceTree = "<group>";
+		};
+		367243AD2BE93390007A5A7B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
+				367244142BF0956B007A5A7B /* PointView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		367243AE2BE9339A007A5A7B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				367243B12BE9ABCC007A5A7B /* ChallengeViewModel.swift */,
+				367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */,
+				367244162BF095AF007A5A7B /* PointViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		367243D82BEDEAC9007A5A7B /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -675,11 +717,13 @@
 			isa = PBXGroup;
 			children = (
 				368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */,
+				367244182BF102A6007A5A7B /* ActivityModel.swift */,
+				3672441B2BF13048007A5A7B /* AppActivityReport.swift */,
+				36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */,
 				368C5D982BCC41990035A1AC /* TotalActivityReport.swift */,
 				368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */,
 				368C5D9C2BCC41990035A1AC /* Info.plist */,
 				368C5D9D2BCC41990035A1AC /* HMHDeviceActivityReport.entitlements */,
-				36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */,
 			);
 			path = HMHDeviceActivityReport;
 			sourceTree = "<group>";
@@ -845,7 +889,10 @@
 				0BF56C972BC3B871003ECFB1 /* StoryContentView.swift in Sources */,
 				0BBF28842BF2F83900101F40 /* InsufficientPointsAlertView.swift in Sources */,
 				0B3C296D2BA01C2000435B30 /* ChallengeView.swift in Sources */,
+				367243B22BE9ABCC007A5A7B /* ChallengeViewModel.swift in Sources */,
 				3601C8362BC6E8FB005790F7 /* HomeViewModel.swift in Sources */,
+				3672441E2BF14133007A5A7B /* TotalActivityView.swift in Sources */,
+				367243B62BED3830007A5A7B /* ScreenTimeViewModel.swift in Sources */,
 				367243FC2BEDEB32007A5A7B /* HomeChallengeResponseDTO.swift in Sources */,
 				365CD6BF2B7E4C4F00245CDD /* ContentView.swift in Sources */,
 				0B82ECB22BC916C6002D5CF3 /* MyPageButton.swift in Sources */,
@@ -875,11 +922,13 @@
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
 				367244112BF08684007A5A7B /* BaseModel.swift in Sources */,
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
+				367244152BF0956B007A5A7B /* PointView.swift in Sources */,
 				0BC0E5A92BB03EE400FB0330 /* OnboardingModel.swift in Sources */,
 				0B8693772BE5CB46000D7CE1 /* SwipeView.swift in Sources */,
 				0BBF28822BF2F82500101F40 /* UnlockCompleteAlertView.swift in Sources */,
 				0B86937B2BE727DA000D7CE1 /* SocialLoginModel.swift in Sources */,
 				0BD2D6782B9F39EF00733843 /* Font.swift in Sources */,
+				367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */,
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
 				0BC0E5B52BB04BD100FB0330 /* GoalTimeView.swift in Sources */,
 				0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */,
@@ -924,6 +973,8 @@
 			files = (
 				361C61EA2BD6B7F200EF0D8B /* Font.swift in Sources */,
 				368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */,
+				3672441C2BF13048007A5A7B /* AppActivityReport.swift in Sources */,
+				367244192BF102A6007A5A7B /* ActivityModel.swift in Sources */,
 				36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */,
 				368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */,
 				368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */,

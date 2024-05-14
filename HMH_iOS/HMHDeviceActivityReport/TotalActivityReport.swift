@@ -13,6 +13,7 @@ extension DeviceActivityReport.Context {
     // your extension's corresponding DeviceActivityReportScene to render the contents of the
     // report.
     static let totalActivity = Self("Total Activity")
+    static let appActivity = Self("App Activity")
 }
 
 struct TotalActivityReport: DeviceActivityReportScene {
