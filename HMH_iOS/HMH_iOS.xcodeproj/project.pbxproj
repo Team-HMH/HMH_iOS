@@ -121,6 +121,7 @@
 		367244EA2BF3D9E1007A5A7B /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244E82BF3D770007A5A7B /* AppStorageKey.swift */; };
 		367244EB2BF3DAC9007A5A7B /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		367244ED2BF3E778007A5A7B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EC2BF3E778007A5A7B /* NotificationManager.swift */; };
+		367244F02BF3E8B5007A5A7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -290,6 +291,7 @@
 		367244E12BF3C660007A5A7B /* ShieldActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldActionExtension.entitlements; sourceTree = "<group>"; };
 		367244E82BF3D770007A5A7B /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
 		367244EC2BF3E778007A5A7B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -782,6 +784,7 @@
 		367244EE2BF3E7AB007A5A7B /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1098,6 +1101,7 @@
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
 				0BC0E5B52BB04BD100FB0330 /* GoalTimeView.swift in Sources */,
 				0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */,
+				367244F02BF3E8B5007A5A7B /* AppDelegate.swift in Sources */,
 				3672440F2BF08664007A5A7B /* NetworkProvider.swift in Sources */,
 				367243F52BEDEB32007A5A7B /* AddAppRequestDTO.swift in Sources */,
 				3672440D2BF0863E007A5A7B /* BaseTargetType.swift in Sources */,
