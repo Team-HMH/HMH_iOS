@@ -10,6 +10,7 @@ import SwiftUI
 struct MyPageButton: View {
     
     @ObservedObject var viewModel: MyPageViewModel
+    
     var buttonType: MyPageButtonType
     
     var body: some View {

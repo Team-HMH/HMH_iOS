@@ -43,16 +43,41 @@ enum StringLiteral {
         
     }
     
-    enum AlertButton {
-        
+    enum AlertConfirmButton {
+        static let unlock = "아니요"
+        static let unlockComplete = "완료"
+        static let insufficientPoints = "확인"
+        static let withdraw = "탈퇴"
+        static let logout = "확인"
     }
     
+    enum AlertCancelButton {
+        static let unlock = "잠금 해제하기"
+        static let unlockComplete = "완료"
+        static let insufficientPoints = "포인트 구매하기"
+        static let usePoints = "포인트 써서 잠금 해제하기"
+        static let challengeCreationComplete = "새 챌린지 출발!"
+        static let withdraw = "취소"
+        static let logout = "취소"
+    }
+
+    
     enum AlertTitle {
-        
+        static let unlock = "잠금 해제하면 블랙홀에 빠져요"
+        static let unlockComplete = "100P로 잠금을 해제해\n미션에 실패했어요"
+        static let insufficientPoints = "포인트가 부족해요"
+        static let usePoints = "100P를 사용해\n잠금을 해제할 수 있어요"
+        static let challengeCreationComplete = "새로운 챌린지 생성 완료!"
+        static let logout = "하면함을 로그아웃 하시겠어요?"
+        static let withdraw = "정말 하면함을 탈퇴하시겠어요?"
     }
     
     enum AlertDescription {
-        
+        static let unlock = "정말 잠금을 해제하시겠어요?"
+        static let unlockComplete = "다음엔 꼭 성공해보아요"
+        static let insufficientPoints = "상점에서 포인트를 충전할 수 있어요"
+        static let challengeCreationComplete = "별조각을 모아\n블랙홀 탈출에 성공하세요"
+        static let withdraw = "회원탈퇴 후 유저 정보는 30일 동안\n임시보관되며, 이후 영구 삭제됩니다."
     }
     
     enum LoginButton {
