@@ -16,7 +16,7 @@ enum Tab: CaseIterable {
     var view: some View {
         switch self {
         case .challengeView: ChallengeView(viewModel: .init())
-        case .homeView: HomeView()
+        case .homeView: HomeView(homeViewModel: .init())
         case .myPageView: MyPageView()
         }
     }
