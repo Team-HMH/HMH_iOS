@@ -73,7 +73,7 @@ enum CustomAlertType {
         case .challengeCreationComplete:
                 .challengeCreate
         default:
-                .challengeFail
+                UIImage()
         }
     }
     
@@ -140,6 +140,8 @@ enum CustomAlertType {
             StringLiteral.AlertCancelButton.insufficientPoints
         case .withdraw:
             StringLiteral.AlertCancelButton.withdraw
+        case .usePoints:
+            StringLiteral.AlertCancelButton.usePoints
         case .logout:
             StringLiteral.AlertCancelButton.logout
         case .challengeCreationComplete:
@@ -180,8 +182,8 @@ struct CustomAlertButtonView: View {
         switch (buttonType, alertType) {
         case (.Confirm, _):
             return .clear
-        case (.Cancel, .logout), (.Cancel, .withdraw):
-            return .gray2
+        case (.Confirm, .logout), (.Confirm, .withdraw):
+            return .gray6
         case (.Cancel, _):
             return .bluePurpleButton
         }
@@ -224,45 +226,7 @@ struct CustomAlertView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: .zero) {
-                Spacer()
-                    .frame(height: 36)
-                VStack(spacing: 14) {
-                    if alertType == .challengeCreationComplete {
-                        Image(uiImage: alertType.image)
-                            .resizable()
-                            .frame(width: 120, height: 120)
-                    }
-                    Text(alertType.title)
-                        .foregroundColor(.whiteText)
-                        .font(.text3_semibold_18)
-                        .multilineTextAlignment(.center)
-                    Text(alertType.subTitle)
-                        .foregroundColor(.gray1)
-                        .font(.text6_medium_14)
-                        .multilineTextAlignment(.center)
-                    Image(uiImage: alertType.image)
-                        .resizable()
-                        .frame(width: 120, height: 120)
-                    if alertType == .unlockComplete || alertType == .usePoints {
-                        HStack() {
-                            Text("보유 포인트")
-                                .font(.text5_medium_16)
-                                .foregroundColor(.gray1)
-                            Text("00P")
-                                .font(.text5_medium_16)
-                                .foregroundColor(.whiteText)
-                        }
-                    }
-                }
-                Spacer()
-                HStack(spacing: 8) {
-                    confirmBtn
-                    cancelBtn
-                        .frame(width: alertType.cancelWidth)
-                }
-                .frame(width:266, height: 52)
-                Spacer()
-                    .frame(height: 22)
+                alertView
             }
             .frame(width: 310, height: alertType.frameHeight)
             .background(.gray7)
@@ -270,7 +234,29 @@ struct CustomAlertView: View {
         }
         .background(ClearBackground())
     }
+    
+    private var alertView: some View {
+        Group {
+            switch alertType {
+            case .unlock:
+                UnlockAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            case .unlockComplete:
+                UnlockCompleteAlertView(confirmBtn: confirmBtn)
+            case .insufficientPoints:
+                InsufficientPointsAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            case .usePoints:
+                UsePointsAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            case .withdraw:
+                WithdrawAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            case .challengeCreationComplete:
+                ChallengeCreationCompleteAlertView(cancelBtn: cancelBtn)
+            case .logout:
+                LogoutAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            }
+        }
+    }
 }
+
 
 
 extension View {
@@ -303,3 +289,54 @@ open class ClearBackgroundView: UIView {
     }
 }
 
+
+
+//
+//Spacer()
+//    .frame(height: 36)
+//VStack(spacing: 14) {
+//    if alertType == .challengeCreationComplete {
+//        Image(uiImage: alertType.image)
+//            .resizable()
+//            .frame(width: 120, height: 120)
+//    }
+//    Text(alertType.title)
+//        .foregroundColor(.whiteText)
+//        .font(.text3_semibold_18)
+//        .multilineTextAlignment(.center)
+//    Text(alertType.subTitle)
+//        .foregroundColor(.gray1)
+//        .font(.text6_medium_14)
+//        .multilineTextAlignment(.center)
+//    if alertType == .usePoints {
+//        Image(uiImage: alertType.image)
+//            .resizable()
+//            .frame(width: 90, height: 90)
+//    } else {
+//        Image(uiImage: alertType.image)
+//            .resizable()
+//            .frame(width: 120, height: 120)
+//    }
+//    if alertType == .unlockComplete || alertType == .usePoints {
+//        HStack(spacing: 26) {
+//            Text("보유 포인트")
+//                .font(.text5_medium_16)
+//                .foregroundColor(.gray1)
+//            Text("00P")
+//                .font(.text5_medium_16)
+//                .foregroundColor(.whiteText)
+//        }
+//    }
+//}
+//Spacer()
+//    .frame(height: 22)
+//HStack(spacing: 8) {
+//    if alertType != .usePoints && alertType != .challengeCreationComplete {
+//        confirmBtn
+//    }
+//    cancelBtn
+//        .frame(width: alertType.cancelWidth)
+//}
+//.frame(width:266, height: 52)
+//Spacer()
+//    .frame(height: 22)

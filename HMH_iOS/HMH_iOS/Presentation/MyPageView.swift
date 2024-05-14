@@ -9,62 +9,54 @@ import SwiftUI
 
 struct MyPageView: View {
     
-    @StateObject
-    var viewModel = MyPageViewModel()
-    @State
-    var isPresented = false
-    
+    @StateObject var viewModel = MyPageViewModel()
+
     var body: some View {
         VStack {
+            Spacer().frame(height: 64)
+            ProfileView(viewModel: viewModel)
+            Spacer().frame(height: 36)
+            MyInfoView(viewModel: viewModel)
+            Spacer().frame(height: 34)
+            HMHInfoView(viewModel: viewModel)
             Spacer()
-                .frame(height: 64)
-            ProfileView()
-            Spacer()
-                .frame(height: 36)
-            MyInfoView()
-            Spacer()
-                .frame(height: 34)
-            HMHInfoView()
-            Spacer()
-            AccountControlView()
+            AccountControlView(viewModel: viewModel)
         }
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.blackground)
         .customAlert(
-            isPresented: $isPresented,
+            isPresented: $viewModel.isPresented,
             customAlert: {
                 CustomAlertView(
-                    alertType: .unlockComplete,
+                    alertType: viewModel.alertType,
                     confirmBtn: CustomAlertButtonView(
                         buttonType: .Confirm,
-                        alertType: .unlockComplete,
-                        isPresented: $isPresented,
+                        alertType: viewModel.alertType,
+                        isPresented: $viewModel.isPresented,
                         action: {}
                     ),
                     cancelBtn: CustomAlertButtonView(
                         buttonType: .Cancel,
-                        alertType: .unlockComplete,
-                        isPresented: $isPresented,
+                        alertType: viewModel.alertType,
+                        isPresented: $viewModel.isPresented,
                         action: {}
                     )
                 )
             }
         )
-
     }
 }
 
 extension MyPageView {
-    private func ProfileView() -> some View {
+    private func ProfileView(viewModel: MyPageViewModel) -> some View {
         VStack {
             Image(.profile)
                 .frame(width: 54, height: 54)
                 .padding(10)
             Text(viewModel.getUserName())
                 .font(.title4_semibold_20)
-            Spacer()
-                .frame(height: 16)
+            Spacer().frame(height: 16)
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
@@ -79,35 +71,47 @@ extension MyPageView {
         .foregroundColor(.whiteText)
         .frame(width: 133, height: 150)
     }
-    private func MyInfoView() -> some View {
+    
+    private func MyInfoView(viewModel: MyPageViewModel) -> some View {
         VStack(spacing: 0) {
-            MyPageButton(viewModel: viewModel, isPresented: $isPresented, buttonType: .travel)
-            MyPageButton(viewModel: viewModel, isPresented: $isPresented, buttonType: .market)
+            MyPageButton(viewModel: viewModel, buttonType: .travel)
+            MyPageButton(viewModel: viewModel, buttonType: .market)
         }
         .background(.gray7)
     }
-    private func HMHInfoView() -> some View {
+    
+    private func HMHInfoView(viewModel: MyPageViewModel) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("정보")
                 .font(.text4_semibold_16)
                 .foregroundColor(.gray2)
                 .padding(.vertical, 14)
-            MyPageButton(viewModel: viewModel, isPresented: $isPresented, buttonType: .info)
-            MyPageButton(viewModel: viewModel, isPresented: $isPresented, buttonType: .term)
+            MyPageButton(viewModel: viewModel, buttonType: .info)
+            MyPageButton(viewModel: viewModel, buttonType: .term)
         }
     }
-    private func AccountControlView() -> some View {
-        HStack {
-            Text(StringLiteral.MyPageAccountControl.logout)
-                .font(.text6_medium_14)
+    
+    private func AccountControlView(viewModel: MyPageViewModel) -> some View {
+        HStack(spacing: 19) {
+            Button(action: {
+                viewModel.logoutButtonClicked()
+            }) {
+                Text(StringLiteral.MyPageAccountControl.logout)
+                    .font(.text6_medium_14)
+            }
+            .foregroundColor(.gray3)
+            
             Rectangle()
                 .frame(width: 1, height: 16)
-            Text(StringLiteral.MyPageAccountControl.revoke)
-                .font(.text6_medium_14)
+            
+            Button(action: {
+                viewModel.withdrawButtonClicked()
+            }) {
+                Text(StringLiteral.MyPageAccountControl.revoke)
+                    .font(.text6_medium_14)
+            }
+            .foregroundColor(.gray3)
         }
-        .foregroundColor(.gray3)
         .frame(height: 77)
     }
 }
-
-

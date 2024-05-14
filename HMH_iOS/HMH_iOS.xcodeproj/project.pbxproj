@@ -34,6 +34,13 @@
 		0B9ACF3B2BA14FDB00EC0BDE /* Main-E-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF352BA14FDB00EC0BDE /* Main-E-final.json */; };
 		0BB2E6352BE9EC0B00E13096 /* Splash_Bg.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BB2E6342BE9EC0A00E13096 /* Splash_Bg.json */; };
 		0BB2E6372BE9EC1400E13096 /* Logo_wordmark_white.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BB2E6362BE9EC1400E13096 /* Logo_wordmark_white.json */; };
+		0BBF287E2BF2F80B00101F40 /* UnlockAlertVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF287D2BF2F80B00101F40 /* UnlockAlertVIew.swift */; };
+		0BBF28802BF2F81A00101F40 /* UsePointsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF287F2BF2F81A00101F40 /* UsePointsAlertView.swift */; };
+		0BBF28822BF2F82500101F40 /* UnlockCompleteAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF28812BF2F82500101F40 /* UnlockCompleteAlertView.swift */; };
+		0BBF28842BF2F83900101F40 /* InsufficientPointsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF28832BF2F83900101F40 /* InsufficientPointsAlertView.swift */; };
+		0BBF28862BF2F84700101F40 /* WithdrawAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF28852BF2F84700101F40 /* WithdrawAlertView.swift */; };
+		0BBF28882BF2F85A00101F40 /* ChallengeCreationCompleteAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF28872BF2F85A00101F40 /* ChallengeCreationCompleteAlertView.swift */; };
+		0BBF288A2BF2F86A00101F40 /* LogoutAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF28892BF2F86A00101F40 /* LogoutAlertView.swift */; };
 		0BC0E5A92BB03EE400FB0330 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5A82BB03EE400FB0330 /* OnboardingModel.swift */; };
 		0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5AA2BB03F8100FB0330 /* OnboardingViewModel.swift */; };
 		0BC0E5AD2BB0404500FB0330 /* OnboardingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC0E5AC2BB0404500FB0330 /* OnboardingContentView.swift */; };
@@ -171,6 +178,13 @@
 		0B9ACF352BA14FDB00EC0BDE /* Main-E-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-E-final.json"; sourceTree = "<group>"; };
 		0BB2E6342BE9EC0A00E13096 /* Splash_Bg.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Splash_Bg.json; sourceTree = "<group>"; };
 		0BB2E6362BE9EC1400E13096 /* Logo_wordmark_white.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Logo_wordmark_white.json; sourceTree = "<group>"; };
+		0BBF287D2BF2F80B00101F40 /* UnlockAlertVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAlertVIew.swift; sourceTree = "<group>"; };
+		0BBF287F2BF2F81A00101F40 /* UsePointsAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsePointsAlertView.swift; sourceTree = "<group>"; };
+		0BBF28812BF2F82500101F40 /* UnlockCompleteAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockCompleteAlertView.swift; sourceTree = "<group>"; };
+		0BBF28832BF2F83900101F40 /* InsufficientPointsAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsufficientPointsAlertView.swift; sourceTree = "<group>"; };
+		0BBF28852BF2F84700101F40 /* WithdrawAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawAlertView.swift; sourceTree = "<group>"; };
+		0BBF28872BF2F85A00101F40 /* ChallengeCreationCompleteAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreationCompleteAlertView.swift; sourceTree = "<group>"; };
+		0BBF28892BF2F86A00101F40 /* LogoutAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutAlertView.swift; sourceTree = "<group>"; };
 		0BC0E5A82BB03EE400FB0330 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		0BC0E5AA2BB03F8100FB0330 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		0BC0E5AC2BB0404500FB0330 /* OnboardingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContentView.swift; sourceTree = "<group>"; };
@@ -347,6 +361,28 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		0BBF287B2BF2F7EF00101F40 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0BBF287C2BF2F7F400101F40 /* Alert */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		0BBF287C2BF2F7F400101F40 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				0BBF28812BF2F82500101F40 /* UnlockCompleteAlertView.swift */,
+				0BBF287D2BF2F80B00101F40 /* UnlockAlertVIew.swift */,
+				0BBF287F2BF2F81A00101F40 /* UsePointsAlertView.swift */,
+				0BBF28832BF2F83900101F40 /* InsufficientPointsAlertView.swift */,
+				0BBF28852BF2F84700101F40 /* WithdrawAlertView.swift */,
+				0BBF28872BF2F85A00101F40 /* ChallengeCreationCompleteAlertView.swift */,
+				0BBF28892BF2F86A00101F40 /* LogoutAlertView.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		0BC0E5A42BB03E4F00FB0330 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,6 +524,7 @@
 		365CD6E22B7E4F4300245CDD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				0BBF287B2BF2F7EF00101F40 /* Common */,
 				0B5140522BE3A25900C78B9F /* Login */,
 				368C5D6C2BCC1BA00035A1AC /* Home */,
 				0B82ECAA2BC9141D002D5CF3 /* MyPage */,
@@ -806,6 +843,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BF56C972BC3B871003ECFB1 /* StoryContentView.swift in Sources */,
+				0BBF28842BF2F83900101F40 /* InsufficientPointsAlertView.swift in Sources */,
 				0B3C296D2BA01C2000435B30 /* ChallengeView.swift in Sources */,
 				3601C8362BC6E8FB005790F7 /* HomeViewModel.swift in Sources */,
 				367243FC2BEDEB32007A5A7B /* HomeChallengeResponseDTO.swift in Sources */,
@@ -831,6 +869,7 @@
 				367243E22BEDEAF8007A5A7B /* SocialLoginRequestDTO.swift in Sources */,
 				367244012BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift in Sources */,
 				0BC0E5AF2BB04B7100FB0330 /* SurveyView.swift in Sources */,
+				0BBF287E2BF2F80B00101F40 /* UnlockAlertVIew.swift in Sources */,
 				365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */,
 				367244062BEDEC4A007A5A7B /* ChallengeRouter.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
@@ -838,12 +877,14 @@
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
 				0BC0E5A92BB03EE400FB0330 /* OnboardingModel.swift in Sources */,
 				0B8693772BE5CB46000D7CE1 /* SwipeView.swift in Sources */,
+				0BBF28822BF2F82500101F40 /* UnlockCompleteAlertView.swift in Sources */,
 				0B86937B2BE727DA000D7CE1 /* SocialLoginModel.swift in Sources */,
 				0BD2D6782B9F39EF00733843 /* Font.swift in Sources */,
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
 				0BC0E5B52BB04BD100FB0330 /* GoalTimeView.swift in Sources */,
 				0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */,
 				3672440F2BF08664007A5A7B /* NetworkProvider.swift in Sources */,
+				0BBF288A2BF2F86A00101F40 /* LogoutAlertView.swift in Sources */,
 				367243F52BEDEB32007A5A7B /* AddAppRequestDTO.swift in Sources */,
 				3672440D2BF0863E007A5A7B /* BaseTargetType.swift in Sources */,
 				0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */,
@@ -852,6 +893,8 @@
 				367243D12BEDE9F6007A5A7B /* NetworkHelper.swift in Sources */,
 				367243FD2BEDEB32007A5A7B /* EmptyResponseDTO.swift in Sources */,
 				367243FB2BEDEB32007A5A7B /* CreateChallengeRequestDTO.swift in Sources */,
+				0BBF28862BF2F84700101F40 /* WithdrawAlertView.swift in Sources */,
+				0BBF28802BF2F81A00101F40 /* UsePointsAlertView.swift in Sources */,
 				367243F82BEDEB32007A5A7B /* GetChallengeResponseDTO.swift in Sources */,
 				0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */,
 				367243E32BEDEAF8007A5A7B /* SocialLoginResponseDTO.swift in Sources */,
@@ -871,6 +914,7 @@
 				0BC0E5BB2BB04C0B00FB0330 /* AppGoalTimeView.swift in Sources */,
 				367243E72BEDEAF8007A5A7B /* RefreshTokenResponseDTO.swift in Sources */,
 				367243E42BEDEAF8007A5A7B /* SignUpResponseDTO.swift in Sources */,
+				0BBF28882BF2F85A00101F40 /* ChallengeCreationCompleteAlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

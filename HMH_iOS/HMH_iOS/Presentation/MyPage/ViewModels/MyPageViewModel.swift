@@ -14,7 +14,11 @@ enum MyPageButtonType {
     case info
 }
 
+
 class MyPageViewModel: ObservableObject {
+    @Published var isPresented = false
+    @Published var alertType: CustomAlertType = .logout
+
     func getButtonTitle(type: MyPageButtonType) -> String {
         switch type {
         case .travel:
@@ -50,13 +54,23 @@ class MyPageViewModel: ObservableObject {
     func myPageButtonClick(type: MyPageButtonType) {
         switch type {
         case .term:
-            guard let url = URL(string: StringLiteral.MyPageURL.term) else {return print("3")}
-            return UIApplication.shared.open(url)
+            guard let url = URL(string: StringLiteral.MyPageURL.term) else {return}
+            UIApplication.shared.open(url)
         case .info:
-            guard let url = URL(string: StringLiteral.MyPageURL.info) else { return }
-            return UIApplication.shared.open(url)
+            guard let url = URL(string: StringLiteral.MyPageURL.info) else {return}
+            UIApplication.shared.open(url)
         default:
             return
         }
+    }
+    
+    func logoutButtonClicked() {
+        alertType = .logout
+        isPresented = true
+    }
+    
+    func withdrawButtonClicked() {
+        alertType = .withdraw
+        isPresented = true
     }
 }
