@@ -29,7 +29,7 @@ struct HMH_iOSApp: App {
                     SplashView(isLoading: $isLoading)
                 } else {
                     if isOnboarding {
-                        LoginView()
+                        TabBarView()
                             .onOpenURL { url in
                                 if (AuthApi.isKakaoTalkLoginUrl(url)) {
                                     _ = AuthController.handleOpenUrl(url: url)

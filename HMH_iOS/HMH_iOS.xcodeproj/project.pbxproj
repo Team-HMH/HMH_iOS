@@ -13,6 +13,7 @@
 		0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29702BA01C3000435B30 /* MyPageView.swift */; };
 		0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29722BA01DCE00435B30 /* CustomTabView.swift */; };
 		0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5140532BE3A2D600C78B9F /* LoginView.swift */; };
+		0B719C382BF1C45D00DF1D92 /* CustomAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */; };
 		0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */; };
 		0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */; };
 		0B82ECB22BC916C6002D5CF3 /* MyPageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */; };
@@ -152,6 +153,7 @@
 		0B3C29702BA01C3000435B30 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		0B3C29722BA01DCE00435B30 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0B5140532BE3A2D600C78B9F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModifier.swift; sourceTree = "<group>"; };
 		0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyButton.swift; sourceTree = "<group>"; };
 		0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageButton.swift; sourceTree = "<group>"; };
@@ -658,6 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */,
+				0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -844,6 +847,7 @@
 				367243F52BEDEB32007A5A7B /* AddAppRequestDTO.swift in Sources */,
 				3672440D2BF0863E007A5A7B /* BaseTargetType.swift in Sources */,
 				0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */,
+				0B719C382BF1C45D00DF1D92 /* CustomAlertModifier.swift in Sources */,
 				0BF56C932BC39127003ECFB1 /* PickerView.swift in Sources */,
 				367243D12BEDE9F6007A5A7B /* NetworkHelper.swift in Sources */,
 				367243FD2BEDEB32007A5A7B /* EmptyResponseDTO.swift in Sources */,

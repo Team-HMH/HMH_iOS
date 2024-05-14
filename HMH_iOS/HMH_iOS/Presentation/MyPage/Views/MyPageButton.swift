@@ -10,6 +10,7 @@ import SwiftUI
 struct MyPageButton: View {
     
     @ObservedObject var viewModel: MyPageViewModel
+    @Binding var isPresented: Bool
     var buttonType: MyPageButtonType
     
     var body: some View {
@@ -34,6 +35,7 @@ struct MyPageButton: View {
         .background(.blackground)
         .onTapGesture {
             viewModel.myPageButtonClick(type: buttonType)
+            isPresented = true
         }
     }
 }
