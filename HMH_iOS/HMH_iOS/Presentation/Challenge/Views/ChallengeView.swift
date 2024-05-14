@@ -16,7 +16,7 @@ struct ChallengeView: View {
     @State var isPresented = false
     @State private var selection = FamilyActivitySelection() {
         didSet {
-            screenTimeViewMode.selectionToDiscourage = selection
+            screenTimeViewMode.selectedApp = selection
         }
     }
     var challengeDays = 14
@@ -92,7 +92,7 @@ extension ChallengeView {
             }
             .padding(.horizontal, 20)
             DeviceActivityReport(context, filter: filter)
-                .frame(height: 72 * CGFloat(screenTimeViewMode.selectionToDiscourage.applicationTokens.count))
+                .frame(height: 72 * CGFloat(screenTimeViewMode.selectedApp.applicationTokens.count))
             Button(action: {
                 isPresented = true
             }, label: {
@@ -102,10 +102,12 @@ extension ChallengeView {
                                   selection: $selection)
             .onChange(of: selection) { newSelection in
                 selection = newSelection
+                
+                screenTimeViewMode.handleStartDeviceActivityMonitoring(interval: 1)
             }
         }
         .onAppear() {
-            selection = screenTimeViewMode.selectionToDiscourage
+            selection = screenTimeViewMode.selectedApp
             filter = DeviceActivityFilter(
                 segment: .daily(
                     during: Calendar.current.dateInterval(
@@ -114,8 +116,8 @@ extension ChallengeView {
                 ),
                 users: .all,
                 devices: .init([.iPhone]),
-                applications: screenTimeViewMode.selectionToDiscourage.applicationTokens,
-                categories: screenTimeViewMode.selectionToDiscourage.categoryTokens
+                applications: screenTimeViewMode.selectedApp.applicationTokens,
+                categories: screenTimeViewMode.selectedApp.categoryTokens
             )
         }
     }

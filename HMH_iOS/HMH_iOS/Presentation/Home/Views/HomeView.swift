@@ -49,8 +49,8 @@ struct HomeView: View {
                 ),
                 users: .all,
                 devices: .init([.iPhone]),
-                applications: screenTimeViewModel.selectionToDiscourage.applicationTokens,
-                categories: screenTimeViewModel.selectionToDiscourage.categoryTokens
+                applications: screenTimeViewModel.selectedApp.applicationTokens,
+                categories: screenTimeViewModel.selectedApp.categoryTokens
             )
         }
     }
@@ -61,7 +61,7 @@ extension HomeView {
         VStack {
             headerView
             DeviceActivityReport(appContext, filter: appFilter)
-                .frame(height: 80 * CGFloat(screenTimeViewModel.selectionToDiscourage.applicationTokens.count))
+                .frame(height: 80 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count))
                 .padding(.bottom, 20)
         }
     }
