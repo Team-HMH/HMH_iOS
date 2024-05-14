@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+public enum AppStorageKey: String {
+    case selectionApp
+    case totalgoaltime
+}
+
+let APP_GROUP_NAME = "group.HMH"

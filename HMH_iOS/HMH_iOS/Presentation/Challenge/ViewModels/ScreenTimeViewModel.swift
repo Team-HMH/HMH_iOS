@@ -9,17 +9,18 @@ import SwiftUI
 
 import FamilyControls
 import ManagedSettings
+import DeviceActivity
 
 
 class ScreenTimeViewModel: ObservableObject {
     let authorizationCenter = AuthorizationCenter.shared
+    let deviceActivityCenter = DeviceActivityCenter()
+    let store = ManagedSettingsStore()
     
-    public init() {}
+    @AppStorage(AppStorageKey.selectionApp.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var selectedApp = FamilyActivitySelection()
     
-    @AppStorage("application", store: UserDefaults(suiteName: "group.HMH"))
-    var selectionToDiscourage = FamilyActivitySelection()
-    
-    @AppStorage("permission", store: UserDefaults(suiteName: "group.HMH"))
+    @AppStorage("permission", store: UserDefaults(suiteName: APP_GROUP_NAME))
     var hasScreenTimePermission: Bool = false {
         didSet {
             print("Changed: ", hasScreenTimePermission)
@@ -29,6 +30,18 @@ class ScreenTimeViewModel: ObservableObject {
     
     @Published
     var sharedHasScreenTimePermission = false
+    var hashVaule: [Int] = []
+    
+    func saveHashValue() {
+        selectedApp.applicationTokens.forEach { app in
+            hashVaule.append(app.hashValue)
+        }
+    }
+    
+    func handleResetSelection() {
+        selectedApp = FamilyActivitySelection()
+    }
+    
     
     func requestAuthorization() {
         if authorizationCenter.authorizationStatus == .approved {
@@ -53,6 +66,50 @@ class ScreenTimeViewModel: ObservableObject {
                 self.sharedHasScreenTimePermission = self.hasScreenTimePermission
             }
         }
+    }
+    
+    func handleStartDeviceActivityMonitoring(includeUsageThreshold: Bool = true, interval: Int) {
+        //datacomponent타입을 써야함
+        let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: Date())
+        
+        // 새 스케쥴 시간 설정
+        let schedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: dateComponents.hour, minute: dateComponents.minute, second: dateComponents.second),
+            intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+            repeats: false,
+            //warning Time 설정해야 알람
+            warningTime: DateComponents(minute: 1)
+        )
+         //새 이벤트 생성
+        let event = DeviceActivityEvent(
+            applications: selectedApp.applicationTokens,
+            categories: selectedApp.categoryTokens,
+            webDomains: selectedApp.webDomainTokens,
+            //threshold - 이 시간이 되면 특정한 event가 발생 deviceactivitymonitor에 eventdidreachthreshold
+            threshold: DateComponents(second: interval)
+            )
+        
+        do {
+            deviceActivityCenter.stopMonitoring()
+            try deviceActivityCenter.startMonitoring(
+                .once,
+                during: schedule,
+                events: [.monitoring: event]
+            )
+            print("📺📺모니터링 시작📺📺")
+        } catch {
+            print("Unexpected error: \(error).")
+        }
+    }
+    
+    func handleSetBlockApplication() {
+        store.shield.applications = selectedApp.applicationTokens.isEmpty ? nil : selectedApp.applicationTokens
+        store.shield.applicationCategories = selectedApp.categoryTokens.isEmpty ? nil
+        : ShieldSettings.ActivityCategoryPolicy.specific(selectedApp.categoryTokens)
+    }
+    
+    func stopDeviceMonitoring(){
+        deviceActivityCenter.stopMonitoring()
     }
     
 }
@@ -82,4 +139,12 @@ struct AppDeviceActivity: Identifiable {
     var id: String
     var displayName: String
     var token: ApplicationToken
+}
+
+extension DeviceActivityName {
+    static let once = Self("once")
+}
+
+extension DeviceActivityEvent.Name {
+    static let monitoring = Self("monitoring")
 }
