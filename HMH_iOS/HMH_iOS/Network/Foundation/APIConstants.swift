@@ -5,7 +5,7 @@
 //  Created by 지희의 MAC on 1/11/24.
 //
 
-import Foundation
+import SwiftUI
 import Moya
 
 struct APIConstants{
@@ -13,10 +13,18 @@ struct APIConstants{
     static let applicationJSON = "application/json"
     static let auth = "Authorization"
     // 아래 주석은 네트워크 연결할 때 해제해주세요!
-    static let accessToken = "Bearer "
-    static let refreshToken = "Bearer "
-    static let appleAccessToken = ""
-    //    static let accessToken = "Bearer " + UserManager.shared.accessTokenValue
+    static var accessToken: String {
+        let socialToken = "Bearer " + (UserDefaults.standard.string(forKey: "accessToken") ?? "") ?? ""
+        return socialToken
+    }
+    static var refreshToken: String {
+        let socialToken = "Bearer " + (UserDefaults.standard.string(forKey: "refreshToken") ?? "") ?? ""
+        return socialToken
+    }
+    static var appleAccessToken: String {
+        let socialToken = UserDefaults.standard.string(forKey: "socialToken") ?? ""
+        return socialToken
+    }
     //    static let refreshToken = "Bearer " + UserManager.shared.refreshTokenValue
     //    static let appleAccessToken = UserManager.shared.appleTokenValue
     static let OS = "OS"
