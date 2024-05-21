@@ -17,6 +17,7 @@ enum MyPageButtonType {
 
 class MyPageViewModel: ObservableObject {
     @Published var isPresented = false
+    
     @Published var alertType: CustomAlertType = .logout
 
     func getButtonTitle(type: MyPageButtonType) -> String {
@@ -65,19 +66,42 @@ class MyPageViewModel: ObservableObject {
     }
     
     func logoutButtonClicked() {
-        alertType = .logout
         isPresented = true
+        alertType = .logout
     }
     
     func withdrawButtonClicked() {
-        alertType = .withdraw
         isPresented = true
+        alertType = .withdraw
     }
     
     func revokeUser() {
         let provider = Providers.AuthProvider
         provider.request(target: .revoke, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-            UserManager.shared.logout()
+            UserManager.shared.revokeData()
         }
+    }
+    
+    func logoutUser() {
+        let provider = Providers.AuthProvider
+        provider.request(target: .logout, instance: BaseResponse<EmptyResponseDTO>.self) { data in
+//            UserManager.shared.clearAll()
+        }
+    }
+    
+    func confirmAction() {
+        UserManager.shared.isOnboarding = true
+        UserManager.shared.isOnboardingCompleted = false
+        UserManager.shared.isLogin = false
+        if alertType == .logout {
+            logoutUser()
+        } else {
+            revokeUser()
+            UserManager.shared.revokeData()
+        }
+    }
+    
+    func cancelAction() {
+        isPresented = false
     }
 }

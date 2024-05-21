@@ -21,13 +21,18 @@ class UserManager: ObservableObject {
     
     private init() {}
     
-    func logout() {
+    func revokeData() {
         accessToken = ""
         refreshToken = ""
         socialToken = ""
         socialPlatform = nil
         userName = nil
         isOnboarding = true
+        isLogin = false
+    }
+    
+    func logoutButtonClicked() {
+        socialPlatform = nil
         isLogin = false
     }
     
