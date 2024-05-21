@@ -41,12 +41,15 @@ final class AuthInterceptor: RequestInterceptor {
                 provider.request(target: .tokenRefresh, instance: BaseResponse<RefreshTokebResponseDTO>.self) { result in
                     if result.status == 200 {
                         if let data = result.data {
+                            UserManager.shared.accessToken = data.token.accessToken
+                            UserManager.shared.refreshToken = data.token.refreshToken
 //                            UserManager.shared.updateToken(data.token.accessToken, data.token.refreshToken)
                         }
                         print("🪄토큰 재발급에 성공했습니다🪄")
                         completion(.retry)
                     } else if statusCode == 401 {
                         /// 리프레쉬 토큰도 만료된 상황
+                        UserManager.shared.isLogin = false
                     }
                 }
             }

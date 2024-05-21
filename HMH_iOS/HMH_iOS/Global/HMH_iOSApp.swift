@@ -10,7 +10,6 @@ enum AppState {
 
 @main
 struct HMH_iOSApp: App {
-    @State private var isLoading: Bool = true
     @StateObject var loginViewModel = LoginViewModel()
     @StateObject var userManager = UserManager.shared
     
@@ -25,14 +24,14 @@ struct HMH_iOSApp: App {
             ZStack {
                 Color(.blackground)
                     .ignoresSafeArea()
-                if isLoading {
-                    SplashView(isLoading: $isLoading)
+                if loginViewModel.isLoading {
+                    SplashView(viewModel: loginViewModel)
                 } else {
                     if userManager.isOnboarding {
                         if userManager.isLogin {
-                            TabBarView()
+                            OnboardingContentView()
                         } else {
-                            LoginView()
+                            LoginView(viewModel: loginViewModel)
                                 .onOpenURL { url in
                                     if (AuthApi.isKakaoTalkLoginUrl(url)) {
                                         _ = AuthController.handleOpenUrl(url: url)

@@ -25,8 +25,7 @@ struct APIConstants{
         let socialToken = UserManager.shared.socialToken ?? ""
         return socialToken
     }
-    //    static let refreshToken = "Bearer " + UserManager.shared.refreshTokenValue
-    //    static let appleAccessToken = UserManager.shared.appleTokenValue
+
     static let OS = "OS"
     static let iOS = "iOS"
 }

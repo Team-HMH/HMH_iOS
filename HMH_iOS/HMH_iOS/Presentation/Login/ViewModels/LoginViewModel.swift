@@ -4,6 +4,26 @@ import AuthenticationServices
 import KakaoSDKUser
 
 class LoginViewModel: NSObject, ObservableObject {
+    
+    @Published var isLoading: Bool = true
+    
+    func handleSplashScreen() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.refreshToken()
+            self.isLoading = false
+        }
+    }
+    
+    private func refreshToken() {
+        let provider = Providers.AuthProvider
+        provider.request(target: .tokenRefresh, instance: BaseResponse<RefreshTokebResponseDTO>.self) { data in
+            if let data = data.data {
+                UserManager.shared.accessToken = data.token.accessToken
+                UserManager.shared.refreshToken = data.token.accessToken
+            }
+        }
+    }
+    
     func handleAppleLogin() {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -17,7 +37,7 @@ class LoginViewModel: NSObject, ObservableObject {
         if (UserApi.isKakaoTalkLoginAvailable()) {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error = error {
-                    print("🍀",error)
+                    print(error)
                 }
                 if let oauthToken = oauthToken{
                     let idToken = oauthToken.accessToken
@@ -75,7 +95,6 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
                 }
                 UserManager.shared.socialToken = identifyTokenString
             }
-            
             UserManager.shared.socialPlatform = "APPLE"
             self.postSocialLoginData()
         default:
@@ -92,7 +111,6 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
         
         UserManager.shared.socialToken = idToken
         UserManager.shared.socialPlatform = "APPLE"
-        //성공 시 수행할 api 로직
         self.postSocialLoginData()
     }
     
