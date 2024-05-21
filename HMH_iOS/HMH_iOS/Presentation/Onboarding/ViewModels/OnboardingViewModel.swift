@@ -9,8 +9,6 @@ import SwiftUI
 
 class OnboardingViewModel: ObservableObject {
     
-    @AppStorage("isOnboardingComplete") var isOnboardingComplete = false
-    
     @Published
     var surveyButtonItems: [[SurveyButtonInfo]]
     
@@ -120,7 +118,7 @@ class OnboardingViewModel: ObservableObject {
         let provider = Providers.AuthProvider
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
             if data.status == 201 {
-                self.isOnboardingComplete = true
+                UserManager.shared.isOnboardingCompleted = true
 //                self.setRootViewController(SignInCompleteViewController())
 //                guard let data = data.data else { return }
 //                UserManager.shared.updateToken(data.token.accessToken, data.token.refreshToken)

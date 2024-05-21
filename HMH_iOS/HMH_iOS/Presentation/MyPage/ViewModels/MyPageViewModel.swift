@@ -77,7 +77,7 @@ class MyPageViewModel: ObservableObject {
     func revokeUser() {
         let provider = Providers.AuthProvider
         provider.request(target: .revoke, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-           
+            UserManager.shared.logout()
         }
     }
 }

@@ -14,15 +14,15 @@ struct APIConstants{
     static let auth = "Authorization"
     // 아래 주석은 네트워크 연결할 때 해제해주세요!
     static var accessToken: String {
-        let socialToken = "Bearer " + (UserDefaults.standard.string(forKey: "accessToken") ?? "") ?? ""
+        let socialToken = "Bearer " + UserManager.shared.accessToken
         return socialToken
     }
     static var refreshToken: String {
-        let socialToken = "Bearer " + (UserDefaults.standard.string(forKey: "refreshToken") ?? "") ?? ""
+        let socialToken = "Bearer " + UserManager.shared.refreshToken
         return socialToken
     }
     static var appleAccessToken: String {
-        let socialToken = UserDefaults.standard.string(forKey: "socialToken") ?? ""
+        let socialToken = UserManager.shared.socialToken ?? ""
         return socialToken
     }
     //    static let refreshToken = "Bearer " + UserManager.shared.refreshTokenValue

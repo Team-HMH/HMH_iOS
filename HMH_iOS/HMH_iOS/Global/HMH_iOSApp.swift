@@ -12,9 +12,7 @@ enum AppState {
 struct HMH_iOSApp: App {
     @State private var isLoading: Bool = true
     @StateObject var loginViewModel = LoginViewModel()
-    @AppStorage("isOnboarding") var isOnboarding = true
-    @AppStorage("isOnboardingComplete") var isOnboardingComplete = false
-    @AppStorage("isLogin") var isLogin = false
+    @StateObject var userManager = UserManager.shared
     
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
     
@@ -30,8 +28,8 @@ struct HMH_iOSApp: App {
                 if isLoading {
                     SplashView(isLoading: $isLoading)
                 } else {
-                    if isOnboarding {
-                        if isLogin {
+                    if userManager.isOnboarding {
+                        if userManager.isLogin {
                             TabBarView()
                         } else {
                             LoginView()
@@ -42,7 +40,7 @@ struct HMH_iOSApp: App {
                                 }
                         }
                     } else {
-                        if isOnboardingComplete {
+                        if userManager.isOnboardingCompleted {
                             OnboardingCompleteView()
                         } else {
                             OnboardingContentView()

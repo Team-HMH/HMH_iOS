@@ -1,17 +1,9 @@
 import SwiftUI
 import AuthenticationServices
+
 import KakaoSDKUser
 
 class LoginViewModel: NSObject, ObservableObject {
-    @Published var socialLoginInfo = SocialLoginInfo()
-    @AppStorage("accessToken") private var accessToken = ""
-    @AppStorage("refreshToken") private var refreshToken = ""
-    @AppStorage("socialToken") private var socialToken = ""
-    @AppStorage("socialPlatform") private var socialPlatform = ""
-    @AppStorage("userName") private var userName = ""
-    @AppStorage("isOnboarding") var isOnboarding: Bool?
-    @AppStorage("isLogin") var isLogin: Bool?
-    
     func handleAppleLogin() {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -29,8 +21,8 @@ class LoginViewModel: NSObject, ObservableObject {
                 }
                 if let oauthToken = oauthToken{
                     let idToken = oauthToken.accessToken
-                    self.socialPlatform = "KAKAO"
-                    self.socialToken = "Bearer " + idToken
+                    UserManager.shared.socialPlatform = "KAKAO"
+                    UserManager.shared.socialToken = "Bearer " + idToken
                     self.postSocialLoginData()
                 }
             }
@@ -41,9 +33,9 @@ class LoginViewModel: NSObject, ObservableObject {
                 }
                 if let oauthToken = oauthToken{
                     print("kakao success")
-                    self.socialPlatform = "KAKAO"
+                    UserManager.shared.socialPlatform = "KAKAO"
                     let idToken = oauthToken.refreshToken
-                    self.socialToken = "Bearer " + idToken
+                    UserManager.shared.socialToken = "Bearer " + idToken
                     self.postSocialLoginData()
                 }
             }
@@ -52,16 +44,16 @@ class LoginViewModel: NSObject, ObservableObject {
     
     func postSocialLoginData() {
         let provider = Providers.AuthProvider
-        let request = SocialLoginRequestDTO(socialPlatform: socialPlatform)
+        let request = SocialLoginRequestDTO(socialPlatform: UserManager.shared.socialPlatform ?? "")
         
         provider.request(target: .socialLogin(data: request), instance: BaseResponse<SocialLogineResponseDTO>.self) { data in
             if data.status == 403 {
-                self.isOnboarding = false
+                UserManager.shared.isOnboarding = false
             } else if data.status == 200 {
                 guard let data = data.data else { return }
-                self.isLogin = true
-                self.refreshToken = data.token.refreshToken
-                self.accessToken = data.token.accessToken
+                UserManager.shared.isLogin = true
+                UserManager.shared.refreshToken = data.token.refreshToken
+                UserManager.shared.accessToken = data.token.accessToken
             }
         }
     }
@@ -78,17 +70,13 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
             if  let identityToken = appleIDCredential.identityToken,
                 let identifyTokenString = String(data: identityToken, encoding: .utf8) {
                 if let unwrappedFullName = fullName, let givenName = unwrappedFullName.givenName, let familyName = unwrappedFullName.familyName {
-                    // UserManager.shared.updateUserName(givenName, familyName)
                 } else {
                     print("fullName이 없거나 givenName 또는 familyName이 없습니다.")
                 }
-                
-                // UserManager.shared.updateAppleToken(identifyTokenString)
-                // UserManager.shared.updateUserIdentifier(userIdentifier)
-                self.socialToken = identifyTokenString
+                UserManager.shared.socialToken = identifyTokenString
             }
-
-            self.socialPlatform = "APPLE"
+            
+            UserManager.shared.socialPlatform = "APPLE"
             self.postSocialLoginData()
         default:
             break
@@ -99,11 +87,11 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
         let userIdentifier = credential.user
         let fullName = credential.fullName
         let name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
-        self.userName = name
+        UserManager.shared.userName = name
         guard let idToken = String(data: credential.identityToken ?? Data(), encoding: .utf8) else { return print("no idToken!!") }
-     
-        self.socialToken = idToken
-        self.socialPlatform = "APPLE"
+        
+        UserManager.shared.socialToken = idToken
+        UserManager.shared.socialPlatform = "APPLE"
         //성공 시 수행할 api 로직
         self.postSocialLoginData()
     }
