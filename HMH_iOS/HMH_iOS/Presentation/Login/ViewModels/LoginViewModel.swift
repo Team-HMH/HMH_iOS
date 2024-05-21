@@ -4,13 +4,13 @@ import KakaoSDKUser
 
 class LoginViewModel: NSObject, ObservableObject {
     @Published var socialLoginInfo = SocialLoginInfo()
-    @AppStorage("idToken") private var idToken = ""
-    @AppStorage("acessToken") private var acessToken = ""
+    @AppStorage("accessToken") private var accessToken = ""
     @AppStorage("refreshToken") private var refreshToken = ""
     @AppStorage("socialToken") private var socialToken = ""
     @AppStorage("socialPlatform") private var socialPlatform = ""
-    @AppStorage("isOnboarding") var isOnboarding : Bool?
-    @AppStorage("isLogIn") var isLoggedIn : Bool?
+    @AppStorage("userName") private var userName = ""
+    @AppStorage("isOnboarding") var isOnboarding: Bool?
+    @AppStorage("isLogin") var isLogin: Bool?
     
     func handleAppleLogin() {
         let request = ASAuthorizationAppleIDProvider().createRequest()
@@ -31,7 +31,7 @@ class LoginViewModel: NSObject, ObservableObject {
                     let idToken = oauthToken.accessToken
                     self.socialPlatform = "KAKAO"
                     self.socialToken = "Bearer " + idToken
-                    self.getSocialLoginData()
+                    self.postSocialLoginData()
                 }
             }
         } else {
@@ -43,31 +43,25 @@ class LoginViewModel: NSObject, ObservableObject {
                     print("kakao success")
                     self.socialPlatform = "KAKAO"
                     let idToken = oauthToken.refreshToken
-                    self.socialToken = "Bearer" + idToken
-                    self.getSocialLoginData()
+                    self.socialToken = "Bearer " + idToken
+                    self.postSocialLoginData()
                 }
             }
         }
     }
     
-    func getSocialLoginData() {
+    func postSocialLoginData() {
         let provider = Providers.AuthProvider
         let request = SocialLoginRequestDTO(socialPlatform: socialPlatform)
         
         provider.request(target: .socialLogin(data: request), instance: BaseResponse<SocialLogineResponseDTO>.self) { data in
-            DispatchQueue.main.async {
-                if data.status == 403 {
-                    self.isOnboarding = true
-                    self.isLoggedIn = false
-                } else if data.status == 200 {
-                    guard let data = data.data else { return }
-                    self.isOnboarding = true
-                    self.isLoggedIn = true
-                    self.idToken = data.token.accessToken
-                    self.refreshToken = data.token.refreshToken
-                    // UserManager.shared.updateToken(data.token.accessToken, data.token.refreshToken)
-                    // UserManager.shared.updateUserId(data.userId)
-                }
+            if data.status == 403 {
+                self.isOnboarding = false
+            } else if data.status == 200 {
+                guard let data = data.data else { return }
+                self.isLogin = true
+                self.refreshToken = data.token.refreshToken
+                self.accessToken = data.token.accessToken
             }
         }
     }
@@ -95,23 +89,23 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
             }
 
             self.socialPlatform = "APPLE"
-            self.getSocialLoginData()
+            self.postSocialLoginData()
         default:
             break
         }
-
     }
     
     func handleAppleIDCredential(_ credential: ASAuthorizationAppleIDCredential) {
         let userIdentifier = credential.user
         let fullName = credential.fullName
         let name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
+        self.userName = name
         guard let idToken = String(data: credential.identityToken ?? Data(), encoding: .utf8) else { return print("no idToken!!") }
      
         self.socialToken = idToken
         self.socialPlatform = "APPLE"
         //성공 시 수행할 api 로직
-        self.getSocialLoginData()
+        self.postSocialLoginData()
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {

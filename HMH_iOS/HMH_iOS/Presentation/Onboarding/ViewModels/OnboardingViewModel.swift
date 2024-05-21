@@ -9,8 +9,12 @@ import SwiftUI
 
 class OnboardingViewModel: ObservableObject {
     
+    @AppStorage("isOnboardingComplete") var isOnboardingComplete = false
+    
     @Published
     var surveyButtonItems: [[SurveyButtonInfo]]
+    
+    var problems: [String]
     
     @Published
     var onboardingState: Int
@@ -27,6 +31,53 @@ class OnboardingViewModel: ObservableObject {
     @Published
     var selectedAppMinute: String
     
+    var averageUseTime: String
+    
+    var period: Int
+    
+    var goalTime: Int
+    
+    var appGoalTime: Int
+        
+    
+    @AppStorage("socialPlatform") private var socialPlatform = ""
+    @AppStorage("userName") private var userName = ""
+    
+    func saveOnboardingData() {
+        print(onboardingState)
+        switch onboardingState {
+        case 1:
+            for index in 0..<4{
+                if surveyButtonItems[onboardingState  - 1][index].isSelected {
+                    self.averageUseTime = surveyButtonItems[onboardingState - 1][index].buttonTitle
+                }
+            }
+        case 2:
+            for index in 0..<4{
+                if surveyButtonItems[onboardingState - 1][index].isSelected {
+                    self.problems.append(surveyButtonItems[onboardingState - 1][index].buttonTitle)
+                }
+            }
+        case 3:
+            for index in 0..<4{
+                if surveyButtonItems[onboardingState - 1][index].isSelected {
+                    self.period = removeLastCharacterAndConvertToInt(from: surveyButtonItems[onboardingState - 1][index].buttonTitle) ?? 0
+
+                    print(surveyButtonItems[onboardingState - 1][index].buttonTitle)
+                    
+                }
+            }
+        case 4:
+            self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
+        case 7:
+            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
+            postSignUpLoginData()
+            
+        default:
+            break
+        }
+    }
+    
     func addOnboardingState() {
         onboardingState += 1
     }
@@ -36,7 +87,10 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func offIsCompleted() {
-        isCompleted = false
+        if onboardingState != 4 && onboardingState != 5 {
+            isCompleted = false
+        }
+        // 권한 허용 버튼 활성화를 위함
     }
     
     func getSurveyState() -> Int {
@@ -49,6 +103,35 @@ class OnboardingViewModel: ObservableObject {
 //        }
     }
     
+    func removeLastCharacterAndConvertToInt(from string: String) -> Int? {
+        guard !string.isEmpty else {
+            return nil
+        }
+        
+        let modifiedString = String(string.dropLast())
+        
+        return Int(modifiedString)
+    }
+
+    
+    func postSignUpLoginData() {
+        let request = SignUpRequestDTO(socialPlatform: socialPlatform, name: userName, onboarding: Onboarding(averageUseTime: self.averageUseTime, problem: self.problems), challenge: Challenge(period: self.period, goalTime: self.goalTime, apps: [Apps(appCode: "#23324", goalTime: appGoalTime)]))
+        
+        let provider = Providers.AuthProvider
+        provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
+            if data.status == 201 {
+                self.isOnboardingComplete = true
+//                self.setRootViewController(SignInCompleteViewController())
+//                guard let data = data.data else { return }
+//                UserManager.shared.updateToken(data.token.accessToken, data.token.refreshToken)
+//                UserManager.shared.updateUserId(data.userId)
+            } else {
+                self.onboardingState = 6
+//                self.setRootViewController(LoginViewController())
+            }
+        }
+    }
+    
     func changeSurveyButtonStatus(num: Int) {
         for index in 0..<4{
             if index == num {
@@ -58,6 +141,16 @@ class OnboardingViewModel: ObservableObject {
             }
         }
     }
+    
+    func convertToTotalMilliseconds(hour: String?, minute: String?) -> Int {
+        let hourInt = Int(hour ?? "") ?? 0
+        let minuteInt = Int(minute ?? "") ?? 0
+        
+        let totalMinutes = hourInt * 60 + minuteInt
+        let totalMilliseconds = totalMinutes * 60 * 1000
+        return totalMilliseconds
+    }
+
     
     func getOnboardigMain() -> String {
         switch onboardingState {
@@ -142,5 +235,10 @@ class OnboardingViewModel: ObservableObject {
         self.selectedGoalTime = ""
         self.selectedAppHour = ""
         self.selectedAppMinute = ""
+        self.problems = []
+        self.averageUseTime = ""
+        self.period = 0
+        self.goalTime = 0
+        self.appGoalTime = 0
     }
 }

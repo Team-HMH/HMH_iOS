@@ -1,20 +1,21 @@
-//
-//  HMH_iOSApp.swift
-//  HMH_iOS
-//
-//  Created by 지희의 MAC on 2/15/24.
-//
-
 import SwiftUI
-
 import KakaoSDKCommon
 import KakaoSDKAuth
+
+enum AppState {
+    case onboardingComplete
+    case login
+    case home
+}
 
 @main
 struct HMH_iOSApp: App {
     @State private var isLoading: Bool = true
-    @AppStorage("isOnboarding") var isOnboarding : Bool = true
-    @AppStorage("isLogIn") var isLogIn : Bool = false
+    @StateObject var loginViewModel = LoginViewModel()
+    @AppStorage("isOnboarding") var isOnboarding = true
+    @AppStorage("isOnboardingComplete") var isOnboardingComplete = false
+    @AppStorage("isLogin") var isLogin = false
+    
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
     
     init() {
@@ -25,19 +26,24 @@ struct HMH_iOSApp: App {
         WindowGroup {
             ZStack {
                 Color(.blackground)
+                    .ignoresSafeArea()
                 if isLoading {
                     SplashView(isLoading: $isLoading)
                 } else {
-                    if isLogIn {
-                        TabBarView()
-                    } else {
-                        if isOnboarding {
+                    if isOnboarding {
+                        if isLogin {
+                            TabBarView()
+                        } else {
                             LoginView()
                                 .onOpenURL { url in
                                     if (AuthApi.isKakaoTalkLoginUrl(url)) {
                                         _ = AuthController.handleOpenUrl(url: url)
                                     }
                                 }
+                        }
+                    } else {
+                        if isOnboardingComplete {
+                            OnboardingCompleteView()
                         } else {
                             OnboardingContentView()
                         }
@@ -47,4 +53,3 @@ struct HMH_iOSApp: App {
         }
     }
 }
-
