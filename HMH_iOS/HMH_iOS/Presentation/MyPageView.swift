@@ -34,7 +34,15 @@ struct MyPageView: View {
                         buttonType: .Confirm,
                         alertType: viewModel.alertType,
                         isPresented: $viewModel.isPresented,
-                        action: {}
+                        action: {
+                            viewModel.revokeUser()
+                            @AppStorage("isOnboarding") var isOnboarding = true
+                            @AppStorage("isOnboardingComplete") var isOnboardingComplete = false
+                            @AppStorage("isLogin") var isLogin = false
+                            isOnboarding = true
+                            isOnboardingComplete = false
+                            isLogin = false
+                        }
                     ),
                     cancelBtn: CustomAlertButtonView(
                         buttonType: .Cancel,
