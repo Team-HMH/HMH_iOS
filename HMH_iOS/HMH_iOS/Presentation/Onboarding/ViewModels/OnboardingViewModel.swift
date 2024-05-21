@@ -124,18 +124,18 @@ class OnboardingViewModel: ObservableObject {
 //                UserManager.shared.updateToken(data.token.accessToken, data.token.refreshToken)
 //                UserManager.shared.updateUserId(data.userId)
             } else {
-                self.onboardingState = 6
+                self.onboardingState = 0
 //                self.setRootViewController(LoginViewController())
             }
         }
     }
     
     func changeSurveyButtonStatus(num: Int) {
-        for index in 0..<4{
-            if index == num {
-                surveyButtonItems[onboardingState][index].isSelected = true
-            } else {
-                surveyButtonItems[onboardingState][index].isSelected = false
+        if onboardingState == 1 {
+            surveyButtonItems[onboardingState][num].isSelected.toggle()
+        } else {
+            for index in 0..<4 {
+                surveyButtonItems[onboardingState][index].isSelected = (index == num)
             }
         }
     }

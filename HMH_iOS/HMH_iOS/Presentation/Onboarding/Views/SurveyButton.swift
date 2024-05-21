@@ -20,6 +20,7 @@ struct SurveyButton: View {
         } label: {
             Text(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].buttonTitle)
                 .font(.text4_semibold_16)
+                .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .center)
         }
         .frame(maxWidth: .infinity)
         .frame(height: 62)
