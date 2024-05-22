@@ -122,6 +122,8 @@
 		367244EB2BF3DAC9007A5A7B /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		367244ED2BF3E778007A5A7B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EC2BF3E778007A5A7B /* NotificationManager.swift */; };
 		367244F02BF3E8B5007A5A7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */; };
+		367244F12BF3EA4E007A5A7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
+		367244F22BF3EA51007A5A7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -147,6 +149,20 @@
 			remoteInfo = ShieldActionConfig;
 		};
 		367244E22BF3C660007A5A7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 365CD6B12B7E4C4F00245CDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 367244DA2BF3C660007A5A7B;
+			remoteInfo = ShieldActionExtension;
+		};
+		368780C72BFE5DA400454827 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 365CD6B12B7E4C4F00245CDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 367244C92BF3C338007A5A7B;
+			remoteInfo = ShieldActionConfig;
+		};
+		368780C92BFE5DA800454827 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 365CD6B12B7E4C4F00245CDD /* Project object */;
 			proxyType = 1;
@@ -852,6 +868,8 @@
 				367244432BF32481007A5A7B /* PBXTargetDependency */,
 				367244D22BF3C339007A5A7B /* PBXTargetDependency */,
 				367244E32BF3C660007A5A7B /* PBXTargetDependency */,
+				368780C82BFE5DA400454827 /* PBXTargetDependency */,
+				368780CA2BFE5DA800454827 /* PBXTargetDependency */,
 			);
 			name = HMH_iOS;
 			packageProductDependencies = (
@@ -1030,6 +1048,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				367244F12BF3EA4E007A5A7B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1037,6 +1056,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				367244F22BF3EA51007A5A7B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1192,6 +1212,16 @@
 			target = 367244DA2BF3C660007A5A7B /* ShieldActionExtension */;
 			targetProxy = 367244E22BF3C660007A5A7B /* PBXContainerItemProxy */;
 		};
+		368780C82BFE5DA400454827 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 367244C92BF3C338007A5A7B /* ShieldActionConfig */;
+			targetProxy = 368780C72BFE5DA400454827 /* PBXContainerItemProxy */;
+		};
+		368780CA2BFE5DA800454827 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 367244DA2BF3C660007A5A7B /* ShieldActionExtension */;
+			targetProxy = 368780C92BFE5DA800454827 /* PBXContainerItemProxy */;
+		};
 		368C5D9F2BCC41990035A1AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 368C5D932BCC41990035A1AC /* HMHDeviceActivityReport */;
@@ -1336,6 +1366,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HMH-iOS-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "하면함";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1371,6 +1402,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HMH-iOS-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "하면함";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1466,7 +1498,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hmh.hamyeonham.ShieldActionConfig;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hmh.hamyeonham.ShieldConfigureExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1494,7 +1526,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hmh.hamyeonham.ShieldActionConfig;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hmh.hamyeonham.ShieldConfigureExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
