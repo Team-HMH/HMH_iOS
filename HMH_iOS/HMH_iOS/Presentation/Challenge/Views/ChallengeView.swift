@@ -103,7 +103,7 @@ extension ChallengeView {
             .onChange(of: selection) { newSelection in
                 selection = newSelection
                 
-                screenTimeViewMode.handleStartDeviceActivityMonitoring(interval: 1)
+                screenTimeViewMode.handleStartDeviceActivityMonitoring(interval: 1000)
             }
         }
         .onAppear() {
