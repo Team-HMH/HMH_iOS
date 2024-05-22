@@ -12,7 +12,7 @@ import ManagedSettings
 import DeviceActivity
 
 
-class ScreenTimeViewModel: ObservableObject {
+final class ScreenTimeViewModel: ObservableObject {
     let authorizationCenter = AuthorizationCenter.shared
     let deviceActivityCenter = DeviceActivityCenter()
     let store = ManagedSettingsStore()
@@ -78,7 +78,7 @@ class ScreenTimeViewModel: ObservableObject {
             intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
             repeats: false,
             //warning Time 설정해야 알람
-            warningTime: DateComponents(minute: 1)
+            warningTime: DateComponents(minute: interval)
         )
          //새 이벤트 생성
         let event = DeviceActivityEvent(
@@ -112,6 +112,33 @@ class ScreenTimeViewModel: ObservableObject {
         deviceActivityCenter.stopMonitoring()
     }
     
+    func block(completion: @escaping (Result<Void, Error>) -> Void) {
+        let selectedAppToken = selectedApp
+        let blockSchedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: 0, minute: 0),
+            intervalEnd: DateComponents(hour: 23, minute: 59),
+            repeats: false,
+            warningTime: DateComponents(minute: 10)
+        )
+        
+        store.shield.applications = selectedAppToken.applicationTokens
+        do {
+            try deviceActivityCenter.startMonitoring(DeviceActivityName.once,
+                                                     during: blockSchedule)
+        } catch {
+            completion(.failure(error))
+            return
+        }
+        completion(.success(()))
+    }
+    
+    func unblockApp(app: ApplicationToken) {
+        store.shield.applications?.remove(app)
+    }
+    
+    func unblockAllApps() {
+        store.shield.applications = []
+    }
 }
 
 
