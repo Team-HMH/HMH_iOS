@@ -8,7 +8,7 @@
 import SwiftUI
 import FamilyControls
 
-class ChallengeViewModel: ObservableObject {
+final class ChallengeViewModel: ObservableObject {
     @Published var startDate = "5월 5일"
     @Published var days = 1
     @Published var appList: [String] = ["dd", "dd", "ddd"]
