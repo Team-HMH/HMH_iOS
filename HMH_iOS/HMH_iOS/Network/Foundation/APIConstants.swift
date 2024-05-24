@@ -5,7 +5,7 @@
 //  Created by 지희의 MAC on 1/11/24.
 //
 
-import SwiftUI
+import Foundation
 import Moya
 
 struct APIConstants{

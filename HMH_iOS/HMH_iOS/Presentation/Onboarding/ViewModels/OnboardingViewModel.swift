@@ -119,13 +119,10 @@ class OnboardingViewModel: ObservableObject {
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
             if data.status == 201 {
                 UserManager.shared.isOnboardingCompleted = true
-//                self.setRootViewController(SignInCompleteViewController())
-//                guard let data = data.data else { return }
-//                UserManager.shared.updateToken(data.token.accessToken, data.token.refreshToken)
-//                UserManager.shared.updateUserId(data.userId)
+                UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
+                UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
             } else {
                 self.onboardingState = 0
-//                self.setRootViewController(LoginViewController())
             }
         }
     }
