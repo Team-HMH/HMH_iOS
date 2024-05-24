@@ -16,6 +16,7 @@ struct NextButtonView: View {
             Button {
                 viewModel.addOnboardingState()
                 viewModel.offIsCompleted()
+                viewModel.saveOnboardingData()
             } label: {
                 Text(viewModel.getNextButton())
                     .font(.text4_semibold_16)

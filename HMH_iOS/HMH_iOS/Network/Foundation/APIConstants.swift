@@ -13,12 +13,19 @@ struct APIConstants{
     static let applicationJSON = "application/json"
     static let auth = "Authorization"
     // 아래 주석은 네트워크 연결할 때 해제해주세요!
-    static let accessToken = "Bearer "
-    static let refreshToken = "Bearer "
-    static let appleAccessToken = ""
-    //    static let accessToken = "Bearer " + UserManager.shared.accessTokenValue
-    //    static let refreshToken = "Bearer " + UserManager.shared.refreshTokenValue
-    //    static let appleAccessToken = UserManager.shared.appleTokenValue
+    static var accessToken: String {
+        let socialToken = "Bearer " + UserManager.shared.accessToken
+        return socialToken
+    }
+    static var refreshToken: String {
+        let socialToken = "Bearer " + UserManager.shared.refreshToken
+        return socialToken
+    }
+    static var appleAccessToken: String {
+        let socialToken = UserManager.shared.socialToken ?? ""
+        return socialToken
+    }
+
     static let OS = "OS"
     static let iOS = "iOS"
 }

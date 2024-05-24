@@ -1,19 +1,18 @@
-//
-//  HMH_iOSApp.swift
-//  HMH_iOS
-//
-//  Created by 지희의 MAC on 2/15/24.
-//
-
 import SwiftUI
-
 import KakaoSDKCommon
 import KakaoSDKAuth
 
+enum AppState {
+    case onboardingComplete
+    case login
+    case home
+}
+
 @main
 struct HMH_iOSApp: App {
-    @State private var isLoading: Bool = true
-    @AppStorage("isOnboarding") var isOnboarding : Bool = true
+    @StateObject var loginViewModel = LoginViewModel()
+    @StateObject var userManager = UserManager.shared
+    
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
     
     init() {
@@ -24,23 +23,30 @@ struct HMH_iOSApp: App {
         WindowGroup {
             ZStack {
                 Color(.blackground)
-                
-                if isLoading {
-                    SplashView(isLoading: $isLoading)
+                    .ignoresSafeArea()
+                if loginViewModel.isLoading {
+                    SplashView(viewModel: loginViewModel)
                 } else {
-                    if isOnboarding {
-                        LoginView()
-                            .onOpenURL { url in
-                                if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                                    _ = AuthController.handleOpenUrl(url: url)
+                    if userManager.isOnboarding {
+                        if userManager.isLogin {
+                            OnboardingContentView()
+                        } else {
+                            LoginView(viewModel: loginViewModel)
+                                .onOpenURL { url in
+                                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                                        _ = AuthController.handleOpenUrl(url: url)
+                                    }
                                 }
-                            }
+                        }
                     } else {
-                        OnboardingContentView()
+                        if userManager.isOnboardingCompleted {
+                            OnboardingCompleteView()
+                        } else {
+                            OnboardingContentView()
+                        }
                     }
                 }
             }
         }
     }
 }
-

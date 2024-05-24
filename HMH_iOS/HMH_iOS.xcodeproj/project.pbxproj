@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B205B352BFCC16A00B0FB83 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B205B342BFCC16A00B0FB83 /* UserManager.swift */; };
 		0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C296A2BA01BD200435B30 /* TabBarView.swift */; };
 		0B3C296D2BA01C2000435B30 /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C296C2BA01C2000435B30 /* ChallengeView.swift */; };
 		0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C296E2BA01C2800435B30 /* HomeView.swift */; };
@@ -161,6 +162,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B205B342BFCC16A00B0FB83 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		0B3C296A2BA01BD200435B30 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		0B3C296C2BA01C2000435B30 /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		0B3C296E2BA01C2800435B30 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -299,6 +301,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B205B332BFCC15C00B0FB83 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				0B205B342BFCC16A00B0FB83 /* UserManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		0B5140522BE3A25900C78B9F /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +388,7 @@
 		0BBF287B2BF2F7EF00101F40 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0B205B332BFCC15C00B0FB83 /* Manager */,
 				0BBF287C2BF2F7F400101F40 /* Alert */,
 			);
 			path = Common;
@@ -929,6 +940,7 @@
 				0B86937B2BE727DA000D7CE1 /* SocialLoginModel.swift in Sources */,
 				0BD2D6782B9F39EF00733843 /* Font.swift in Sources */,
 				367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */,
+				0B205B352BFCC16A00B0FB83 /* UserManager.swift in Sources */,
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
 				0BC0E5B52BB04BD100FB0330 /* GoalTimeView.swift in Sources */,
 				0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */,

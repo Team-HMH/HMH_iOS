@@ -34,13 +34,18 @@ struct MyPageView: View {
                         buttonType: .Confirm,
                         alertType: viewModel.alertType,
                         isPresented: $viewModel.isPresented,
-                        action: {}
+                        action: {
+                            viewModel.confirmAction()
+
+                        }
                     ),
                     cancelBtn: CustomAlertButtonView(
                         buttonType: .Cancel,
                         alertType: viewModel.alertType,
                         isPresented: $viewModel.isPresented,
-                        action: {}
+                        action: {
+                            viewModel.cancelAction()
+                        }
                     )
                 )
             }

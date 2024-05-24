@@ -10,7 +10,7 @@ import SwiftUI
 import Lottie
 
 struct SplashView: View {
-    @Binding var isLoading: Bool
+    @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
         ZStack {
@@ -27,7 +27,7 @@ struct SplashView: View {
         .background(.blackground, ignoresSafeAreaEdges: .all)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, execute: {
-                isLoading.toggle()
+                viewModel.handleSplashScreen()
             })
         }
     }
