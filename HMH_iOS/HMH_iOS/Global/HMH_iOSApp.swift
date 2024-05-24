@@ -30,7 +30,7 @@ struct HMH_iOSApp: App {
                 } else {
                     if userManager.isOnboarding {
                         if userManager.isLogin {
-                            OnboardingContentView()
+                            TabBarView()
                         } else {
                             LoginView(viewModel: loginViewModel)
                                 .onOpenURL { url in

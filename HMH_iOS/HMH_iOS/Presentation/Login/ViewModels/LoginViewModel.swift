@@ -19,7 +19,7 @@ class LoginViewModel: NSObject, ObservableObject {
         provider.request(target: .tokenRefresh, instance: BaseResponse<RefreshTokebResponseDTO>.self) { data in
             if let data = data.data {
                 UserManager.shared.accessToken = data.token.accessToken
-                UserManager.shared.refreshToken = data.token.accessToken
+                UserManager.shared.refreshToken = data.token.refreshToken
             }
         }
     }
@@ -54,7 +54,7 @@ class LoginViewModel: NSObject, ObservableObject {
                 if let oauthToken = oauthToken{
                     print("kakao success")
                     UserManager.shared.socialPlatform = "KAKAO"
-                    let idToken = oauthToken.refreshToken
+                    let idToken = oauthToken.accessToken
                     UserManager.shared.socialToken = "Bearer " + idToken
                     self.postSocialLoginData()
                 }
@@ -108,10 +108,6 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
         let name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
         UserManager.shared.userName = name
         guard let idToken = String(data: credential.identityToken ?? Data(), encoding: .utf8) else { return print("no idToken!!") }
-        
-        UserManager.shared.socialToken = idToken
-        UserManager.shared.socialPlatform = "APPLE"
-        self.postSocialLoginData()
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
