@@ -6,19 +6,16 @@
 //
 
 import SwiftUI
+
 import FamilyControls
 import DeviceActivity
 
 struct ChallengeView: View {
-    @StateObject var screenTimeViewMode = ScreenTimeViewModel()
+    @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @State var viewModel: ChallengeViewModel
     @State var list = [AppDeviceActivity]()
     @State var isPresented = false
-    @State private var selection = FamilyActivitySelection() {
-        didSet {
-            screenTimeViewMode.selectedApp = selection
-        }
-    }
+    @State private var selection = FamilyActivitySelection() 
     var challengeDays = 14
     
     @State var context: DeviceActivityReport.Context = .init(rawValue: "Challenge Activity")
@@ -92,7 +89,7 @@ extension ChallengeView {
             }
             .padding(.horizontal, 20)
             DeviceActivityReport(context, filter: filter)
-                .frame(height: 72 * CGFloat(screenTimeViewMode.selectedApp.applicationTokens.count))
+                .frame(height: 72 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count))
             Button(action: {
                 isPresented = true
             }, label: {
@@ -101,13 +98,13 @@ extension ChallengeView {
             .familyActivityPicker(isPresented: $isPresented,
                                   selection: $selection)
             .onChange(of: selection) { newSelection in
-                selection = newSelection
-                
-                screenTimeViewMode.handleStartDeviceActivityMonitoring(interval: 1000)
+                screenTimeViewModel.updateSelectedApp(newSelection: newSelection)
+                // TODO: 챌린지 만드는 시점에 설정
+//                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
             }
         }
         .onAppear() {
-            selection = screenTimeViewMode.selectedApp
+            selection = screenTimeViewModel.selectedApp
             filter = DeviceActivityFilter(
                 segment: .daily(
                     during: Calendar.current.dateInterval(
@@ -116,8 +113,8 @@ extension ChallengeView {
                 ),
                 users: .all,
                 devices: .init([.iPhone]),
-                applications: screenTimeViewMode.selectedApp.applicationTokens,
-                categories: screenTimeViewMode.selectedApp.categoryTokens
+                applications: screenTimeViewModel.selectedApp.applicationTokens,
+                categories: screenTimeViewModel.selectedApp.categoryTokens
             )
         }
     }
