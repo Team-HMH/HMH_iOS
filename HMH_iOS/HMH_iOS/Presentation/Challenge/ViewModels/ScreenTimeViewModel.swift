@@ -20,7 +20,7 @@ final class ScreenTimeViewModel: ObservableObject {
     @AppStorage(AppStorageKey.selectionApp.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var selectedApp = FamilyActivitySelection()
     
-    @AppStorage("permission", store: UserDefaults(suiteName: APP_GROUP_NAME))
+    @AppStorage(AppStorageKey.permission.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var hasScreenTimePermission: Bool = false {
         didSet {
             print("Changed: ", hasScreenTimePermission)
@@ -28,20 +28,20 @@ final class ScreenTimeViewModel: ObservableObject {
         }
     }
     
-    @Published
-    var sharedHasScreenTimePermission = false
+    @Published var sharedHasScreenTimePermission = false
     var hashVaule: [Int] = []
+    
+    @MainActor func updateSelectedApp(newSelection: FamilyActivitySelection) {
+        DispatchQueue.main.async {
+            self.selectedApp = newSelection
+        }
+    }
     
     func saveHashValue() {
         selectedApp.applicationTokens.forEach { app in
             hashVaule.append(app.hashValue)
         }
     }
-    
-    func handleResetSelection() {
-        selectedApp = FamilyActivitySelection()
-    }
-    
     
     func requestAuthorization() {
         if authorizationCenter.authorizationStatus == .approved {
@@ -78,7 +78,7 @@ final class ScreenTimeViewModel: ObservableObject {
             intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
             repeats: false,
             //warning Time 설정해야 알람
-            warningTime: DateComponents(minute: interval)
+            warningTime: DateComponents(minute: 1)
         )
          //새 이벤트 생성
         let event = DeviceActivityEvent(
@@ -86,7 +86,7 @@ final class ScreenTimeViewModel: ObservableObject {
             categories: selectedApp.categoryTokens,
             webDomains: selectedApp.webDomainTokens,
             //threshold - 이 시간이 되면 특정한 event가 발생 deviceactivitymonitor에 eventdidreachthreshold
-            threshold: DateComponents(second: interval)
+            threshold: DateComponents(minute : interval)
             )
         
         do {
@@ -113,7 +113,6 @@ final class ScreenTimeViewModel: ObservableObject {
     }
     
     func block(completion: @escaping (Result<Void, Error>) -> Void) {
-        let selectedAppToken = selectedApp
         let blockSchedule = DeviceActivitySchedule(
             intervalStart: DateComponents(hour: 0, minute: 0),
             intervalEnd: DateComponents(hour: 23, minute: 59),
@@ -121,10 +120,11 @@ final class ScreenTimeViewModel: ObservableObject {
             warningTime: DateComponents(minute: 10)
         )
         
-        store.shield.applications = selectedAppToken.applicationTokens
+        store.shield.applications = selectedApp.applicationTokens
         do {
             try deviceActivityCenter.startMonitoring(DeviceActivityName.once,
                                                      during: blockSchedule)
+            print("여기 들어오나?")
         } catch {
             completion(.failure(error))
             return
