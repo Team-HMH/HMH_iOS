@@ -131,9 +131,7 @@
 		367244ED2BF3E778007A5A7B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EC2BF3E778007A5A7B /* NotificationManager.swift */; };
 		367244F02BF3E8B5007A5A7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */; };
 		367244F22BF3EA51007A5A7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
-		368124152C034A6A0060DDB7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368124142C034A6A0060DDB7 /* Persistence.swift */; };
 		368124172C0350950060DDB7 /* MidnightTaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */; };
-		368124222C0353E80060DDB7 /* DailyChallengeModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 368124202C0353E80060DDB7 /* DailyChallengeModel.xcdatamodeld */; };
 		368780D42C01ED4E00454827 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368CAABC2BB961D900FA83B3 /* ManagedSettings.framework */; };
 		368780D52C01ED4E00454827 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3672442A2BF31D5F007A5A7B /* ManagedSettingsUI.framework */; };
 		368780D82C01ED4E00454827 /* ShieldConfigurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368780D72C01ED4E00454827 /* ShieldConfigurationExtension.swift */; };
@@ -340,9 +338,7 @@
 		367244E82BF3D770007A5A7B /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
 		367244EC2BF3E778007A5A7B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		368124142C034A6A0060DDB7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidnightTaskScheduler.swift; sourceTree = "<group>"; };
-		368124212C0353E80060DDB7 /* DailyChallengeModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DailyChallengeModel.xcdatamodel; sourceTree = "<group>"; };
 		368780D32C01ED4E00454827 /* ShieldConfigureExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShieldConfigureExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368780D72C01ED4E00454827 /* ShieldConfigurationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldConfigurationExtension.swift; sourceTree = "<group>"; };
 		368780D92C01ED4E00454827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -867,7 +863,6 @@
 			isa = PBXGroup;
 			children = (
 				367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */,
-				368124142C034A6A0060DDB7 /* Persistence.swift */,
 				368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */,
 			);
 			path = Application;
@@ -876,7 +871,6 @@
 		3687555C2C03342600DAF428 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				368124202C0353E80060DDB7 /* DailyChallengeModel.xcdatamodeld */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -1092,6 +1086,7 @@
 				365CD6DC2B7E4D4E00245CDD /* XCRemoteSwiftPackageReference "Then" */,
 				0B86938B2BE8B99E000D7CE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				0BDDA0152C005A53001BD43E /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				3681242B2C035C2A0060DDB7 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 365CD6BA2B7E4C4F00245CDD /* Products */;
 			projectDirPath = "";
@@ -1212,7 +1207,6 @@
 				0BBF28822BF2F82500101F40 /* UnlockCompleteAlertView.swift in Sources */,
 				0B86937B2BE727DA000D7CE1 /* SocialLoginModel.swift in Sources */,
 				0BD2D6782B9F39EF00733843 /* Font.swift in Sources */,
-				368124152C034A6A0060DDB7 /* Persistence.swift in Sources */,
 				367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */,
 				0B205B352BFCC16A00B0FB83 /* UserManager.swift in Sources */,
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
@@ -1237,7 +1231,6 @@
 				0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */,
 				367243E32BEDEAF8007A5A7B /* SocialLoginResponseDTO.swift in Sources */,
 				3601C8382BC6EC5C005790F7 /* UsageTimeListItemView.swift in Sources */,
-				368124222C0353E80060DDB7 /* DailyChallengeModel.xcdatamodeld in Sources */,
 				367243FA2BEDEB32007A5A7B /* GetHomeChallengeResponseDTO.swift in Sources */,
 				367244072BEDEC4A007A5A7B /* MyPageRouter.swift in Sources */,
 				0BC0E5B12BB04BA800FB0330 /* SurveyProblemView.swift in Sources */,
@@ -1867,6 +1860,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		3681242B2C035C2A0060DDB7 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1936,20 +1937,6 @@
 			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		368124202C0353E80060DDB7 /* DailyChallengeModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				368124212C0353E80060DDB7 /* DailyChallengeModel.xcdatamodel */,
-			);
-			currentVersion = 368124212C0353E80060DDB7 /* DailyChallengeModel.xcdatamodel */;
-			name = DailyChallengeModel.xcdatamodeld;
-			path = /Users/ljh/Desktop/HMH/HMH_iOS/HMH_iOS/HMH_iOS/Global/DataModel/DailyChallengeModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 365CD6B12B7E4C4F00245CDD /* Project object */;
 }

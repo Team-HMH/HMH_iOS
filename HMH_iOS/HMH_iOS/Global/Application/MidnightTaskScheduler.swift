@@ -10,10 +10,8 @@ import CoreData
 
 class MidnightTaskScheduler {
     var timer: Timer?
-    var persistentContainer = PersistenceController.shared
     
-    init(container: PersistenceController) {
-        self.persistentContainer = container
+    init() {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.example.app.refresh", using: nil) { task in
             self.handleAppRefresh(task: task as! BGAppRefreshTask)
         }
@@ -50,12 +48,8 @@ class MidnightTaskScheduler {
         return nextMidnight
     }
     
-//        do {
-//            try context.save()
-//            print("데이터 저장 성공")
-//        } catch {
-//            print("데이터 저장 실패: \(error)")
-//        }
+    func saveDataToLocalDatabase() {
+        
     }
 }
 
