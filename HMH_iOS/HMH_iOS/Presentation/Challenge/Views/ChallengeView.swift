@@ -33,24 +33,54 @@ struct ChallengeView: View {
         self.viewModel = viewModel
     }
     
-    public var body: some View {
-        main
-            .onAppear {
-                viewModel.generateDummyData()
-            }
-    }
+       public var body: some View {
+           NavigationView {
+               main
+                   .onAppear { }
+           }
+       }
 }
 
 extension ChallengeView {
     private var main: some View {
         ScrollView {
-            headerView
+            if viewModel.isEmptyChallenge() {
+                emptyChallengeHeaderView
+            } else {
+                headerView
+            }
             listView
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
                              showBackButton: false,
                              showPointButton: true)
         .background(.blackground)
+    }
+    
+    var emptyChallengeHeaderView: some View {
+        ZStack(alignment: .top) {
+            Image(.challengeBackground)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            VStack(alignment: .leading) {
+                Text(StringLiteral.Challenge.noChallengeTitle)
+                    .font(.text1_medium_22)
+                    .lineSpacing(22 * 1.5 - 22)
+                    .foregroundStyle(.whiteText)
+                    .padding(.top, 14)
+                    .padding(.leading, 23)
+                Spacer()
+                createChallengeButton
+                
+            }
+        }
+    }
+    
+    var createChallengeButton: some View {
+        NavigationLink(destination: OnboardingContentView(viewModel: .init(isOnboarding: false))) {
+            Text(StringLiteral.Challenge.createButton)
+                .modifier(CustomButtonStyle())
+        }
     }
     
     var headerView: some View {
@@ -82,7 +112,7 @@ extension ChallengeView {
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                 Spacer()
-                Button("편집", action: viewModel.edit)
+                Button("편집", action: viewModel.getChallengeInfo)
                     .font(.text4_semibold_16)
                     .foregroundStyle(.bluePurpleButton)
                     .frame(height: 48)
