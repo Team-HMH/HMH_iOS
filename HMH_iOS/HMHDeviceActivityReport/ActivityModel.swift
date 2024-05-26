@@ -28,6 +28,10 @@ extension TimeInterval {
         let time = NSInteger(self)
         let minutes = (time / 60) % 60
         let hours = (time / 3600)
-        return String(format: "%0.2d시간 %0.2d분", hours,minutes)
+        if hours < 1{
+            return String(format: "%d분", minutes)
+        } else {
+            return String(format: "%d시간 %d분", hours, minutes)
+        }
     }
 }

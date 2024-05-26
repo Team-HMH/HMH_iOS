@@ -11,66 +11,46 @@ import FamilyControls
 struct AppActivityView: View {
     var activityReport: ActivityReport
     var body: some View {
-        Text("앱별 사용시간")
-        VStack(spacing: 4) {
-            List {
-                Section {
-                    ForEach(activityReport.apps) { eachApp in
-                        ListRow(eachApp: eachApp)
-                    }
-                }
+        VStack(alignment: .center) {
+            ForEach(activityReport.apps) { eachApp in
+                ListView(eachApp: eachApp)
+                    .padding(.horizontal, 20)
             }
         }
     }
 }
 
-struct ListRow: View {
+struct ListView: View {
     var eachApp: AppDeviceActivity
     
     var body: some View {
-        VStack(spacing: 4) {
-            HStack(spacing: 0) {
-                if let token = eachApp.token {
-                    Label(token)
-                        .labelStyle(.iconOnly)
-                        .offset(x: -4)
-                }
+        HStack {
+            if let token = eachApp.token {
+                Label(token)
+                    .labelStyle(.iconOnly)
+                    .scaleEffect(2)
+                    .padding(.trailing, 8)
+            }
+            VStack(alignment: .leading) {
                 Text(eachApp.displayName)
-                Spacer()
-                VStack(alignment: .trailing, spacing: 2) {
-                    HStack(spacing: 4) {
-                        Text("화면 깨우기")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .frame(width: 72, alignment: .leading)
-                        Text("\(eachApp.numberOfPickups)회")
-                            .font(.headline)
-                            .bold()
-                            .frame(minWidth: 52, alignment: .trailing)
-                    }
-                    HStack(spacing: 4) {
-                        Text("모니터링 시간")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .frame(width: 72, alignment: .leading)
-                        Text(String(eachApp.duration.toString()))
-                            .font(.headline)
-                            .bold()
-                            .frame(minWidth: 52, alignment: .trailing)
-                    }
-                }
+                    .font(.detail3_semibold_12)
+                    .foregroundStyle(.gray1)
+                    .padding(.bottom, 1)
+                Text(String(eachApp.duration.toString()))
+                    .font(.detail2_semibold_13)
+                    .foregroundStyle(.whiteText)
             }
-            HStack {
-                Text("앱 ID")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                Text(eachApp.id)
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .bold()
-                Spacer()
-            }
+            Spacer()
+            Text("58분 ")
+                .font(.text6_medium_14)
+                .foregroundStyle(.whiteText)
+            + Text("남음")
+                .font(.text6_medium_14)
+                .foregroundStyle(.gray2)
         }
-        .background(.clear)
+        .padding(.horizontal, 18)
+        .frame(height: 72)
+        .background(.gray7)
+        .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }

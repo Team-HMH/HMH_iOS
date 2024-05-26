@@ -7,6 +7,6 @@
 
 import Foundation
 
-class PointViewModel: ObservableObject {
+final class PointViewModel: ObservableObject {
    @Published var challengeDay = 14
 }

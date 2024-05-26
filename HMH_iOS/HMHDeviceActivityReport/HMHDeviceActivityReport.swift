@@ -18,6 +18,9 @@ struct HMHDeviceActivityReport: DeviceActivityReportExtension {
         AppActivityReport { appActivity in
             AppActivityView(activityReport: appActivity)
         }
+        ChallengeActivityReport { appActivity in
+            ChallengeActivityView(activityReport: appActivity)
+        }
         // Add more reports here...
     }
 }

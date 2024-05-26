@@ -14,6 +14,7 @@ struct HMH_iOSApp: App {
     @StateObject var userManager = UserManager.shared
     
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init() {
         KakaoSDK.initSDK(appKey: kakaoAPIKey)
