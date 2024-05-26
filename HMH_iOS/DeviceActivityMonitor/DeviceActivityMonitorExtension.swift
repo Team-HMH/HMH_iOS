@@ -37,7 +37,9 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     //threshold에 도착하면 행동한다
     override func eventDidReachThreshold(_ event: DeviceActivityEvent.Name, activity: DeviceActivityName) {
         store.shield.applications = selectionApps.applicationTokens
-        screenTimeVM.handleSetBlockApplication()
+        Task {
+            await screenTimeVM.handleSetBlockApplication()
+        }
         let notiContent = UNMutableNotificationContent()
         notiContent.title = "하면함"
         notiContent.body = "이용 시간이 종료 되었습니다."
