@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E214" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="AppData" representedClassName="AppData" syncable="YES" codeGenerationType="class">
+        <attribute name="appCode" optional="YES" attributeType="String"/>
+        <attribute name="appUseTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <relationship name="dailyChallenge" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DailyChallengeModel" inverseName="app_datas" inverseEntity="DailyChallengeModel"/>
+    </entity>
+    <entity name="DailyChallengeModel" representedClassName="DailyChallengeModel" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="is_send" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="app_datas" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppData" inverseName="dailyChallenge" inverseEntity="AppData"/>
+    </entity>
+</model>
