@@ -132,17 +132,17 @@ class OnboardingViewModel: ObservableObject {
         
         let provider = Providers.AuthProvider
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
-            switch data.status  {
-            case 201:
+            print(data.status)
+            if data.status == 201 {
                 UserManager.shared.isOnboardingCompleted = true
                 UserManager.shared.isOnboarding = true
                 UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
                 UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
-            case 400:
-                print("에러입니다 에러")
-                self.onboardingState -= 6
-            default:
-                print("에러입니다 에러")
+            } else if data.message == "이미 회원가입된 유저입니다." {
+                UserManager.shared.isOnboardingCompleted = true
+                UserManager.shared.isOnboarding = true
+            } else {
+                self.onboardingState = 0
             }
         }
     }
