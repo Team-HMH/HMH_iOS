@@ -136,6 +136,7 @@
 		368780D82C01ED4E00454827 /* ShieldConfigurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368780D72C01ED4E00454827 /* ShieldConfigurationExtension.swift */; };
 		368780DD2C01ED4E00454827 /* ShieldConfigureExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 368780D32C01ED4E00454827 /* ShieldConfigureExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		368780E12C01EF7400454827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
+		368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368780E22C024DAD00454827 /* CustomButtonModifer.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -330,6 +331,7 @@
 		368780D72C01ED4E00454827 /* ShieldConfigurationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldConfigurationExtension.swift; sourceTree = "<group>"; };
 		368780D92C01ED4E00454827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		368780DA2C01ED4E00454827 /* ShieldConfigureExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldConfigureExtension.entitlements; sourceTree = "<group>"; };
+		368780E22C024DAD00454827 /* CustomButtonModifer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonModifer.swift; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -902,6 +904,7 @@
 			children = (
 				368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */,
 				0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */,
+				368780E22C024DAD00454827 /* CustomButtonModifer.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -1210,6 +1213,7 @@
 				367243D72BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift in Sources */,
 				367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */,
 				367244092BEDEC7F007A5A7B /* Providers.swift in Sources */,
+				368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */,
 				367243D22BEDE9F6007A5A7B /* Config.swift in Sources */,
 				367243D62BEDE9F6007A5A7B /* APIConstants.swift in Sources */,
 				0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */,
