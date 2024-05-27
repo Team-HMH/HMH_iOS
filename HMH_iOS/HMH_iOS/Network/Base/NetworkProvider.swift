@@ -59,7 +59,9 @@ class NetworkProvider<Provider : TargetType> : MoyaProvider<Provider> {
             case .failure(let error):
                 if let response = error.response {
                     if let responseData = String(data: response.data, encoding: .utf8) {
-                        print(responseData)
+                        if let decodeData = try? JSONDecoder().decode(instance, from: response.data) {
+                            completion(decodeData)
+                        }
                     } else {
                         print(error.localizedDescription)
                     }

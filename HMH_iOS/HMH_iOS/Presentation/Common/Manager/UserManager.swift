@@ -8,9 +8,9 @@
 import SwiftUI
 
 class UserManager: ObservableObject {
-    @AppStorage("accessToken") var accessToken = ""
-    @AppStorage("refreshToken") var refreshToken = ""
-    @AppStorage("socialToken") var socialToken = ""
+    @KeychainStorage("accessToken") var accessToken
+    @KeychainStorage("refreshToken") var refreshToken
+    @KeychainStorage("socialToken") var socialToken
     @AppStorage("socialPlatform") var socialPlatform: String?
     @AppStorage("userName") var userName: String?
     @AppStorage("isOnboarding") var isOnboarding: Bool = true

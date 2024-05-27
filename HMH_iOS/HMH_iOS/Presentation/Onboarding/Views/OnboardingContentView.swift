@@ -10,7 +10,15 @@ import SwiftUI
 struct OnboardingContentView: View {
     
     @StateObject
-    var viewModel = OnboardingViewModel()
+    var screenViewModel = ScreenTimeViewModel()
+    @StateObject
+    var viewModel: OnboardingViewModel
+    
+    init() {
+        let viewModel = ScreenTimeViewModel()
+        _screenViewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: viewModel))
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
