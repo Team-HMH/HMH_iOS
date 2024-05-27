@@ -14,8 +14,6 @@ struct NextButtonView: View {
     var body: some View {
         VStack {
             Button {
-                viewModel.addOnboardingState()
-                viewModel.offIsCompleted()
                 viewModel.saveOnboardingData()
             } label: {
                 Text(viewModel.getNextButton())

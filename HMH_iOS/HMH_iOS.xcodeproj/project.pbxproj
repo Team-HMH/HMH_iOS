@@ -56,6 +56,8 @@
 		0BD2D6752B9F386B00733843 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6742B9F386B00733843 /* Pretendard-Medium.otf */; };
 		0BD2D6782B9F39EF00733843 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2D6772B9F39EF00733843 /* Font.swift */; };
 		0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2D67B2B9F5A7B00733843 /* String.swift */; };
+		0BDDA0142C005A25001BD43E /* KeyChainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDDA0132C005A25001BD43E /* KeyChainStorage.swift */; };
+		0BDDA0172C005A53001BD43E /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 0BDDA0162C005A53001BD43E /* KeychainAccess */; };
 		0BF56C932BC39127003ECFB1 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF56C922BC39127003ECFB1 /* PickerView.swift */; };
 		0BF56C952BC39BE9003ECFB1 /* OnboardingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF56C942BC39BE9003ECFB1 /* OnboardingCompleteView.swift */; };
 		0BF56C972BC3B871003ECFB1 /* StoryContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF56C962BC3B871003ECFB1 /* StoryContentView.swift */; };
@@ -263,6 +265,7 @@
 		0BD2D6762B9F393400733843 /* HMH-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HMH-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0BD2D6772B9F39EF00733843 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		0BD2D67B2B9F5A7B00733843 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		0BDDA0132C005A25001BD43E /* KeyChainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainStorage.swift; sourceTree = "<group>"; };
 		0BF56C922BC39127003ECFB1 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		0BF56C942BC39BE9003ECFB1 /* OnboardingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompleteView.swift; sourceTree = "<group>"; };
 		0BF56C962BC3B871003ECFB1 /* StoryContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryContentView.swift; sourceTree = "<group>"; };
@@ -351,6 +354,7 @@
 				365CD6D52B7E4CE900245CDD /* RxMoya in Frameworks */,
 				365CD6CF2B7E4CE900245CDD /* CombineMoya in Frameworks */,
 				365CD6DE2B7E4D4E00245CDD /* Then in Frameworks */,
+				0BDDA0172C005A53001BD43E /* KeychainAccess in Frameworks */,
 				365CD6DB2B7E4D3600245CDD /* SnapKit in Frameworks */,
 				365CD6D32B7E4CE900245CDD /* ReactiveMoya in Frameworks */,
 				365CD6CC2B7E4CBE00245CDD /* Lottie in Frameworks */,
@@ -695,6 +699,7 @@
 			children = (
 				367244E82BF3D770007A5A7B /* AppStorageKey.swift */,
 				367244EC2BF3E778007A5A7B /* NotificationManager.swift */,
+				0BDDA0132C005A25001BD43E /* KeyChainStorage.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -938,6 +943,7 @@
 				0B86938E2BE8B99E000D7CE1 /* KakaoSDKAuth */,
 				0B8693902BE8B99E000D7CE1 /* KakaoSDKCommon */,
 				0B8693922BE8B99E000D7CE1 /* KakaoSDKUser */,
+				0BDDA0162C005A53001BD43E /* KeychainAccess */,
 			);
 			productName = HMH_iOS;
 			productReference = 365CD6B92B7E4C4F00245CDD /* HMH_iOS.app */;
@@ -1054,6 +1060,7 @@
 				365CD6D92B7E4D3600245CDD /* XCRemoteSwiftPackageReference "SnapKit" */,
 				365CD6DC2B7E4D4E00245CDD /* XCRemoteSwiftPackageReference "Then" */,
 				0B86938B2BE8B99E000D7CE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				0BDDA0152C005A53001BD43E /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 365CD6BA2B7E4C4F00245CDD /* Products */;
 			projectDirPath = "";
@@ -1136,6 +1143,7 @@
 				0BBF28842BF2F83900101F40 /* InsufficientPointsAlertView.swift in Sources */,
 				0B3C296D2BA01C2000435B30 /* ChallengeView.swift in Sources */,
 				367243B22BE9ABCC007A5A7B /* ChallengeViewModel.swift in Sources */,
+				0BDDA0142C005A25001BD43E /* KeyChainStorage.swift in Sources */,
 				3601C8362BC6E8FB005790F7 /* HomeViewModel.swift in Sources */,
 				367243B62BED3830007A5A7B /* ScreenTimeViewModel.swift in Sources */,
 				367243FC2BEDEB32007A5A7B /* HomeChallengeResponseDTO.swift in Sources */,
@@ -1776,6 +1784,14 @@
 				minimumVersion = 2.22.1;
 			};
 		};
+		0BDDA0152C005A53001BD43E /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		365CD6CA2B7E4CBE00245CDD /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -1838,6 +1854,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0B86938B2BE8B99E000D7CE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		0BDDA0162C005A53001BD43E /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BDDA0152C005A53001BD43E /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 		365CD6CB2B7E4CBE00245CDD /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

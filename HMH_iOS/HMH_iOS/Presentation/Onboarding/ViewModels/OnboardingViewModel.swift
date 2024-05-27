@@ -9,6 +9,8 @@ import SwiftUI
 
 class OnboardingViewModel: ObservableObject {
     
+    var screenViewModel: ScreenTimeViewModel
+    
     @Published
     var surveyButtonItems: [[SurveyButtonInfo]]
     
@@ -36,7 +38,7 @@ class OnboardingViewModel: ObservableObject {
     var goalTime: Int
     
     var appGoalTime: Int
-        
+    
     
     @AppStorage("socialPlatform") private var socialPlatform = ""
     @AppStorage("userName") private var userName = ""
@@ -44,33 +46,49 @@ class OnboardingViewModel: ObservableObject {
     func saveOnboardingData() {
         print(onboardingState)
         switch onboardingState {
+        case 0:
+            for index in 0..<4{
+                if surveyButtonItems[onboardingState][index].isSelected {
+                    self.averageUseTime = surveyButtonItems[onboardingState][index].buttonTitle
+                }
+            }
+            addOnboardingState()
+            offIsCompleted()
         case 1:
             for index in 0..<4{
-                if surveyButtonItems[onboardingState  - 1][index].isSelected {
-                    self.averageUseTime = surveyButtonItems[onboardingState - 1][index].buttonTitle
+                if surveyButtonItems[onboardingState] [index].isSelected {
+                    self.problems.append(surveyButtonItems[onboardingState][index].buttonTitle)
                 }
             }
+            addOnboardingState()
+            offIsCompleted()
         case 2:
             for index in 0..<4{
-                if surveyButtonItems[onboardingState - 1][index].isSelected {
-                    self.problems.append(surveyButtonItems[onboardingState - 1][index].buttonTitle)
-                }
-            }
-        case 3:
-            for index in 0..<4{
-                if surveyButtonItems[onboardingState - 1][index].isSelected {
-                    self.period = removeLastCharacterAndConvertToInt(from: surveyButtonItems[onboardingState - 1][index].buttonTitle) ?? 0
-
-                    print(surveyButtonItems[onboardingState - 1][index].buttonTitle)
+                if surveyButtonItems[onboardingState] [index].isSelected {
+                    self.period = removeLastCharacterAndConvertToInt(from: surveyButtonItems[onboardingState] [index].buttonTitle) ?? 0
+                    
+                    print(surveyButtonItems[onboardingState] [index].buttonTitle)
                     
                 }
             }
-        case 4:
+            addOnboardingState()
+            offIsCompleted()
+        case 3:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
-        case 7:
+            addOnboardingState()
+        case 4:
+            screenViewModel.requestAuthorization()
+            if screenViewModel.hasScreenTimePermission {
+                onboardingState += 1
+            }
+        case 5:
+            // 앱 선택
+            addOnboardingState()
+        case 6:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
             postSignUpLoginData()
-            
+            addOnboardingState()
+            offIsCompleted()
         default:
             break
         }
@@ -85,10 +103,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func offIsCompleted() {
-        if onboardingState != 4 && onboardingState != 5 {
-            isCompleted = false
-        }
-        // 권한 허용 버튼 활성화를 위함
+        isCompleted = false
     }
     
     func getSurveyState() -> Int {
@@ -96,9 +111,9 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func pushToComplete() {
-//        if onboardingState == 6 {
-//            NavigationLink(PermissionView)
-//        }
+        //        if onboardingState == 6 {
+        //            NavigationLink(PermissionView)
+        //        }
     }
     
     func removeLastCharacterAndConvertToInt(from string: String) -> Int? {
@@ -110,17 +125,22 @@ class OnboardingViewModel: ObservableObject {
         
         return Int(modifiedString)
     }
-
+    
     
     func postSignUpLoginData() {
         let request = SignUpRequestDTO(socialPlatform: socialPlatform, name: userName, onboarding: Onboarding(averageUseTime: self.averageUseTime, problem: self.problems), challenge: Challenge(period: self.period, goalTime: self.goalTime, apps: [Apps(appCode: "#23324", goalTime: appGoalTime)]))
         
         let provider = Providers.AuthProvider
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
+            print(data.status)
             if data.status == 201 {
                 UserManager.shared.isOnboardingCompleted = true
+                UserManager.shared.isOnboarding = true
                 UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
                 UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
+            } else if data.message == "이미 회원가입된 유저입니다." {
+                UserManager.shared.isOnboardingCompleted = true
+                UserManager.shared.isOnboarding = true
             } else {
                 self.onboardingState = 0
             }
@@ -145,7 +165,7 @@ class OnboardingViewModel: ObservableObject {
         let totalMilliseconds = totalMinutes * 60 * 1000
         return totalMilliseconds
     }
-
+    
     
     func getOnboardigMain() -> String {
         switch onboardingState {
@@ -204,7 +224,7 @@ class OnboardingViewModel: ObservableObject {
         }
     }
     
-    init() {
+    init(viewModel: ScreenTimeViewModel) {
         self.surveyButtonItems = [
             [
                 SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
@@ -235,5 +255,6 @@ class OnboardingViewModel: ObservableObject {
         self.period = 0
         self.goalTime = 0
         self.appGoalTime = 0
+        self.screenViewModel = viewModel
     }
 }
