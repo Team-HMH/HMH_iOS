@@ -19,6 +19,10 @@ class MyPageViewModel: ObservableObject {
     @Published var isPresented = false
     
     @Published var alertType: CustomAlertType = .logout
+    
+    @Published var name = ""
+    
+    @Published var point = 0
 
     func getButtonTitle(type: MyPageButtonType) -> String {
         switch type {
@@ -44,12 +48,12 @@ class MyPageViewModel: ObservableObject {
         }
     }
     
-    func getUserName() -> String {
-        "김하면함"
-    }
-    
-    func getUserPoint() -> String {
-        "100p"
+    func getUserData() {
+        let provider = Providers.myPageProvider
+        provider.request(target: .getUserData, instance: BaseResponse<GetUserDataResponseDTO>.self) { data in
+            self.name = data.data?.name ?? ""
+            self.point = data.data?.point ?? 0
+        }
     }
     
     func myPageButtonClick(type: MyPageButtonType) {

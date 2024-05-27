@@ -22,6 +22,9 @@ struct MyPageView: View {
             Spacer()
             AccountControlView(viewModel: viewModel)
         }
+        .onAppear() {
+            viewModel.getUserData()
+        }
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.blackground)
@@ -59,13 +62,13 @@ extension MyPageView {
             Image(.profile)
                 .frame(width: 54, height: 54)
                 .padding(10)
-            Text(viewModel.getUserName())
+            Text(viewModel.name)
                 .font(.title4_semibold_20)
             Spacer().frame(height: 16)
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
-                Text(viewModel.getUserPoint())
+                Text("\(viewModel.point)")
                     .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)
