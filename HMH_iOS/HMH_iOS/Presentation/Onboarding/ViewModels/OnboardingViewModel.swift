@@ -143,7 +143,6 @@ class OnboardingViewModel: ObservableObject {
             print(data.status)
             if data.status == 201 {
                 UserManager.shared.isOnboardingCompleted = true
-                UserManager.shared.isOnboarding = true
                 UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
                 UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
             } else if data.message == "이미 회원가입된 유저입니다." {
