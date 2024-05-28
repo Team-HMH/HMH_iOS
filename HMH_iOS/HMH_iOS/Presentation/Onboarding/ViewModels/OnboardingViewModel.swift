@@ -165,7 +165,7 @@ class OnboardingViewModel: ObservableObject {
         let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.goalTime)
         
         let provider = Providers.challengeProvider
-        provider.request(target: .createChallenge(data: request), instance: BaseResponse<CreateChallengeResponseDTO>.self) { data in
+        provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
             print(data.status)
         }
     }
