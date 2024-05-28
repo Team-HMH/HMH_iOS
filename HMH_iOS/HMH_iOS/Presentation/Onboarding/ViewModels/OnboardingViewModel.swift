@@ -35,6 +35,8 @@ class OnboardingViewModel: ObservableObject {
     
     var period: Int
     
+    var isChallengeMode: Bool
+    
     var goalTime: Int
     
     var appGoalTime: Int
@@ -66,7 +68,7 @@ class OnboardingViewModel: ObservableObject {
             for index in 0..<4{
                 if surveyButtonItems[onboardingState] [index].isSelected {
                     self.period = removeLastCharacterAndConvertToInt(from: surveyButtonItems[onboardingState] [index].buttonTitle) ?? 0
-                    
+
                     print(surveyButtonItems[onboardingState] [index].buttonTitle)
                     
                 }
@@ -75,7 +77,13 @@ class OnboardingViewModel: ObservableObject {
             offIsCompleted()
         case 3:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
-            addOnboardingState()
+            if isChallengeMode {
+                print("isChallengeMode")
+                postCreateChallengeData()
+                addOnboardingState()
+            } else {
+                addOnboardingState()
+            }
         case 4:
             screenViewModel.requestAuthorization()
             if screenViewModel.hasScreenTimePermission {
@@ -144,6 +152,15 @@ class OnboardingViewModel: ObservableObject {
             } else {
                 self.onboardingState = 0
             }
+        }
+    }
+    
+    func postCreateChallengeData() {
+        let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.goalTime)
+        
+        let provider = Providers.challengeProvider
+        provider.request(target: .createChallenge(data: request), instance: BaseResponse<CreateChallengeResponseDTO>.self) { data in
+            print(data.status)
         }
     }
     
@@ -224,37 +241,38 @@ class OnboardingViewModel: ObservableObject {
         }
     }
     
-    init(viewModel: ScreenTimeViewModel) {
-        self.surveyButtonItems = [
-            [
-                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.secondSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.thirdSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.fourthSelect, isSelected: false),
-            ],
-            [
-                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.firstSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.secondSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.thirdSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.fourthSelect, isSelected: false),
-            ],
-            [
-                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.firstSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.secondSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.thirdSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.fourthSelect, isSelected: false),
+    init(viewModel: ScreenTimeViewModel, onboardingState: Int = 0, isChallengeMode: Bool = false) {
+            self.surveyButtonItems = [
+                [
+                    SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.secondSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.thirdSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.fourthSelect, isSelected: false),
+                ],
+                [
+                    SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.firstSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.secondSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.thirdSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.fourthSelect, isSelected: false),
+                ],
+                [
+                    SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.firstSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.secondSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.thirdSelect, isSelected: false),
+                    SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.fourthSelect, isSelected: false),
+                ]
             ]
-        ]
-        self.onboardingState = 0
-        self.isCompleted = false
-        self.selectedGoalTime = ""
-        self.selectedAppHour = ""
-        self.selectedAppMinute = ""
-        self.problems = []
-        self.averageUseTime = ""
-        self.period = 0
-        self.goalTime = 0
-        self.appGoalTime = 0
-        self.screenViewModel = viewModel
-    }
+            self.onboardingState = onboardingState
+            self.isCompleted = false
+            self.selectedGoalTime = ""
+            self.selectedAppHour = ""
+            self.selectedAppMinute = ""
+            self.problems = []
+            self.averageUseTime = ""
+            self.period = 0
+            self.goalTime = 0
+            self.appGoalTime = 0
+            self.screenViewModel = viewModel
+            self.isChallengeMode = isChallengeMode
+        }
 }
