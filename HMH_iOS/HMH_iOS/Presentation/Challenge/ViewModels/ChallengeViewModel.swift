@@ -21,8 +21,7 @@ final class ChallengeViewModel: ObservableObject {
     @Published var titleString = ""
     @Published var subTitleString = ""
     
-    init() { 
-        getChallengeInfo()
+    init() {
     }
     
     func isEmptyChallenge() -> Bool {
@@ -33,10 +32,6 @@ final class ChallengeViewModel: ObservableObject {
         }
     }
     
-    func createChallenge() {
-        
-    }
-    
     func getChallengeInfo() {
         Providers.challengeProvider.request(target: .getChallenge,
                                             instance: BaseResponse<GetChallengeResponseDTO>.self) { result in
@@ -45,6 +40,24 @@ final class ChallengeViewModel: ObservableObject {
             self.appList = data.apps
             
         }
+    }
+    
+    func createChallenge(bundle: [String]) {
+        
+        let dto = CreateChallengeRequestDTO(period: 7, goalTime: 1204928)
+        Providers.challengeProvider.request(target: .createChallenge(data: dto), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+            print(result)
+        }
+        var applist: [Apps] = []
+        
+        bundle.forEach { bundleid in
+            applist.append(Apps(appCode: bundleid, goalTime: 10000000))
+        }
+        
+        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+            print(result)
+        }
+        
     }
     
     func setTitle(){

@@ -10,6 +10,7 @@ import FamilyControls
 
 struct ChallengeActivityView: View {
     var activityReport: ActivityReport
+    
     var body: some View {
         VStack(alignment: .center) {
             ForEach(activityReport.apps) { eachApp in

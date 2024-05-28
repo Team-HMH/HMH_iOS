@@ -78,7 +78,7 @@ extension ChallengeView {
     }
     
     var createChallengeButton: some View {
-        NavigationLink(destination: OnboardingContentView(viewModel: .init(isOnboarding: false))) {
+        NavigationLink(destination: OnboardingContentView()) {
             Text(StringLiteral.Challenge.createButton)
                 .modifier(CustomButtonStyle())
         }
@@ -94,7 +94,7 @@ extension ChallengeView {
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                     .padding(.top, 14)
-                Text("\(viewModel.data?.todayIndex ?? 1)일차")
+                Text("1일차")
                     .font(.title1_semibold_32)
                     .foregroundStyle(.whiteText)
                     .padding(.top, 2)
