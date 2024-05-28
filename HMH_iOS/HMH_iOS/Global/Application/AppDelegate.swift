@@ -7,10 +7,35 @@
 
 import UIKit
 
+import RealmSwift
+
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         NotificationManager.shared.requestAuthorization()
         UNUserNotificationCenter.current().delegate = NotificationManager.shared
+        
+        
+        
+        let defaultRealm = Realm.Configuration.defaultConfiguration.fileURL!
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.HMH")
+        let realmURL = container?.appendingPathComponent("default.realm")
+        var config: Realm.Configuration!
+
+        // Checking the old realm config is exist
+        if FileManager.default.fileExists(atPath: defaultRealm.path) {
+            do {
+                _ = try FileManager.default.replaceItemAt(realmURL!, withItemAt: defaultRealm)
+               config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+            } catch {
+               print("Error info: \(error)")
+            }
+        } else {
+             config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+        }
+
+        Realm.Configuration.defaultConfiguration = config
+        print("realm 위치: ", Realm.Configuration.defaultConfiguration.fileURL!)
+
         return true
     }
 

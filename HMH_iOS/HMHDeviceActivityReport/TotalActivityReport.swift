@@ -7,6 +7,7 @@
 
 import DeviceActivity
 import SwiftUI
+import RealmSwift
 
 extension DeviceActivityReport.Context {
     // If your app initializes a DeviceActivityReport with this context, then the system will use
@@ -36,6 +37,18 @@ struct TotalActivityReport: DeviceActivityReportScene {
         let totalActivityDuration = await data.flatMap { $0.activitySegments }.reduce(0, {
             $0 + $1.totalActivityDuration
         })
+        
+        let time = TotalTime()
+        time.duraction = formatter.string(from: totalActivityDuration) ?? "No activity data"
+        
+        do {
+            try RealmManager.shared.localRealm.write {
+                RealmManager.shared.localRealm.add(time)
+            }
+        } catch {
+            print("Error initialising new realm \(error)")
+        }
+        
         return formatter.string(from: totalActivityDuration) ?? "No activity data"
     }
 }

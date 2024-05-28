@@ -124,7 +124,6 @@ final class ScreenTimeViewModel: ObservableObject {
         do {
             try deviceActivityCenter.startMonitoring(DeviceActivityName.once,
                                                      during: blockSchedule)
-            print("여기 들어오나?")
         } catch {
             completion(.failure(error))
             return
