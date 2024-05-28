@@ -9,9 +9,12 @@
 import SwiftUI
 import DeviceActivity
 
+import RealmSwift
+
 struct AppActivityReport: DeviceActivityReportScene {
     let context : DeviceActivityReport.Context = .appActivity
     let content: (ActivityReport) -> AppActivityView
+    
     
     func makeConfiguration(representing data: DeviceActivityResults<DeviceActivityData>) async -> ActivityReport {
 
@@ -26,6 +29,7 @@ struct AppActivityReport: DeviceActivityReportScene {
                 for await categoryActivity in activitySegment.categories {
                     /// 이 카테고리의 totalActivityDuration에 기여한 사용자의 application Activity
                     for await applicationActivity in categoryActivity.applications {
+                        var id = 0
                         let appName = (applicationActivity.application.localizedDisplayName ?? "nil") /// 앱 이름
                         let bundle = (applicationActivity.application.bundleIdentifier ?? "nil") /// 앱 번들id
                         let duration = applicationActivity.totalActivityDuration /// 앱의 total activity 기간
@@ -39,6 +43,20 @@ struct AppActivityReport: DeviceActivityReportScene {
                             numberOfPickups: numberOfPickups,
                             token: token
                         )
+                        
+                        let realmApp = Appdata(id: id)
+                        realmApp.bundleId = bundle
+                        realmApp.duraction = duration
+                        
+                        do {
+                            try RealmManager.shared.localRealm.write {
+                                RealmManager.shared.localRealm.add(realmApp)
+                            }
+                        } catch {
+                            print("Error initialising new realm \(error)")
+                        }
+                        list.append(appActivity)
+                        id += 1
                         list.append(appActivity)
                     }
                 }
@@ -68,6 +86,7 @@ struct ChallengeActivityReport: DeviceActivityReportScene {
                 for await categoryActivity in activitySegment.categories {
                     /// 이 카테고리의 totalActivityDuration에 기여한 사용자의 application Activity
                     for await applicationActivity in categoryActivity.applications {
+                        var id = 0
                         let appName = (applicationActivity.application.localizedDisplayName ?? "nil") /// 앱 이름
                         let bundle = (applicationActivity.application.bundleIdentifier ?? "nil") /// 앱 번들id
                         let duration = applicationActivity.totalActivityDuration /// 앱의 total activity 기간
@@ -81,7 +100,20 @@ struct ChallengeActivityReport: DeviceActivityReportScene {
                             numberOfPickups: numberOfPickups,
                             token: token
                         )
+                        let realmApp = Appdata(id: id)
+                        realmApp.bundleId = bundle
+                        realmApp.duraction = duration
+                        
+                        do {
+                            let realm = try await Realm()
+                            try realm.write {
+                                realm.add(realmApp)
+                            }
+                        } catch {
+                            print("Error initialising new realm \(error)")
+                        }
                         list.append(appActivity)
+                        id += 1
                     }
                 }
 
