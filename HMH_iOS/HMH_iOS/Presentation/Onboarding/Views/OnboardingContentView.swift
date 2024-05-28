@@ -43,7 +43,7 @@ struct OnboardingContentView: View {
         .background(.blackground, ignoresSafeAreaEdges: .all)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
-            if isChallengeMode && newState == 4 {
+            if isChallengeMode && (newState == 1 || newState == 4) {
                 self.presentationMode.wrappedValue.dismiss()
             }
         }
@@ -60,12 +60,12 @@ extension OnboardingContentView {
                     .frame(width: 24, height: 24)
             })
             Spacer()
-
+            
         }
         .frame(maxWidth: .infinity)
         .frame(height: 60)
     }
-
+    
     private func OnboardingProgressView() -> some View {
         VStack {
             ZStack(alignment: .leading) {

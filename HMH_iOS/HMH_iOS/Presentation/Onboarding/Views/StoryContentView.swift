@@ -29,7 +29,7 @@ struct StoryContentView: View {
         .onTapGesture {
             self.storyState += 1
             if storyState == 3 {
-                UserManager.shared.isOnboarding = true
+                UserManager.shared.appStateString = "home"
             }
         }
     }
