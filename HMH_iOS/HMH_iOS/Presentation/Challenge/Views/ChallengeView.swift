@@ -16,7 +16,7 @@ struct ChallengeView: View {
     @State var viewModel: ChallengeViewModel
     @State var list = [AppDeviceActivity]()
     @State var isPresented = false
-    @State private var selection = FamilyActivitySelection() 
+    @State private var selection = FamilyActivitySelection()
     var challengeDays = 14
     
     @State var context: DeviceActivityReport.Context = .init(rawValue: "Challenge Activity")
@@ -34,12 +34,12 @@ struct ChallengeView: View {
         self.viewModel = viewModel
     }
     
-       public var body: some View {
-           NavigationView {
-               main
-                   .onAppear { }
-           }
-       }
+    public var body: some View {
+        NavigationView {
+            main
+                .onAppear { }
+        }
+    }
 }
 
 extension ChallengeView {
@@ -90,11 +90,11 @@ extension ChallengeView {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             VStack(alignment: .leading) {
-                Text("5월 5일 시작부터")
+                Text("\(viewModel.startDate) 시작부터")
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                     .padding(.top, 14)
-                Text("1일차")
+                Text("\(viewModel.todayIndex + 1)일차")
                     .font(.title1_semibold_32)
                     .foregroundStyle(.whiteText)
                     .padding(.top, 2)
@@ -102,9 +102,9 @@ extension ChallengeView {
                 challengeWeekView
                     .frame(width: UIScreen.main.bounds.width * 0.9)
                     .padding(.bottom, 20)
-//                NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2), label: {
-//                    Text("챌린지 생성")
-//                })
+                //                NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2), label: {
+                //                    Text("챌린지 생성")
+                //                })
             }
         }
     }
@@ -135,7 +135,7 @@ extension ChallengeView {
                 screenTimeViewModel.updateSelectedApp(newSelection: newSelection)
                 screenTimeViewModel.saveHashValue()
                 // TODO: 챌린지 만드는 시점에 설정
-//                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
+                //                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
             }
         }
         .onAppear() {
@@ -160,26 +160,52 @@ extension ChallengeView {
     
     var challengeWeekView: some View {
         VStack {
-            ForEach(1...challengeDays/7, id: \.self) { week in
-                HStack {
-                    ForEach(1...7, id: \.self) { days in
-                        VStack {
-                            Text("\((week - 1) * 7 + days)")
-                                .font(.text6_medium_14)
-                                .foregroundStyle(.gray2)
-                            ZStack {
-                                Circle()
-                                    .stroke(.gray6, lineWidth: 2) // 테두리를 그리는 원
-                                    .frame(width: 44, height: 44)
-                                
-                                Circle()
-                                    .foregroundColor(.clear) // 내부를 채우는 원
-                                    .frame(width: 44, height: 44)
-                            }
-                        }
-                    }
+            ForEach(0..<viewModel.challengeStatus.count / 7, id: \.self) { week in
+                challengeWeekRow(week: week)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func challengeWeekRow(week: Int) -> some View {
+        HStack {
+            ForEach(0..<7, id: \.self) { day in
+                challengeDayCell(week: week, day: day)
+            }
+        }
+        .padding(.bottom, 8)
+    }
+    
+    @ViewBuilder
+    private func challengeDayCell(week: Int, day: Int) -> some View {
+        let index = week * 7 + day
+        
+        VStack {
+            if index == viewModel.todayIndex {
+                ZStack {
+                    Circle()
+                        .foregroundColor(.bluePurpleOpacity70)
+                        .frame(width: 20, height: 20)
+                    Text("\(index + 1)")
+                        .font(.text6_medium_14)
+                        .foregroundColor(.gray2)
                 }
-                .padding(.bottom, 8)
+            } else {
+                Text("\(index + 1)")
+                    .font(.text6_medium_14)
+                    .foregroundColor(.gray2)
+            }
+            ZStack {
+                if index < viewModel.todayIndex {
+                    viewModel.checkPointStatus(status: viewModel.challengeStatus[index])
+                } else {
+                    Circle()
+                        .stroke(index == viewModel.todayIndex ? .bluePurpleOpacity70 : .gray6 , lineWidth: 2)
+                        .frame(width: 44, height: 44)
+                    Circle()
+                        .foregroundColor(.clear)
+                        .frame(width: 44, height: 44)
+                }
             }
         }
     }
