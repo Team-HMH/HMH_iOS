@@ -34,6 +34,7 @@ extension PointView {
                              showPointButton: true,
                              isPointView: true)
         .background(.blackground)
+        .navigationBarHidden(true) 
     }
     
     private var listView: some View {

@@ -9,6 +9,7 @@ import SwiftUI
 
 import FamilyControls
 import DeviceActivity
+import RealmSwift
 
 struct ChallengeView: View {
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
@@ -33,26 +34,54 @@ struct ChallengeView: View {
         self.viewModel = viewModel
     }
     
-    public var body: some View {
-        NavigationView {
-            main
-                .onAppear {
-                    viewModel.generateDummyData()
-                }
-        }
-    }
+       public var body: some View {
+           NavigationView {
+               main
+                   .onAppear { }
+           }
+       }
 }
 
 extension ChallengeView {
     private var main: some View {
         ScrollView {
-            headerView
+            if viewModel.isEmptyChallenge() {
+                emptyChallengeHeaderView
+            } else {
+                headerView
+            }
             listView
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
                              showBackButton: false,
                              showPointButton: true)
         .background(.blackground)
+    }
+    
+    var emptyChallengeHeaderView: some View {
+        ZStack(alignment: .top) {
+            Image(.challengeBackground)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            VStack(alignment: .leading) {
+                Text(StringLiteral.Challenge.noChallengeTitle)
+                    .font(.text1_medium_22)
+                    .lineSpacing(22 * 1.5 - 22)
+                    .foregroundStyle(.whiteText)
+                    .padding(.top, 14)
+                    .padding(.leading, 23)
+                Spacer()
+                createChallengeButton
+                
+            }
+        }
+    }
+    
+    var createChallengeButton: some View {
+        NavigationLink(destination: OnboardingContentView()) {
+            Text(StringLiteral.Challenge.createButton)
+                .modifier(CustomButtonStyle())
+        }
     }
     
     var headerView: some View {
@@ -65,7 +94,7 @@ extension ChallengeView {
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                     .padding(.top, 14)
-                Text("\(viewModel.data?.todayIndex ?? 1)일차")
+                Text("1일차")
                     .font(.title1_semibold_32)
                     .foregroundStyle(.whiteText)
                     .padding(.top, 2)
@@ -87,7 +116,7 @@ extension ChallengeView {
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                 Spacer()
-                Button("편집", action: viewModel.edit)
+                Button("편집", action: viewModel.getChallengeInfo)
                     .font(.text4_semibold_16)
                     .foregroundStyle(.bluePurpleButton)
                     .frame(height: 48)
@@ -104,11 +133,16 @@ extension ChallengeView {
                                   selection: $selection)
             .onChange(of: selection) { newSelection in
                 screenTimeViewModel.updateSelectedApp(newSelection: newSelection)
+                screenTimeViewModel.saveHashValue()
                 // TODO: 챌린지 만드는 시점에 설정
 //                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
             }
         }
         .onAppear() {
+            let getTotalTime = RealmManager.shared.localRealm.objects(TotalTime.self)
+            print(getTotalTime)
+            let getApp = RealmManager.shared.localRealm.objects(Appdata.self)
+            print(getApp)
             selection = screenTimeViewModel.selectedApp
             filter = DeviceActivityFilter(
                 segment: .daily(
