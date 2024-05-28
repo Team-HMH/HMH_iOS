@@ -9,24 +9,18 @@ import Foundation
 
 import RealmSwift
 
-final class DailyChallengeModel: Object {
-    
-    @objc dynamic var id = "" // 기본키
-    @objc dynamic var date = Date()
-    @objc dynamic var is_send: Bool = false
-    @objc dynamic var apps: [AppData] = []
-    
-    override static func primaryKey() -> String? {
-        return "id"
+class Appdata: Object {
+    @Persisted var number: Int?
+    @Persisted var bundleId: String = ""
+    @Persisted var duraction: Double = 0
+
+    convenience init(id: Int) {
+        self.init()
+        self.number = id
     }
 }
 
-final class AppData: Object {
-    @objc dynamic var id = "" // 기본키
-    @objc dynamic var appCode: String = ""
-    @objc dynamic var appUsageTime: Double = 0
-    
-    override static func primaryKey() -> String? {
-        return "id"
-    }
+
+class TotalTime: Object {
+    @Persisted var duraction: String = ""
 }
