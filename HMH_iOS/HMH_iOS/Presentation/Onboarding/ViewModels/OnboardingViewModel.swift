@@ -68,7 +68,7 @@ class OnboardingViewModel: ObservableObject {
             for index in 0..<4{
                 if surveyButtonItems[onboardingState] [index].isSelected {
                     self.period = removeLastCharacterAndConvertToInt(from: surveyButtonItems[onboardingState] [index].buttonTitle) ?? 0
-
+                    
                     print(surveyButtonItems[onboardingState] [index].buttonTitle)
                     
                 }
@@ -104,6 +104,14 @@ class OnboardingViewModel: ObservableObject {
     
     func addOnboardingState() {
         onboardingState += 1
+    }
+    
+    func backButtonTapped() {
+        if onboardingState == 0 {
+            UserManager.shared.appStateString = "onboarding"
+        } else {
+            onboardingState -= 1
+        }
     }
     
     func onIsCompleted() {
@@ -142,12 +150,11 @@ class OnboardingViewModel: ObservableObject {
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
             print(data.status)
             if data.status == 201 {
-                UserManager.shared.isOnboardingCompleted = true
+                UserManager.shared.appStateString = "onboardingComplete"
                 UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
                 UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
             } else if data.message == "이미 회원가입된 유저입니다." {
-                UserManager.shared.isOnboardingCompleted = true
-                UserManager.shared.isOnboarding = true
+                UserManager.shared.appStateString = "login"
             } else {
                 self.onboardingState = 0
             }
@@ -200,7 +207,7 @@ class OnboardingViewModel: ObservableObject {
         case 6:
             StringLiteral.OnboardigMain.appGoalTimeSelect
         default:
-            "error"
+            ""
         }
     }
     
@@ -221,7 +228,7 @@ class OnboardingViewModel: ObservableObject {
         case 6:
             StringLiteral.OnboardigSub.appGoalTimeSelect
         default:
-            "error"
+            ""
         }
     }
     
@@ -236,42 +243,42 @@ class OnboardingViewModel: ObservableObject {
         case 6:
             StringLiteral.OnboardingButton.complete
         default:
-            "error"
+            ""
         }
     }
     
     init(viewModel: ScreenTimeViewModel, onboardingState: Int = 0, isChallengeMode: Bool = false) {
-            self.surveyButtonItems = [
-                [
-                    SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.secondSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.thirdSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.fourthSelect, isSelected: false),
-                ],
-                [
-                    SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.firstSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.secondSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.thirdSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.fourthSelect, isSelected: false),
-                ],
-                [
-                    SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.firstSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.secondSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.thirdSelect, isSelected: false),
-                    SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.fourthSelect, isSelected: false),
-                ]
+        self.surveyButtonItems = [
+            [
+                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.secondSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.thirdSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.fourthSelect, isSelected: false),
+            ],
+            [
+                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.firstSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.secondSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.thirdSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.fourthSelect, isSelected: false),
+            ],
+            [
+                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.firstSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.secondSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.thirdSelect, isSelected: false),
+                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.fourthSelect, isSelected: false),
             ]
-            self.onboardingState = onboardingState
-            self.isCompleted = false
-            self.selectedGoalTime = ""
-            self.selectedAppHour = ""
-            self.selectedAppMinute = ""
-            self.problems = []
-            self.averageUseTime = ""
-            self.period = 0
-            self.goalTime = 0
-            self.appGoalTime = 0
-            self.screenViewModel = viewModel
-            self.isChallengeMode = isChallengeMode
-        }
+        ]
+        self.onboardingState = onboardingState
+        self.isCompleted = false
+        self.selectedGoalTime = ""
+        self.selectedAppHour = ""
+        self.selectedAppMinute = ""
+        self.problems = []
+        self.averageUseTime = ""
+        self.period = 0
+        self.goalTime = 0
+        self.appGoalTime = 0
+        self.screenViewModel = viewModel
+        self.isChallengeMode = isChallengeMode
+    }
 }

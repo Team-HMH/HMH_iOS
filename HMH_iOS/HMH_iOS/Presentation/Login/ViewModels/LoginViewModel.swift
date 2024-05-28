@@ -68,12 +68,12 @@ class LoginViewModel: NSObject, ObservableObject {
         
         provider.request(target: .socialLogin(data: request), instance: BaseResponse<SocialLogineResponseDTO>.self) { data in
             if data.status == 403 {
-                UserManager.shared.isOnboarding = false
+                UserManager.shared.appStateString = "onboarding"
             } else if data.status == 200 {
                 guard let data = data.data else { return }
-                UserManager.shared.isLogin = true
                 UserManager.shared.refreshToken = data.token.refreshToken
                 UserManager.shared.accessToken = data.token.accessToken
+                UserManager.shared.appStateString = "home"
             }
         }
     }

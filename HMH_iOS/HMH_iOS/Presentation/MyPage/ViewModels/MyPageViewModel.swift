@@ -94,9 +94,7 @@ class MyPageViewModel: ObservableObject {
     }
     
     func confirmAction() {
-        UserManager.shared.isOnboarding = true
-        UserManager.shared.isOnboardingCompleted = false
-        UserManager.shared.isLogin = false
+        UserManager.shared.appStateString = "login"
         if alertType == .logout {
             logoutUser()
         } else {
