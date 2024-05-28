@@ -35,6 +35,8 @@ class OnboardingViewModel: ObservableObject {
     
     var period: Int
     
+    var isChallengeMode: Bool
+    
     var goalTime: Int
     
     var appGoalTime: Int
@@ -75,7 +77,13 @@ class OnboardingViewModel: ObservableObject {
             offIsCompleted()
         case 3:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
-            addOnboardingState()
+            if isChallengeMode {
+                print("isChallengeMode")
+                postCreateChallengeData()
+                addOnboardingState()
+            } else {
+                addOnboardingState()
+            }
         case 4:
             screenViewModel.requestAuthorization()
             if screenViewModel.hasScreenTimePermission {
@@ -96,6 +104,14 @@ class OnboardingViewModel: ObservableObject {
     
     func addOnboardingState() {
         onboardingState += 1
+    }
+    
+    func backButtonTapped() {
+        if onboardingState == 0 {
+            UserManager.shared.appStateString = "onboarding"
+        } else {
+            onboardingState -= 1
+        }
     }
     
     func onIsCompleted() {
@@ -134,16 +150,23 @@ class OnboardingViewModel: ObservableObject {
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
             print(data.status)
             if data.status == 201 {
-                UserManager.shared.isOnboardingCompleted = true
-                UserManager.shared.isOnboarding = true
+                UserManager.shared.appStateString = "onboardingComplete"
                 UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
                 UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
             } else if data.message == "이미 회원가입된 유저입니다." {
-                UserManager.shared.isOnboardingCompleted = true
-                UserManager.shared.isOnboarding = true
+                UserManager.shared.appStateString = "login"
             } else {
                 self.onboardingState = 0
             }
+        }
+    }
+    
+    func postCreateChallengeData() {
+        let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.goalTime)
+        
+        let provider = Providers.challengeProvider
+        provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
+            print(data.status)
         }
     }
     
@@ -184,7 +207,7 @@ class OnboardingViewModel: ObservableObject {
         case 6:
             StringLiteral.OnboardigMain.appGoalTimeSelect
         default:
-            "error"
+            ""
         }
     }
     
@@ -205,7 +228,7 @@ class OnboardingViewModel: ObservableObject {
         case 6:
             StringLiteral.OnboardigSub.appGoalTimeSelect
         default:
-            "error"
+            ""
         }
     }
     
@@ -220,11 +243,11 @@ class OnboardingViewModel: ObservableObject {
         case 6:
             StringLiteral.OnboardingButton.complete
         default:
-            "error"
+            ""
         }
     }
     
-    init(viewModel: ScreenTimeViewModel) {
+    init(viewModel: ScreenTimeViewModel, onboardingState: Int = 0, isChallengeMode: Bool = false) {
         self.surveyButtonItems = [
             [
                 SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
@@ -245,7 +268,7 @@ class OnboardingViewModel: ObservableObject {
                 SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.fourthSelect, isSelected: false),
             ]
         ]
-        self.onboardingState = 0
+        self.onboardingState = onboardingState
         self.isCompleted = false
         self.selectedGoalTime = ""
         self.selectedAppHour = ""
@@ -256,5 +279,6 @@ class OnboardingViewModel: ObservableObject {
         self.goalTime = 0
         self.appGoalTime = 0
         self.screenViewModel = viewModel
+        self.isChallengeMode = isChallengeMode
     }
 }

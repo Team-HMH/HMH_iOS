@@ -34,10 +34,12 @@ struct ChallengeView: View {
     }
     
     public var body: some View {
-        main
-            .onAppear {
-                viewModel.generateDummyData()
-            }
+        NavigationView {
+            main
+                .onAppear {
+                    viewModel.generateDummyData()
+                }
+        }
     }
 }
 
@@ -71,6 +73,9 @@ extension ChallengeView {
                 challengeWeekView
                     .frame(width: UIScreen.main.bounds.width * 0.9)
                     .padding(.bottom, 20)
+//                NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2), label: {
+//                    Text("챌린지 생성")
+//                })
             }
         }
     }

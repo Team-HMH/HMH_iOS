@@ -29,7 +29,7 @@ struct StoryContentView: View {
         .onTapGesture {
             self.storyState += 1
             if storyState == 3 {
-                // TabBarView로 이동 하는 함수로 구현
+                UserManager.shared.appStateString = "home"
             }
         }
     }
