@@ -26,8 +26,7 @@ struct OnboardingContentView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Spacer(minLength: 0)
-                .frame(height: 60)
+            OnboardingNavigationView()
             if !isChallengeMode {
                 OnboardingProgressView()
             } else {
@@ -40,7 +39,7 @@ struct OnboardingContentView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             NextButtonView(viewModel: onboardingViewModel)
         }
-        .padding(20)
+        .padding(.horizontal, 20)
         .background(.blackground, ignoresSafeAreaEdges: .all)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
@@ -52,6 +51,21 @@ struct OnboardingContentView: View {
 }
 
 extension OnboardingContentView {
+    private func OnboardingNavigationView() -> some View {
+        HStack {
+            Button(action: {
+                onboardingViewModel.backButtonTapped()
+            }, label: {
+                Image(.chevronLeft)
+                    .frame(width: 24, height: 24)
+            })
+            Spacer()
+
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 60)
+    }
+
     private func OnboardingProgressView() -> some View {
         VStack {
             ZStack(alignment: .leading) {
