@@ -12,32 +12,60 @@ struct OnboardingContentView: View {
     @StateObject
     var screenViewModel = ScreenTimeViewModel()
     @StateObject
-    var viewModel: OnboardingViewModel
+    var onboardingViewModel: OnboardingViewModel
     
-    init() {
-        let viewModel = ScreenTimeViewModel()
-        _screenViewModel = StateObject(wrappedValue: viewModel)
-        _viewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: viewModel))
+    var isChallengeMode: Bool
+    @Environment(\.presentationMode) var presentationMode
+    
+    init(isChallengeMode: Bool = false, onboardingState: Int = 0) {
+        let screenTimeViewModel = ScreenTimeViewModel()
+        _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
+        _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
+        self.isChallengeMode = isChallengeMode
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            Spacer(minLength: 0)
-                .frame(height: 60)
-            OnboardingProgressView()
+            OnboardingNavigationView()
+            if !isChallengeMode {
+                OnboardingProgressView()
+            } else {
+                
+            }
             Spacer(minLength: 0)
                 .frame(height: 31)
             OnboardingTitleView()
             SurveyContainerView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            NextButtonView(viewModel: viewModel)
+            NextButtonView(viewModel: onboardingViewModel)
         }
-        .padding(20)
+        .padding(.horizontal, 20)
         .background(.blackground, ignoresSafeAreaEdges: .all)
+        .navigationBarHidden(true)
+        .onChange(of: onboardingViewModel.onboardingState) { newState in
+            if isChallengeMode && (newState == 1 || newState == 4) {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 }
 
 extension OnboardingContentView {
+    private func OnboardingNavigationView() -> some View {
+        HStack {
+            Button(action: {
+                onboardingViewModel.backButtonTapped()
+            }, label: {
+                Image(.chevronLeft)
+                    .frame(width: 24, height: 24)
+            })
+            Spacer()
+            
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 60)
+    }
+    
     private func OnboardingProgressView() -> some View {
         VStack {
             ZStack(alignment: .leading) {
@@ -48,20 +76,20 @@ extension OnboardingContentView {
                     .cornerRadius(1.0)
                 Rectangle()
                     .foregroundColor(.bluePurpleLine)
-                    .frame(width: CGFloat(viewModel.onboardingState) / CGFloat(6) * 334, height: 4)
+                    .frame(width: CGFloat(onboardingViewModel.onboardingState) / CGFloat(6) * 334, height: 4)
                     .cornerRadius(10.0)
-                    .animation(Animation.spring(duration: 0.5), value: viewModel.onboardingState)
+                    .animation(Animation.spring(duration: 0.5), value: onboardingViewModel.onboardingState)
             }
         }
     }
     
     private func OnboardingTitleView() -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(viewModel.getOnboardigMain())
+            Text(onboardingViewModel.getOnboardigMain())
                 .font(.title3_semibold_22)
                 .lineSpacing(1.5)
                 .foregroundStyle(.whiteText)
-            Text(viewModel.getOnboardigSub())
+            Text(onboardingViewModel.getOnboardigSub())
                 .font(.detail1_regular_14)
                 .lineSpacing(1.5)
                 .foregroundStyle(.gray2)
@@ -70,13 +98,13 @@ extension OnboardingContentView {
     
     private func SurveyContainerView() -> some View {
         VStack {
-            switch viewModel.onboardingState {
+            switch onboardingViewModel.onboardingState {
             case 0, 1, 2:
-                SurveyView(viewModel: viewModel)
+                SurveyView(viewModel: onboardingViewModel)
             case 3:
-                GoalTimeView(viewModel: viewModel)
+                GoalTimeView(viewModel: onboardingViewModel)
             case 6:
-                AppGoalTimeView(viewModel: viewModel)
+                AppGoalTimeView(viewModel: onboardingViewModel)
             default:
                 EmptyView()
             }

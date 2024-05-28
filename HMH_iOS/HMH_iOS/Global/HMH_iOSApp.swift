@@ -1,12 +1,22 @@
+//
+//  HMH_iOSApp.swift
+//  HMH_iOS
+//
+//  Created by Seonwoo Kim on 3/24/24.
+//
+
 import SwiftUI
+
 import KakaoSDKCommon
 import KakaoSDKAuth
 
-enum AppState {
-    case onboardingComplete
+enum AppState: String {
     case login
+    case onboarding
+    case onboardingComplete
     case home
 }
+
 
 @main
 struct HMH_iOSApp: App {
@@ -28,23 +38,20 @@ struct HMH_iOSApp: App {
                 if loginViewModel.isLoading {
                     SplashView(viewModel: loginViewModel)
                 } else {
-                    if userManager.isOnboarding {
-                        if userManager.isLogin {
-                            TabBarView()
-                        } else {
-                            LoginView(viewModel: loginViewModel)
-                                .onOpenURL { url in
-                                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                                        _ = AuthController.handleOpenUrl(url: url)
-                                    }
+                    switch userManager.appState {
+                    case .onboarding:
+                        OnboardingContentView()
+                    case .onboardingComplete:
+                        OnboardingCompleteView()
+                    case .home:
+                        TabBarView()
+                    case .login:
+                        LoginView(viewModel: loginViewModel)
+                            .onOpenURL { url in
+                                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                                    _ = AuthController.handleOpenUrl(url: url)
                                 }
-                        }
-                    } else {
-                        if userManager.isOnboardingCompleted {
-                            OnboardingCompleteView()
-                        } else {
-                            OnboardingContentView()
-                        }
+                            }
                     }
                 }
             }
