@@ -41,7 +41,7 @@ struct ListView: View {
                     .foregroundStyle(.whiteText)
             }
             Spacer()
-            Text("58분 ")
+            Text(String(eachApp.remainTime.toString()))
                 .font(.text6_medium_14)
                 .foregroundStyle(.whiteText)
             + Text("남음")
