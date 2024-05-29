@@ -11,7 +11,8 @@ public enum AppStorageKey: String {
     case selectionApp
     case totalgoaltime
     case permission
-    case bundleID
+    case totalGoalTime
+    case appGoalTime
 }
 
 let APP_GROUP_NAME = "group.HMH"
