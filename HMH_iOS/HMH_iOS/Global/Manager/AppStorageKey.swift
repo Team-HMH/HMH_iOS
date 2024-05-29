@@ -13,6 +13,7 @@ public enum AppStorageKey: String {
     case permission
     case totalGoalTime
     case appGoalTime
+    case usageGrade
 }
 
 let APP_GROUP_NAME = "group.HMH"

@@ -58,37 +58,15 @@ struct HomeView: View {
 extension HomeView {
     var main: some View {
         VStack {
-            headerView
+            DeviceActivityReport(context, filter: filter)
+                .frame(minHeight: 395)
             DeviceActivityReport(appContext, filter: appFilter)
                 .frame(height: 80 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count))
                 .padding(.bottom, 20)
         }
     }
-    
-    var headerView: some View {
-        VStack(alignment: .leading) {
-            ZStack(alignment: .topLeading) {
-                LottieView(animation: .named("Main-A-final.json"))
-                    .playing(loopMode: .autoReverse)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                VStack(alignment: .leading){
-                    Text(StringLiteral.Home.usageStatusA)
-                        .font(.text1_medium_22)
-                        .foregroundStyle(.whiteText)
-                        .frame(alignment: .topLeading)
-                        .padding(EdgeInsets(top: 8,
-                                            leading: 20,
-                                            bottom: 0,
-                                            trailing: 0))
-                    Spacer()
-                    DeviceActivityReport(context, filter: filter)
-                        .frame(maxHeight: 83)
-                }
-            }
-        }
-    }
 }
+
 
 //#Preview {
 //    HomeView()

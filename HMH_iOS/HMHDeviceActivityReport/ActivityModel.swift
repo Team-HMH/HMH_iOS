@@ -27,6 +27,7 @@ struct TotalActivityModel: Identifiable {
     var totalTime: Int
     var remainTime: Int
     var totalGoalTime: Int
+    var titleState: [String]
 }
 
 extension TimeInterval {

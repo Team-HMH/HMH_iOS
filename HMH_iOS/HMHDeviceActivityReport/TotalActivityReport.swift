@@ -20,13 +20,14 @@ extension DeviceActivityReport.Context {
 struct TotalActivityReport: DeviceActivityReportScene {
     @AppStorage(AppStorageKey.totalgoaltime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var totalGoalTimeDouble = 0
+    @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var usageGrade = ""
 
     // Define which context your scene will represent.
     let context: DeviceActivityReport.Context = .totalActivity
     
     // Define the custom configuration and the resulting view for this report.
     let content: (TotalActivityModel) -> TotalActivityView
-    
     
     
     func makeConfiguration(representing data: DeviceActivityResults<DeviceActivityData>) async -> TotalActivityModel {
@@ -42,16 +43,19 @@ struct TotalActivityReport: DeviceActivityReportScene {
             $0 + $1.totalActivityDuration
         })
         
-        let time = TotalTime()
-        time.duraction = formatter.string(from: totalActivityDuration) ?? "No activity data"
+        let time = formatter.string(from: totalActivityDuration) ?? "No activity data"
         
-        let currentTimeInMilliseconds = convertTimeStringToMilliseconds(timeString: time.duraction)
+        let currentTimeInMilliseconds = convertTimeStringToMilliseconds(timeString: time)
         let remainingTimeInMilliseconds = max(totalGoalTimeDouble - currentTimeInMilliseconds, 0)
+        
+        let usagePercentage = min(Double(currentTimeInMilliseconds) / Double(totalGoalTimeDouble) * 100, 100)
+        usageGrade = calculateGrade(usagePercentage)
         
         let totalActivity = TotalActivityModel.init(id: "totalActivity",
                                                     totalTime: currentTimeInMilliseconds,
                                                     remainTime: remainingTimeInMilliseconds,
-                                                    totalGoalTime: totalGoalTimeDouble)
+                                                    totalGoalTime: totalGoalTimeDouble,
+                                                    titleState: configHomeViewVisual())
         
         return totalActivity
     }
@@ -112,5 +116,51 @@ extension TotalActivityReport {
         return totalMilliseconds
     }
 
+    private func calculateGrade(_ usagePercentage: Double) -> String {
+        switch usagePercentage {
+        case 0..<25:
+            return "A"
+        case 25..<50:
+            return "B"
+        case 50..<75:
+            return "C"
+        case 75..<100:
+            return "D"
+        case 100:
+            return "E"
+        default:
+            return "F"
+        }
+    }
+    
+    func configHomeViewVisual() -> [String] {
+        var lottieTitle = "Main-\(usageGrade)-final.json"
+        
+        var titleString = ""
+        switch usageGrade{
+        case "A":
+            lottieTitle = "Main-A-final.json"
+            titleString = StringLiteral.Home.usageStatusA
+        case "B":
+            lottieTitle = "Main-B-final.json"
+            titleString = StringLiteral.Home.usageStatusB
+        case "C":
+            lottieTitle = "Main-C-final.json"
+            titleString = StringLiteral.Home.usageStatusC
+        case "D":
+            lottieTitle = "Main-D-final.json"
+            titleString = StringLiteral.Home.usageStatusD
+        case "E":
+            lottieTitle = "Main-E-final.json"
+            titleString = StringLiteral.Home.usageStatusE
+        case "F":
+            lottieTitle = "Main-F-final.json"
+            titleString = StringLiteral.Home.usageStatusF
+        default:
+            titleString = ""
+        }
+        return [lottieTitle, titleString]
+    }
+    
     
 }
