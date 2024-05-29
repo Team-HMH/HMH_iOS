@@ -12,6 +12,9 @@ import DeviceActivity
 import RealmSwift
 
 struct AppActivityReport: DeviceActivityReportScene {
+    @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var appGoalTimeDouble = 0
+    
     let context : DeviceActivityReport.Context = .appActivity
     let content: (ActivityReport) -> AppActivityView
     
@@ -29,7 +32,6 @@ struct AppActivityReport: DeviceActivityReportScene {
                 for await categoryActivity in activitySegment.categories {
                     /// 이 카테고리의 totalActivityDuration에 기여한 사용자의 application Activity
                     for await applicationActivity in categoryActivity.applications {
-                        var id = 0
                         let appName = (applicationActivity.application.localizedDisplayName ?? "nil") /// 앱 이름
                         let bundle = (applicationActivity.application.bundleIdentifier ?? "nil") /// 앱 번들id
                         let duration = applicationActivity.totalActivityDuration /// 앱의 total activity 기간
@@ -43,20 +45,6 @@ struct AppActivityReport: DeviceActivityReportScene {
                             numberOfPickups: numberOfPickups,
                             token: token
                         )
-                        
-                        let realmApp = Appdata(id: id)
-                        realmApp.bundleId = bundle
-                        realmApp.duraction = duration
-                        
-                        do {
-                            try RealmManager.shared.localRealm.write {
-                                RealmManager.shared.localRealm.add(realmApp)
-                            }
-                        } catch {
-                            print("Error initialising new realm \(error)")
-                        }
-                        list.append(appActivity)
-                        id += 1
                         list.append(appActivity)
                     }
                 }
