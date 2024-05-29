@@ -13,11 +13,12 @@ import RealmSwift
 
 struct ChallengeView: View {
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
-    @State var viewModel: ChallengeViewModel
+    @ObservedObject var viewModel: ChallengeViewModel
     @State var list = [AppDeviceActivity]()
     @State var isPresented = false
-    @State private var selection = FamilyActivitySelection() 
-    var challengeDays = 14
+    @State private var selection = FamilyActivitySelection()
+    @State private var isExpanded = false
+
     
     @State var context: DeviceActivityReport.Context = .init(rawValue: "Challenge Activity")
     @State var filter = DeviceActivityFilter(
@@ -34,18 +35,17 @@ struct ChallengeView: View {
         self.viewModel = viewModel
     }
     
-       public var body: some View {
-           NavigationView {
-               main
-                   .onAppear { }
-           }
-       }
+    public var body: some View {
+        NavigationView {
+            main
+        }
+    }
 }
 
 extension ChallengeView {
     private var main: some View {
         ScrollView {
-            if viewModel.isEmptyChallenge() {
+            if viewModel.challengeType == .empty {
                 emptyChallengeHeaderView
             } else {
                 headerView
@@ -56,6 +56,10 @@ extension ChallengeView {
                              showBackButton: false,
                              showPointButton: true)
         .background(.blackground)
+        .onAppear {
+            viewModel.getChallengeInfo()
+        }
+        
     }
     
     var emptyChallengeHeaderView: some View {
@@ -78,7 +82,7 @@ extension ChallengeView {
     }
     
     var createChallengeButton: some View {
-        NavigationLink(destination: OnboardingContentView()) {
+        NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2)) {
             Text(StringLiteral.Challenge.createButton)
                 .modifier(CustomButtonStyle())
         }
@@ -99,12 +103,21 @@ extension ChallengeView {
                     .foregroundStyle(.whiteText)
                     .padding(.top, 2)
                     .padding(.bottom, 32)
-                challengeWeekView
-                    .frame(width: UIScreen.main.bounds.width * 0.9)
-                    .padding(.bottom, 20)
-//                NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2), label: {
-//                    Text("챌린지 생성")
-//                })
+                if viewModel.challengeType != .empty {
+                    challengeWeekView
+                        .frame(width: UIScreen.main.bounds.width * 0.9)
+                        .padding(.bottom, 20)
+                    Button(action: {
+                        withAnimation {
+                            isExpanded.toggle()
+                        }
+                    }, label: {
+                        
+                           Text(isExpanded ? "접기" : "펼치기")
+                               .font(.text6_medium_14)
+                               .foregroundStyle(.bluePurpleButton)
+                    })
+                }
             }
         }
     }
@@ -135,7 +148,7 @@ extension ChallengeView {
                 screenTimeViewModel.updateSelectedApp(newSelection: newSelection)
                 screenTimeViewModel.saveHashValue()
                 // TODO: 챌린지 만드는 시점에 설정
-//                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
+                //                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
             }
         }
         .onAppear() {
@@ -159,32 +172,59 @@ extension ChallengeView {
     }
     
     var challengeWeekView: some View {
-        VStack {
-            ForEach(1...challengeDays/7, id: \.self) { week in
-                HStack {
-                    ForEach(1...7, id: \.self) { days in
-                        VStack {
-                            Text("\((week - 1) * 7 + days)")
-                                .font(.text6_medium_14)
-                                .foregroundStyle(.gray2)
-                            ZStack {
-                                Circle()
-                                    .stroke(.gray6, lineWidth: 2) // 테두리를 그리는 원
-                                    .frame(width: 44, height: 44)
-                                
-                                Circle()
-                                    .foregroundColor(.clear) // 내부를 채우는 원
-                                    .frame(width: 44, height: 44)
+        VStack(alignment: .leading) {
+            if viewModel.days > 0 {
+                ForEach(1...min(isExpanded ? (viewModel.days + 6) / 7 : 2, (viewModel.days + 6) / 7), id: \.self) { week in
+                    HStack {
+                        ForEach(1...7, id: \.self) { day in
+                            let index = (week - 1) * 7 + day - 1
+                            if index < viewModel.statuses.count {
+                                VStack {
+                                    Text("\(index + 1)")
+                                        .font(.text6_medium_14)
+                                        .foregroundStyle(.gray2)
+                                    ZStack {
+                                        Circle()
+                                            .stroke(index == viewModel.todayIndex ? .bluePurpleOpacity70 : .gray6, lineWidth: 2)
+                                            .frame(width: 44, height: 44)
+                                        switch viewModel.statuses[index] {
+                                        case "UNEARNED":
+                                            Image(.failStar)
+                                                .resizable()
+                                                .frame(width: 24, height: 24)
+                                        case "EARNED":
+                                            let gradient = LinearGradient(
+                                                gradient: Gradient(stops: [
+                                                    .init(color: Color(red: 61/255, green: 23/255, blue: 211/255, opacity: 0), location: 0),
+                                                    .init(color: Color(red: 61/255, green: 23/255, blue: 211/255, opacity: 0.4), location: 1)
+                                                ]),
+                                                startPoint: .top,
+                                                endPoint: .bottom
+                                            )
+                                            gradient
+                                                .mask(Circle().frame(width: 44, height: 44))
+                                                .frame(width: 44, height: 44)
+                                            Image(.successStar)
+                                                .resizable()
+                                                .frame(width: 24, height: 24)
+                                        default:
+                                            EmptyView()
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
+                    .padding(.bottom, 8)
                 }
-                .padding(.bottom, 8)
             }
         }
     }
 }
 
+
 #Preview {
     ChallengeView(viewModel: .init())
 }
+
+
