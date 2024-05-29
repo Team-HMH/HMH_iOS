@@ -50,7 +50,19 @@ struct ListView: View {
         }
         .padding(.horizontal, 18)
         .frame(height: 72)
-        .background(.gray7)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .background(backgroundView)
+    }
+    
+    var backgroundView: some View {
+        GeometryReader { geometry in
+            let remainingPercent = Double(eachApp.remainTime) / 3600 // 0에서 1 사이의 값으로 정규화
+            let gradientColors: [Color] = [.bluePurpleButton.opacity(0.4), .bluePurpleButton]
+            
+            LinearGradient(gradient: Gradient(colors: gradientColors),
+                           startPoint: .leading,
+                           endPoint: .trailing)
+                .frame(width: geometry.size.width * CGFloat(remainingPercent))
+                .clipShape(RoundedRectangle(cornerRadius: 4))
+        }
     }
 }
