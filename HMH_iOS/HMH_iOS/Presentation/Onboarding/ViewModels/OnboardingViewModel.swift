@@ -108,7 +108,7 @@ class OnboardingViewModel: ObservableObject {
     
     func backButtonTapped() {
         if onboardingState == 0 {
-            UserManager.shared.appStateString = "onboarding"
+            UserManager.shared.appStateString = "login"
         } else {
             onboardingState -= 1
         }

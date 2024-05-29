@@ -28,7 +28,7 @@ struct StoryContentView: View {
         .navigationBarBackButtonHidden()
         .onTapGesture {
             self.storyState += 1
-            if storyState == 3 {
+            if storyState == 4 {
                 UserManager.shared.appStateString = "home"
             }
         }
