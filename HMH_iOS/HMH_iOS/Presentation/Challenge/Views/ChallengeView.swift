@@ -107,16 +107,6 @@ extension ChallengeView {
                     challengeWeekView
                         .frame(width: UIScreen.main.bounds.width * 0.9)
                         .padding(.bottom, 20)
-                    Button(action: {
-                        withAnimation {
-                            isExpanded.toggle()
-                        }
-                    }, label: {
-                        
-                           Text(isExpanded ? "접기" : "펼치기")
-                               .font(.text6_medium_14)
-                               .foregroundStyle(.bluePurpleButton)
-                    })
                 }
             }
         }
@@ -217,6 +207,27 @@ extension ChallengeView {
                     }
                     .padding(.bottom, 8)
                 }
+            }
+            if viewModel.challengeType == .large {
+                HStack {
+                    Button(action: {
+                        withAnimation {
+                            isExpanded.toggle()
+                        }
+                    }, label: {
+                        HStack {
+                            Text(isExpanded ? "접기" : "펼치기")
+                                .font(.detail4_medium_12)
+                                .foregroundStyle(.gray2)
+                            Image(isExpanded ? .chevronUp : .chevronDown)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 8, height: 9)
+                        }
+                        .frame(width: 57, height: 31)
+                    })
+                }
+                .frame(maxWidth: .infinity)
             }
         }
     }
