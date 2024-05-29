@@ -22,6 +22,13 @@ struct AppDeviceActivity: Identifiable {
     var token: ApplicationToken?
 }
 
+struct TotalActivityModel: Identifiable {
+    var id: String
+    var totalTime: Int
+    var remainTime: Int
+    var totalGoalTime: Int
+}
+
 extension TimeInterval {
     /// TimeInterval 타입 값을 00:00 형식의 String으로 변환해주는 메서드
     func toString() -> String {
