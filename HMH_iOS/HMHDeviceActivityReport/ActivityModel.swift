@@ -18,6 +18,7 @@ struct AppDeviceActivity: Identifiable {
     var id: String
     var displayName: String
     var duration: TimeInterval
+    var remainTime: TimeInterval
     var numberOfPickups: Int
     var token: ApplicationToken?
 }

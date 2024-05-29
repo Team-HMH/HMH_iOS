@@ -18,7 +18,7 @@ struct AppActivityReport: DeviceActivityReportScene {
     
     
     func makeConfiguration(representing data: DeviceActivityResults<DeviceActivityData>) async -> ActivityReport {
-
+        
         var totalActivityDuration: Double = 0
         var list: [AppDeviceActivity] = []
         
@@ -36,17 +36,20 @@ struct AppActivityReport: DeviceActivityReportScene {
                         totalActivityDuration += duration
                         let numberOfPickups = applicationActivity.numberOfPickups /// 앱에 대해 직접적인 pickup 횟수
                         let token = applicationActivity.application.token /// 앱의 토큰
+                        let goalTimeInSeconds: TimeInterval = TimeInterval(appGoalTimeDouble / 1000)
+                        let remainingTime = max(goalTimeInSeconds - duration, 0) /// 남은 시간 계산
                         let appActivity = AppDeviceActivity(
                             id: bundle,
                             displayName: appName,
                             duration: duration,
+                            remainTime: remainingTime,
                             numberOfPickups: numberOfPickups,
                             token: token
                         )
                         list.append(appActivity)
                     }
                 }
-
+                
             }
         }
         
@@ -60,7 +63,7 @@ struct ChallengeActivityReport: DeviceActivityReportScene {
     let content: (ActivityReport) -> ChallengeActivityView
     
     func makeConfiguration(representing data: DeviceActivityResults<DeviceActivityData>) async -> ActivityReport {
-
+        
         var totalActivityDuration: Double = 0
         var list: [AppDeviceActivity] = []
         
@@ -83,6 +86,7 @@ struct ChallengeActivityReport: DeviceActivityReportScene {
                             id: bundle,
                             displayName: appName,
                             duration: duration,
+                            remainTime: duration,
                             numberOfPickups: numberOfPickups,
                             token: token
                         )
@@ -90,7 +94,7 @@ struct ChallengeActivityReport: DeviceActivityReportScene {
                         id += 1
                     }
                 }
-
+                
             }
         }
         
