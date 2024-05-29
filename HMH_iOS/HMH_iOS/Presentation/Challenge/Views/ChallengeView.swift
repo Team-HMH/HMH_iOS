@@ -38,6 +38,7 @@ struct ChallengeView: View {
     public var body: some View {
         NavigationView {
             main
+                .onAppear { }
         }
     }
 }
@@ -94,11 +95,11 @@ extension ChallengeView {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             VStack(alignment: .leading) {
-                Text("5월 5일 시작부터")
+                Text("\(viewModel.startDate) 시작부터")
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                     .padding(.top, 14)
-                Text("1일차")
+                Text("\(viewModel.todayIndex + 1)일차")
                     .font(.title1_semibold_32)
                     .foregroundStyle(.whiteText)
                     .padding(.top, 2)

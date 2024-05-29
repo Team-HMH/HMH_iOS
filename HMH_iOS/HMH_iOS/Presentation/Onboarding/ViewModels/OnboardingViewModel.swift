@@ -45,7 +45,7 @@ class OnboardingViewModel: ObservableObject {
     @AppStorage("socialPlatform") private var socialPlatform = ""
     @AppStorage("userName") private var userName = ""
     
-    func saveOnboardingData() {
+    @MainActor func saveOnboardingData() {
         print(onboardingState)
         switch onboardingState {
         case 0:

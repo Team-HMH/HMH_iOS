@@ -15,22 +15,23 @@ enum ChallengeType {
 }
 
 final class ChallengeViewModel: ObservableObject {
-    @Published var startDate = "5월 5일"
-    @Published var days = -1
+    @Published var startDate = ""
+    @Published var todayIndex = 0
+    @Published var days = 7
     @Published var appList: [Apps] = []
     @Published var statuses: [String] = []
-    @Published var todayIndex = 0
-    
-    @Published var createChallengeState = 1 {
-        didSet {
-            setTitle()
-        }
-    }
     @Published var titleString = ""
     @Published var subTitleString = ""
     @Published var challengeType: ChallengeType = .empty
     
+    enum PointStatus {
+        static let unearned = "UNEARNED"
+        static let earned = "EARNED"
+        static let failure = "FAILURE"
+    }
+    
     init() {
+        getChallengeInfo()
     }
     
     func getChallengeType() {
@@ -74,18 +75,18 @@ final class ChallengeViewModel: ObservableObject {
         
     }
     
-    func setTitle(){
-        switch createChallengeState {
-        case 1:
-            titleString = "ddd"
-            subTitleString = "ddd"
-        case 2:
-            titleString = "ddd"
-            subTitleString = "ddd"
-        default:
-            print("state invaild")
+    func formatDateString(_ dateString: String) -> String? {
+        let inputDateFormatter = DateFormatter()
+        inputDateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let date = inputDateFormatter.date(from: dateString) else {
+            return nil
         }
         
+        let outputDateFormatter = DateFormatter()
+        outputDateFormatter.dateFormat = "M월 d일"
+        let formattedDateString = outputDateFormatter.string(from: date)
+        
+        return formattedDateString
     }
     
 }
