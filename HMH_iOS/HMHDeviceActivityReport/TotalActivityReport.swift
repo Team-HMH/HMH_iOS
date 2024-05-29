@@ -7,7 +7,6 @@
 
 import DeviceActivity
 import SwiftUI
-import RealmSwift
 
 extension DeviceActivityReport.Context {
     // If your app initializes a DeviceActivityReport with this context, then the system will use

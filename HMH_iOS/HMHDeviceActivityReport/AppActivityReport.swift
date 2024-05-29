@@ -9,8 +9,6 @@
 import SwiftUI
 import DeviceActivity
 
-import RealmSwift
-
 struct AppActivityReport: DeviceActivityReportScene {
     @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var appGoalTimeDouble = 0
@@ -88,18 +86,6 @@ struct ChallengeActivityReport: DeviceActivityReportScene {
                             numberOfPickups: numberOfPickups,
                             token: token
                         )
-                        let realmApp = Appdata(id: id)
-                        realmApp.bundleId = bundle
-                        realmApp.duraction = duration
-                        
-                        do {
-                            let realm = try await Realm()
-                            try realm.write {
-                                realm.add(realmApp)
-                            }
-                        } catch {
-                            print("Error initialising new realm \(error)")
-                        }
                         list.append(appActivity)
                         id += 1
                     }
