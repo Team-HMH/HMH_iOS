@@ -87,23 +87,20 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
             
-            if  let identityToken = appleIDCredential.identityToken,
-                let identifyTokenString = String(data: identityToken, encoding: .utf8) {
-                if let unwrappedFullName = fullName, let givenName = unwrappedFullName.givenName, let familyName = unwrappedFullName.familyName {
-                } else {
-                    print("fullName이 없거나 givenName 또는 familyName이 없습니다.")
-                }
+            if let identityToken = appleIDCredential.identityToken,
+               let identifyTokenString = String(data: identityToken, encoding: .utf8) {
                 UserManager.shared.socialToken = identifyTokenString
+                UserManager.shared.socialPlatform = "APPLE"
+                self.postSocialLoginData()
+            } else {
+                print("Identity token is nil or failed to convert to string.")
             }
-            UserManager.shared.socialPlatform = "APPLE"
-            self.postSocialLoginData()
         default:
             break
         }
     }
     
     func handleAppleIDCredential(_ credential: ASAuthorizationAppleIDCredential) {
-        let userIdentifier = credential.user
         let fullName = credential.fullName
         let name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
         UserManager.shared.userName = name

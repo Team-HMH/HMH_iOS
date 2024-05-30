@@ -8,5 +8,7 @@
 import Foundation
 
 struct HomeChallengeResponseDTO: Codable {
+    let status: String
+    let goalTime: Int
     let apps: [Apps]
 }

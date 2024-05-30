@@ -11,7 +11,7 @@ import FamilyControls
 import ManagedSettings
 import DeviceActivity
 
-
+@MainActor
 final class ScreenTimeViewModel: ObservableObject {
     let authorizationCenter = AuthorizationCenter.shared
     let deviceActivityCenter = DeviceActivityCenter()

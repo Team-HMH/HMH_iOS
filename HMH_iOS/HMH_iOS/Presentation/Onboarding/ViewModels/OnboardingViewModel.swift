@@ -45,7 +45,7 @@ class OnboardingViewModel: ObservableObject {
     @AppStorage("socialPlatform") private var socialPlatform = ""
     @AppStorage("userName") private var userName = ""
     
-    func saveOnboardingData() {
+    @MainActor func saveOnboardingData() {
         print(onboardingState)
         switch onboardingState {
         case 0:
@@ -108,7 +108,7 @@ class OnboardingViewModel: ObservableObject {
     
     func backButtonTapped() {
         if onboardingState == 0 {
-            UserManager.shared.appStateString = "onboarding"
+            UserManager.shared.appStateString = "login"
         } else {
             onboardingState -= 1
         }

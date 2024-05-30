@@ -13,11 +13,12 @@ import RealmSwift
 
 struct ChallengeView: View {
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
-    @State var viewModel: ChallengeViewModel
+    @ObservedObject var viewModel: ChallengeViewModel
     @State var list = [AppDeviceActivity]()
     @State var isPresented = false
-    @State private var selection = FamilyActivitySelection() 
-    var challengeDays = 14
+    @State private var selection = FamilyActivitySelection()
+    @State private var isExpanded = false
+
     
     @State var context: DeviceActivityReport.Context = .init(rawValue: "Challenge Activity")
     @State var filter = DeviceActivityFilter(
@@ -34,18 +35,18 @@ struct ChallengeView: View {
         self.viewModel = viewModel
     }
     
-       public var body: some View {
-           NavigationView {
-               main
-                   .onAppear { }
-           }
-       }
+    public var body: some View {
+        NavigationView {
+            main
+                .onAppear { }
+        }
+    }
 }
 
 extension ChallengeView {
     private var main: some View {
         ScrollView {
-            if viewModel.isEmptyChallenge() {
+            if viewModel.challengeType == .empty {
                 emptyChallengeHeaderView
             } else {
                 headerView
@@ -56,6 +57,9 @@ extension ChallengeView {
                              showBackButton: false,
                              showPointButton: true)
         .background(.blackground)
+        .onAppear {
+            viewModel.getChallengeInfo()
+        }
     }
     
     var emptyChallengeHeaderView: some View {
@@ -78,7 +82,7 @@ extension ChallengeView {
     }
     
     var createChallengeButton: some View {
-        NavigationLink(destination: OnboardingContentView()) {
+        NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2)) {
             Text(StringLiteral.Challenge.createButton)
                 .modifier(CustomButtonStyle())
         }
@@ -90,21 +94,20 @@ extension ChallengeView {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             VStack(alignment: .leading) {
-                Text("5월 5일 시작부터")
+                Text("\(viewModel.startDate) 시작부터")
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                     .padding(.top, 14)
-                Text("1일차")
+                Text("\(viewModel.todayIndex + 1)일차")
                     .font(.title1_semibold_32)
                     .foregroundStyle(.whiteText)
                     .padding(.top, 2)
                     .padding(.bottom, 32)
-                challengeWeekView
-                    .frame(width: UIScreen.main.bounds.width * 0.9)
-                    .padding(.bottom, 20)
-//                NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2), label: {
-//                    Text("챌린지 생성")
-//                })
+                if viewModel.challengeType != .empty {
+                    challengeWeekView
+                        .frame(width: UIScreen.main.bounds.width * 0.9)
+                        .padding(.bottom, 20)
+                }
             }
         }
     }
@@ -135,7 +138,7 @@ extension ChallengeView {
                 screenTimeViewModel.updateSelectedApp(newSelection: newSelection)
                 screenTimeViewModel.saveHashValue()
                 // TODO: 챌린지 만드는 시점에 설정
-//                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
+                //                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
             }
         }
         .onAppear() {
@@ -159,32 +162,97 @@ extension ChallengeView {
     }
     
     var challengeWeekView: some View {
-        VStack {
-            ForEach(1...challengeDays/7, id: \.self) { week in
+        VStack(alignment: .leading) {
+            if viewModel.days > 0 {
+                ForEach(1...min(isExpanded ? (viewModel.days + 6) / 7 : 2, (viewModel.days + 6) / 7), id: \.self) { week in
+                    challengeWeekRow(week: week)
+                }
+            }
+            if viewModel.challengeType == .large {
+                expandButton()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func challengeWeekRow(week: Int) -> some View {
+        HStack {
+            ForEach(1...7, id: \.self) { day in
+                challengeDayCell(week: week, day: day)
+            }
+        }
+        .padding(.bottom, 8)
+    }
+    
+    @ViewBuilder
+    private func expandButton() -> some View {
+        HStack {
+            Button(action: {
+                withAnimation {
+                    isExpanded.toggle()
+                }
+            }, label: {
                 HStack {
-                    ForEach(1...7, id: \.self) { days in
-                        VStack {
-                            Text("\((week - 1) * 7 + days)")
-                                .font(.text6_medium_14)
-                                .foregroundStyle(.gray2)
-                            ZStack {
-                                Circle()
-                                    .stroke(.gray6, lineWidth: 2) // 테두리를 그리는 원
-                                    .frame(width: 44, height: 44)
-                                
-                                Circle()
-                                    .foregroundColor(.clear) // 내부를 채우는 원
-                                    .frame(width: 44, height: 44)
-                            }
-                        }
+                    Text(isExpanded ? "접기" : "펼치기")
+                        .font(.detail4_medium_12)
+                        .foregroundStyle(.gray2)
+                    Image(isExpanded ? .chevronUp : .chevronDown)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 8, height: 9)
+                }
+                .frame(width: 57, height: 31)
+            })
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder
+    private func challengeDayCell(week: Int, day: Int) -> some View {
+        let index = (week - 1) * 7 + day - 1
+        if index < viewModel.statuses.count {
+            VStack {
+                Text("\(index + 1)")
+                    .font(.text6_medium_14)
+                    .foregroundStyle(.gray2)
+                ZStack {
+                    Circle()
+                        .stroke(index == viewModel.todayIndex ? .bluePurpleOpacity70 : .gray6, lineWidth: 2)
+                        .frame(width: 44, height: 44)
+                    switch viewModel.statuses[index] {
+                    case "UNEARNED":
+                        Image(.failStar)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                    case "EARNED":
+                        let gradient = LinearGradient(
+                            gradient: Gradient(stops: [
+                                .init(color: Color(red: 61/255, green: 23/255, blue: 211/255, opacity: 0), location: 0),
+                                .init(color: Color(red: 61/255, green: 23/255, blue: 211/255, opacity: 0.4), location: 1)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        gradient
+                            .mask(Circle().frame(width: 44, height: 44))
+                            .frame(width: 44, height: 44)
+                        Image(.successStar)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                    default:
+                        EmptyView()
                     }
                 }
-                .padding(.bottom, 8)
             }
         }
     }
 }
 
+
+
+
 #Preview {
     ChallengeView(viewModel: .init())
 }
+
+
