@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct UsagePointResponseDTO: Codable {
+    let point: Int
+}

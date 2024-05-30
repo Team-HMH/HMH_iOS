@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct UsePointResponseDTO: Codable {
+    let challengeDate: String
+}

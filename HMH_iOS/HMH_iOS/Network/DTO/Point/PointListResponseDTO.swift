@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+struct PointListResponseDTO: Codable {
+    let point: Int
+    let period: Int
+    let challengePointStatuses: [PointList]
+}
+
+struct PointList: Codable {
+    let challengeDate: String
+    let status: String
+}

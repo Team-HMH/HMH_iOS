@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct EarnPointResponseDTO: Codable {
+    let point: Int
+}
