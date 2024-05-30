@@ -18,8 +18,17 @@ struct AppDeviceActivity: Identifiable {
     var id: String
     var displayName: String
     var duration: TimeInterval
+    var remainTime: TimeInterval
     var numberOfPickups: Int
     var token: ApplicationToken?
+}
+
+struct TotalActivityModel: Identifiable {
+    var id: String
+    var totalTime: Int
+    var remainTime: Int
+    var totalGoalTime: Int
+    var titleState: [String]
 }
 
 extension TimeInterval {

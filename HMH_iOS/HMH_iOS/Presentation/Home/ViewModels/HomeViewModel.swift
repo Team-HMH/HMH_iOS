@@ -12,43 +12,38 @@ import DeviceActivity
 import Combine
 
 class HomeViewModel: ObservableObject {
-    @Published var totalGoalTime: TimeInterval
-    @Published var currentTotalUsage: TimeInterval
-    @Published var appsUsage: [AppUsage] = []
+    @AppStorage(AppStorageKey.totalgoaltime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var totalGoalTimeDouble = 0
+    @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var appGoalTimeDouble = 0
     
-    init(totalGoalTime: TimeInterval = 3600, currentTotalUsage: TimeInterval = 0, appsUsage: [AppUsage] = []) {
-        self.totalGoalTime = totalGoalTime
-        self.currentTotalUsage = currentTotalUsage
-        self.appsUsage = appsUsage
+    
+    @Published var totalGoalTime = 0
+    @Published var appGoalTime = 0
+    
+    init(){
+        getDailyChallenge()
     }
     
-    func remainingTimeForApp(appId: String) -> TimeInterval {
-        if let appUsage = appsUsage.first(where: { $0.appId == appId }) {
-            return max(appUsage.goalTime - appUsage.usedTime, 0)
-        }
-        return 0
-    }
-    
-    func updateUsage(forApp appId: String, time: TimeInterval) {
-        if let index = appsUsage.firstIndex(where: { $0.appId == appId }) {
-            appsUsage[index].usedTime += time
-            currentTotalUsage += time
+    func getDailyChallenge() {
+        Providers.challengeProvider.request(target: .getdailyChallenge, instance: BaseResponse<HomeChallengeResponseDTO>.self) { result in
+            if let data = result.data {
+                self.totalGoalTimeDouble = data.goalTime
+                self.appGoalTimeDouble = data.apps[0].goalTime
+            }
         }
     }
     
-    func generateDummyData() {
-        appsUsage = [
-            AppUsage(appId: "1", appName: "Instagram", goalTime: 60, usedTime: 45),
-            AppUsage(appId: "2", appName: "YouTube", goalTime: 45, usedTime: 30),
-            AppUsage(appId: "3", appName: "Twitter", goalTime: 30, usedTime: 15)
-        ]
+    func convertMillisecondsToTimeInterval(milliseconds: Int) -> TimeInterval {
+        return TimeInterval(milliseconds) / 1000.0
     }
-}
+    
+    func convertMillisecondsToHMS(milliseconds: Int) -> (hours: Int, minutes: Int, seconds: Int) {
+        let secondsTotal = milliseconds / 1000
+        let hours = secondsTotal / 3600
+        let minutes = (secondsTotal % 3600) / 60
+        let seconds = secondsTotal % 60
+        return (hours, minutes, seconds)
+    }
 
-struct AppUsage: Identifiable {
-    var id = UUID()
-    var appId: String // 앱 고유 식별자
-    var appName: String // 앱 이름
-    var goalTime: TimeInterval // 목표 사용 시간
-    var usedTime: TimeInterval // 현재 사용 시간
 }

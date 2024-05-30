@@ -27,6 +27,7 @@ enum StringLiteral {
         static let usageStatusC = "이런, 별조각이 희미해요\n방향을 잃지 않게 조심하세요"
         static let usageStatusD = "블랙홀이 더 가까워졌어요.\n유혹을 이겨내세요!"
         static let usageStatusE = "블랙홀이 눈앞에 있어요!\n지금 더 사용하면 실패해요."
+        static let usageStatusF = "헉! 블랙홀에 빠져\n별조각을 획득하지 못했어요."
         static let goalTime = "목표 사용 시간"
         static let use = "사용"
         static let leftTime = "남음"
