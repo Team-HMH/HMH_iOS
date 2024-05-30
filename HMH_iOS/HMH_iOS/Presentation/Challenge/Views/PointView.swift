@@ -39,18 +39,18 @@ extension PointView {
     
     private var listView: some View {
         ForEach(1...viewModel.challengeDay, id: \.self) { day in
-            HStack{
-                VStack(alignment: .leading){
+            HStack {
+                VStack(alignment: .leading) {
                     Text("\(day)" + StringLiteral.Challenge.pointTitle)
                         .font(.text4_semibold_16)
-                        .foregroundStyle(.whiteText)
+                        .foregroundColor(.whiteText)
                         .padding(.bottom, 2)
                     Text("\(viewModel.challengeDay)" + StringLiteral.Challenge.pointSubTitle)
                         .font(.detail4_medium_12)
-                        .foregroundStyle(.gray2)
+                        .foregroundColor(.gray2)
                 }
                 Spacer()
-                EarnPointButton(day: Int)
+                EarnPointButton(day: day, viewModel: viewModel)
             }
             .frame(height: 80)
         }
@@ -62,6 +62,9 @@ extension PointView {
 }
 
 struct EarnPointButton: View {
+    let day: Int
+    @ObservedObject var viewModel: PointViewModel
+    
     var body: some View {
         Button(action: {
             viewModel.patchPointUse(day: day)

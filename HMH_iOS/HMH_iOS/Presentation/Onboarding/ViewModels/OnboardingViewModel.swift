@@ -23,6 +23,9 @@ class OnboardingViewModel: ObservableObject {
     var isCompleted: Bool
     
     @Published
+    var isCompletePresented: Bool = false
+    
+    @Published
     var selectedGoalTime: String
     
     @Published
@@ -78,9 +81,7 @@ class OnboardingViewModel: ObservableObject {
         case 3:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
             if isChallengeMode {
-                print("isChallengeMode")
-                postCreateChallengeData()
-                addOnboardingState()
+                isCompletePresented = true
             } else {
                 addOnboardingState()
             }
@@ -100,6 +101,11 @@ class OnboardingViewModel: ObservableObject {
         default:
             break
         }
+    }
+    
+    func alertAction() {
+        postCreateChallengeData()
+        addOnboardingState()
     }
     
     func addOnboardingState() {

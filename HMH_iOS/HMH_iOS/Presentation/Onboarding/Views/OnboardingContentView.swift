@@ -47,6 +47,31 @@ struct OnboardingContentView: View {
                 self.presentationMode.wrappedValue.dismiss()
             }
         }
+        .customAlert(
+            isPresented: $onboardingViewModel.isCompletePresented,
+            customAlert: {
+                CustomAlertView(
+                    alertType: .challengeCreationComplete,
+                    confirmBtn: CustomAlertButtonView(
+                        buttonType: .Confirm,
+                        alertType: .challengeCreationComplete,
+                        isPresented: $onboardingViewModel.isCompletePresented,
+                        action: {
+                            onboardingViewModel.alertAction()
+                        }
+                    ),
+                    cancelBtn: CustomAlertButtonView(
+                        buttonType: .Cancel,
+                        alertType: .challengeCreationComplete,
+                        isPresented: $onboardingViewModel.isCompletePresented,
+                        action: {
+                            onboardingViewModel.alertAction()
+                        }
+                    )
+                )
+            }
+        )
+
     }
 }
 
