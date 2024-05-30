@@ -8,13 +8,14 @@
 import Foundation
 
 final class PointViewModel: ObservableObject {
-   @Published var challengeDay = 1
-   @Published var currentPoint = 0
-   @Published var pointList: [PointList] = []
+    @Published var challengeDay = 1
+    @Published var currentPoint = 0
+    @Published var pointList: [PointList] = []
+    @Published var isPresented = false
     
     func getUsagePoint() {
         Providers.pointProvider.request(target: .getUsagePoint,
-                                            instance: BaseResponse<UsagePointResponseDTO>.self) { result in
+                                        instance: BaseResponse<UsagePointResponseDTO>.self) { result in
             guard let data = result.data else { return }
         }
     }
@@ -24,15 +25,16 @@ final class PointViewModel: ObservableObject {
         let date = pointList[day].challengeDate
         let request = PointRequestDTO(challengeDate: date)
         Providers.pointProvider.request(target: .patchEarnPoint(data: request),
-                                            instance: BaseResponse<EarnPointResponseDTO>.self) { result in
-            guard let data = result.data else { return }
+                                        instance: BaseResponse<EarnPointResponseDTO>.self) { result in
+        guard let data = result.data else { return }
+        self.isPresented = true
         }
     }
     // 하루하루 챌린지를 성공하고, 포인트를 받는 버튼을 눌렀을 때, 포인트를 받는 API
     
     func getPointList() {
         Providers.pointProvider.request(target: .getPointList,
-                                            instance: BaseResponse<PointListResponseDTO>.self) { result in
+                                        instance: BaseResponse<PointListResponseDTO>.self) { result in
             guard let data = result.data else { return }
             self.challengeDay = data.period
             self.currentPoint = data.point
@@ -45,7 +47,7 @@ final class PointViewModel: ObservableObject {
         let date = pointList[day].challengeDate
         let request = PointRequestDTO(challengeDate: date)
         Providers.pointProvider.request(target: .patchPointUse(data: request),
-                                            instance: BaseResponse<UsagePointResponseDTO>.self) { result in
+                                        instance: BaseResponse<UsagePointResponseDTO>.self) { result in
             guard let data = result.data else { return }
         }
     }
@@ -54,7 +56,7 @@ final class PointViewModel: ObservableObject {
     func getCurrentPoint(date: String) {
         let request = PointRequestDTO(challengeDate: date)
         Providers.pointProvider.request(target: .getCurrentPoint(data: request),
-                                            instance: BaseResponse<UserPointResponseDTO>.self) { result in
+                                        instance: BaseResponse<UserPointResponseDTO>.self) { result in
             guard let data = result.data else { return }
         }
     }

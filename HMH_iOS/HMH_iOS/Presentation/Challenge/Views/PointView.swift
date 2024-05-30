@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct PointView: View {
-    @State var viewModel = PointViewModel()
-    
-    public init(viewModel: PointViewModel) {
-        self.viewModel = viewModel
-    }
+    @StateObject var viewModel = PointViewModel()
     
     public var body: some View {
         main
@@ -29,6 +25,7 @@ extension PointView {
                 .padding(.vertical, 16)
                 .padding(.horizontal, 20)
         }
+        .showToast(toastType: .earnPoint, isPresented: $viewModel.isPresented)
         .customNavigationBar(title: StringLiteral.NavigationBar.point,
                              showBackButton: true,
                              showPointButton: true,
@@ -67,7 +64,7 @@ struct EarnPointButton: View {
     
     var body: some View {
         Button(action: {
-            viewModel.patchPointUse(day: day)
+            viewModel.patchEarnPoint(day: day)
         }, label: {
             Text(StringLiteral.Challenge.pointButton)
                 .font(.text4_semibold_16)
