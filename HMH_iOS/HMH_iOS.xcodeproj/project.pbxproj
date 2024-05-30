@@ -63,6 +63,15 @@
 		0BF56C972BC3B871003ECFB1 /* StoryContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF56C962BC3B871003ECFB1 /* StoryContentView.swift */; };
 		3601C8362BC6E8FB005790F7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3601C8352BC6E8FB005790F7 /* HomeViewModel.swift */; };
 		3601C8382BC6EC5C005790F7 /* UsageTimeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */; };
+		3606F35F2C078CA8002A1386 /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3672443E2BF32481007A5A7B /* DeviceActivityMonitorExtension.swift */; };
+		3606F3682C07A78B002A1386 /* Main-A-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF342BA14FDB00EC0BDE /* Main-A-final.json */; };
+		3606F3692C07A7A5002A1386 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2D67B2B9F5A7B00733843 /* String.swift */; };
+		3606F36A2C07A7B6002A1386 /* Main-C-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF332BA14FDB00EC0BDE /* Main-C-final.json */; };
+		3606F36C2C07A7CC002A1386 /* Main-D-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF322BA14FDB00EC0BDE /* Main-D-final.json */; };
+		3606F36D2C07A7D7002A1386 /* Main-E-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF352BA14FDB00EC0BDE /* Main-E-final.json */; };
+		3606F36E2C07A7E1002A1386 /* Main-F-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */; };
+		3606F3702C07A8B6002A1386 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3606F36F2C07A8B6002A1386 /* Lottie */; };
+		3606F3712C07AC3A002A1386 /* Main-B-final.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */; };
 		361C61EA2BD6B7F200EF0D8B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2D6772B9F39EF00733843 /* Font.swift */; };
 		361C61EC2BD6B8CC00EF0D8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
 		361C61ED2BD6BA6900EF0D8B /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6702B9F385000733843 /* Pretendard-Regular.otf */; };
@@ -147,11 +156,6 @@
 		369D7EF02C04BB8B00295791 /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244E82BF3D770007A5A7B /* AppStorageKey.swift */; };
 		369D7F2A2C05024400295791 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 369D7F292C05024400295791 /* RealmSwift */; };
 		369D7F2C2C05025900295791 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 369D7F292C05024400295791 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		369D7F2E2C05029A00295791 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 369D7F2D2C05029A00295791 /* RealmSwift */; };
-		369D7F2F2C05029A00295791 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 369D7F2D2C05029A00295791 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		369D7F302C05084800295791 /* DailyChallengeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3681242C2C035D780060DDB7 /* DailyChallengeModel.swift */; };
-		369D7F352C05119A00295791 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D7F342C05119A00295791 /* RealmManager.swift */; };
-		369D7F362C05119A00295791 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D7F342C05119A00295791 /* RealmManager.swift */; };
 		36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */; };
 /* End PBXBuildFile section */
 
@@ -231,7 +235,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				369D7F2F2C05029A00295791 /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +378,6 @@
 		368CAADD2BB97FE000FA83B3 /* HMH_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HMH_iOS.entitlements; sourceTree = "<group>"; };
 		368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarModifier.swift; sourceTree = "<group>"; };
-		369D7F342C05119A00295791 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -430,7 +432,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				369D7F2E2C05029A00295791 /* RealmSwift in Frameworks */,
+				3606F3702C07A8B6002A1386 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,7 +931,6 @@
 				368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */,
 				368C5D9C2BCC41990035A1AC /* Info.plist */,
 				368C5D9D2BCC41990035A1AC /* HMHDeviceActivityReport.entitlements */,
-				369D7F342C05119A00295791 /* RealmManager.swift */,
 			);
 			path = HMHDeviceActivityReport;
 			sourceTree = "<group>";
@@ -1067,7 +1068,7 @@
 			);
 			name = HMHDeviceActivityReport;
 			packageProductDependencies = (
-				369D7F2D2C05029A00295791 /* RealmSwift */,
+				3606F36F2C07A8B6002A1386 /* Lottie */,
 			);
 			productName = HMHDeviceActivityReport;
 			productReference = 368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */;
@@ -1181,11 +1182,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3606F3712C07AC3A002A1386 /* Main-B-final.json in Resources */,
 				361C61EE2BD6BA6C00EF0D8B /* Pretendard-SemiBold.otf in Resources */,
 				361C61EC2BD6B8CC00EF0D8B /* Assets.xcassets in Resources */,
 				361C61ED2BD6BA6900EF0D8B /* Pretendard-Regular.otf in Resources */,
+				3606F36A2C07A7B6002A1386 /* Main-C-final.json in Resources */,
+				3606F3682C07A78B002A1386 /* Main-A-final.json in Resources */,
 				361C61EF2BD6BA6E00EF0D8B /* Pretendard-Medium.otf in Resources */,
+				3606F36E2C07A7E1002A1386 /* Main-F-final.json in Resources */,
+				3606F36C2C07A7CC002A1386 /* Main-D-final.json in Resources */,
 				361C61F12BD6BAA000EF0D8B /* HMH-iOS-Info.plist in Resources */,
+				3606F36D2C07A7D7002A1386 /* Main-E-final.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1252,7 +1259,6 @@
 				0BF56C932BC39127003ECFB1 /* PickerView.swift in Sources */,
 				367243D12BEDE9F6007A5A7B /* NetworkHelper.swift in Sources */,
 				367243FD2BEDEB32007A5A7B /* EmptyResponseDTO.swift in Sources */,
-				369D7F352C05119A00295791 /* RealmManager.swift in Sources */,
 				368124172C0350950060DDB7 /* MidnightTaskScheduler.swift in Sources */,
 				367244E92BF3D770007A5A7B /* AppStorageKey.swift in Sources */,
 				367243FB2BEDEB32007A5A7B /* CreateChallengeRequestDTO.swift in Sources */,
@@ -1268,6 +1274,7 @@
 				0BC0E5B12BB04BA800FB0330 /* SurveyProblemView.swift in Sources */,
 				367243D72BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift in Sources */,
 				367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */,
+				3606F35F2C078CA8002A1386 /* DeviceActivityMonitorExtension.swift in Sources */,
 				367244092BEDEC7F007A5A7B /* Providers.swift in Sources */,
 				368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */,
 				367243D22BEDE9F6007A5A7B /* Config.swift in Sources */,
@@ -1315,13 +1322,12 @@
 			files = (
 				361C61EA2BD6B7F200EF0D8B /* Font.swift in Sources */,
 				367244232BF274C0007A5A7B /* ChallengeActivityView.swift in Sources */,
-				369D7F362C05119A00295791 /* RealmManager.swift in Sources */,
 				368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */,
 				3672441C2BF13048007A5A7B /* AppActivityReport.swift in Sources */,
 				367244192BF102A6007A5A7B /* ActivityModel.swift in Sources */,
+				3606F3692C07A7A5002A1386 /* String.swift in Sources */,
 				36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */,
 				369D7EF02C04BB8B00295791 /* AppStorageKey.swift in Sources */,
-				369D7F302C05084800295791 /* DailyChallengeModel.swift in Sources */,
 				368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */,
 				368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */,
 			);
@@ -1931,6 +1937,11 @@
 			package = 0BDDA0152C005A53001BD43E /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
 		};
+		3606F36F2C07A8B6002A1386 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 365CD6CA2B7E4CBE00245CDD /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
 		365CD6CB2B7E4CBE00245CDD /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 365CD6CA2B7E4CBE00245CDD /* XCRemoteSwiftPackageReference "lottie-spm" */;
@@ -1972,11 +1983,6 @@
 			productName = Then;
 		};
 		369D7F292C05024400295791 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 369D7F262C05024400295791 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
-		369D7F2D2C05029A00295791 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 369D7F262C05024400295791 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;

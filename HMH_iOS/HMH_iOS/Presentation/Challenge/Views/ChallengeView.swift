@@ -9,7 +9,6 @@ import SwiftUI
 
 import FamilyControls
 import DeviceActivity
-import RealmSwift
 
 struct ChallengeView: View {
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
@@ -142,10 +141,6 @@ extension ChallengeView {
             }
         }
         .onAppear() {
-            let getTotalTime = RealmManager.shared.localRealm.objects(TotalTime.self)
-            print(getTotalTime)
-            let getApp = RealmManager.shared.localRealm.objects(Appdata.self)
-            print(getApp)
             selection = screenTimeViewModel.selectedApp
             filter = DeviceActivityFilter(
                 segment: .daily(
