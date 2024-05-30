@@ -21,6 +21,7 @@
 		0B6A83672C08643B0095060C /* PointListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83662C08643B0095060C /* PointListResponseDTO.swift */; };
 		0B6A83692C08644F0095060C /* UsePointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */; };
 		0B6A836B2C0864640095060C /* UserPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */; };
+		0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A836D2C08C0520095060C /* HMHToastView.swift */; };
 		0B719C382BF1C45D00DF1D92 /* CustomAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */; };
 		0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */; };
 		0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */; };
@@ -274,6 +275,7 @@
 		0B6A83662C08643B0095060C /* PointListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointListResponseDTO.swift; sourceTree = "<group>"; };
 		0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsePointResponseDTO.swift; sourceTree = "<group>"; };
 		0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPointResponseDTO.swift; sourceTree = "<group>"; };
+		0B6A836D2C08C0520095060C /* HMHToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHToastView.swift; sourceTree = "<group>"; };
 		0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModifier.swift; sourceTree = "<group>"; };
 		0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyButton.swift; sourceTree = "<group>"; };
 		0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
@@ -485,6 +487,14 @@
 			path = Point;
 			sourceTree = "<group>";
 		};
+		0B6A836C2C08C03C0095060C /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				0B6A836D2C08C0520095060C /* HMHToastView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		0B82ECAA2BC9141D002D5CF3 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,6 +563,7 @@
 		0BBF287B2BF2F7EF00101F40 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0B6A836C2C08C03C0095060C /* Toast */,
 				0B205B332BFCC15C00B0FB83 /* Manager */,
 				0BBF287C2BF2F7F400101F40 /* Alert */,
 			);
@@ -1300,6 +1311,7 @@
 				367243FB2BEDEB32007A5A7B /* CreateChallengeRequestDTO.swift in Sources */,
 				0BBF28862BF2F84700101F40 /* WithdrawAlertView.swift in Sources */,
 				0BBF28802BF2F81A00101F40 /* UsePointsAlertView.swift in Sources */,
+				0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */,
 				369D7EE52C04AE2000295791 /* ScreenTimeViewModel.swift in Sources */,
 				367243F82BEDEB32007A5A7B /* GetChallengeResponseDTO.swift in Sources */,
 				0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */,

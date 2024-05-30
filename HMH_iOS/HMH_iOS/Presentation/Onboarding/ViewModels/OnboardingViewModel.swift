@@ -23,6 +23,9 @@ class OnboardingViewModel: ObservableObject {
     var isCompleted: Bool
     
     @Published
+    var isOnboardingError : Bool = false
+    
+    @Published
     var isCompletePresented: Bool = false
     
     @Published
@@ -96,7 +99,6 @@ class OnboardingViewModel: ObservableObject {
         case 6:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
             postSignUpLoginData()
-            addOnboardingState()
             offIsCompleted()
         default:
             break
@@ -160,9 +162,9 @@ class OnboardingViewModel: ObservableObject {
                 UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
                 UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
             } else if data.message == "이미 회원가입된 유저입니다." {
-                UserManager.shared.appStateString = "login"
+                self.isOnboardingError = true
             } else {
-                self.onboardingState = 0
+                self.isOnboardingError = true
             }
         }
     }

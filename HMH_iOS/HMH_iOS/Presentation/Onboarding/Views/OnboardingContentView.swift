@@ -47,6 +47,7 @@ struct OnboardingContentView: View {
                 self.presentationMode.wrappedValue.dismiss()
             }
         }
+        .showToast(toastType: .onboardingWarn, isPresented: $onboardingViewModel.isOnboardingError)
         .customAlert(
             isPresented: $onboardingViewModel.isCompletePresented,
             customAlert: {
