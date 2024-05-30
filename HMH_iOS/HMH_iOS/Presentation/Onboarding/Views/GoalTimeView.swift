@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct GoalTimeView: View {
-    var times = ["2", "3", "4", "5", "6"]
+    var times = ["1", "2", "3", "4", "5", "6"]
     @ObservedObject var viewModel: OnboardingViewModel
     
     var body: some View {
