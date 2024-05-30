@@ -17,7 +17,7 @@ struct PointView: View {
     public var body: some View {
         main
             .onAppear {
-                
+                viewModel.getPointList()
             }
     }
 }
@@ -32,13 +32,13 @@ extension PointView {
         .customNavigationBar(title: StringLiteral.NavigationBar.point,
                              showBackButton: true,
                              showPointButton: true,
-                             isPointView: true)
+                             isPointView: true, point: viewModel.currentPoint)
         .background(.blackground)
         .navigationBarHidden(true) 
     }
     
     private var listView: some View {
-        ForEach(1...viewModel.challengeDay + 1, id: \.self) { day in
+        ForEach(1...viewModel.challengeDay, id: \.self) { day in
             HStack{
                 VStack(alignment: .leading){
                     Text("\(day)" + StringLiteral.Challenge.pointTitle)
@@ -50,14 +50,7 @@ extension PointView {
                         .foregroundStyle(.gray2)
                 }
                 Spacer()
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    Text(StringLiteral.Challenge.pointButton)
-                        .font(.text4_semibold_16)
-                        .foregroundStyle(.whiteBtn)
-                        .frame(width: 73, height: 40)
-                        .background(.bluePurpleButton)
-                        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 3, height: 3)))
-                })
+                EarnPointButton(day: Int)
             }
             .frame(height: 80)
         }
@@ -67,3 +60,19 @@ extension PointView {
 #Preview {
     PointView(viewModel: .init())
 }
+
+struct EarnPointButton: View {
+    var body: some View {
+        Button(action: {
+            viewModel.patchPointUse(day: day)
+        }, label: {
+            Text(StringLiteral.Challenge.pointButton)
+                .font(.text4_semibold_16)
+                .foregroundStyle(.whiteBtn)
+                .frame(width: 73, height: 40)
+                .background(.bluePurpleButton)
+                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 3, height: 3)))
+        })
+    }
+}
+

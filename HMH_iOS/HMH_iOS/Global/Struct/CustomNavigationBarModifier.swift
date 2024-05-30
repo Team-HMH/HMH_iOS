@@ -8,8 +8,8 @@
 import SwiftUI
 
 extension View {
-    func customNavigationBar(title: String, showBackButton: Bool, showPointButton: Bool, isPointView: Bool = false) -> some View {
-        self.modifier(CustomNavigationBarModifier(title: title,
+    func customNavigationBar(title: String, showBackButton: Bool, showPointButton: Bool, isPointView: Bool = false, point: Int) -> some View {
+        self.modifier(CustomNavigationBarModifier(title: title, point: point,
                                                   showBackButton: showBackButton,
                                                   showPointButton: showPointButton,
                                                   isPointView: isPointView))
@@ -18,6 +18,7 @@ extension View {
 
 struct CustomNavigationBarModifier: ViewModifier {
     let title: String
+    var point: Int
     var showBackButton: Bool
     var showPointButton: Bool
     var isPointView: Bool
@@ -28,7 +29,7 @@ struct CustomNavigationBarModifier: ViewModifier {
             NavigationBarView(showBackButton: showBackButton,
                               showPointButton: showPointButton,
                               isPointView: isPointView,
-                              title: title)
+                              title: title, point: point)
             content
                 .toolbar(.hidden)
         }
