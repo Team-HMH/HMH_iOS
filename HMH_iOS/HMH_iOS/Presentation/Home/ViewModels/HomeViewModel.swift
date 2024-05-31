@@ -16,13 +16,15 @@ class HomeViewModel: ObservableObject {
     var totalGoalTimeDouble = 0
     @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var appGoalTimeDouble = 0
+    @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var usageGrade = ""
     
-    
-    @Published var totalGoalTime = 0
-    @Published var appGoalTime = 0
+    @AppStorage("handleUsage") var isNotHandleUsage: Bool = true
+    @StateObject var screenTimeVM = ScreenTimeViewModel()
     
     init(){
         getDailyChallenge()
+        print("usageGrade:\(usageGrade)")
     }
     
     func getDailyChallenge() {
@@ -30,6 +32,10 @@ class HomeViewModel: ObservableObject {
             if let data = result.data {
                 self.totalGoalTimeDouble = data.goalTime
                 self.appGoalTimeDouble = data.apps[0].goalTime
+                if self.isNotHandleUsage {
+                    self.screenTimeVM.handleStartDeviceActivityMonitoring(interval: self.appGoalTimeDouble)
+                    self.isNotHandleUsage = false
+                }
             }
         }
     }

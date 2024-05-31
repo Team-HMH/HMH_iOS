@@ -105,6 +105,7 @@ class OnboardingViewModel: ObservableObject {
                 addOnboardingState()
             } else {
               postSignUpLoginData()
+            screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: appGoalTime)
             }
             offIsCompleted()
         default:
