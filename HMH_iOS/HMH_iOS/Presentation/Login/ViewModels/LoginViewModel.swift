@@ -6,19 +6,11 @@ import KakaoSDKUser
 class LoginViewModel: NSObject, ObservableObject {
     
     @Published var isLoading: Bool = true
+    @Published var isPresented: Bool = false
+    @Published var alertType: CustomAlertType = .unlock
     
     func handleSplashScreen() {
         self.isLoading = false
-    }
-    
-    private func refreshToken() {
-        let provider = Providers.AuthProvider
-        provider.request(target: .tokenRefresh, instance: BaseResponse<RefreshTokebResponseDTO>.self) { data in
-            if let data = data.data {
-                UserManager.shared.accessToken = data.token.accessToken
-                UserManager.shared.refreshToken = data.token.refreshToken
-            }
-        }
     }
     
     func handleAppleLogin() {

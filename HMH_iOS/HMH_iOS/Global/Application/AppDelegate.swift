@@ -9,6 +9,8 @@ import UIKit
 import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    var appStateViewModel = AppStateViewModel.shared
+        
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         NotificationManager.shared.requestAuthorization()
         UNUserNotificationCenter.current().delegate = NotificationManager.shared
@@ -40,7 +42,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
       private func handleRemoteNotification(_ userInfo: [AnyHashable: Any]) {
           // Handle the notification and show an alert
           if let aps = userInfo["aps"] as? [String: AnyObject],
-             let alert = aps["alert"] as? [String: String] {
+             let alert = aps["status"] as? [String: String] {
+              appStateViewModel.showCustomAlert = true
           }
       }
 }

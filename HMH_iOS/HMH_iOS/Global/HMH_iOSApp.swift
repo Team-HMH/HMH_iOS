@@ -22,7 +22,8 @@ struct HMH_iOSApp: App {
     @StateObject var loginViewModel = LoginViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject private var scheduler = MidnightTaskScheduler()
-
+    @StateObject var appStateViewModel = AppStateViewModel.shared
+    
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
@@ -47,6 +48,24 @@ struct HMH_iOSApp: App {
                         OnboardingCompleteView()
                     case .home:
                         TabBarView()
+                            .overlay(
+                                CustomAlertView(
+                                    alertType: loginViewModel.alertType,
+                                    confirmBtn: CustomAlertButtonView(
+                                        buttonType: .Confirm,
+                                        alertType: loginViewModel.alertType,
+                                        isPresented: $appStateViewModel.showCustomAlert,
+                                        action: {}
+                                    ),
+                                    cancelBtn: CustomAlertButtonView(
+                                        buttonType: .Cancel,
+                                        alertType: loginViewModel.alertType,
+                                        isPresented: $appStateViewModel.showCustomAlert,
+                                        action: {}
+                                    )
+                                )
+                                .opacity(appStateViewModel.showCustomAlert ? 1 : 0)
+                            )
                     case .login:
                         LoginView(viewModel: loginViewModel)
                             .onOpenURL { url in

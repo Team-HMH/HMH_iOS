@@ -40,3 +40,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     }
 }
 
+class AppStateViewModel: ObservableObject {
+    static let shared = AppStateViewModel()
+    
+    @Published var showCustomAlert: Bool = false
+}
