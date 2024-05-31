@@ -24,6 +24,8 @@ final class ChallengeViewModel: ObservableObject {
     @Published var subTitleString = ""
     @Published var challengeType: ChallengeType = .empty
     
+    @StateObject var screenViewModel = ScreenTimeViewModel()
+    
     enum PointStatus {
         static let unearned = "UNEARNED"
         static let earned = "EARNED"
@@ -57,17 +59,14 @@ final class ChallengeViewModel: ObservableObject {
         }
     }
     
-    func createChallenge(bundle: [String]) {
-        
-        let dto = CreateChallengeRequestDTO(period: 7, goalTime: 1204928)
-        Providers.challengeProvider.request(target: .createChallenge(data: dto), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-            print(result)
-        }
+    func addApp(appGoalTime: Int) {
         var applist: [Apps] = []
         
-        bundle.forEach { bundleid in
-            applist.append(Apps(appCode: bundleid, goalTime: 10000000))
+        screenViewModel.selectedApp.applications.forEach { app in
+            applist.append(Apps(appCode: app.localizedDisplayName ?? "basic name", goalTime: appGoalTime))
         }
+        
+        screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: appGoalTime)
         
         Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { result in
             print(result)
