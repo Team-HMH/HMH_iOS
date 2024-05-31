@@ -54,6 +54,8 @@ final class ChallengeViewModel: ObservableObject {
             self.appList = data.apps
             self.statuses = data.statuses
             self.todayIndex = data.todayIndex
+            self.startDate = self.formatDateString(data.startDate) ?? ""
+            
             print(self.days)
             self.getChallengeType()
         }
