@@ -8,18 +8,18 @@
 import BackgroundTasks
 import CoreData
 
-class MidnightTaskScheduler {
+class MidnightTaskScheduler: ObservableObject {
     var timer: Timer?
     
     init() {
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.example.app.refresh", using: nil) { task in
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "midnight.com", using: nil) { task in
             self.handleAppRefresh(task: task as! BGAppRefreshTask)
         }
         scheduleMidnightTask()
     }
     
     func scheduleMidnightTask() {
-        let request = BGAppRefreshTaskRequest(identifier: "com.example.app.refresh")
+        let request = BGAppRefreshTaskRequest(identifier: "midnight.com")
         request.earliestBeginDate = nextMidnight() // 다음 자정에 실행되도록 설정
         
         do {
@@ -49,7 +49,19 @@ class MidnightTaskScheduler {
     }
     
     func saveDataToLocalDatabase() {
-        
+        print("save save")
+    }
+    
+    func testTask() {
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(executeTestTask), userInfo: nil, repeats: false)
+    }
+    
+    @objc func executeTestTask() {
+        saveDataToLocalDatabase()
+        scheduleMidnightTask()
+        // task.setTaskCompleted(success: true) 부분은 실제로 task를 필요로 하지만, 여기서는 모의 task로 대체
+        print("Task completed successfully.")
     }
 }
+
 
