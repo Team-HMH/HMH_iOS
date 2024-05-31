@@ -54,7 +54,7 @@ extension ChallengeView {
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
                              showBackButton: false,
-                             showPointButton: true)
+                             showPointButton: true, point: 0)
         .background(.blackground)
         .onAppear {
             viewModel.getChallengeInfo()

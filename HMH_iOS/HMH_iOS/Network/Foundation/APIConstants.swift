@@ -36,6 +36,8 @@ extension APIConstants{
     static let hasTokenHeader = [contentType: applicationJSON,
                                           OS: iOS,
                                        auth : accessToken]
+    static let hasAccessTokenHeader = [contentType: applicationJSON,
+                                       auth : accessToken]
     static let hasRefreshTokenHeader = [contentType: applicationJSON,
                                               auth : refreshToken]
     static let signUpHeader = [contentType: applicationJSON,

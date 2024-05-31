@@ -5,10 +5,9 @@
 //  Created by Seonwoo Kim on 5/13/24.
 //
 
-
 import SwiftUI
 
-enum CustoAlertButtonType {
+enum CustomAlertButtonType {
     case Confirm
     case Cancel
 }
@@ -83,28 +82,28 @@ enum CustomAlertType {
 struct CustomAlertModifier: ViewModifier {
     
     @Binding var isPresent: Bool
-    
-    let alert: CustomAlertView
+    let alert: () -> CustomAlertView
     
     func body(content: Content) -> some View {
         content
-            .fullScreenCover(isPresented: $isPresent) {
-                alert
-            }
-            .transaction { transaction in
-                transaction.disablesAnimations = true
-            }
+            .overlay(
+                ZStack {
+                    if isPresent {
+                        alert()
+                    }
+                }
+            )
     }
 }
 
 struct CustomAlertButtonView: View {
     
-    typealias Action = () -> ()
+    typealias Action = () -> Void
     @Binding var isPresented: Bool
     
     var action: Action
-    var buttonType : CustoAlertButtonType
-    var alertType : CustomAlertType
+    var buttonType: CustomAlertButtonType
+    var alertType: CustomAlertType
     
     private var buttonBackgroundColor: Color {
         switch (buttonType, alertType) {
@@ -117,7 +116,7 @@ struct CustomAlertButtonView: View {
         }
     }
     
-    init(buttonType: CustoAlertButtonType,
+    init(buttonType: CustomAlertButtonType,
          alertType: CustomAlertType,
          isPresented: Binding<Bool>,
          action: @escaping Action) {
@@ -185,18 +184,14 @@ struct CustomAlertView: View {
     }
 }
 
-
-
 extension View {
-    func customAlert(isPresented:Binding<Bool>, customAlert: @escaping () -> CustomAlertView) -> some View {
-        return modifier(CustomAlertModifier(isPresent: isPresented, alert: customAlert()))
+    func customAlert(isPresented: Binding<Bool>, customAlert: @escaping () -> CustomAlertView) -> some View {
+        self.modifier(CustomAlertModifier(isPresent: isPresented, alert: customAlert))
     }
 }
 
 struct ClearBackground: UIViewRepresentable {
-    
     func makeUIView(context: Context) -> UIView {
-        
         let view = ClearBackgroundView()
         DispatchQueue.main.async {
             view.superview?.superview?.backgroundColor = .clear

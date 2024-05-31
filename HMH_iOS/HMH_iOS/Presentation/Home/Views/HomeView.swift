@@ -35,7 +35,7 @@ struct HomeView: View {
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.home,
                              showBackButton: false,
-                             showPointButton: false)
+                             showPointButton: false, point: 0)
         .background(.blackground)
         .onAppear {
             screenTimeViewModel.requestAuthorization()

@@ -14,6 +14,14 @@
 		0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29702BA01C3000435B30 /* MyPageView.swift */; };
 		0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29722BA01DCE00435B30 /* CustomTabView.swift */; };
 		0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5140532BE3A2D600C78B9F /* LoginView.swift */; };
+		0B6A835C2C085EFD0095060C /* PointRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A835B2C085EFD0095060C /* PointRouter.swift */; };
+		0B6A835F2C0861B20095060C /* PointRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A835E2C0861B20095060C /* PointRequestDTO.swift */; };
+		0B6A83632C0864010095060C /* UsagePointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83622C0864010095060C /* UsagePointResponseDTO.swift */; };
+		0B6A83652C08641D0095060C /* EarnPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83642C08641D0095060C /* EarnPointResponseDTO.swift */; };
+		0B6A83672C08643B0095060C /* PointListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83662C08643B0095060C /* PointListResponseDTO.swift */; };
+		0B6A83692C08644F0095060C /* UsePointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */; };
+		0B6A836B2C0864640095060C /* UserPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */; };
+		0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A836D2C08C0520095060C /* HMHToastView.swift */; };
 		0B719C382BF1C45D00DF1D92 /* CustomAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */; };
 		0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */; };
 		0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */; };
@@ -260,6 +268,14 @@
 		0B3C29702BA01C3000435B30 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		0B3C29722BA01DCE00435B30 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0B5140532BE3A2D600C78B9F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		0B6A835B2C085EFD0095060C /* PointRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointRouter.swift; sourceTree = "<group>"; };
+		0B6A835E2C0861B20095060C /* PointRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointRequestDTO.swift; sourceTree = "<group>"; };
+		0B6A83622C0864010095060C /* UsagePointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsagePointResponseDTO.swift; sourceTree = "<group>"; };
+		0B6A83642C08641D0095060C /* EarnPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnPointResponseDTO.swift; sourceTree = "<group>"; };
+		0B6A83662C08643B0095060C /* PointListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointListResponseDTO.swift; sourceTree = "<group>"; };
+		0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsePointResponseDTO.swift; sourceTree = "<group>"; };
+		0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPointResponseDTO.swift; sourceTree = "<group>"; };
+		0B6A836D2C08C0520095060C /* HMHToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHToastView.swift; sourceTree = "<group>"; };
 		0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModifier.swift; sourceTree = "<group>"; };
 		0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyButton.swift; sourceTree = "<group>"; };
 		0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
@@ -458,6 +474,27 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		0B6A835D2C0861930095060C /* Point */ = {
+			isa = PBXGroup;
+			children = (
+				0B6A835E2C0861B20095060C /* PointRequestDTO.swift */,
+				0B6A83622C0864010095060C /* UsagePointResponseDTO.swift */,
+				0B6A83642C08641D0095060C /* EarnPointResponseDTO.swift */,
+				0B6A83662C08643B0095060C /* PointListResponseDTO.swift */,
+				0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */,
+				0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */,
+			);
+			path = Point;
+			sourceTree = "<group>";
+		};
+		0B6A836C2C08C03C0095060C /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				0B6A836D2C08C0520095060C /* HMHToastView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		0B82ECAA2BC9141D002D5CF3 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -526,6 +563,7 @@
 		0BBF287B2BF2F7EF00101F40 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0B6A836C2C08C03C0095060C /* Toast */,
 				0B205B332BFCC15C00B0FB83 /* Manager */,
 				0BBF287C2BF2F7F400101F40 /* Alert */,
 			);
@@ -761,6 +799,7 @@
 		365CD6E82B7E501000245CDD /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				0B6A835D2C0861930095060C /* Point */,
 				367243D82BEDEAC9007A5A7B /* Auth */,
 				367243D92BEDEAD2007A5A7B /* Challenge */,
 				367243FF2BEDEBC6007A5A7B /* MyPage */,
@@ -787,6 +826,7 @@
 				367244022BEDEC4A007A5A7B /* AuthRouter.swift */,
 				367244032BEDEC4A007A5A7B /* ChallengeRouter.swift */,
 				367244042BEDEC4A007A5A7B /* MyPageRouter.swift */,
+				0B6A835B2C085EFD0095060C /* PointRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -1208,16 +1248,20 @@
 				0B3C296D2BA01C2000435B30 /* ChallengeView.swift in Sources */,
 				367243B22BE9ABCC007A5A7B /* ChallengeViewModel.swift in Sources */,
 				0BDDA0142C005A25001BD43E /* KeyChainStorage.swift in Sources */,
+				0B6A83692C08644F0095060C /* UsePointResponseDTO.swift in Sources */,
 				3601C8362BC6E8FB005790F7 /* HomeViewModel.swift in Sources */,
+				0B6A83672C08643B0095060C /* PointListResponseDTO.swift in Sources */,
 				367243FC2BEDEB32007A5A7B /* HomeChallengeResponseDTO.swift in Sources */,
 				365CD6BF2B7E4C4F00245CDD /* ContentView.swift in Sources */,
 				0B82ECB22BC916C6002D5CF3 /* MyPageButton.swift in Sources */,
 				368CAAE22BB9B26000FA83B3 /* CustomNavigationBarModifier.swift in Sources */,
 				367243D42BEDE9F6007A5A7B /* NetworkResult.swift in Sources */,
 				367243D32BEDE9F6007A5A7B /* ResponseData.swift in Sources */,
+				0B6A835C2C085EFD0095060C /* PointRouter.swift in Sources */,
 				367244132BF086A7007A5A7B /* AuthInterceptor.swift in Sources */,
 				367243F62BEDEB32007A5A7B /* DeleteAppRequestDTO.swift in Sources */,
 				368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */,
+				0B6A835F2C0861B20095060C /* PointRequestDTO.swift in Sources */,
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
 				367243F42BEDEB32007A5A7B /* AddAppResponseDTO.swift in Sources */,
 				367244052BEDEC4A007A5A7B /* AuthRouter.swift in Sources */,
@@ -1226,6 +1270,7 @@
 				0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */,
 				0BC0E5B32BB04BC600FB0330 /* GoalPeriodView.swift in Sources */,
 				0B86937D2BE727E5000D7CE1 /* LoginViewModel.swift in Sources */,
+				0B6A836B2C0864640095060C /* UserPointResponseDTO.swift in Sources */,
 				0B86937F2BE87A5F000D7CE1 /* LoginButton.swift in Sources */,
 				367243E22BEDEAF8007A5A7B /* SocialLoginRequestDTO.swift in Sources */,
 				367244012BEDEBD8007A5A7B /* GetUserDataResponseDTO.swift in Sources */,
@@ -1238,11 +1283,13 @@
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
 				367244ED2BF3E778007A5A7B /* NotificationManager.swift in Sources */,
 				367244152BF0956B007A5A7B /* PointView.swift in Sources */,
+				0B6A83632C0864010095060C /* UsagePointResponseDTO.swift in Sources */,
 				0BC0E5A92BB03EE400FB0330 /* OnboardingModel.swift in Sources */,
 				0B8693772BE5CB46000D7CE1 /* SwipeView.swift in Sources */,
 				0BBF28822BF2F82500101F40 /* UnlockCompleteAlertView.swift in Sources */,
 				0B86937B2BE727DA000D7CE1 /* SocialLoginModel.swift in Sources */,
 				0BD2D6782B9F39EF00733843 /* Font.swift in Sources */,
+				0B6A83652C08641D0095060C /* EarnPointResponseDTO.swift in Sources */,
 				367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */,
 				0B205B352BFCC16A00B0FB83 /* UserManager.swift in Sources */,
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
@@ -1264,6 +1311,7 @@
 				367243FB2BEDEB32007A5A7B /* CreateChallengeRequestDTO.swift in Sources */,
 				0BBF28862BF2F84700101F40 /* WithdrawAlertView.swift in Sources */,
 				0BBF28802BF2F81A00101F40 /* UsePointsAlertView.swift in Sources */,
+				0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */,
 				369D7EE52C04AE2000295791 /* ScreenTimeViewModel.swift in Sources */,
 				367243F82BEDEB32007A5A7B /* GetChallengeResponseDTO.swift in Sources */,
 				0B9834DC2BC8234700A1457A /* SplashView.swift in Sources */,

@@ -14,7 +14,7 @@ struct NavigationBarView: View {
     let showPointButton: Bool
     let isPointView: Bool
     let title: String
-    let point = 100
+    let point: Int
     
     var body: some View {
         ZStack {
@@ -103,5 +103,5 @@ extension NavigationBarView {
 }
 
 #Preview {
-    NavigationBarView(showBackButton: false, showPointButton: true, isPointView: false, title: "마이페이지")
+    NavigationBarView(showBackButton: false, showPointButton: true, isPointView: false, title: "마이페이지", point: 100)
 }
