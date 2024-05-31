@@ -17,20 +17,21 @@ enum AppState: String {
     case home
 }
 
-
 @main
 struct HMH_iOSApp: App {
     @StateObject var loginViewModel = LoginViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject private var scheduler = MidnightTaskScheduler()
-    
+
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
+
+    @Environment(\.scenePhase) private var scenePhase
+
     init() {
         KakaoSDK.initSDK(appKey: kakaoAPIKey)
     }
-    
+
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -49,15 +50,21 @@ struct HMH_iOSApp: App {
                     case .login:
                         LoginView(viewModel: loginViewModel)
                             .onOpenURL { url in
-                                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                                if AuthApi.isKakaoTalkLoginUrl(url) {
                                     _ = AuthController.handleOpenUrl(url: url)
                                 }
                             }
                     }
                 }
             }
-            .onAppear {
-                scheduler.testTask()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            switch newPhase {
+            case .background:
+                print("App moved to background.")
+                scheduler.scheduleMidnightTask()
+            @unknown default:
+                break
             }
         }
     }
