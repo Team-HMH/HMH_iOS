@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Property 1=회색.png",
+      "filename" : "failStar.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Property 1=회색@2x.png",
+      "filename" : "failStar@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Property 1=회색@3x.png",
+      "filename" : "failStar@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
