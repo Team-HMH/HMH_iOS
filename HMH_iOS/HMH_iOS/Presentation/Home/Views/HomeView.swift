@@ -37,21 +37,10 @@ struct HomeView: View {
                              showBackButton: false,
                              showPointButton: false, point: 0)
         .background(.blackground)
-        .onAppear {
-            screenTimeViewModel.requestAuthorization()
-            
-            appFilter = DeviceActivityFilter(
-                segment: .daily(
-                    during: Calendar.current.dateInterval(
-                        of: .day, for: .now
-                    ) ?? DateInterval()
-                ),
-                users: .all,
-                devices: .init([.iPhone]),
-                applications: screenTimeViewModel.selectedApp.applicationTokens,
-                categories: screenTimeViewModel.selectedApp.categoryTokens
-            )
+        .task {
+            await loadData()
         }
+        
     }
 }
 
@@ -65,7 +54,25 @@ extension HomeView {
                 .padding(.bottom, 20)
         }
     }
+    
+    @MainActor
+    func loadData() async {
+        screenTimeViewModel.requestAuthorization()
+        
+        appFilter = DeviceActivityFilter(
+            segment: .daily(
+                during: Calendar.current.dateInterval(
+                    of: .day, for: .now
+                ) ?? DateInterval()
+            ),
+            users: .all,
+            devices: .init([.iPhone]),
+            applications: screenTimeViewModel.selectedApp.applicationTokens,
+            categories: screenTimeViewModel.selectedApp.categoryTokens
+        )
+    }
 }
+
 
 
 //#Preview {

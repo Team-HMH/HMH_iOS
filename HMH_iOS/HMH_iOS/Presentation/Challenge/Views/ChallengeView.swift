@@ -14,8 +14,6 @@ struct ChallengeView: View {
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @ObservedObject var viewModel: ChallengeViewModel
     @State var list = [AppDeviceActivity]()
-    @State var isPresented = false
-    @State private var selection = FamilyActivitySelection()
     @State private var isExpanded = false
 
     
@@ -126,22 +124,11 @@ extension ChallengeView {
             .padding(.horizontal, 20)
             DeviceActivityReport(context, filter: filter)
                 .frame(height: 72 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count))
-            Button(action: {
-                isPresented = true
-            }, label: {
+            NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 4)) {
                 Image(.addAppButton)
-            })
-            .familyActivityPicker(isPresented: $isPresented,
-                                  selection: $selection)
-            .onChange(of: selection) { newSelection in
-                screenTimeViewModel.updateSelectedApp(newSelection: newSelection)
-                screenTimeViewModel.saveHashValue()
-                // TODO: 챌린지 만드는 시점에 설정
-                //                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
             }
         }
         .onAppear() {
-            selection = screenTimeViewModel.selectedApp
             filter = DeviceActivityFilter(
                 segment: .daily(
                     during: Calendar.current.dateInterval(

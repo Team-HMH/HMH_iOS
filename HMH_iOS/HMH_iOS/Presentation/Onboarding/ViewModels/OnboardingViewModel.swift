@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FamilyControls
 
 class OnboardingViewModel: ObservableObject {
     
@@ -22,6 +23,9 @@ class OnboardingViewModel: ObservableObject {
     @Published
     var isCompleted: Bool
     
+    @Published
+    var isPickerPresented: Bool = false
+
     @Published
     var isOnboardingError : Bool = false
     
@@ -46,7 +50,6 @@ class OnboardingViewModel: ObservableObject {
     var goalTime: Int
     
     var appGoalTime: Int
-    
     
     @AppStorage("socialPlatform") private var socialPlatform = ""
     @AppStorage("userName") private var userName = ""
@@ -94,11 +97,15 @@ class OnboardingViewModel: ObservableObject {
                 onboardingState += 1
             }
         case 5:
-            // 앱 선택
-            addOnboardingState()
+            isPickerPresented = true
         case 6:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
-            postSignUpLoginData()
+            if isChallengeMode {
+                createAppChallengeData()
+                addOnboardingState()
+            } else {
+              postSignUpLoginData()
+            }
             offIsCompleted()
         default:
             break
@@ -130,6 +137,10 @@ class OnboardingViewModel: ObservableObject {
         isCompleted = false
     }
     
+    func resetOnboardingState() {
+        onboardingState = 0
+    }
+    
     func getSurveyState() -> Int {
         return onboardingState <= 2 ? onboardingState : 0
     }
@@ -151,8 +162,9 @@ class OnboardingViewModel: ObservableObject {
     }
     
     
-    func postSignUpLoginData() {
-        let request = SignUpRequestDTO(socialPlatform: socialPlatform, name: userName, onboarding: Onboarding(averageUseTime: self.averageUseTime, problem: self.problems), challenge: Challenge(period: self.period, goalTime: self.goalTime, apps: [Apps(appCode: "#23324", goalTime: appGoalTime)]))
+    @MainActor func postSignUpLoginData() {
+        let appValues = screenViewModel.hashVaule.map { Apps(appCode: "\($0)", goalTime: appGoalTime) }
+        let request = SignUpRequestDTO(socialPlatform: socialPlatform, name: userName, onboarding: Onboarding(averageUseTime: self.averageUseTime, problem: self.problems), challenge: Challenge(period: self.period, goalTime: self.goalTime, apps: appValues))
         
         let provider = Providers.AuthProvider
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
@@ -175,6 +187,15 @@ class OnboardingViewModel: ObservableObject {
         let provider = Providers.challengeProvider
         provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
             print(data.status)
+        }
+    }
+    
+    @MainActor func createAppChallengeData() {
+        var applist: [Apps] = []
+//        screenViewModel.hashVaule
+        applist = [Apps(appCode: "#24333", goalTime: self.goalTime)]
+        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+            UserManager.shared.appStateString = "home"
         }
     }
     
@@ -252,6 +273,12 @@ class OnboardingViewModel: ObservableObject {
             StringLiteral.OnboardingButton.complete
         default:
             ""
+        }
+    }
+    
+    func handleOnAppear() {
+        if onboardingState == 4 && isChallengeMode {
+            isPickerPresented = true
         }
     }
     

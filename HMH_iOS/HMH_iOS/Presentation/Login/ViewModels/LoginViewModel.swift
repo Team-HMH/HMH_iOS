@@ -8,10 +8,7 @@ class LoginViewModel: NSObject, ObservableObject {
     @Published var isLoading: Bool = true
     
     func handleSplashScreen() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.refreshToken()
-            self.isLoading = false
-        }
+        self.isLoading = false
     }
     
     private func refreshToken() {

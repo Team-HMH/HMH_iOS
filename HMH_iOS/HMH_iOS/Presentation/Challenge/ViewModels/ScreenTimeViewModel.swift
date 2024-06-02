@@ -29,18 +29,18 @@ final class ScreenTimeViewModel: ObservableObject {
     }
     
     @Published var sharedHasScreenTimePermission = false
-    var hashVaule: [Int] = []
+    @Published var hashVaule: [String] = []
+    
     
     @MainActor func updateSelectedApp(newSelection: FamilyActivitySelection) {
         DispatchQueue.main.async {
             self.selectedApp = newSelection
+            print(self.selectedApp.jsonString())
         }
     }
     
     func saveHashValue() {
-        selectedApp.applicationTokens.forEach { app in
-            hashVaule.append(app.hashValue)
-        }
+        
     }
     
     func requestAuthorization() {
@@ -71,6 +71,7 @@ final class ScreenTimeViewModel: ObservableObject {
     func handleStartDeviceActivityMonitoring(includeUsageThreshold: Bool = true, interval: Int) {
         //datacomponent타입을 써야함
         let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: Date())
+        let minute: Int = interval / 60000
         
         // 새 스케쥴 시간 설정
         let schedule = DeviceActivitySchedule(
@@ -78,7 +79,7 @@ final class ScreenTimeViewModel: ObservableObject {
             intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
             repeats: false,
             //warning Time 설정해야 알람
-            warningTime: DateComponents(minute: 1)
+            warningTime: DateComponents(minute: minute - 1 ) // 여기는 전체 시간 가까워질 때
         )
          //새 이벤트 생성
         let event = DeviceActivityEvent(
@@ -86,7 +87,7 @@ final class ScreenTimeViewModel: ObservableObject {
             categories: selectedApp.categoryTokens,
             webDomains: selectedApp.webDomainTokens,
             //threshold - 이 시간이 되면 특정한 event가 발생 deviceactivitymonitor에 eventdidreachthreshold
-            threshold: DateComponents(minute : interval)
+            threshold: DateComponents(minute : minute)
             )
         
         do {
@@ -142,6 +143,36 @@ final class ScreenTimeViewModel: ObservableObject {
 
 
 extension FamilyActivitySelection: RawRepresentable {
+    func jsonString() -> String? {
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(self)
+            guard let jsonString = String(data: data, encoding: .utf8) else {
+                print("Error encoding FamilyActivitySelection")
+                return nil
+            }
+            return jsonString
+        } catch {
+            print("Error encoding FamilyActivitySelection: \(error)")
+            return nil
+        }
+    }
+    
+    static func from(jsonString: String) -> FamilyActivitySelection? {
+        guard let data = jsonString.data(using: .utf8) else {
+            print("Error converting string to Data")
+            return nil
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let familyActivitySelection = try decoder.decode(FamilyActivitySelection.self, from: data)
+            return familyActivitySelection
+        } catch {
+            print("Error decoding FamilyActivitySelection: \(error)")
+            return nil
+        }
+    }
     public init?(rawValue: String) {
         guard let data = rawValue.data(using: .utf8),
               let result = try? JSONDecoder().decode(FamilyActivitySelection.self, from: data)

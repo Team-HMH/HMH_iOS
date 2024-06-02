@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FamilyControls
 
 struct OnboardingContentView: View {
     
@@ -13,6 +14,7 @@ struct OnboardingContentView: View {
     var screenViewModel = ScreenTimeViewModel()
     @StateObject
     var onboardingViewModel: OnboardingViewModel
+    @State private var selection = FamilyActivitySelection()
     
     var isChallengeMode: Bool
     @Environment(\.presentationMode) var presentationMode
@@ -43,9 +45,27 @@ struct OnboardingContentView: View {
         .background(.blackground, ignoresSafeAreaEdges: .all)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
-            if isChallengeMode && (newState == 1 || newState == 4) {
+            if isChallengeMode && (newState == 1 || newState == 4 || newState == 7 ) {
                 self.presentationMode.wrappedValue.dismiss()
+                onboardingViewModel.resetOnboardingState()
             }
+        }
+        .familyActivityPicker(isPresented: $onboardingViewModel.isPickerPresented,
+                              selection: $selection)
+        .onChange(of: selection) { newSelection in
+            screenViewModel.updateSelectedApp(newSelection: newSelection)
+            screenViewModel.saveHashValue()
+            if selection.rawValue != "" {
+                onboardingViewModel.addOnboardingState()
+            } else {
+                
+            }
+            // TODO: 챌린지 만드는 시점에 설정
+            //                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
+        }
+        .onAppear() {
+            selection = screenViewModel.selectedApp
+            onboardingViewModel.handleOnAppear()
         }
         .showToast(toastType: .onboardingWarn, isPresented: $onboardingViewModel.isOnboardingError)
         .customAlert(

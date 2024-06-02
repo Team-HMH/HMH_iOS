@@ -5,41 +5,29 @@
 //  Created by 이지희 on 5/26/24.
 //
 
-import BackgroundTasks
-import CoreData
+import Foundation
 
-class MidnightTaskScheduler {
+class MidnightTaskScheduler: ObservableObject {
     var timer: Timer?
     
     init() {
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.example.app.refresh", using: nil) { task in
-            self.handleAppRefresh(task: task as! BGAppRefreshTask)
-        }
         scheduleMidnightTask()
     }
     
     func scheduleMidnightTask() {
-        let request = BGAppRefreshTaskRequest(identifier: "com.example.app.refresh")
-        request.earliestBeginDate = nextMidnight() // 다음 자정에 실행되도록 설정
+        let nextMidnight = nextMidnightDate()
+        let interval = nextMidnight.timeIntervalSinceNow
         
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            print("Unable to submit task: \(error)")
-        }
+        timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(executeMidnightTask), userInfo: nil, repeats: false)
+        print("Timer scheduled to fire at: \(nextMidnight)")
     }
     
-    func handleAppRefresh(task: BGAppRefreshTask) {
-        // 데이터 저장 작업 실행
+    @objc func executeMidnightTask() {
         saveDataToLocalDatabase()
-        
-        // 작업이 끝나면 새로 예약
         scheduleMidnightTask()
-        
-        task.setTaskCompleted(success: true)
     }
     
-    func nextMidnight() -> Date {
+    func nextMidnightDate() -> Date {
         let now = Date()
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
@@ -49,7 +37,7 @@ class MidnightTaskScheduler {
     }
     
     func saveDataToLocalDatabase() {
-        
+        print("Data saved to local database.")
+        // 백그라운드에서 실행할 API 연결
     }
 }
-
