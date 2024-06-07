@@ -25,7 +25,7 @@ class OnboardingViewModel: ObservableObject {
     
     @Published
     var isPickerPresented: Bool = false
-
+    
     @Published
     var isOnboardingError : Bool = false
     
@@ -104,8 +104,7 @@ class OnboardingViewModel: ObservableObject {
                 createAppChallengeData()
                 addOnboardingState()
             } else {
-              postSignUpLoginData()
-            screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: appGoalTime)
+                postSignUpLoginData()
             }
             offIsCompleted()
         default:
@@ -193,10 +192,11 @@ class OnboardingViewModel: ObservableObject {
     
     @MainActor func createAppChallengeData() {
         var applist: [Apps] = []
-//        screenViewModel.hashVaule
+        //        screenViewModel.hashVaule
         applist = [Apps(appCode: "#24333", goalTime: self.goalTime)]
-        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { [weak self] result in
             UserManager.shared.appStateString = "home"
+            self?.screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: self?.appGoalTime ?? 0)
         }
     }
     
