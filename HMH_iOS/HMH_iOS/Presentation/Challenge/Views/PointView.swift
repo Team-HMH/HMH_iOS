@@ -31,14 +31,15 @@ extension PointView {
                              showPointButton: true,
                              isPointView: true, point: viewModel.currentPoint)
         .background(.blackground)
-        .navigationBarHidden(true) 
+        .navigationBarHidden(true)
     }
     
     private var listView: some View {
-        ForEach(1...viewModel.challengeDay, id: \.self) { day in
+        ForEach(viewModel.pointList.indices, id: \.self) { index in
+            let point = viewModel.pointList[index]
             HStack {
                 VStack(alignment: .leading) {
-                    Text("\(day)" + StringLiteral.Challenge.pointTitle)
+                    Text("\(index + 1)" + StringLiteral.Challenge.pointTitle)
                         .font(.text4_semibold_16)
                         .foregroundColor(.whiteText)
                         .padding(.bottom, 2)
@@ -47,7 +48,7 @@ extension PointView {
                         .foregroundColor(.gray2)
                 }
                 Spacer()
-                EarnPointButton(day: day, viewModel: viewModel)
+                EarnPointButton(day: index, status: viewModel.statusList[index], viewModel: viewModel)
             }
             .frame(height: 80)
         }
@@ -60,7 +61,8 @@ extension PointView {
 
 struct EarnPointButton: View {
     let day: Int
-    @ObservedObject var viewModel: PointViewModel
+    let status: String
+    @StateObject var viewModel = PointViewModel()
     
     var body: some View {
         Button(action: {
@@ -68,11 +70,42 @@ struct EarnPointButton: View {
         }, label: {
             Text(StringLiteral.Challenge.pointButton)
                 .font(.text4_semibold_16)
-                .foregroundStyle(.whiteBtn)
+                .foregroundStyle(buttonTextColor)
                 .frame(width: 73, height: 40)
-                .background(.bluePurpleButton)
+                .background(buttonColor)
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 3, height: 3)))
         })
+        .disabled(status != "UNEARNED")
+    }
+    
+    private var buttonColor: Color {
+        switch status {
+        case "UNEARNED":
+            return .bluePurpleButton
+        case "EARNED":
+            return .bluePurpleOpacity22
+        case "FAILURE":
+            return .gray6
+        case "NONE":
+            return .gray7
+        default:
+            return .gray7
+        }
+    }
+    
+    private var buttonTextColor: Color {
+        switch status {
+        case "UNEARNED":
+            return .whiteBtn
+        case "EARNED":
+            return .bluePurpleOpacity70
+        case "FAILURE":
+            return .gray2
+        case "NONE":
+            return .gray3
+        default:
+            return .gray3
+        }
     }
 }
 

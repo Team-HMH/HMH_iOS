@@ -31,11 +31,17 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     // UNUserNotificationCenterDelegate method
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         // Handle the notification response
+        
         completionHandler()
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
+        completionHandler([.badge, .sound])
     }
 }
 
+class AppStateViewModel: ObservableObject {
+    static let shared = AppStateViewModel()
+    
+    @Published var showCustomAlert: Bool = false
+}

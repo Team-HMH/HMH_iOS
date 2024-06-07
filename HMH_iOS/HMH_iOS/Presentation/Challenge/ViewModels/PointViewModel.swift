@@ -11,7 +11,13 @@ final class PointViewModel: ObservableObject {
     @Published var challengeDay = 1
     @Published var currentPoint = 0
     @Published var pointList: [PointList] = []
+    @Published var statusList: [String] = []
     @Published var isPresented = false
+    
+    init() {
+        self.getPointList()
+        self.getUsagePoint()
+    }
     
     func getUsagePoint() {
         Providers.pointProvider.request(target: .getUsagePoint,
@@ -39,6 +45,9 @@ final class PointViewModel: ObservableObject {
             self.challengeDay = data.period
             self.currentPoint = data.point
             self.pointList = data.challengePointStatuses
+            self.pointList.forEach { point in
+                self.statusList.append(point.status)
+            }
         }
     }
     // 챌린지 보상 수령 여부를 리스트로 조회하는 api입니다.
