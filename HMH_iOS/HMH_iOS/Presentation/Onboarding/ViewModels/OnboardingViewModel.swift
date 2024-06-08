@@ -86,7 +86,9 @@ class OnboardingViewModel: ObservableObject {
             offIsCompleted()
         case 3:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
+            screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
             if isChallengeMode {
+                postCreateChallengeData()
                 isCompletePresented = true
             } else {
                 addOnboardingState()
