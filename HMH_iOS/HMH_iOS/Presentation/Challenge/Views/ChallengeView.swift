@@ -79,7 +79,7 @@ extension ChallengeView {
     }
     
     var createChallengeButton: some View {
-        NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2)) {
+        NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 1)) {
             Text(StringLiteral.Challenge.createButton)
                 .modifier(CustomButtonStyle())
         }
