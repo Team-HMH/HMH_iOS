@@ -68,6 +68,34 @@ final class ScreenTimeViewModel: ObservableObject {
         }
     }
     
+    func handleTotalDeviceActivityMonitoring(includeUsageThreshold: Bool = true, interval: Int) {
+        //datacomponent타입을 써야함
+        let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: Date())
+        
+        // 새 스케쥴 시간 설정
+        let schedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: dateComponents.hour, minute: dateComponents.minute, second: dateComponents.second),
+            intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+            repeats: false,
+            //warning Time 설정해야 알람
+            warningTime: DateComponents(minute: interval - 1 ) // 여기는 전체 시간 가까워질 때
+        )
+         //새 이벤트 생성
+        let totalEvent = DeviceActivityEvent(threshold: DateComponents(minute: interval))
+        
+        do {
+            deviceActivityCenter.stopMonitoring()
+            try deviceActivityCenter.startMonitoring(
+                .total,
+                during: schedule,
+                events: [.monitoring: totalEvent]
+            )
+            print("Start Total Monitoring")
+        } catch {
+            print("Unexpected error: \(error).")
+        }
+    }
+    
     func handleStartDeviceActivityMonitoring(includeUsageThreshold: Bool = true, interval: Int) {
         //datacomponent타입을 써야함
         let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: Date())
@@ -97,7 +125,7 @@ final class ScreenTimeViewModel: ObservableObject {
                 during: schedule,
                 events: [.monitoring: event]
             )
-            print("📺📺모니터링 시작📺📺")
+            print("Start Each App Monitoring")
         } catch {
             print("Unexpected error: \(error).")
         }
@@ -200,6 +228,7 @@ struct AppDeviceActivity: Identifiable {
 
 extension DeviceActivityName {
     static let once = Self("once")
+    static let total = Self("total")
 }
 
 extension DeviceActivityEvent.Name {
