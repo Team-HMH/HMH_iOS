@@ -34,6 +34,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         DispatchQueue.main.async {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let rootViewController = windowScene.windows.first?.rootViewController as? UIHostingController<ContentView> {
+                AppStateViewModel.shared.onAppear()
                 AppStateViewModel.shared.currentAlertType = .usePoints
                 AppStateViewModel.shared.showCustomAlert = true
             }
@@ -53,6 +54,7 @@ class AppStateViewModel: ObservableObject {
     @Published var showCustomAlert: Bool = true
     @Published var currentAlertType: CustomAlertType = .usePoints
     @Published var currentPoint = 0
+    @Published var usagePoint = 0
     
     func nextAlert() {
         print("next")
@@ -78,11 +80,8 @@ class AppStateViewModel: ObservableObject {
     }
     
     func onAppear() {
-//        getUsagePoint()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let currentDate = dateFormatter.string(from: Date())
-        getCurrentPoint(date: currentDate)
+        getUsagePoint()
+        getCurrentPoint()
     }
     
     func patchPointUse() {
@@ -99,17 +98,16 @@ class AppStateViewModel: ObservableObject {
         Providers.pointProvider.request(target: .getUsagePoint,
                                         instance: BaseResponse<UsagePointResponseDTO>.self) { result in
             guard let data = result.data else { return }
-            self.currentPoint = data.point
+            self.usagePoint = data.usagePoint
         }
     }
     // 앱 잠금해제시에 사용될 포인트를 조회하는 api입니다.
     
-    func getCurrentPoint(date: String) {
-        let request = PointRequestDTO(challengeDate: date)
-        Providers.pointProvider.request(target: .getCurrentPoint(data: request),
-                                        instance: BaseResponse<UserPointResponseDTO>.self) { result in
+    func getCurrentPoint() {
+        Providers.pointProvider.request(target: .getCurrentPoint,
+                                        instance: BaseResponse<Int>.self) { result in
             guard let data = result.data else { return }
-            self.currentPoint = data.point
+            self.currentPoint = data
         }
     }
 }

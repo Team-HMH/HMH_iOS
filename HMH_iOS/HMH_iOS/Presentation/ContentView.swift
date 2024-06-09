@@ -49,7 +49,7 @@ struct ContentView: View {
                                     action: {
                                         appStateViewModel.nextAlert()
                                     }
-                                ), currentPoint: $appStateViewModel.currentPoint
+                                ), currentPoint: appStateViewModel.currentPoint, usagePoint: appStateViewModel.usagePoint
                             )
                             .opacity(appStateViewModel.showCustomAlert ? 1 : 0)
                         )

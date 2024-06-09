@@ -53,9 +53,8 @@ final class PointViewModel: ObservableObject {
     // 챌린지 보상 수령 여부를 리스트로 조회하는 api입니다.
     
     
-    func getCurrentPoint(date: String) {
-        let request = PointRequestDTO(challengeDate: date)
-        Providers.pointProvider.request(target: .getCurrentPoint(data: request),
+    func getCurrentPoint() {
+        Providers.pointProvider.request(target: .getCurrentPoint,
                                         instance: BaseResponse<UserPointResponseDTO>.self) { result in
             guard let data = result.data else { return }
             self.currentPoint = data.point

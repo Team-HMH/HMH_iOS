@@ -10,11 +10,12 @@ import SwiftUI
 
 struct UnlockCompleteAlertView: View {
     let confirmBtn: CustomAlertButtonView
-    @Binding var currentPoint: Int
+    let currentPoint: Int
+    let usagePoint: Int
     
     var body: some View {
         VStack(spacing: 14) {
-            Text(StringLiteral.AlertTitle.unlockComplete)
+            Text("\(usagePoint)" + StringLiteral.AlertTitle.unlockComplete)
                 .foregroundColor(.whiteText)
                 .font(.text3_semibold_18)
                 .multilineTextAlignment(.center)

@@ -12,11 +12,12 @@ import SwiftUI
 struct UsePointsAlertView: View {
     let confirmBtn: CustomAlertButtonView
     let cancelBtn: CustomAlertButtonView
-    @Binding var currentPoint: Int
+    let currentPoint: Int
+    let usagePoint: Int
     
     var body: some View {
         VStack(spacing: 22) {
-            Text(StringLiteral.AlertTitle.usePoints)
+            Text("\(usagePoint)" + StringLiteral.AlertTitle.usePoints)
                 .foregroundColor(.whiteText)
                 .font(.text3_semibold_18)
                 .multilineTextAlignment(.center)

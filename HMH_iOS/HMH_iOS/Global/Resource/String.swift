@@ -66,9 +66,9 @@ enum StringLiteral {
     
     enum AlertTitle {
         static let unlock = "잠금 해제하면 블랙홀에 빠져요"
-        static let unlockComplete = "100P로 잠금을 해제해\n미션에 실패했어요"
+        static let unlockComplete = "P로 잠금을 해제해\n미션에 실패했어요"
         static let insufficientPoints = "포인트가 부족해요"
-        static let usePoints = "100P를 사용해\n잠금을 해제할 수 있어요"
+        static let usePoints = "P를 사용해\n잠금을 해제할 수 있어요"
         static let challengeCreationComplete = "새로운 챌린지 생성 완료!"
         static let logout = "하면함을 로그아웃 하시겠어요?"
         static let withdraw = "정말 하면함을 탈퇴하시겠어요?"
