@@ -50,9 +50,9 @@ extension ChallengeRouter: BaseTargetType {
         case .getdailyChallenge:
             return "challenge/home"
         case .addApp:
-            return "app"
+            return "challenge/app"
         case .deleteApp:
-            return "app"
+            return "challenge/app"
         case .patchdailyChallenge:
             return "challenge/daily/finish"
         }
