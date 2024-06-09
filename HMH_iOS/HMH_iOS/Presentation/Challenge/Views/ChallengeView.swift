@@ -15,7 +15,8 @@ struct ChallengeView: View {
     @ObservedObject var viewModel: ChallengeViewModel
     @State var list = [AppDeviceActivity]()
     @State private var isExpanded = false
-
+    @State private var isPresented = false
+    
     
     @State var context: DeviceActivityReport.Context = .init(rawValue: "Challenge Activity")
     @State var filter = DeviceActivityFilter(
@@ -124,8 +125,15 @@ extension ChallengeView {
             .padding(.horizontal, 20)
             DeviceActivityReport(context, filter: filter)
                 .frame(height: 72 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count))
-            NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 4)) {
+            Button(action: {
+                isPresented = true
+            }, label: {
                 Image(.addAppButton)
+            })
+            .familyActivityPicker(isPresented: $isPresented,
+                                  selection: screenTimeViewModel.$selectedApp)
+            .onChange(of: screenTimeViewModel.selectedApp) { newSelection in
+                screenTimeViewModel.selectedApp = newSelection
             }
         }
         .onAppear() {
