@@ -12,6 +12,7 @@ import SwiftUI
 struct UsePointsAlertView: View {
     let confirmBtn: CustomAlertButtonView
     let cancelBtn: CustomAlertButtonView
+    @Binding var currentPoint: Int
     
     var body: some View {
         VStack(spacing: 22) {
@@ -26,7 +27,7 @@ struct UsePointsAlertView: View {
                 Text("보유 포인트")
                     .font(.text5_medium_16)
                     .foregroundColor(.gray1)
-                Text("00P")
+                Text("\(currentPoint)P")
                     .font(.text5_medium_16)
                     .foregroundColor(.whiteText)
             }

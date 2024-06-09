@@ -97,9 +97,11 @@ class MyPageViewModel: ObservableObject {
         UserManager.shared.appStateString = "login"
         if alertType == .logout {
             logoutUser()
+            isPresented = false
         } else {
             revokeUser()
             UserManager.shared.revokeData()
+            isPresented = false
         }
     }
     

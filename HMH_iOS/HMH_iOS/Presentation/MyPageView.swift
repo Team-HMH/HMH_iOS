@@ -49,7 +49,7 @@ struct MyPageView: View {
                         action: {
                             viewModel.cancelAction()
                         }
-                    )
+                    ), currentPoint: .constant(nil)
                 )
             }
         )
