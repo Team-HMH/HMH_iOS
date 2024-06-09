@@ -96,8 +96,7 @@ class AppStateViewModel: ObservableObject {
             } else if result.status == 200 {
                 self.currentAlertType = .unlockComplete
             } else {
-                self.currentAlertType = .insufficientPoints
-//                self.showCustomAlert = false
+                self.showCustomAlert = false
             }
             guard let data = result.data else { return }
         }
