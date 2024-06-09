@@ -7,15 +7,62 @@
 
 import SwiftUI
 
+import KakaoSDKAuth
+
 struct ContentView: View {
+    @StateObject var loginViewModel = LoginViewModel()
+    @StateObject var userManager = UserManager.shared
+    @StateObject var appStateViewModel = AppStateViewModel.shared
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            Color(.blackground)
+                .ignoresSafeArea()
+            if loginViewModel.isLoading {
+                SplashView(viewModel: loginViewModel)
+            } else {
+                switch userManager.appState {
+                case .onboarding:
+                    OnboardingContentView()
+                case .onboardingComplete:
+                    OnboardingCompleteView()
+                case .home:
+                    TabBarView()
+                        .onAppear(
+                            perform: appStateViewModel.onAppear
+                        )
+                        .overlay(
+                            CustomAlertView(
+                                alertType: appStateViewModel.currentAlertType,
+                                confirmBtn: CustomAlertButtonView(
+                                    buttonType: .Confirm,
+                                    alertType: appStateViewModel.currentAlertType,
+                                    isPresented: $appStateViewModel.showCustomAlert,
+                                    action: {
+                                        appStateViewModel.cancelAlert()
+                                    }
+                                ),
+                                cancelBtn: CustomAlertButtonView(
+                                    buttonType: .Cancel,
+                                    alertType: appStateViewModel.currentAlertType,
+                                    isPresented: $appStateViewModel.showCustomAlert,
+                                    action: {
+                                        appStateViewModel.nextAlert()
+                                    }
+                                ), currentPoint: $appStateViewModel.currentPoint
+                            )
+                            .opacity(appStateViewModel.showCustomAlert ? 1 : 0)
+                        )
+                case .login:
+                    LoginView(viewModel: loginViewModel)
+                        .onOpenURL { url in
+                            if AuthApi.isKakaoTalkLoginUrl(url) {
+                                _ = AuthController.handleOpenUrl(url: url)
+                            }
+                        }
+                }
+            }
         }
-        .padding()
     }
 }
 
