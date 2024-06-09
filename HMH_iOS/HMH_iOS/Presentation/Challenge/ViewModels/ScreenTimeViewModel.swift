@@ -18,7 +18,14 @@ final class ScreenTimeViewModel: ObservableObject {
     let store = ManagedSettingsStore()
     
     @AppStorage(AppStorageKey.selectionApp.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
-    var selectedApp = FamilyActivitySelection()
+    var selectedApp = FamilyActivitySelection() {
+        didSet {
+            self.handleStartDeviceActivityMonitoring(interval: appGoalTimeDouble)
+        }
+    }
+    
+    @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var appGoalTimeDouble = 0
     
     @AppStorage(AppStorageKey.permission.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var hasScreenTimePermission: Bool = false {
@@ -32,15 +39,10 @@ final class ScreenTimeViewModel: ObservableObject {
     @Published var hashVaule: [String] = []
     
     
-    @MainActor func updateSelectedApp(newSelection: FamilyActivitySelection) {
+    func updateSelectedApp(newSelection: FamilyActivitySelection) {
         DispatchQueue.main.async {
             self.selectedApp = newSelection
-            print(self.selectedApp.jsonString())
         }
-    }
-    
-    func saveHashValue() {
-        
     }
     
     func requestAuthorization() {
@@ -125,7 +127,7 @@ final class ScreenTimeViewModel: ObservableObject {
                 during: schedule,
                 events: [.monitoring: event]
             )
-            print("Start Each App Monitoring")
+            print("Start Each App Monitoring : \(minute)")
         } catch {
             print("Unexpected error: \(error).")
         }
