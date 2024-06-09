@@ -15,6 +15,7 @@ enum AppState: String {
     case onboarding
     case onboardingComplete
     case home
+    case servicePrepare
 }
 
 @main

@@ -55,7 +55,7 @@ class AppStateViewModel: ObservableObject {
     @Published var currentAlertType: CustomAlertType = .usePoints
     @Published var currentPoint = 0
     @Published var usagePoint = 0
-    
+
     func nextAlert() {
         print("next")
         switch currentAlertType {
@@ -64,12 +64,11 @@ class AppStateViewModel: ObservableObject {
         case .unlock:
             patchPointUse()
             getUsagePoint()
-            currentAlertType = .unlockComplete
-            // 잠금해제하기
         case .unlockComplete:
             showCustomAlert = false
-        case .insufficientPoints: break
-            // 서비스 준비 페이지로 이동
+        case .insufficientPoints:
+            showCustomAlert = false
+            UserManager.shared.appStateString = "servicePrepare"
         default:
             break
         }
@@ -85,10 +84,21 @@ class AppStateViewModel: ObservableObject {
     }
     
     func patchPointUse() {
-        let date = "오늘 날짜"
-        let request = PointRequestDTO(challengeDate: date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = dateFormatter.string(from: Date())
+        let request = PointRequestDTO(challengeDate: currentDate)
         Providers.pointProvider.request(target: .patchPointUse(data: request),
                                         instance: BaseResponse<UsagePointResponseDTO>.self) { result in
+        
+            if result.status == 400 {
+                self.currentAlertType = .insufficientPoints
+            } else if result.status == 200 {
+                self.currentAlertType = .unlockComplete
+            } else {
+                self.currentAlertType = .insufficientPoints
+//                self.showCustomAlert = false
+            }
             guard let data = result.data else { return }
         }
     }

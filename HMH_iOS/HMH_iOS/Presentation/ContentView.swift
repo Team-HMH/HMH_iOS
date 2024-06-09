@@ -26,6 +26,8 @@ struct ContentView: View {
                     OnboardingContentView()
                 case .onboardingComplete:
                     OnboardingCompleteView()
+                case .servicePrepare:
+                    ServicePrepareView()
                 case .home:
                     TabBarView()
                         .onAppear(

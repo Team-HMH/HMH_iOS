@@ -39,6 +39,7 @@ struct UnlockCompleteAlertView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(width: 266, height: 52)
+            .padding(EdgeInsets(top: 22, leading: 0, bottom: 0, trailing: 0))
         }
     }
 }
