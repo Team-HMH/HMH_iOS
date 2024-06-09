@@ -55,7 +55,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         )
         
         self.userNotiCenter.add(request) { (error) in
-            print(#function, error)
+            print(#function, error as Any)
         }
         
     }

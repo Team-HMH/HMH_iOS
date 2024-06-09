@@ -54,14 +54,11 @@ struct OnboardingContentView: View {
                               selection: $selection)
         .onChange(of: selection) { newSelection in
             screenViewModel.updateSelectedApp(newSelection: newSelection)
-            screenViewModel.saveHashValue()
             if selection.rawValue != "" {
                 onboardingViewModel.addOnboardingState()
             } else {
                 
             }
-            // TODO: 챌린지 만드는 시점에 설정
-            //                screenTimeViewModel.handleStartDeviceActivityMonitoring(interval: 1)
         }
         .onAppear() {
             selection = screenViewModel.selectedApp

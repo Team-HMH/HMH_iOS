@@ -73,8 +73,6 @@ enum CustomAlertType {
             StringLiteral.AlertCancelButton.logout
         case .challengeCreationComplete:
             StringLiteral.AlertCancelButton.challengeCreationComplete
-        default:
-            ""
         }
     }
 }
