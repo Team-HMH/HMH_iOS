@@ -103,7 +103,7 @@ class OnboardingViewModel: ObservableObject {
         case 6:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
             if isChallengeMode {
-                createAppChallengeData()
+                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
                 addOnboardingState()
             } else {
                 postSignUpLoginData()
@@ -192,10 +192,19 @@ class OnboardingViewModel: ObservableObject {
         }
     }
     
-    @MainActor func createAppChallengeData() {
+    func patchApp(appGoalTime: Int) {
+        let applist = [Apps(appCode: "#temp", goalTime: appGoalTime)]
+        let requestDTO = AddAppRequestDTO(apps: applist)
+        Providers.challengeProvider.request(target: .addApp(data: requestDTO),
+                                            instance: BaseResponse<AddAppResponseDTO>.self) { result in
+            print("result: \(result)")
+        }
+    }
+    
+    @MainActor func createAppChallengeData(appGoalTime: Int) {
         var applist: [Apps] = []
         //        screenViewModel.hashVaule
-        applist = [Apps(appCode: "#24333", goalTime: self.goalTime)]
+        applist = [Apps(appCode: "#24333", goalTime: appGoalTime)]
         Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { [weak self] result in
             UserManager.shared.appStateString = "home"
             self?.screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: self?.appGoalTime ?? 0)
