@@ -78,10 +78,10 @@ final class ScreenTimeViewModel: ObservableObject {
         let schedule = DeviceActivitySchedule(
             intervalStart: DateComponents(hour: dateComponents.hour, minute: dateComponents.minute, second: dateComponents.second),
             intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
-            repeats: false,
-            //warning Time 설정해야 알람
-            warningTime: DateComponents(minute: interval - 1 ) // 여기는 전체 시간 가까워질 때
+            repeats: true
         )
+        
+        
          //새 이벤트 생성
         let totalEvent = DeviceActivityEvent(threshold: DateComponents(minute: interval))
         
