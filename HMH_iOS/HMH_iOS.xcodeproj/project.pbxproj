@@ -86,6 +86,7 @@
 		361C61EE2BD6BA6C00EF0D8B /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6712B9F385100733843 /* Pretendard-SemiBold.otf */; };
 		361C61EF2BD6BA6E00EF0D8B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6742B9F386B00733843 /* Pretendard-Medium.otf */; };
 		361C61F12BD6BAA000EF0D8B /* HMH-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6762B9F393400733843 /* HMH-iOS-Info.plist */; };
+		361D45932C175F150060DFBC /* NetworkOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D45922C175F150060DFBC /* NetworkOperator.swift */; };
 		365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */; };
 		365CD6BF2B7E4C4F00245CDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365CD6BE2B7E4C4F00245CDD /* ContentView.swift */; };
 		365CD6C12B7E4C5100245CDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
@@ -322,6 +323,7 @@
 		0BF56C962BC3B871003ECFB1 /* StoryContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryContentView.swift; sourceTree = "<group>"; };
 		3601C8352BC6E8FB005790F7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTimeListItemView.swift; sourceTree = "<group>"; };
+		361D45922C175F150060DFBC /* NetworkOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperator.swift; sourceTree = "<group>"; };
 		365CD6B92B7E4C4F00245CDD /* HMH_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMH_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMH_iOSApp.swift; sourceTree = "<group>"; };
 		365CD6BE2B7E4C4F00245CDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -928,6 +930,7 @@
 			children = (
 				367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */,
 				368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */,
+				361D45922C175F150060DFBC /* NetworkOperator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1260,6 +1263,7 @@
 				0B6A835C2C085EFD0095060C /* PointRouter.swift in Sources */,
 				367244132BF086A7007A5A7B /* AuthInterceptor.swift in Sources */,
 				367243F62BEDEB32007A5A7B /* DeleteAppRequestDTO.swift in Sources */,
+				361D45932C175F150060DFBC /* NetworkOperator.swift in Sources */,
 				368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */,
 				0B6A835F2C0861B20095060C /* PointRequestDTO.swift in Sources */,
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
