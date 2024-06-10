@@ -4,6 +4,10 @@
 <dict>
 	<key>BASE_URL</key>
 	<string>$(BASE_URL)</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.HMH.dailyTask</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
