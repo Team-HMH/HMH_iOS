@@ -8,5 +8,11 @@
 import Foundation
 
 struct MidnightRequestDTO: Codable {
-    let apps: [Apps]
+    let finishedDailyChallenges: [FinishedDailyChallenge]
+}
+
+// MARK: - FinishedDailyChallenge
+struct FinishedDailyChallenge: Codable {
+    let challengeDate: String
+    let isSuccess: Bool
 }
