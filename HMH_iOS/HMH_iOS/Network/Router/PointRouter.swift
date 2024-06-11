@@ -12,6 +12,7 @@ import Moya
 enum PointRouter {
     case getUsagePoint
     case patchEarnPoint(data: PointRequestDTO)
+    case getEarnPoint
     case getPointList
     case patchPointUse(data: PointRequestDTO)
     case getCurrentPoint
@@ -24,6 +25,8 @@ extension PointRouter: BaseTargetType {
             return APIConstants.hasAccessTokenHeader
         case .patchEarnPoint :
             return APIConstants.hasTokenHeader
+        case .getEarnPoint:
+            return APIConstants.hasAccessTokenHeader
         case .getPointList:
             return APIConstants.hasAccessTokenHeader
         case .patchPointUse:
@@ -38,6 +41,8 @@ extension PointRouter: BaseTargetType {
         case .getUsagePoint:
             return "point/use"
         case .patchEarnPoint :
+            return "point/earn"
+        case .getEarnPoint :
             return "point/earn"
         case .getPointList:
             return "point/list"
@@ -54,6 +59,8 @@ extension PointRouter: BaseTargetType {
             return .get
         case .patchEarnPoint :
             return .patch
+        case .getEarnPoint :
+            return .get
         case .getPointList:
             return .get
         case .patchPointUse:
@@ -69,6 +76,8 @@ extension PointRouter: BaseTargetType {
             return .requestPlain
         case .patchEarnPoint(let data) :
             return .requestJSONEncodable(data)
+        case .getEarnPoint:
+            return .requestPlain
         case .patchPointUse(let data):
             return .requestJSONEncodable(data)
         case .getPointList:

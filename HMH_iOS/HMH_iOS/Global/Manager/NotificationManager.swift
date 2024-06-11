@@ -51,7 +51,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 class AppStateViewModel: ObservableObject {
     static let shared = AppStateViewModel()
     
-    @Published var showCustomAlert: Bool = true
+    @Published var showCustomAlert: Bool = false
     @Published var currentAlertType: CustomAlertType = .usePoints
     @Published var currentPoint = 0
     @Published var usagePoint = 0
