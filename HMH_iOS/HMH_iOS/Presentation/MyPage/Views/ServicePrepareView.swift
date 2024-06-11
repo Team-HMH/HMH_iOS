@@ -27,7 +27,7 @@ struct ServicePrepareView: View {
                 }
                 Spacer()
                     .frame(width: 12)
-                Text("우주 상점")
+                Text(StringLiteral.MyPageButton.market)
                     .font(.text3_semibold_18)
                     .foregroundColor(.whiteText)
                 Spacer()
@@ -35,11 +35,11 @@ struct ServicePrepareView: View {
             .frame(height: 60)
             Spacer()
                 .frame(height: 213)
-            Text("서비스 준비 중이에요")
+            Text(StringLiteral.Prepare.title)
                 .font(.text3_semibold_18)
                 .foregroundColor(.whiteText)
                 .padding()
-            Text("더 나은 서비스가 될테니\n조금만 기다려 주세요 :)")
+            Text(StringLiteral.Prepare.subtitle)
                 .font(.text6_medium_14)
                 .foregroundColor(.gray2)
                 .padding(EdgeInsets(top: 12, leading: 0, bottom: 35, trailing: 0))
@@ -50,7 +50,7 @@ struct ServicePrepareView: View {
                     UserManager.shared.appStateString = "home"
                 }
             } label: {
-                Text("서비스 센터에 연락해 해제")
+                Text(StringLiteral.Prepare.button)
                     .foregroundColor(.whiteBtn)
                     .font(.text5_medium_16)
                     .frame(width: 225, height: 52)
@@ -59,6 +59,7 @@ struct ServicePrepareView: View {
             .cornerRadius(8)
             Spacer()
         }
+        .navigationBarHidden(true)
     }
 }
 
