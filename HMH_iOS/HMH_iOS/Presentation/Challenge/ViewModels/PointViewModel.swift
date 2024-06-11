@@ -31,7 +31,7 @@ final class PointViewModel: ObservableObject {
         let date = pointList[day].challengeDate
         let request = PointRequestDTO(challengeDate: date)
         Providers.pointProvider.request(target: .patchEarnPoint(data: request),
-                                        instance: BaseResponse<EarnPointResponseDTO>.self) { result in
+                                        instance: BaseResponse<PatchEarnPointResponseDTO>.self) { result in
         guard let data = result.data else { return }
         self.isPresented = true
         }

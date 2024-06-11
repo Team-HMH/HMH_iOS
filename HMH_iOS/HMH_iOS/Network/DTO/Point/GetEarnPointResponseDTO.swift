@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct GetPointResponseDTO: Codable {
-    let point: Int
+struct GetEarnPointResponseDTO: Codable {
+    let earnPoint: Int
 }
