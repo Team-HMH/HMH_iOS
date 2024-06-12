@@ -9,18 +9,11 @@ import Foundation
 
 import RealmSwift
 
-class Appdata: Object {
-    @Persisted var number: Int?
-    @Persisted var bundleId: String = ""
-    @Persisted var duraction: Double = 0
+class MidnightData: Object {
+    @objc dynamic var challengeDate: String = Date().toString()
+    @objc dynamic var isSuccess: Bool = true
 
-    convenience init(id: Int) {
-        self.init()
-        self.number = id
+    override static func primaryKey() -> String? {
+        return "challengeDate"
     }
-}
-
-
-class TotalTime: Object {
-    @Persisted var duraction: String = ""
 }

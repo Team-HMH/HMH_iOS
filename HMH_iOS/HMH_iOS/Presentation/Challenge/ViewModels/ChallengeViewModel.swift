@@ -40,9 +40,9 @@ final class ChallengeViewModel: ObservableObject {
     }
     
     func getChallengeType() {
-        if days <= 0 {
+        if todayIndex < 0 {
             challengeType = .empty
-        } else if 14 <= days {
+        } else if 14 < days {
             challengeType = .large
         } else {
             challengeType = .normal

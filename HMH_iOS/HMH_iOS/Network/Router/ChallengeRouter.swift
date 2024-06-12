@@ -16,7 +16,7 @@ enum ChallengeRouter {
     case getdailyChallenge
     case addApp(data: AddAppRequestDTO)
     case deleteApp(data: DeleteAppRequestDTO)
-    case patchdailyChallenge(data: MidnightRequestDTO)
+    case postDailyChallenge(data: MidnightRequestDTO)
 }
 
 extension ChallengeRouter: BaseTargetType {
@@ -34,7 +34,7 @@ extension ChallengeRouter: BaseTargetType {
             return APIConstants.hasTokenHeader
         case .deleteApp:
             return APIConstants.hasTokenHeader
-        case .patchdailyChallenge:
+        case .postDailyChallenge:
             return APIConstants.hasTokenHeader
         }
     }
@@ -50,11 +50,11 @@ extension ChallengeRouter: BaseTargetType {
         case .getdailyChallenge:
             return "challenge/home"
         case .addApp:
-            return "app"
+            return "challenge/app"
         case .deleteApp:
-            return "app"
-        case .patchdailyChallenge:
-            return "challenge/daily/finish"
+            return "challenge/app"
+        case .postDailyChallenge:
+            return "challenge/daily/success"
         }
     }
     
@@ -72,8 +72,8 @@ extension ChallengeRouter: BaseTargetType {
             return .post
         case .deleteApp:
             return .delete
-        case .patchdailyChallenge:
-            return .patch
+        case .postDailyChallenge:
+            return .post
         }
     }
     
@@ -91,7 +91,7 @@ extension ChallengeRouter: BaseTargetType {
             return .requestJSONEncodable(data)
         case .deleteApp(let data):
             return .requestJSONEncodable(data)
-        case .patchdailyChallenge(let data):
+        case .postDailyChallenge(let data):
             return .requestJSONEncodable(data)
         }
     }

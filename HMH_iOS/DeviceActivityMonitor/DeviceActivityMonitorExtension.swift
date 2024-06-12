@@ -32,6 +32,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
         super.intervalDidEnd(for: activity)
+        store.shield.applications = nil
     }
     
     //threshold에 도착하면 행동한다
@@ -55,7 +56,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         )
         
         self.userNotiCenter.add(request) { (error) in
-            print(#function, error)
+            print(#function, error as Any)
         }
         
     }
@@ -93,7 +94,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         )
         
         userNotiCenter.add(request) { (error) in
-            print(#function, error)
+            print(#function, error as Any)
         }
         
         //NotificationManager.shared.scheduleNotification()

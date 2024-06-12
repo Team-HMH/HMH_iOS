@@ -34,6 +34,7 @@ class HomeViewModel: ObservableObject {
                 self.appGoalTimeDouble = data.apps[0].goalTime
                 if self.isNotHandleUsage {
                     self.screenTimeVM.handleStartDeviceActivityMonitoring(interval: self.appGoalTimeDouble)
+                    self.screenTimeVM.handleTotalDeviceActivityMonitoring(interval: self.totalGoalTimeDouble/60000)
                     self.isNotHandleUsage = false
                 }
             }

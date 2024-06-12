@@ -22,7 +22,7 @@ struct APIConstants{
         return socialToken
     }
     static var appleAccessToken: String {
-        let socialToken = UserManager.shared.socialToken ?? ""
+        let socialToken = UserManager.shared.socialToken
         return socialToken
     }
 

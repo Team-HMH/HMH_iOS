@@ -18,7 +18,14 @@ final class ScreenTimeViewModel: ObservableObject {
     let store = ManagedSettingsStore()
     
     @AppStorage(AppStorageKey.selectionApp.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
-    var selectedApp = FamilyActivitySelection()
+    var selectedApp = FamilyActivitySelection() {
+        didSet {
+            self.handleStartDeviceActivityMonitoring(interval: appGoalTimeDouble)
+        }
+    }
+    
+    @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var appGoalTimeDouble = 0
     
     @AppStorage(AppStorageKey.permission.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var hasScreenTimePermission: Bool = false {
@@ -32,15 +39,10 @@ final class ScreenTimeViewModel: ObservableObject {
     @Published var hashVaule: [String] = []
     
     
-    @MainActor func updateSelectedApp(newSelection: FamilyActivitySelection) {
+    func updateSelectedApp(newSelection: FamilyActivitySelection) {
         DispatchQueue.main.async {
             self.selectedApp = newSelection
-            print(self.selectedApp.jsonString())
         }
-    }
-    
-    func saveHashValue() {
-        
     }
     
     func requestAuthorization() {
@@ -65,6 +67,34 @@ final class ScreenTimeViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.sharedHasScreenTimePermission = self.hasScreenTimePermission
             }
+        }
+    }
+    
+    func handleTotalDeviceActivityMonitoring(includeUsageThreshold: Bool = true, interval: Int) {
+        //datacomponent타입을 써야함
+        let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: Date())
+        
+        // 새 스케쥴 시간 설정
+        let schedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: dateComponents.hour, minute: dateComponents.minute, second: dateComponents.second),
+            intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+            repeats: true
+        )
+        
+        
+         //새 이벤트 생성
+        let totalEvent = DeviceActivityEvent(threshold: DateComponents(minute: interval))
+        
+        do {
+            deviceActivityCenter.stopMonitoring()
+            try deviceActivityCenter.startMonitoring(
+                .total,
+                during: schedule,
+                events: [.monitoring: totalEvent]
+            )
+            print("Start Total Monitoring")
+        } catch {
+            print("Unexpected error: \(error).")
         }
     }
     
@@ -97,7 +127,7 @@ final class ScreenTimeViewModel: ObservableObject {
                 during: schedule,
                 events: [.monitoring: event]
             )
-            print("📺📺모니터링 시작📺📺")
+            print("Start Each App Monitoring : \(minute)")
         } catch {
             print("Unexpected error: \(error).")
         }
@@ -200,6 +230,7 @@ struct AppDeviceActivity: Identifiable {
 
 extension DeviceActivityName {
     static let once = Self("once")
+    static let total = Self("total")
 }
 
 extension DeviceActivityEvent.Name {
