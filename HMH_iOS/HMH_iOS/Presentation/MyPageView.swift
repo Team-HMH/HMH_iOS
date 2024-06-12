@@ -10,49 +10,58 @@ import SwiftUI
 struct MyPageView: View {
     
     @StateObject var viewModel = MyPageViewModel()
-
+    
     var body: some View {
-        VStack {
-            Spacer().frame(height: 64)
-            ProfileView(viewModel: viewModel)
-            Spacer().frame(height: 36)
-            MyInfoView(viewModel: viewModel)
-            Spacer().frame(height: 34)
-            HMHInfoView(viewModel: viewModel)
-            Spacer()
-            AccountControlView(viewModel: viewModel)
-        }
-        .onAppear() {
-            viewModel.getUserData()
-        }
-        .padding(20)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.blackground)
-        .customAlert(
-            isPresented: $viewModel.isPresented,
-            customAlert: {
-                CustomAlertView(
-                    alertType: viewModel.alertType,
-                    confirmBtn: CustomAlertButtonView(
-                        buttonType: .Confirm,
-                        alertType: viewModel.alertType,
-                        isPresented: $viewModel.isPresented,
-                        action: {
-                            viewModel.confirmAction()
-
-                        }
-                    ),
-                    cancelBtn: CustomAlertButtonView(
-                        buttonType: .Cancel,
-                        alertType: viewModel.alertType,
-                        isPresented: $viewModel.isPresented,
-                        action: {
-                            viewModel.cancelAction()
-                        }
-                    )
-                )
+        NavigationView {
+            VStack {
+                Spacer().frame(height: 64)
+                ProfileView(viewModel: viewModel)
+                Spacer().frame(height: 36)
+                MyInfoView(viewModel: viewModel)
+                Spacer().frame(height: 34)
+                HMHInfoView(viewModel: viewModel)
+                Spacer()
+                AccountControlView(viewModel: viewModel)
+                NavigationLink(
+                    destination: ServicePrepareView(),
+                    isActive: $viewModel.navigateToPrepare,
+                    label: {
+                        EmptyView()
+                    })
             }
-        )
+            .onAppear() {
+                viewModel.getUserData()
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.blackground)
+            .customAlert(
+                isPresented: $viewModel.isPresented,
+                customAlert: {
+                    CustomAlertView(
+                        alertType: viewModel.alertType,
+                        confirmBtn: CustomAlertButtonView(
+                            buttonType: .Confirm,
+                            alertType: viewModel.alertType,
+                            isPresented: $viewModel.isPresented,
+                            action: {
+                                viewModel.confirmAction()
+                                
+                            }
+                        ),
+                        cancelBtn: CustomAlertButtonView(
+                            buttonType: .Cancel,
+                            alertType: viewModel.alertType,
+                            isPresented: $viewModel.isPresented,
+                            action: {
+                                viewModel.cancelAction()
+                            }
+                        ), currentPoint: 0, usagePoint: 0
+                    )
+                }
+            )
+
+        }
     }
 }
 

@@ -10,10 +10,12 @@ import SwiftUI
 
 struct UnlockCompleteAlertView: View {
     let confirmBtn: CustomAlertButtonView
+    let currentPoint: Int
+    let usagePoint: Int
     
     var body: some View {
         VStack(spacing: 14) {
-            Text(StringLiteral.AlertTitle.unlockComplete)
+            Text("\(usagePoint)" + StringLiteral.AlertTitle.unlockComplete)
                 .foregroundColor(.whiteText)
                 .font(.text3_semibold_18)
                 .multilineTextAlignment(.center)
@@ -28,7 +30,7 @@ struct UnlockCompleteAlertView: View {
                 Text("보유 포인트")
                     .font(.text5_medium_16)
                     .foregroundColor(.gray1)
-                Text("00P")
+                Text("\(currentPoint)P")
                     .font(.text5_medium_16)
                     .foregroundColor(.whiteText)
             }
@@ -37,6 +39,7 @@ struct UnlockCompleteAlertView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(width: 266, height: 52)
+            .padding(EdgeInsets(top: 22, leading: 0, bottom: 0, trailing: 0))
         }
     }
 }

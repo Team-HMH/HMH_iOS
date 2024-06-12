@@ -31,7 +31,7 @@ final class PointViewModel: ObservableObject {
         let date = pointList[day].challengeDate
         let request = PointRequestDTO(challengeDate: date)
         Providers.pointProvider.request(target: .patchEarnPoint(data: request),
-                                        instance: BaseResponse<EarnPointResponseDTO>.self) { result in
+                                        instance: BaseResponse<PatchEarnPointResponseDTO>.self) { result in
         guard let data = result.data else { return }
         self.isPresented = true
         }
@@ -52,21 +52,12 @@ final class PointViewModel: ObservableObject {
     }
     // 챌린지 보상 수령 여부를 리스트로 조회하는 api입니다.
     
-    func patchPointUse(day: Int) {
-        let date = pointList[day].challengeDate
-        let request = PointRequestDTO(challengeDate: date)
-        Providers.pointProvider.request(target: .patchPointUse(data: request),
-                                        instance: BaseResponse<UsagePointResponseDTO>.self) { result in
-            guard let data = result.data else { return }
-        }
-    }
-    // 포인트를 사용해 이용시간 잠금을 해제할 때 사용하는 api
     
-    func getCurrentPoint(date: String) {
-        let request = PointRequestDTO(challengeDate: date)
-        Providers.pointProvider.request(target: .getCurrentPoint(data: request),
+    func getCurrentPoint() {
+        Providers.pointProvider.request(target: .getCurrentPoint,
                                         instance: BaseResponse<UserPointResponseDTO>.self) { result in
             guard let data = result.data else { return }
+            self.currentPoint = data.point
         }
     }
     // 현재 유저 포인트 불러오기

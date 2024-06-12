@@ -16,7 +16,7 @@ class NetworkProvider<Provider : TargetType> : MoyaProvider<Provider> {
                 /// 서버 통신 성공
             case .success(let response):
                 if (200..<300).contains(response.statusCode) ||
-                    response.statusCode == 403 {
+                    response.statusCode == 403 || response.statusCode == 400 {
                     if let decodeData = try? JSONDecoder().decode(instance, from: response.data) {
                         completion(decodeData)
                     } else{
@@ -46,7 +46,7 @@ class NetworkProvider<Provider : TargetType> : MoyaProvider<Provider> {
                 /// 서버 통신 성공
             case .success(let response):
                 if (200..<300).contains(response.statusCode) ||
-                    response.statusCode == 403 {
+                    response.statusCode == 403 || response.statusCode == 400 {
                     if let decodeData = try? JSONDecoder().decode(instance, from: response.data) {
                         completion(decodeData)
                     } else{

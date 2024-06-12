@@ -14,10 +14,12 @@
 		0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29702BA01C3000435B30 /* MyPageView.swift */; };
 		0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29722BA01DCE00435B30 /* CustomTabView.swift */; };
 		0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5140532BE3A2D600C78B9F /* LoginView.swift */; };
+		0B6301562C15B8C20020B375 /* ServicePrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6301552C15B8C20020B375 /* ServicePrepareView.swift */; };
+		0B6301582C15E0DF0020B375 /* GetEarnPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6301572C15E0DF0020B375 /* GetEarnPointResponseDTO.swift */; };
 		0B6A835C2C085EFD0095060C /* PointRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A835B2C085EFD0095060C /* PointRouter.swift */; };
 		0B6A835F2C0861B20095060C /* PointRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A835E2C0861B20095060C /* PointRequestDTO.swift */; };
 		0B6A83632C0864010095060C /* UsagePointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83622C0864010095060C /* UsagePointResponseDTO.swift */; };
-		0B6A83652C08641D0095060C /* EarnPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83642C08641D0095060C /* EarnPointResponseDTO.swift */; };
+		0B6A83652C08641D0095060C /* PatchEarnPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83642C08641D0095060C /* PatchEarnPointResponseDTO.swift */; };
 		0B6A83672C08643B0095060C /* PointListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83662C08643B0095060C /* PointListResponseDTO.swift */; };
 		0B6A83692C08644F0095060C /* UsePointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */; };
 		0B6A836B2C0864640095060C /* UserPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */; };
@@ -268,10 +270,12 @@
 		0B3C29702BA01C3000435B30 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		0B3C29722BA01DCE00435B30 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0B5140532BE3A2D600C78B9F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		0B6301552C15B8C20020B375 /* ServicePrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePrepareView.swift; sourceTree = "<group>"; };
+		0B6301572C15E0DF0020B375 /* GetEarnPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEarnPointResponseDTO.swift; sourceTree = "<group>"; };
 		0B6A835B2C085EFD0095060C /* PointRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointRouter.swift; sourceTree = "<group>"; };
 		0B6A835E2C0861B20095060C /* PointRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointRequestDTO.swift; sourceTree = "<group>"; };
 		0B6A83622C0864010095060C /* UsagePointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsagePointResponseDTO.swift; sourceTree = "<group>"; };
-		0B6A83642C08641D0095060C /* EarnPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnPointResponseDTO.swift; sourceTree = "<group>"; };
+		0B6A83642C08641D0095060C /* PatchEarnPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchEarnPointResponseDTO.swift; sourceTree = "<group>"; };
 		0B6A83662C08643B0095060C /* PointListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointListResponseDTO.swift; sourceTree = "<group>"; };
 		0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsePointResponseDTO.swift; sourceTree = "<group>"; };
 		0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPointResponseDTO.swift; sourceTree = "<group>"; };
@@ -479,10 +483,11 @@
 			children = (
 				0B6A835E2C0861B20095060C /* PointRequestDTO.swift */,
 				0B6A83622C0864010095060C /* UsagePointResponseDTO.swift */,
-				0B6A83642C08641D0095060C /* EarnPointResponseDTO.swift */,
+				0B6A83642C08641D0095060C /* PatchEarnPointResponseDTO.swift */,
 				0B6A83662C08643B0095060C /* PointListResponseDTO.swift */,
 				0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */,
 				0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */,
+				0B6301572C15E0DF0020B375 /* GetEarnPointResponseDTO.swift */,
 			);
 			path = Point;
 			sourceTree = "<group>";
@@ -508,6 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */,
+				0B6301552C15B8C20020B375 /* ServicePrepareView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1289,7 +1295,7 @@
 				0BBF28822BF2F82500101F40 /* UnlockCompleteAlertView.swift in Sources */,
 				0B86937B2BE727DA000D7CE1 /* SocialLoginModel.swift in Sources */,
 				0BD2D6782B9F39EF00733843 /* Font.swift in Sources */,
-				0B6A83652C08641D0095060C /* EarnPointResponseDTO.swift in Sources */,
+				0B6A83652C08641D0095060C /* PatchEarnPointResponseDTO.swift in Sources */,
 				367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */,
 				0B205B352BFCC16A00B0FB83 /* UserManager.swift in Sources */,
 				0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */,
@@ -1298,6 +1304,7 @@
 				367244F02BF3E8B5007A5A7B /* AppDelegate.swift in Sources */,
 				3672440F2BF08664007A5A7B /* NetworkProvider.swift in Sources */,
 				3681242D2C035D780060DDB7 /* DailyChallengeModel.swift in Sources */,
+				0B6301562C15B8C20020B375 /* ServicePrepareView.swift in Sources */,
 				0BBF288A2BF2F86A00101F40 /* LogoutAlertView.swift in Sources */,
 				367243F52BEDEB32007A5A7B /* AddAppRequestDTO.swift in Sources */,
 				3672440D2BF0863E007A5A7B /* BaseTargetType.swift in Sources */,
@@ -1323,6 +1330,7 @@
 				367243D72BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift in Sources */,
 				367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */,
 				3606F35F2C078CA8002A1386 /* DeviceActivityMonitorExtension.swift in Sources */,
+				0B6301582C15E0DF0020B375 /* GetEarnPointResponseDTO.swift in Sources */,
 				367244092BEDEC7F007A5A7B /* Providers.swift in Sources */,
 				368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */,
 				367243D22BEDE9F6007A5A7B /* Config.swift in Sources */,
