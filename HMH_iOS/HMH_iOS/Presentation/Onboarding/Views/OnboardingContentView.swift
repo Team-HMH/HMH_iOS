@@ -85,7 +85,7 @@ struct OnboardingContentView: View {
                         action: {
                             onboardingViewModel.alertAction()
                         }
-                    )
+                    ), currentPoint: 0, usagePoint: 0
                 )
             }
         )

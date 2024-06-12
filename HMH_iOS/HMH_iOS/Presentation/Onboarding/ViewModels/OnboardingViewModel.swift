@@ -117,6 +117,7 @@ class OnboardingViewModel: ObservableObject {
     func alertAction() {
         postCreateChallengeData()
         addOnboardingState()
+        isCompletePresented = false
     }
     
     func addOnboardingState() {

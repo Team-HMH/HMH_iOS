@@ -38,6 +38,7 @@ struct ChallengeView: View {
             main
                 .onAppear { }
         }
+        .showToast(toastType: .pointWarn, isPresented: $viewModel.isToastPresented)
     }
 }
 
@@ -50,13 +51,20 @@ extension ChallengeView {
                 headerView
             }
             listView
+            NavigationLink(
+                destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2),
+                isActive: $viewModel.navigateToCreate,
+                label: {
+                    EmptyView()
+                })
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
                              showBackButton: false,
-                             showPointButton: true, point: 0)
+                             showPointButton: true, point: viewModel.remainEarnPoint)
         .background(.blackground)
         .onAppear {
             viewModel.getChallengeInfo()
+            viewModel.getEarnPoint()
         }
     }
     
@@ -80,10 +88,13 @@ extension ChallengeView {
     }
     
     var createChallengeButton: some View {
-        NavigationLink(destination: OnboardingContentView(isChallengeMode: true, onboardingState: 1)) {
+        Button(action: {
+            viewModel.challengeButtonTapped()
+        }, label: {
             Text(StringLiteral.Challenge.createButton)
                 .modifier(CustomButtonStyle())
         }
+        )
     }
     
     var headerView: some View {

@@ -126,7 +126,6 @@ struct CustomAlertButtonView: View {
     
     var body: some View {
         Button {
-            isPresented = false
             action()
         } label: {
             Text(buttonType == .Confirm ? alertType.confirmButtonText : alertType.cancelButtonText)
@@ -143,6 +142,8 @@ struct CustomAlertView: View {
     let alertType: CustomAlertType
     let confirmBtn: CustomAlertButtonView
     let cancelBtn: CustomAlertButtonView
+    let currentPoint: Int
+    let usagePoint: Int
     
     var body: some View {
         ZStack {
@@ -166,11 +167,11 @@ struct CustomAlertView: View {
             case .unlock:
                 UnlockAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
             case .unlockComplete:
-                UnlockCompleteAlertView(confirmBtn: confirmBtn)
+                UnlockCompleteAlertView(confirmBtn: confirmBtn, currentPoint: currentPoint, usagePoint: usagePoint)
             case .insufficientPoints:
                 InsufficientPointsAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
             case .usePoints:
-                UsePointsAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+                UsePointsAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn, currentPoint: currentPoint, usagePoint: usagePoint)
             case .withdraw:
                 WithdrawAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
             case .challengeCreationComplete:

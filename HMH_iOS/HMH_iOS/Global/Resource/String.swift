@@ -66,9 +66,9 @@ enum StringLiteral {
     
     enum AlertTitle {
         static let unlock = "잠금 해제하면 블랙홀에 빠져요"
-        static let unlockComplete = "100P로 잠금을 해제해\n미션에 실패했어요"
+        static let unlockComplete = "P로 잠금을 해제해\n미션에 실패했어요"
         static let insufficientPoints = "포인트가 부족해요"
-        static let usePoints = "100P를 사용해\n잠금을 해제할 수 있어요"
+        static let usePoints = "P를 사용해\n잠금을 해제할 수 있어요"
         static let challengeCreationComplete = "새로운 챌린지 생성 완료!"
         static let logout = "하면함을 로그아웃 하시겠어요?"
         static let withdraw = "정말 하면함을 탈퇴하시겠어요?"
@@ -157,5 +157,11 @@ enum StringLiteral {
     enum MyPageURL {
         static var term = "https://hmhteam.notion.site/33acb29be57245f394eb93ddb2e3b8cc"
         static var info = "https://www.notion.so/hmhteam/7006ac1eb36545c38ea2bdfc7e34d2cb?pvs=4"
+    }
+    
+    enum Prepare {
+        static var title = "서비스 준비 중이에요"
+        static var subtitle = "더 나은 서비스가 될테니\n조금만 기다려 주세요 :)"
+        static var button = "서비스 센터에 연락해 해제"
     }
 }

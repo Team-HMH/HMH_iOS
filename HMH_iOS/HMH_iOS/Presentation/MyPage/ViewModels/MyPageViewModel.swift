@@ -17,12 +17,10 @@ enum MyPageButtonType {
 
 class MyPageViewModel: ObservableObject {
     @Published var isPresented = false
-    
     @Published var alertType: CustomAlertType = .logout
-    
     @Published var name = ""
-    
     @Published var point = 0
+    @Published var navigateToPrepare = false
 
     func getButtonTitle(type: MyPageButtonType) -> String {
         switch type {
@@ -64,9 +62,15 @@ class MyPageViewModel: ObservableObject {
         case .info:
             guard let url = URL(string: StringLiteral.MyPageURL.info) else {return}
             UIApplication.shared.open(url)
+        case .market:
+            navigateToPrepare = true
         default:
             return
         }
+    }
+    
+    func backButtonClicked() {
+        navigateToPrepare = false
     }
     
     func logoutButtonClicked() {
@@ -97,9 +101,11 @@ class MyPageViewModel: ObservableObject {
         UserManager.shared.appStateString = "login"
         if alertType == .logout {
             logoutUser()
+            isPresented = false
         } else {
             revokeUser()
             UserManager.shared.revokeData()
+            isPresented = false
         }
     }
     
