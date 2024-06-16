@@ -88,7 +88,6 @@
 		361C61EE2BD6BA6C00EF0D8B /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6712B9F385100733843 /* Pretendard-SemiBold.otf */; };
 		361C61EF2BD6BA6E00EF0D8B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6742B9F386B00733843 /* Pretendard-Medium.otf */; };
 		361C61F12BD6BAA000EF0D8B /* HMH-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2D6762B9F393400733843 /* HMH-iOS-Info.plist */; };
-		361D45932C175F150060DFBC /* NetworkOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D45922C175F150060DFBC /* NetworkOperator.swift */; };
 		365CD6BD2B7E4C4F00245CDD /* HMH_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */; };
 		365CD6BF2B7E4C4F00245CDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365CD6BE2B7E4C4F00245CDD /* ContentView.swift */; };
 		365CD6C12B7E4C5100245CDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
@@ -149,7 +148,6 @@
 		367244F02BF3E8B5007A5A7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */; };
 		367244F22BF3EA51007A5A7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
 		368124172C0350950060DDB7 /* MidnightTaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */; };
-		3681242D2C035D780060DDB7 /* DailyChallengeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3681242C2C035D780060DDB7 /* DailyChallengeModel.swift */; };
 		368780D42C01ED4E00454827 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368CAABC2BB961D900FA83B3 /* ManagedSettings.framework */; };
 		368780D52C01ED4E00454827 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3672442A2BF31D5F007A5A7B /* ManagedSettingsUI.framework */; };
 		368780D82C01ED4E00454827 /* ShieldConfigurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368780D72C01ED4E00454827 /* ShieldConfigurationExtension.swift */; };
@@ -166,7 +164,6 @@
 		369D7EEB2C04AF3900295791 /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		369D7EF02C04BB8B00295791 /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244E82BF3D770007A5A7B /* AppStorageKey.swift */; };
 		369D7F2A2C05024400295791 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 369D7F292C05024400295791 /* RealmSwift */; };
-		369D7F2C2C05025900295791 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 369D7F292C05024400295791 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */; };
 /* End PBXBuildFile section */
 
@@ -256,7 +253,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				369D7F2C2C05025900295791 /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,7 +323,6 @@
 		0BF56C962BC3B871003ECFB1 /* StoryContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryContentView.swift; sourceTree = "<group>"; };
 		3601C8352BC6E8FB005790F7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTimeListItemView.swift; sourceTree = "<group>"; };
-		361D45922C175F150060DFBC /* NetworkOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperator.swift; sourceTree = "<group>"; };
 		365CD6B92B7E4C4F00245CDD /* HMH_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMH_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMH_iOSApp.swift; sourceTree = "<group>"; };
 		365CD6BE2B7E4C4F00245CDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -383,7 +378,6 @@
 		367244EC2BF3E778007A5A7B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidnightTaskScheduler.swift; sourceTree = "<group>"; };
-		3681242C2C035D780060DDB7 /* DailyChallengeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeModel.swift; sourceTree = "<group>"; };
 		368780D32C01ED4E00454827 /* ShieldConfigureExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShieldConfigureExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368780D72C01ED4E00454827 /* ShieldConfigurationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldConfigurationExtension.swift; sourceTree = "<group>"; };
 		368780D92C01ED4E00454827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -410,7 +404,6 @@
 			files = (
 				365CD6D82B7E4D0700245CDD /* Kingfisher in Frameworks */,
 				0B8693912BE8B99E000D7CE1 /* KakaoSDKCommon in Frameworks */,
-				369D7F2A2C05024400295791 /* RealmSwift in Frameworks */,
 				365CD6D52B7E4CE900245CDD /* RxMoya in Frameworks */,
 				365CD6CF2B7E4CE900245CDD /* CombineMoya in Frameworks */,
 				365CD6DE2B7E4D4E00245CDD /* Then in Frameworks */,
@@ -936,7 +929,6 @@
 			children = (
 				367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */,
 				368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */,
-				361D45922C175F150060DFBC /* NetworkOperator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1043,7 +1035,6 @@
 				0B8693902BE8B99E000D7CE1 /* KakaoSDKCommon */,
 				0B8693922BE8B99E000D7CE1 /* KakaoSDKUser */,
 				0BDDA0162C005A53001BD43E /* KeychainAccess */,
-				369D7F292C05024400295791 /* RealmSwift */,
 			);
 			productName = HMH_iOS;
 			productReference = 365CD6B92B7E4C4F00245CDD /* HMH_iOS.app */;
@@ -1167,7 +1158,6 @@
 				365CD6DC2B7E4D4E00245CDD /* XCRemoteSwiftPackageReference "Then" */,
 				0B86938B2BE8B99E000D7CE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				0BDDA0152C005A53001BD43E /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				369D7F262C05024400295791 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 365CD6BA2B7E4C4F00245CDD /* Products */;
 			projectDirPath = "";
@@ -1269,7 +1259,6 @@
 				0B6A835C2C085EFD0095060C /* PointRouter.swift in Sources */,
 				367244132BF086A7007A5A7B /* AuthInterceptor.swift in Sources */,
 				367243F62BEDEB32007A5A7B /* DeleteAppRequestDTO.swift in Sources */,
-				361D45932C175F150060DFBC /* NetworkOperator.swift in Sources */,
 				368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */,
 				0B6A835F2C0861B20095060C /* PointRequestDTO.swift in Sources */,
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
@@ -1307,7 +1296,6 @@
 				0BC0E5AB2BB03F8100FB0330 /* OnboardingViewModel.swift in Sources */,
 				367244F02BF3E8B5007A5A7B /* AppDelegate.swift in Sources */,
 				3672440F2BF08664007A5A7B /* NetworkProvider.swift in Sources */,
-				3681242D2C035D780060DDB7 /* DailyChallengeModel.swift in Sources */,
 				0B6301562C15B8C20020B375 /* ServicePrepareView.swift in Sources */,
 				0BBF288A2BF2F86A00101F40 /* LogoutAlertView.swift in Sources */,
 				367243F52BEDEB32007A5A7B /* AddAppRequestDTO.swift in Sources */,
@@ -1961,14 +1949,6 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		369D7F262C05024400295791 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2041,11 +2021,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 365CD6DC2B7E4D4E00245CDD /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
-		};
-		369D7F292C05024400295791 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 369D7F262C05024400295791 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
