@@ -17,22 +17,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         NotificationManager.shared.requestAuthorization()
         UNUserNotificationCenter.current().delegate = NotificationManager.shared
-        // Check if launched from notification
         if let launchOptions = launchOptions,
            let notification = launchOptions[.remoteNotification] as? [String: AnyObject] {
             handleRemoteNotification(notification)
         }
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: taskIdentifier, using: nil) { task in
-            self.handleAppRefresh(task: task as! BGAppRefreshTask)
-        }
-        scheduleAppRefresh()
+        
+        sendDailyChallengeDataIfNeeded()
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // Send the device token to your server
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("Device Token: \(token)")
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -46,7 +42,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        scheduleAppRefresh()
+        
     }
     
     private func handleRemoteNotification(_ userInfo: [AnyHashable: Any]) {
@@ -57,44 +53,56 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
     }
     
-    func scheduleAppRefresh() {
-        let request = BGAppRefreshTaskRequest(identifier: taskIdentifier)
-        
-        // 한국 시간으로 23:59 설정
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
-        let now = Date()
-        let nowComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: now)
-        
-        if let nextMidnight = calendar.date(bySettingHour: 23, minute: 59, second: 0, of: now) {
-            request.earliestBeginDate = nextMidnight > now ? nextMidnight : calendar.date(byAdding: .day, value: 1, to: nextMidnight)
+}
+
+extension AppDelegate {
+    private func sendDailyChallengeDataIfNeeded() {
+        guard let lastLoginDate = UserDefaults.standard.lastSentDate else {
+            UserDefaults.standard.lastSentDate = Date().formattedString()
+            return
         }
         
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            print("Scheduled app refresh for: \(String(describing: request.earliestBeginDate))")
-        } catch {
-            print("Could not schedule app refresh: \(error)")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let lastDate = dateFormatter.date(from: lastLoginDate) else {
+            UserDefaults.standard.lastSentDate = Date().formattedString()
+            return
+        }
+        
+        let currentDate = Date()
+        let currentDateString = currentDate.formattedString()
+        
+        if lastLoginDate == currentDateString {
+            return
+        }
+        
+        // Calculate the date range from the last login date to yesterday
+        var date = lastDate
+        var dateArray: [String] = []
+        
+        while date < currentDate {
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+            let dateString = dateFormatter.string(from: date)
+            if dateString < currentDateString {
+                dateArray.append(dateString)
+            }
+        }
+        
+        sendDailyChallengeData(dates: dateArray)
+        UserDefaults.standard.lastSentDate = currentDateString
+    }
+    
+    private func sendDailyChallengeData(dates: [String]) {
+        let finishedChallenges = dates.map { date -> FinishedDailyChallenge in
+            return FinishedDailyChallenge(challengeDate: date, isSuccess: true)
+        }
+        
+        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: finishedChallenges)
+        
+        Providers.challengeProvider.request(target: .postDailyChallenge(data: midnightDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+            print("Daily challenge data sent successfully.")
         }
     }
     
-    func handleAppRefresh(task: BGAppRefreshTask) {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        
-        let operation = RealmUpdateOperation()
-        queue.addOperation(operation)
-        
-        task.expirationHandler = {
-            queue.cancelAllOperations()
-        }
-        
-        operation.completionBlock = {
-            task.setTaskCompleted(success: !operation.isCancelled)
-            print("BGTask completed: \(operation.isCancelled ? "Cancelled" : "Success")")
-        }
-        
-        // 다음 작업을 예약합니다.
-        scheduleAppRefresh()
-    }
 }
