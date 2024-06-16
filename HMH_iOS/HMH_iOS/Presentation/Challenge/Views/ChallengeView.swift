@@ -221,6 +221,10 @@ extension ChallengeView {
                         .stroke(index == viewModel.todayIndex ? .bluePurpleOpacity70 : .gray6, lineWidth: 2)
                         .frame(width: 44, height: 44)
                     switch viewModel.statuses[index] {
+                    case "FAILURE":
+                        Image(.failStar)
+                            .resizable()
+                            .frame(width: 24, height: 24)
                     case "UNEARNED":
                         Image(.failStar)
                             .resizable()
