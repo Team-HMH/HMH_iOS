@@ -37,14 +37,14 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
     //threshold에 도착하면 행동한다
     override func eventDidReachThreshold(_ event: DeviceActivityEvent.Name, activity: DeviceActivityName) {
-        store.shield.applications = selectionApps.applicationTokens
+        store.shield.applications = selectionApps.applicationTokens // 이러면 다른 앱도 잠김
         Task {
             await screenTimeVM.handleSetBlockApplication()
         }
         let notiContent = UNMutableNotificationContent()
         notiContent.title = "하면함"
         notiContent.body = "이용 시간이 종료 되었습니다."
-        notiContent.userInfo = ["status": "unblockApp"] // 푸시 받을때 오는 데이터
+        notiContent.userInfo = ["token": ""] // 푸시 받을때 오는 데이터
         
         // 알림이 trigger되는 시간 설정
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
