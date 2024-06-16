@@ -111,6 +111,15 @@ final class ChallengeViewModel: ObservableObject {
         return formattedDateString
     }
     
+    func sendFailChallenge(date: String) {
+        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: [FinishedDailyChallenge(challengeDate: date,
+                                                                                              isSuccess: false)])
+
+        Providers.challengeProvider.request(target: .postDailyChallenge(data: midnightDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+                print("Daily challenge data sent successfully.")
+        }
+    }
+    
 }
 
 struct ChallengeDTO: Codable {
