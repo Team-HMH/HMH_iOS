@@ -163,7 +163,7 @@
 		369D7EE52C04AE2000295791 /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		369D7EEB2C04AF3900295791 /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		369D7EF02C04BB8B00295791 /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244E82BF3D770007A5A7B /* AppStorageKey.swift */; };
-		369D7F2A2C05024400295791 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 369D7F292C05024400295791 /* RealmSwift */; };
+		36EB5F872C1C161000FAF995 /* PatchPointUseResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB5F862C1C161000FAF995 /* PatchPointUseResponseDTO.swift */; };
 		36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */; };
 /* End PBXBuildFile section */
 
@@ -394,6 +394,7 @@
 		368CAADD2BB97FE000FA83B3 /* HMH_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HMH_iOS.entitlements; sourceTree = "<group>"; };
 		368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarModifier.swift; sourceTree = "<group>"; };
+		36EB5F862C1C161000FAF995 /* PatchPointUseResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchPointUseResponseDTO.swift; sourceTree = "<group>"; };
 		36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -483,6 +484,7 @@
 				0B6A83682C08644F0095060C /* UsePointResponseDTO.swift */,
 				0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */,
 				0B6301572C15E0DF0020B375 /* GetEarnPointResponseDTO.swift */,
+				36EB5F862C1C161000FAF995 /* PatchPointUseResponseDTO.swift */,
 			);
 			path = Point;
 			sourceTree = "<group>";
@@ -1263,6 +1265,7 @@
 				0B6A835F2C0861B20095060C /* PointRequestDTO.swift in Sources */,
 				0B3C296B2BA01BD200435B30 /* TabBarView.swift in Sources */,
 				367243F42BEDEB32007A5A7B /* AddAppResponseDTO.swift in Sources */,
+				36EB5F872C1C161000FAF995 /* PatchPointUseResponseDTO.swift in Sources */,
 				367244052BEDEC4A007A5A7B /* AuthRouter.swift in Sources */,
 				0BF56C952BC39BE9003ECFB1 /* OnboardingCompleteView.swift in Sources */,
 				0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */,
