@@ -155,6 +155,8 @@
 		368780E12C01EF7400454827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
 		368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368780E22C024DAD00454827 /* CustomButtonModifer.swift */; };
 		368833862C1F4004000F3A45 /* UserChallenge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 368833842C1F4004000F3A45 /* UserChallenge.xcdatamodeld */; };
+		3688339C2C1F5931000F3A45 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3688339B2C1F5931000F3A45 /* UserDefaultsManager.swift */; };
+		368833A02C1F5B39000F3A45 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3688339F2C1F5B39000F3A45 /* Date+.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
 		368C5D992BCC41990035A1AC /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D982BCC41990035A1AC /* TotalActivityReport.swift */; };
 		368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D9A2BCC41990035A1AC /* TotalActivityView.swift */; };
@@ -385,6 +387,8 @@
 		368780DA2C01ED4E00454827 /* ShieldConfigureExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldConfigureExtension.entitlements; sourceTree = "<group>"; };
 		368780E22C024DAD00454827 /* CustomButtonModifer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonModifer.swift; sourceTree = "<group>"; };
 		368833852C1F4004000F3A45 /* UserChallenge.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserChallenge.xcdatamodel; sourceTree = "<group>"; };
+		3688339B2C1F5931000F3A45 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		3688339F2C1F5B39000F3A45 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHDeviceActivityReport.swift; sourceTree = "<group>"; };
 		368C5D982BCC41990035A1AC /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
@@ -783,6 +787,7 @@
 				367244E82BF3D770007A5A7B /* AppStorageKey.swift */,
 				367244EC2BF3E778007A5A7B /* NotificationManager.swift */,
 				0BDDA0132C005A25001BD43E /* KeyChainStorage.swift */,
+				3688339B2C1F5931000F3A45 /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -790,6 +795,7 @@
 		365CD6E62B7E4FB700245CDD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				3688339F2C1F5B39000F3A45 /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1262,6 +1268,7 @@
 				367243D32BEDE9F6007A5A7B /* ResponseData.swift in Sources */,
 				0B6A835C2C085EFD0095060C /* PointRouter.swift in Sources */,
 				367244132BF086A7007A5A7B /* AuthInterceptor.swift in Sources */,
+				368833A02C1F5B39000F3A45 /* Date+.swift in Sources */,
 				367243F62BEDEB32007A5A7B /* DeleteAppRequestDTO.swift in Sources */,
 				368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */,
 				0B6A835F2C0861B20095060C /* PointRequestDTO.swift in Sources */,
@@ -1284,6 +1291,7 @@
 				367244062BEDEC4A007A5A7B /* ChallengeRouter.swift in Sources */,
 				0BD2D67C2B9F5A7B00733843 /* String.swift in Sources */,
 				367244112BF08684007A5A7B /* BaseModel.swift in Sources */,
+				3688339C2C1F5931000F3A45 /* UserDefaultsManager.swift in Sources */,
 				0BC0E5BD2BB0571E00FB0330 /* NextButtonView.swift in Sources */,
 				367244ED2BF3E778007A5A7B /* NotificationManager.swift in Sources */,
 				367244152BF0956B007A5A7B /* PointView.swift in Sources */,
