@@ -128,10 +128,6 @@ extension ChallengeView {
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                 Spacer()
-                Button("편집", action: viewModel.getChallengeInfo)
-                    .font(.text4_semibold_16)
-                    .foregroundStyle(.bluePurpleButton)
-                    .frame(height: 48)
             }
             .padding(.horizontal, 20)
             DeviceActivityReport(context, filter: filter)
@@ -221,6 +217,10 @@ extension ChallengeView {
                         .stroke(index == viewModel.todayIndex ? .bluePurpleOpacity70 : .gray6, lineWidth: 2)
                         .frame(width: 44, height: 44)
                     switch viewModel.statuses[index] {
+                    case "FAILURE":
+                        Image(.failStar)
+                            .resizable()
+                            .frame(width: 24, height: 24)
                     case "UNEARNED":
                         Image(.failStar)
                             .resizable()

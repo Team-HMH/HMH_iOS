@@ -41,3 +41,5 @@ class MidnightTaskScheduler: ObservableObject {
         // 백그라운드에서 실행할 API 연결
     }
 }
+
+//auto assign test
