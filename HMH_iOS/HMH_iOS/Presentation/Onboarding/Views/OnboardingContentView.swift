@@ -54,11 +54,7 @@ struct OnboardingContentView: View {
                               selection: $selection)
         .onChange(of: selection) { newSelection in
             screenViewModel.updateSelectedApp(newSelection: newSelection)
-            if selection.rawValue != "" {
-                onboardingViewModel.addOnboardingState()
-            } else {
-                
-            }
+            onboardingViewModel.addOnboardingState()
         }
         .onAppear() {
             selection = screenViewModel.selectedApp
@@ -89,7 +85,7 @@ struct OnboardingContentView: View {
                 )
             }
         )
-
+        
     }
 }
 
