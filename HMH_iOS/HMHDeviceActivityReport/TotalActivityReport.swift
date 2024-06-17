@@ -22,6 +22,8 @@ struct TotalActivityReport: DeviceActivityReportScene {
     var totalGoalTimeDouble = 0
     @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var usageGrade = ""
+    @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var isFail: Bool = false
 
     // Define which context your scene will represent.
     let context: DeviceActivityReport.Context = .totalActivity
@@ -117,6 +119,9 @@ extension TotalActivityReport {
     }
 
     private func calculateGrade(_ usagePercentage: Double) -> String {
+        if isFail {
+            return "F"
+        }
         switch usagePercentage {
         case 0..<25:
             return "A"
@@ -137,6 +142,7 @@ extension TotalActivityReport {
         var lottieTitle = "Main-\(usageGrade)-final.json"
         
         var titleString = ""
+
         switch usageGrade{
         case "A":
             lottieTitle = "Main-A-final.json"
@@ -159,6 +165,12 @@ extension TotalActivityReport {
         default:
             titleString = ""
         }
+        
+        if isFail {
+            lottieTitle = "Main-F-final.json"
+            titleString = StringLiteral.Home.usageStatusF
+        }
+        
         return [lottieTitle, titleString]
     }
     
