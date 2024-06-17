@@ -43,6 +43,10 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 class AppStateViewModel: ObservableObject {
     static let shared = AppStateViewModel()
+    
+    @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var isFail: Bool = false
+    
     @StateObject var screenTimeModel = ScreenTimeViewModel()
     @StateObject var challengeModel = ChallengeViewModel()
     
@@ -93,6 +97,7 @@ class AppStateViewModel: ObservableObject {
                 self.screenTimeModel.unblockAllApps()
                 self.currentAlertType = .unlockComplete
                 self.challengeModel.sendFailChallenge(date: Date().formattedString())
+                self.isFail = true
             } else {
                 self.showCustomAlert = false
             }

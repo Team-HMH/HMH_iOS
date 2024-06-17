@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import SwiftUI
 import UserNotifications
 import BackgroundTasks
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     var appStateViewModel = AppStateViewModel.shared
     let taskIdentifier = "com.HMH.dailyTask"
+    
+    @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    var isFail: Bool = false
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -23,6 +27,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         
         sendDailyChallengeDataIfNeeded()
+        registerBackgroundTasks()
+        scheduleDailyResetTask()
+        
         return true
     }
     
@@ -42,7 +49,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        
+        BGTaskScheduler.shared.getPendingTaskRequests { tasks in
+            if tasks.isEmpty {
+                self.scheduleDailyResetTask()
+            }
+        }
     }
     
     private func handleRemoteNotification(_ userInfo: [AnyHashable: Any]) {
@@ -104,5 +115,40 @@ extension AppDelegate {
             print("Daily challenge data sent successfully.")
         }
     }
+    
+    // 자정 데이터 초기화
+    private func registerBackgroundTasks() {
+            BGTaskScheduler.shared.register(forTaskWithIdentifier: taskIdentifier, using: nil) { task in
+                self.handleAppRefresh(task: task as! BGAppRefreshTask)
+            }
+        }
+        
+        private func scheduleDailyResetTask() {
+            let request = BGAppRefreshTaskRequest(identifier: taskIdentifier)
+            request.earliestBeginDate = Date().addingTimeInterval(24*60*60) // 24시간 후에 실행
+            
+            do {
+                try BGTaskScheduler.shared.submit(request)
+            } catch {
+                print("Unable to submit task: \(error.localizedDescription)")
+            }
+        }
+        
+        private func handleAppRefresh(task: BGAppRefreshTask) {
+            scheduleDailyResetTask()
+            resetFailStatus()
+            
+            task.expirationHandler = {
+                self.isFail = true
+            }
+            
+            task.setTaskCompleted(success: true)
+        }
+        
+        private func resetFailStatus() {
+            if isFail == false  {
+                self.isFail = true
+            }
+        }
     
 }
