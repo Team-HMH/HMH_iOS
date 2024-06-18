@@ -222,7 +222,7 @@ extension ChallengeView {
                             .resizable()
                             .frame(width: 24, height: 24)
                     case "EARNED":
-                        Image(.doneRound)
+                        Image(.doneStar)
                     case "UNEARNED":
                         let gradient = LinearGradient(
                             gradient: Gradient(stops: [
