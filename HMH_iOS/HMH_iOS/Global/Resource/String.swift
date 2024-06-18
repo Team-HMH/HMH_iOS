@@ -155,8 +155,8 @@ enum StringLiteral {
     }
     
     enum MyPageURL {
-        static var term = "https://hmhteam.notion.site/33acb29be57245f394eb93ddb2e3b8cc"
-        static var info = "https://www.notion.so/hmhteam/7006ac1eb36545c38ea2bdfc7e34d2cb?pvs=4"
+        static var term = "https://msmmx.notion.site/33acb29be57245f394eb93ddb2e3b8cc"
+        static var info = "https://msmmx.notion.site/7006ac1eb36545c38ea2bdfc7e34d2cb"
     }
     
     enum Prepare {
