@@ -154,7 +154,6 @@
 		368780DD2C01ED4E00454827 /* ShieldConfigureExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 368780D32C01ED4E00454827 /* ShieldConfigureExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		368780E12C01EF7400454827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
 		368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368780E22C024DAD00454827 /* CustomButtonModifer.swift */; };
-		368833862C1F4004000F3A45 /* UserChallenge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 368833842C1F4004000F3A45 /* UserChallenge.xcdatamodeld */; };
 		3688339C2C1F5931000F3A45 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3688339B2C1F5931000F3A45 /* UserDefaultsManager.swift */; };
 		368833A02C1F5B39000F3A45 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3688339F2C1F5B39000F3A45 /* Date+.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
@@ -386,7 +385,6 @@
 		368780D92C01ED4E00454827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		368780DA2C01ED4E00454827 /* ShieldConfigureExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldConfigureExtension.entitlements; sourceTree = "<group>"; };
 		368780E22C024DAD00454827 /* CustomButtonModifer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonModifer.swift; sourceTree = "<group>"; };
-		368833852C1F4004000F3A45 /* UserChallenge.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserChallenge.xcdatamodel; sourceTree = "<group>"; };
 		3688339B2C1F5931000F3A45 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		3688339F2C1F5B39000F3A45 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -715,7 +713,6 @@
 		365CD6DF2B7E4ECC00245CDD /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				3687555C2C03342600DAF428 /* DataModel */,
 				365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */,
 				367244EE2BF3E7AB007A5A7B /* Application */,
 				365CD6E62B7E4FB700245CDD /* Extension */,
@@ -941,14 +938,6 @@
 				368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		3687555C2C03342600DAF428 /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-				368833842C1F4004000F3A45 /* UserChallenge.xcdatamodeld */,
-			);
-			path = DataModel;
 			sourceTree = "<group>";
 		};
 		368780D62C01ED4E00454827 /* ShieldConfigureExtension */ = {
@@ -1323,7 +1312,6 @@
 				367243FB2BEDEB32007A5A7B /* CreateChallengeRequestDTO.swift in Sources */,
 				0BBF28862BF2F84700101F40 /* WithdrawAlertView.swift in Sources */,
 				0BBF28802BF2F81A00101F40 /* UsePointsAlertView.swift in Sources */,
-				368833862C1F4004000F3A45 /* UserChallenge.xcdatamodeld in Sources */,
 				0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */,
 				369D7EE52C04AE2000295791 /* ScreenTimeViewModel.swift in Sources */,
 				367243F82BEDEB32007A5A7B /* GetChallengeResponseDTO.swift in Sources */,
@@ -2037,20 +2025,6 @@
 			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		368833842C1F4004000F3A45 /* UserChallenge.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				368833852C1F4004000F3A45 /* UserChallenge.xcdatamodel */,
-			);
-			currentVersion = 368833852C1F4004000F3A45 /* UserChallenge.xcdatamodel */;
-			name = UserChallenge.xcdatamodeld;
-			path = /Users/ljh/Desktop/HMH/HMH_iOS/HMH_iOS/HMH_iOS/Global/DataModel/UserChallenge.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 365CD6B12B7E4C4F00245CDD /* Project object */;
 }
