@@ -100,6 +100,7 @@ class OnboardingViewModel: ObservableObject {
             }
         case 5:
             isPickerPresented = true
+            
         case 6:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
             if isChallengeMode {
@@ -166,7 +167,7 @@ class OnboardingViewModel: ObservableObject {
     
     
     @MainActor func postSignUpLoginData() {
-        let appValues = screenViewModel.hashVaule.map { Apps(appCode: "\($0)", goalTime: appGoalTime) }
+        let appValues = [ Apps(appCode: "app goalTime", goalTime: appGoalTime) ]
         let request = SignUpRequestDTO(socialPlatform: socialPlatform, name: userName, onboarding: Onboarding(averageUseTime: self.averageUseTime, problem: self.problems), challenge: Challenge(period: self.period, goalTime: self.goalTime, apps: appValues))
         
         let provider = Providers.AuthProvider

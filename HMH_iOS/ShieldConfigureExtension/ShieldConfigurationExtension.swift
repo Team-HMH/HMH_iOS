@@ -16,7 +16,7 @@ import ManagedSettingsUI
 class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     
     private func setShieldConfig(_ tokenName: String) -> ShieldConfiguration {
-        let CUSTOM_ICON = UIImage(resource: .shieldView)
+        let CUSTOM_ICON = UIImage(resource: .shieldLock)
         let CUSTOM_TITLE = ShieldConfiguration.Label(
             text: "목표 사용 시간 종료",
             color: .whiteText

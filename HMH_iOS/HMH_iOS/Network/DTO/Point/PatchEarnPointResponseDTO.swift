@@ -8,5 +8,5 @@
 import Foundation
 
 struct PatchEarnPointResponseDTO: Codable {
-    let point: Int
+    let userPoint: Int
 }
