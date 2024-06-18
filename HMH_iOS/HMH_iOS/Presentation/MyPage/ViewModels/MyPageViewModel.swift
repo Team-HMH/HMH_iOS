@@ -93,7 +93,7 @@ class MyPageViewModel: ObservableObject {
     func logoutUser() {
         let provider = Providers.AuthProvider
         provider.request(target: .logout, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-//            UserManager.shared.clearAll()
+            UserManager.shared.clearLogout()
         }
     }
     
