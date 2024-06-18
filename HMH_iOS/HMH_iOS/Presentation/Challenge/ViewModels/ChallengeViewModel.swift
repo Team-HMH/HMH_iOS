@@ -66,9 +66,9 @@ final class ChallengeViewModel: ObservableObject {
             self.appList = data.apps
             self.statuses = data.statuses
             self.todayIndex = data.todayIndex
-            self.startDate = self.formatDateString(data.startDate) ?? ""
+            self.startDate = data.startDate
             
-            print(self.days)
+            self.sendSucessIfNeeded()
             self.getChallengeType()
         }
     }
@@ -79,7 +79,6 @@ final class ChallengeViewModel: ObservableObject {
         } else {
             isToastPresented = true
         }
-        // 토스트 여부 처리
     }
     
     func addApp(appGoalTime: Int) {
@@ -112,14 +111,51 @@ final class ChallengeViewModel: ObservableObject {
     }
     
     func sendFailChallenge(date: String) {
-        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: [FinishedDailyChallenge(challengeDate: date,
-                                                                                              isSuccess: false)])
-
+        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: [FinishedDailyChallenge(challengeDate: date, isSuccess: false)])
         Providers.challengeProvider.request(target: .postDailyChallenge(data: midnightDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-                print("Daily challenge data sent successfully.")
+            print("Daily challenge data sent successfully.")
         }
     }
     
+    func sendSucessIfNeeded() {
+        let noneDates = findNoneDates(statuses: statuses, todayIndex: todayIndex, startDate: startDate)
+        var finishChallenges: [FinishedDailyChallenge] = []
+        
+        noneDates.forEach { date in
+            finishChallenges.append(FinishedDailyChallenge(challengeDate: date, isSuccess: true))
+        }
+        
+        let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
+        
+        Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+            print("Daily challenge data sent successfully.")
+        }
+    }
+    
+    func findNoneDates(statuses: [String], todayIndex: Int, startDate: String) -> [String] {
+        var dates: [String] = []
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let start = dateFormatter.date(from: startDate) else {
+            print("Invalid start date format")
+            return dates
+        }
+        
+        let calendar = Calendar.current
+        
+        for index in 0..<todayIndex {
+            if statuses[index] == "NONE" {
+                if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
+                    let formattedDate = dateFormatter.string(from: newDate)
+                    dates.append(formattedDate)
+                }
+            }
+        }
+        
+        return dates
+    }
 }
 
 struct ChallengeDTO: Codable {

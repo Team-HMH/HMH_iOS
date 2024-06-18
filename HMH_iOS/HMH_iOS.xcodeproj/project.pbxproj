@@ -154,7 +154,6 @@
 		368780DD2C01ED4E00454827 /* ShieldConfigureExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 368780D32C01ED4E00454827 /* ShieldConfigureExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		368780E12C01EF7400454827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
 		368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368780E22C024DAD00454827 /* CustomButtonModifer.swift */; };
-		368833862C1F4004000F3A45 /* UserChallenge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 368833842C1F4004000F3A45 /* UserChallenge.xcdatamodeld */; };
 		3688339C2C1F5931000F3A45 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3688339B2C1F5931000F3A45 /* UserDefaultsManager.swift */; };
 		368833A02C1F5B39000F3A45 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3688339F2C1F5B39000F3A45 /* Date+.swift */; };
 		368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */; };
@@ -267,7 +266,7 @@
 		0B3C296A2BA01BD200435B30 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		0B3C296C2BA01C2000435B30 /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		0B3C296E2BA01C2800435B30 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		0B3C29702BA01C3000435B30 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		0B3C29702BA01C3000435B30 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageView.swift; path = ../../MyPageView.swift; sourceTree = "<group>"; };
 		0B3C29722BA01DCE00435B30 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0B5140532BE3A2D600C78B9F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0B6301552C15B8C20020B375 /* ServicePrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePrepareView.swift; sourceTree = "<group>"; };
@@ -386,7 +385,6 @@
 		368780D92C01ED4E00454827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		368780DA2C01ED4E00454827 /* ShieldConfigureExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShieldConfigureExtension.entitlements; sourceTree = "<group>"; };
 		368780E22C024DAD00454827 /* CustomButtonModifer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonModifer.swift; sourceTree = "<group>"; };
-		368833852C1F4004000F3A45 /* UserChallenge.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserChallenge.xcdatamodel; sourceTree = "<group>"; };
 		3688339B2C1F5931000F3A45 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		3688339F2C1F5B39000F3A45 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = HMHDeviceActivityReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -515,6 +513,7 @@
 		0B82ECAB2BC91501002D5CF3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
 				0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */,
 				0B6301552C15B8C20020B375 /* ServicePrepareView.swift */,
 			);
@@ -572,6 +571,9 @@
 		0BBF287B2BF2F7EF00101F40 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				365D84C72C21691C00621D26 /* Custom */,
+				365D84C62C21690E00621D26 /* Navigation */,
+				365D84C52C21690200621D26 /* TabBar */,
 				0B6A836C2C08C03C0095060C /* Toast */,
 				0B205B332BFCC15C00B0FB83 /* Manager */,
 				0BBF287C2BF2F7F400101F40 /* Alert */,
@@ -715,7 +717,6 @@
 		365CD6DF2B7E4ECC00245CDD /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				3687555C2C03342600DAF428 /* DataModel */,
 				365CD6BC2B7E4C4F00245CDD /* HMH_iOSApp.swift */,
 				367244EE2BF3E7AB007A5A7B /* Application */,
 				365CD6E62B7E4FB700245CDD /* Extension */,
@@ -748,13 +749,6 @@
 				368C5D6C2BCC1BA00035A1AC /* Home */,
 				0B82ECAA2BC9141D002D5CF3 /* MyPage */,
 				0BC0E5A42BB03E4F00FB0330 /* Onboarding */,
-				365CD6BE2B7E4C4F00245CDD /* ContentView.swift */,
-				0B3C296A2BA01BD200435B30 /* TabBarView.swift */,
-				0B3C29722BA01DCE00435B30 /* CustomTabView.swift */,
-				0B3C29702BA01C3000435B30 /* MyPageView.swift */,
-				368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */,
-				0BF56C922BC39127003ECFB1 /* PickerView.swift */,
-				0B9834DB2BC8234700A1457A /* SplashView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -850,6 +844,33 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		365D84C52C21690200621D26 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				0B3C296A2BA01BD200435B30 /* TabBarView.swift */,
+				0B3C29722BA01DCE00435B30 /* CustomTabView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		365D84C62C21690E00621D26 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		365D84C72C21691C00621D26 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				365CD6BE2B7E4C4F00245CDD /* ContentView.swift */,
+				0BF56C922BC39127003ECFB1 /* PickerView.swift */,
+				0B9834DB2BC8234700A1457A /* SplashView.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		367243AC2BE93383007A5A7B /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
@@ -941,14 +962,6 @@
 				368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		3687555C2C03342600DAF428 /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-				368833842C1F4004000F3A45 /* UserChallenge.xcdatamodeld */,
-			);
-			path = DataModel;
 			sourceTree = "<group>";
 		};
 		368780D62C01ED4E00454827 /* ShieldConfigureExtension */ = {
@@ -1323,7 +1336,6 @@
 				367243FB2BEDEB32007A5A7B /* CreateChallengeRequestDTO.swift in Sources */,
 				0BBF28862BF2F84700101F40 /* WithdrawAlertView.swift in Sources */,
 				0BBF28802BF2F81A00101F40 /* UsePointsAlertView.swift in Sources */,
-				368833862C1F4004000F3A45 /* UserChallenge.xcdatamodeld in Sources */,
 				0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */,
 				369D7EE52C04AE2000295791 /* ScreenTimeViewModel.swift in Sources */,
 				367243F82BEDEB32007A5A7B /* GetChallengeResponseDTO.swift in Sources */,
@@ -2037,20 +2049,6 @@
 			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		368833842C1F4004000F3A45 /* UserChallenge.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				368833852C1F4004000F3A45 /* UserChallenge.xcdatamodel */,
-			);
-			currentVersion = 368833852C1F4004000F3A45 /* UserChallenge.xcdatamodel */;
-			name = UserChallenge.xcdatamodeld;
-			path = /Users/ljh/Desktop/HMH/HMH_iOS/HMH_iOS/HMH_iOS/Global/DataModel/UserChallenge.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 365CD6B12B7E4C4F00245CDD /* Project object */;
 }
