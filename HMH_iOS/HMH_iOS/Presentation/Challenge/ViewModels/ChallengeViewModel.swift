@@ -16,6 +16,7 @@ enum ChallengeType {
 
 final class ChallengeViewModel: ObservableObject {
     @Published var startDate = ""
+    @Published var visableStartDate = ""
     @Published var todayIndex = 0
     @Published var days = 7
     @Published var appList: [Apps] = []
@@ -67,6 +68,7 @@ final class ChallengeViewModel: ObservableObject {
             self.statuses = data.statuses
             self.todayIndex = data.todayIndex
             self.startDate = data.startDate
+            self.visableStartDate = self.formatDateString(data.startDate) ?? ""
             
             self.sendSucessIfNeeded()
             self.getChallengeType()
