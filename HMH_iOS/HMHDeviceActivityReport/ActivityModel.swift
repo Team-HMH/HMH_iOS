@@ -10,6 +10,14 @@ import Foundation
 import ManagedSettings
 
 struct ActivityReport {
+    let totalDuration: Int
+    let titleState: [String]
+    var remainTime: Int
+    var totalGoalTime: Int
+    let apps: [AppDeviceActivity]
+}
+
+struct ChallengeActivity {
     let totalDuration: TimeInterval
     let apps: [AppDeviceActivity]
 }
