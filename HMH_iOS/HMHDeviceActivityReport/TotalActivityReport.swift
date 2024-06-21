@@ -18,7 +18,7 @@ extension DeviceActivityReport.Context {
 }
 
 struct TotalActivityReport: DeviceActivityReportScene {
-    @AppStorage(AppStorageKey.totalgoaltime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    @AppStorage(AppStorageKey.totalGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var totalGoalTimeDouble = 0
     @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var usageGrade = ""
