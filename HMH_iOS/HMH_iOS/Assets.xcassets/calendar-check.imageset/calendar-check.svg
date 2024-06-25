@@ -1,0 +1,13 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="24" height="24" fill="#555555"/>
+<g id="ic/Solid">
+<path d="M-51 -45C-51 -46.1046 -50.1046 -47 -49 -47H447C448.105 -47 449 -46.1046 449 -45V69C449 70.1046 448.105 71 447 71H-49C-50.1046 71 -51 70.1046 -51 69V-45Z" fill="#272934"/>
+<path d="M-49 -46H447V-48H-49V-46ZM448 -45V69H450V-45H448ZM447 70H-49V72H447V70ZM-50 69V-45H-52V69H-50ZM-49 70C-49.5523 70 -50 69.5523 -50 69H-52C-52 70.6569 -50.6568 72 -49 72V70ZM448 69C448 69.5523 447.552 70 447 70V72C448.657 72 450 70.6569 450 69H448ZM447 -46C447.552 -46 448 -45.5523 448 -45H450C450 -46.6569 448.657 -48 447 -48V-46ZM-49 -48C-50.6569 -48 -52 -46.6568 -52 -45H-50C-50 -45.5523 -49.5523 -46 -49 -46V-48Z" fill="white" fill-opacity="0.1"/>
+<g id="calendar-check">
+<rect id="Subtract" x="2" y="4" width="20" height="18" fill="#EBECF4"/>
+<path id="Vector" d="M17 2V6" stroke="#EBECF4" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/>
+<path id="Vector_2" d="M7 2V6" stroke="#EBECF4" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/>
+<path id="Vector_3" d="M17 9L10.125 16L7 12.8182" stroke="#17171B" stroke-width="1.5"/>
+</g>
+</g>
+</svg>
