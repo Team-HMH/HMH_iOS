@@ -157,6 +157,15 @@ final class ChallengeViewModel: ObservableObject {
                     }
                 }
             }
+        } else {
+            for index in 0..<days {
+                if statuses[index] == "NONE" {
+                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
+                        let formattedDate = dateFormatter.string(from: newDate)
+                        dates.append(formattedDate)
+                    }
+                }
+            }
         }
         
         return dates
