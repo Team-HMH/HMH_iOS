@@ -64,7 +64,6 @@ extension ChallengeView {
         .background(.blackground)
         .onAppear {
             viewModel.getChallengeInfo()
-            viewModel.getEarnPoint()
         }
     }
     

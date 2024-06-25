@@ -50,14 +50,6 @@ final class ChallengeViewModel: ObservableObject {
         }
     }
     
-    func getEarnPoint() {
-        Providers.pointProvider.request(target: .getEarnPoint,
-                                        instance: BaseResponse<GetEarnPointResponseDTO>.self) { result in
-            guard let data = result.data else { return }
-            self.remainEarnPoint = data.earnPoint
-        }
-    }
-    
     
     func getChallengeInfo() {
         Providers.challengeProvider.request(target: .getChallenge,

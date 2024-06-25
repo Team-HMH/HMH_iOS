@@ -13,11 +13,21 @@ final class PointViewModel: ObservableObject {
     @Published var pointList: [PointList] = []
     @Published var statusList: [String] = []
     @Published var isPresented = false
+    @Published var earnPoint = 0
     
     init() {
         self.getPointList()
         self.getUsagePoint()
     }
+    
+    func getEarnPoint() {
+        Providers.pointProvider.request(target: .getEarnPoint,
+                                        instance: BaseResponse<GetEarnPointResponseDTO>.self) { result in
+            guard let data = result.data else { return }
+            self.earnPoint = data.earnPoint
+        }
+    }
+    
     
     func getUsagePoint() {
         Providers.pointProvider.request(target: .getUsagePoint,
