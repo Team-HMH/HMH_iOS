@@ -58,11 +58,10 @@ extension PointView {
 #Preview {
     PointView(viewModel: .init())
 }
-
 struct EarnPointButton: View {
     let day: Int
     let status: String
-    @StateObject var viewModel = PointViewModel()
+    @ObservedObject var viewModel: PointViewModel
     
     var body: some View {
         Button(action: {
@@ -108,4 +107,3 @@ struct EarnPointButton: View {
         }
     }
 }
-
