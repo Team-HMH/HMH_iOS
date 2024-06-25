@@ -68,7 +68,7 @@ final class ChallengeViewModel: ObservableObject {
     }
     
     func challengeButtonTapped() {
-        if remainEarnPoint == 0 {
+        if !(statuses.contains("UNEARNED")) {
             navigateToCreate = true
         } else {
             isToastPresented = true
@@ -140,6 +140,7 @@ final class ChallengeViewModel: ObservableObject {
         }
         
         let calendar = Calendar.current
+        
         if todayIndex > 0 {
             for index in 0..<todayIndex {
                 if statuses[index] == "NONE" {
