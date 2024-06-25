@@ -154,9 +154,9 @@ extension AppActivityReport {
     }
 
     private func calculateGrade(_ usagePercentage: Double) -> String {
-        if isFail {
-            return "F"
-        }
+//        if isFail {
+//            return "F"
+//        }
         switch usagePercentage {
         case 0..<25:
             return "A"
@@ -201,11 +201,11 @@ extension AppActivityReport {
             titleString = ""
         }
         
-        if isFail {
-            lottieTitle = "Main-F-final.json"
-            titleString = StringLiteral.Home.usageStatusF
-        }
-        
+//        if isFail {
+//            lottieTitle = "Main-F-final.json"
+//            titleString = StringLiteral.Home.usageStatusF
+//        }
+//        
         return [lottieTitle, titleString]
     }
     
