@@ -127,10 +127,12 @@ final class ChallengeViewModel: ObservableObject {
             finishChallenges.append(FinishedDailyChallenge(challengeDate: date, isSuccess: true))
         }
         
-        let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
-        
-        Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-            print("Daily challenge data sent successfully.")
+        if !(finishChallenges.isEmpty) {
+            let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
+            
+            Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+                print("Daily challenge data sent successfully.")
+            }
         }
     }
     
@@ -146,12 +148,13 @@ final class ChallengeViewModel: ObservableObject {
         }
         
         let calendar = Calendar.current
-        
-        for index in 0..<todayIndex {
-            if statuses[index] == "NONE" {
-                if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
-                    let formattedDate = dateFormatter.string(from: newDate)
-                    dates.append(formattedDate)
+        if todayIndex > 0 {
+            for index in 0..<todayIndex {
+                if statuses[index] == "NONE" {
+                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
+                        let formattedDate = dateFormatter.string(from: newDate)
+                        dates.append(formattedDate)
+                    }
                 }
             }
         }
