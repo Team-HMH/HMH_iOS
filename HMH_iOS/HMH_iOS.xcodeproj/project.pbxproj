@@ -134,7 +134,6 @@
 		367244152BF0956B007A5A7B /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244142BF0956B007A5A7B /* PointView.swift */; };
 		367244172BF095AF007A5A7B /* PointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244162BF095AF007A5A7B /* PointViewModel.swift */; };
 		367244192BF102A6007A5A7B /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244182BF102A6007A5A7B /* ActivityModel.swift */; };
-		3672441C2BF13048007A5A7B /* AppActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3672441B2BF13048007A5A7B /* AppActivityReport.swift */; };
 		367244232BF274C0007A5A7B /* ChallengeActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244222BF274C0007A5A7B /* ChallengeActivityView.swift */; };
 		3672443C2BF32481007A5A7B /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368CAA942BB9617A00FA83B3 /* DeviceActivity.framework */; };
 		3672443F2BF32481007A5A7B /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3672443E2BF32481007A5A7B /* DeviceActivityMonitorExtension.swift */; };
@@ -147,6 +146,9 @@
 		367244ED2BF3E778007A5A7B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EC2BF3E778007A5A7B /* NotificationManager.swift */; };
 		367244F02BF3E8B5007A5A7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */; };
 		367244F22BF3EA51007A5A7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365CD6C02B7E4C5100245CDD /* Assets.xcassets */; };
+		3673CA1B2C255B88009411A4 /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
+		3673CA1D2C256741009411A4 /* HomeDeviceActivityReportScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3673CA1C2C256741009411A4 /* HomeDeviceActivityReportScene.swift */; };
+		3673CA1F2C256750009411A4 /* ChallengeDeviceActivityReportScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3673CA1E2C256750009411A4 /* ChallengeDeviceActivityReportScene.swift */; };
 		368124172C0350950060DDB7 /* MidnightTaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */; };
 		368780D42C01ED4E00454827 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368CAABC2BB961D900FA83B3 /* ManagedSettings.framework */; };
 		368780D52C01ED4E00454827 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3672442A2BF31D5F007A5A7B /* ManagedSettingsUI.framework */; };
@@ -287,7 +289,6 @@
 		0B86937A2BE727DA000D7CE1 /* SocialLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginModel.swift; sourceTree = "<group>"; };
 		0B86937C2BE727E5000D7CE1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0B86937E2BE87A5F000D7CE1 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
-		0B8693882BE8B865000D7CE1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		0B9834DB2BC8234700A1457A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0B9ACF302BA14FDB00EC0BDE /* Main-F-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-F-final.json"; sourceTree = "<group>"; };
 		0B9ACF312BA14FDB00EC0BDE /* Main-B-final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Main-B-final.json"; sourceTree = "<group>"; };
@@ -365,7 +366,6 @@
 		367244142BF0956B007A5A7B /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
 		367244162BF095AF007A5A7B /* PointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointViewModel.swift; sourceTree = "<group>"; };
 		367244182BF102A6007A5A7B /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
-		3672441B2BF13048007A5A7B /* AppActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivityReport.swift; sourceTree = "<group>"; };
 		367244222BF274C0007A5A7B /* ChallengeActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeActivityView.swift; sourceTree = "<group>"; };
 		3672442A2BF31D5F007A5A7B /* ManagedSettingsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettingsUI.framework; path = System/Library/Frameworks/ManagedSettingsUI.framework; sourceTree = SDKROOT; };
 		3672443B2BF32481007A5A7B /* DeviceActivityMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeviceActivityMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -379,6 +379,8 @@
 		367244E82BF3D770007A5A7B /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
 		367244EC2BF3E778007A5A7B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		367244EF2BF3E8B5007A5A7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3673CA1C2C256741009411A4 /* HomeDeviceActivityReportScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDeviceActivityReportScene.swift; sourceTree = "<group>"; };
+		3673CA1E2C256750009411A4 /* ChallengeDeviceActivityReportScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDeviceActivityReportScene.swift; sourceTree = "<group>"; };
 		368124162C0350950060DDB7 /* MidnightTaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidnightTaskScheduler.swift; sourceTree = "<group>"; };
 		368780D32C01ED4E00454827 /* ShieldConfigureExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShieldConfigureExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		368780D72C01ED4E00454827 /* ShieldConfigurationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldConfigurationExtension.swift; sourceTree = "<group>"; };
@@ -695,7 +697,6 @@
 			children = (
 				368CAADD2BB97FE000FA83B3 /* HMH_iOS.entitlements */,
 				0BD2D6762B9F393400733843 /* HMH-iOS-Info.plist */,
-				0B8693882BE8B865000D7CE1 /* Config.xcconfig */,
 				3672440A2BF0845B007A5A7B /* Config.xcconfig */,
 				365CD6DF2B7E4ECC00245CDD /* Global */,
 				365CD6E22B7E4F4300245CDD /* Presentation */,
@@ -988,7 +989,8 @@
 			children = (
 				368C5D962BCC41990035A1AC /* HMHDeviceActivityReport.swift */,
 				367244182BF102A6007A5A7B /* ActivityModel.swift */,
-				3672441B2BF13048007A5A7B /* AppActivityReport.swift */,
+				3673CA1C2C256741009411A4 /* HomeDeviceActivityReportScene.swift */,
+				3673CA1E2C256750009411A4 /* ChallengeDeviceActivityReportScene.swift */,
 				36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */,
 				367244222BF274C0007A5A7B /* ChallengeActivityView.swift */,
 				368C5D982BCC41990035A1AC /* TotalActivityReport.swift */,
@@ -1396,10 +1398,12 @@
 			files = (
 				361C61EA2BD6B7F200EF0D8B /* Font.swift in Sources */,
 				367244232BF274C0007A5A7B /* ChallengeActivityView.swift in Sources */,
+				3673CA1D2C256741009411A4 /* HomeDeviceActivityReportScene.swift in Sources */,
 				368C5D9B2BCC41990035A1AC /* TotalActivityView.swift in Sources */,
-				3672441C2BF13048007A5A7B /* AppActivityReport.swift in Sources */,
+				3673CA1B2C255B88009411A4 /* ScreenTimeViewModel.swift in Sources */,
 				367244192BF102A6007A5A7B /* ActivityModel.swift in Sources */,
 				3606F3692C07A7A5002A1386 /* String.swift in Sources */,
+				3673CA1F2C256750009411A4 /* ChallengeDeviceActivityReportScene.swift in Sources */,
 				36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */,
 				369D7EF02C04BB8B00295791 /* AppStorageKey.swift in Sources */,
 				368C5D972BCC41990035A1AC /* HMHDeviceActivityReport.swift in Sources */,
@@ -1444,7 +1448,7 @@
 /* Begin XCBuildConfiguration section */
 		365CD6C52B7E4C5100245CDD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B8693882BE8B865000D7CE1 /* Config.xcconfig */;
+			baseConfigurationReference = 3672440A2BF0845B007A5A7B /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1508,7 +1512,7 @@
 		};
 		365CD6C62B7E4C5100245CDD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B8693882BE8B865000D7CE1 /* Config.xcconfig */;
+			baseConfigurationReference = 3672440A2BF0845B007A5A7B /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

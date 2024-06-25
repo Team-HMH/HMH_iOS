@@ -38,7 +38,7 @@ enum StringLiteral {
         static let createButton = "챌린지 생성하기"
         static let pointTitle = "일차 보상"
         static let pointSubTitle = "일 챌린지"
-        static let pointButton = "+20P"
+        static let pointButton = "+"
     }
     
     enum MyPage {

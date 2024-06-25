@@ -9,11 +9,11 @@ import Foundation
 
 public enum AppStorageKey: String {
     case selectionApp
-    case totalgoaltime
     case permission
     case totalGoalTime
     case appGoalTime
     case usageGrade
+    case isFail
 }
 
 let APP_GROUP_NAME = "group.HMH"
