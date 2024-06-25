@@ -12,7 +12,7 @@ import DeviceActivity
 import Combine
 
 class HomeViewModel: ObservableObject {
-    @AppStorage(AppStorageKey.totalgoaltime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    @AppStorage(AppStorageKey.totalGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var totalGoalTimeDouble = 0
     @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var appGoalTimeDouble = 0
@@ -24,7 +24,6 @@ class HomeViewModel: ObservableObject {
     
     init(){
         getDailyChallenge()
-        print("usageGrade:\(usageGrade)")
     }
     
     func getDailyChallenge() {

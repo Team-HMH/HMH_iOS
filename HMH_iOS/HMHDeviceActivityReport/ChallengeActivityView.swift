@@ -9,7 +9,7 @@ import SwiftUI
 import FamilyControls
 
 struct ChallengeActivityView: View {
-    var activityReport: ActivityReport
+    var activityReport: ChallengeActivity
     
     var body: some View {
         VStack(alignment: .center) {

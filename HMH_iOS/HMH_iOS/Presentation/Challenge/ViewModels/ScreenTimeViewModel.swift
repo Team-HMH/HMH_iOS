@@ -145,8 +145,7 @@ final class ScreenTimeViewModel: ObservableObject {
         let blockSchedule = DeviceActivitySchedule(
             intervalStart: DateComponents(hour: 0, minute: 0),
             intervalEnd: DateComponents(hour: 23, minute: 59),
-            repeats: false,
-            warningTime: DateComponents(minute: 10)
+            repeats: false
         )
         
         store.shield.applications = selectedApp.applicationTokens
@@ -218,12 +217,6 @@ extension FamilyActivitySelection: RawRepresentable {
         }
         return result
     }
-}
-
-struct AppDeviceActivity: Identifiable {
-    var id: String
-    var displayName: String
-    var token: ApplicationToken
 }
 
 extension DeviceActivityName {

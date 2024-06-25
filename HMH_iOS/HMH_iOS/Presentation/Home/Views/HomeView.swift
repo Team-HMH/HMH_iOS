@@ -7,17 +7,7 @@ import Lottie
 struct HomeView: View {
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @StateObject var homeViewModel = HomeViewModel()
-    
-    @State var context: DeviceActivityReport.Context = .init(rawValue: "Total Activity")
-    @State var filter = DeviceActivityFilter(
-        segment: .daily(
-            during: Calendar.current.dateInterval(
-                of: .day, for: .now
-            )!
-        ),
-        users: .all,
-        devices: .init([.iPhone, .iPad])
-    )
+
     @State var appContext: DeviceActivityReport.Context = .init(rawValue: "App Activity")
     @State var appFilter = DeviceActivityFilter(
         segment: .daily(
@@ -47,10 +37,8 @@ struct HomeView: View {
 extension HomeView {
     var main: some View {
         VStack {
-            DeviceActivityReport(context, filter: filter)
-                .frame(minHeight: 395)
             DeviceActivityReport(appContext, filter: appFilter)
-                .frame(height: 80 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count))
+                .frame(maxWidth: .infinity, minHeight: 400 + 80 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count), maxHeight: .infinity)
                 .padding(.bottom, 20)
         }
     }

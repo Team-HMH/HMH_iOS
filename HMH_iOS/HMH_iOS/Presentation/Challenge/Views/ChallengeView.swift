@@ -13,7 +13,7 @@ import DeviceActivity
 struct ChallengeView: View {
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @ObservedObject var viewModel: ChallengeViewModel
-    @State var list = [AppDeviceActivity]()
+    
     @State private var isExpanded = false
     @State private var isPresented = false
     
@@ -51,6 +51,7 @@ extension ChallengeView {
                 headerView
             }
             listView
+                .padding(.top, 20)
             NavigationLink(
                 destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2),
                 isActive: $viewModel.navigateToCreate,
@@ -64,7 +65,6 @@ extension ChallengeView {
         .background(.blackground)
         .onAppear {
             viewModel.getChallengeInfo()
-            viewModel.getEarnPoint()
         }
     }
     
@@ -103,7 +103,7 @@ extension ChallengeView {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             VStack(alignment: .leading) {
-                Text("\(viewModel.startDate) 시작부터")
+                Text("\(viewModel.visableStartDate) 시작부터")
                     .font(.text5_medium_16)
                     .foregroundStyle(.gray1)
                     .padding(.top, 14)

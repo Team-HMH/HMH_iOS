@@ -16,6 +16,7 @@ enum ChallengeType {
 
 final class ChallengeViewModel: ObservableObject {
     @Published var startDate = ""
+    @Published var visableStartDate = ""
     @Published var todayIndex = 0
     @Published var days = 7
     @Published var appList: [Apps] = []
@@ -49,14 +50,6 @@ final class ChallengeViewModel: ObservableObject {
         }
     }
     
-    func getEarnPoint() {
-        Providers.pointProvider.request(target: .getEarnPoint,
-                                        instance: BaseResponse<GetEarnPointResponseDTO>.self) { result in
-            guard let data = result.data else { return }
-            self.remainEarnPoint = data.earnPoint
-        }
-    }
-    
     
     func getChallengeInfo() {
         Providers.challengeProvider.request(target: .getChallenge,
@@ -67,6 +60,7 @@ final class ChallengeViewModel: ObservableObject {
             self.statuses = data.statuses
             self.todayIndex = data.todayIndex
             self.startDate = data.startDate
+            self.visableStartDate = self.formatDateString(data.startDate) ?? ""
             
             self.sendSucessIfNeeded()
             self.getChallengeType()
@@ -74,7 +68,7 @@ final class ChallengeViewModel: ObservableObject {
     }
     
     func challengeButtonTapped() {
-        if remainEarnPoint == 0 {
+        if !(statuses.contains("UNEARNED")) {
             navigateToCreate = true
         } else {
             isToastPresented = true
@@ -125,10 +119,12 @@ final class ChallengeViewModel: ObservableObject {
             finishChallenges.append(FinishedDailyChallenge(challengeDate: date, isSuccess: true))
         }
         
-        let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
-        
-        Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-            print("Daily challenge data sent successfully.")
+        if !(finishChallenges.isEmpty) {
+            let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
+            
+            Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+                print("Daily challenge data sent successfully.")
+            }
         }
     }
     
@@ -145,11 +141,22 @@ final class ChallengeViewModel: ObservableObject {
         
         let calendar = Calendar.current
         
-        for index in 0..<todayIndex {
-            if statuses[index] == "NONE" {
-                if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
-                    let formattedDate = dateFormatter.string(from: newDate)
-                    dates.append(formattedDate)
+        if todayIndex > 0 {
+            for index in 0..<todayIndex {
+                if statuses[index] == "NONE" {
+                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
+                        let formattedDate = dateFormatter.string(from: newDate)
+                        dates.append(formattedDate)
+                    }
+                }
+            }
+        } else {
+            for index in 0..<days {
+                if statuses[index] == "NONE" {
+                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
+                        let formattedDate = dateFormatter.string(from: newDate)
+                        dates.append(formattedDate)
+                    }
                 }
             }
         }

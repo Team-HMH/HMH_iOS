@@ -13,11 +13,21 @@ final class PointViewModel: ObservableObject {
     @Published var pointList: [PointList] = []
     @Published var statusList: [String] = []
     @Published var isPresented = false
+    @Published var earnPoint = 0
     
     init() {
         self.getPointList()
         self.getUsagePoint()
     }
+    
+    func getEarnPoint() {
+        Providers.pointProvider.request(target: .getEarnPoint,
+                                        instance: BaseResponse<GetEarnPointResponseDTO>.self) { result in
+            guard let data = result.data else { return }
+            self.earnPoint = data.earnPoint
+        }
+    }
+    
     
     func getUsagePoint() {
         Providers.pointProvider.request(target: .getUsagePoint,
@@ -32,8 +42,10 @@ final class PointViewModel: ObservableObject {
         let request = PointRequestDTO(challengeDate: date)
         Providers.pointProvider.request(target: .patchEarnPoint(data: request),
                                         instance: BaseResponse<PatchEarnPointResponseDTO>.self) { result in
-        guard let data = result.data else { return }
-        self.isPresented = true
+            guard let data = result.data else { return }
+            self.isPresented = true
+            self.statusList[day] = "EARNED"
+            self.getPointList()
         }
     }
     // 하루하루 챌린지를 성공하고, 포인트를 받는 버튼을 눌렀을 때, 포인트를 받는 API

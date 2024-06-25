@@ -44,7 +44,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 class AppStateViewModel: ObservableObject {
     static let shared = AppStateViewModel()
     
-    @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    @AppStorage(AppStorageKey.isFail.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var isFail: Bool = false
     
     @StateObject var screenTimeModel = ScreenTimeViewModel()

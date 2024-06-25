@@ -12,17 +12,18 @@ struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel
 
     var body: some View {
-        VStack(spacing: 10) {
-            SwipeView(imageNames: [.onboardingFirst, .onboardingSecond, .onboardingThird])
-            Spacer()
-                .frame(height: 75)
-            LoginButton(loginProvider: .kakao, viewModel: viewModel)
-            LoginButton(loginProvider: .apple, viewModel: viewModel)
-            Spacer()
-                .frame(height: 22)
+        ZStack {
+            Color(.blackground)
+                .ignoresSafeArea()
+            VStack(spacing: 10) {
+                SwipeView(imageNames: [.onboardingFirst, .onboardingSecond, .onboardingThird])
+                    .padding(.bottom, 75)
+                LoginButton(loginProvider: .kakao, viewModel: viewModel)
+                LoginButton(loginProvider: .apple, viewModel: viewModel)
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.blackground, ignoresSafeAreaEdges: .all)
+        .frame(maxHeight: .infinity)
+        .padding(.vertical, 22)
     }
 }
 

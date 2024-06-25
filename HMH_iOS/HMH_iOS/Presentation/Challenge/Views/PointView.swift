@@ -58,17 +58,16 @@ extension PointView {
 #Preview {
     PointView(viewModel: .init())
 }
-
 struct EarnPointButton: View {
     let day: Int
     let status: String
-    @StateObject var viewModel = PointViewModel()
+    @ObservedObject var viewModel: PointViewModel
     
     var body: some View {
         Button(action: {
             viewModel.patchEarnPoint(day: day)
         }, label: {
-            Text(StringLiteral.Challenge.pointButton)
+            Text(StringLiteral.Challenge.pointButton + " \(viewModel.earnPoint)P")
                 .font(.text4_semibold_16)
                 .foregroundStyle(buttonTextColor)
                 .frame(width: 73, height: 40)
@@ -108,4 +107,3 @@ struct EarnPointButton: View {
         }
     }
 }
-
