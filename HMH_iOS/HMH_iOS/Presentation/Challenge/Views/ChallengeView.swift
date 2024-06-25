@@ -51,6 +51,7 @@ extension ChallengeView {
                 headerView
             }
             listView
+                .padding(.top, 20)
             NavigationLink(
                 destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2),
                 isActive: $viewModel.navigateToCreate,
