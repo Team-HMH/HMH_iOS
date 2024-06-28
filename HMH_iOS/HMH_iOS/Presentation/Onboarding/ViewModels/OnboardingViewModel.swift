@@ -67,7 +67,7 @@ class OnboardingViewModel: ObservableObject {
             offIsCompleted()
         case 1:
             for index in 0..<4{
-                if surveyButtonItems[onboardingState] [index].isSelected {
+                if surveyButtonItems[onboardingState][index].isSelected {
                     self.problems.append(surveyButtonItems[onboardingState][index].buttonTitle)
                 }
             }
@@ -83,8 +83,14 @@ class OnboardingViewModel: ObservableObject {
                 }
             }
             addOnboardingState()
-            offIsCompleted()
         case 3:
+            screenViewModel.requestAuthorization()
+            if screenViewModel.hasScreenTimePermission {
+                onboardingState += 1
+            }
+        case 4:
+            isPickerPresented = true
+        case 5:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
             screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
             if isChallengeMode {
@@ -93,14 +99,6 @@ class OnboardingViewModel: ObservableObject {
             } else {
                 addOnboardingState()
             }
-        case 4:
-            screenViewModel.requestAuthorization()
-            if screenViewModel.hasScreenTimePermission {
-                onboardingState += 1
-            }
-        case 5:
-            isPickerPresented = true
-            
         case 6:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
             if isChallengeMode {
@@ -130,6 +128,7 @@ class OnboardingViewModel: ObservableObject {
             UserManager.shared.appStateString = "login"
         } else {
             onboardingState -= 1
+            print(onboardingState)
         }
     }
     
@@ -242,11 +241,11 @@ class OnboardingViewModel: ObservableObject {
         case 2:
             StringLiteral.OnboardigMain.periodSelect
         case 3:
-            StringLiteral.OnboardigMain.goalTimeSelect
-        case 4:
             StringLiteral.OnboardigMain.permissionSelect
-        case 5:
+        case 4:
             StringLiteral.OnboardigMain.appSelect
+        case 5:
+            StringLiteral.OnboardigMain.goalTimeSelect
         case 6:
             StringLiteral.OnboardigMain.appGoalTimeSelect
         default:
@@ -263,11 +262,11 @@ class OnboardingViewModel: ObservableObject {
         case 2:
             StringLiteral.OnboardigSub.periodSelect
         case 3:
-            StringLiteral.OnboardigSub.goalTimeSelect
-        case 4:
             StringLiteral.OnboardigSub.permissionSelect
-        case 5:
+        case 4:
             StringLiteral.OnboardigSub.appSelect
+        case 5:
+            StringLiteral.OnboardigSub.goalTimeSelect
         case 6:
             StringLiteral.OnboardigSub.appGoalTimeSelect
         default:
@@ -277,11 +276,11 @@ class OnboardingViewModel: ObservableObject {
     
     func getNextButton() -> String {
         switch onboardingState {
-        case 0, 1, 2, 3:
+        case 0, 1, 2, 5:
             StringLiteral.OnboardingButton.next
-        case 4:
+        case 3:
             StringLiteral.OnboardingButton.permission
-        case 5:
+        case 4:
             StringLiteral.OnboardingButton.appSelect
         case 6:
             StringLiteral.OnboardingButton.complete
@@ -291,7 +290,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func handleOnAppear() {
-        if onboardingState == 4 && isChallengeMode {
+        if onboardingState == 3 && isChallengeMode {
             isPickerPresented = true
         }
     }

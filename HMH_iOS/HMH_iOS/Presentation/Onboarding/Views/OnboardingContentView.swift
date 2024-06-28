@@ -19,7 +19,7 @@ struct OnboardingContentView: View {
     var isChallengeMode: Bool
     @Environment(\.presentationMode) var presentationMode
     
-    init(isChallengeMode: Bool = false, onboardingState: Int = 0) {
+    init(isChallengeMode: Bool = false, onboardingState: Int = -1) {
         let screenTimeViewModel = ScreenTimeViewModel()
         _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
         _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
@@ -45,7 +45,7 @@ struct OnboardingContentView: View {
         .background(.blackground, ignoresSafeAreaEdges: .all)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
-            if isChallengeMode && (newState == 1 || newState == 4 || newState == 7 ) {
+            if isChallengeMode && (newState == 1 || newState == 3 || newState == 7 ) {
                 self.presentationMode.wrappedValue.dismiss()
                 onboardingViewModel.resetOnboardingState()
             }
@@ -140,7 +140,7 @@ extension OnboardingContentView {
             switch onboardingViewModel.onboardingState {
             case 0, 1, 2:
                 SurveyView(viewModel: onboardingViewModel)
-            case 3:
+            case 5:
                 GoalTimeView(viewModel: onboardingViewModel)
             case 6:
                 AppGoalTimeView(viewModel: onboardingViewModel)
