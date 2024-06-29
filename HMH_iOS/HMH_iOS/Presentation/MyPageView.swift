@@ -77,7 +77,7 @@ extension MyPageView {
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
-                Text("\(viewModel.point)")
+                Text("\(viewModel.point)P")
                     .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)
