@@ -85,7 +85,7 @@ class OnboardingViewModel: ObservableObject {
             addOnboardingState()
         case 3:
             screenViewModel.requestAuthorization()
-            if screenViewModel.hasScreenTimePermission {
+            if screenViewModel.authorizationCenter.authorizationStatus == .approved {
                 onboardingState += 1
             }
         case 4:
