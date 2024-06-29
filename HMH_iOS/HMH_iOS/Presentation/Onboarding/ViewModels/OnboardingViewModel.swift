@@ -214,13 +214,19 @@ class OnboardingViewModel: ObservableObject {
     
     func changeSurveyButtonStatus(num: Int) {
         if onboardingState == 1 {
-            surveyButtonItems[onboardingState][num].isSelected.toggle()
+            let selectedCount = surveyButtonItems[onboardingState].filter { $0.isSelected }.count
+            if surveyButtonItems[onboardingState][num].isSelected {
+                surveyButtonItems[onboardingState][num].isSelected.toggle()
+            } else if selectedCount < 2 {
+                surveyButtonItems[onboardingState][num].isSelected = true
+            }
         } else {
             for index in 0..<4 {
                 surveyButtonItems[onboardingState][index].isSelected = (index == num)
             }
         }
     }
+
     
     func convertToTotalMilliseconds(hour: String?, minute: String?) -> Int {
         let hourInt = Int(hour ?? "") ?? 0
