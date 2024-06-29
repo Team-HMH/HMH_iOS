@@ -19,7 +19,7 @@ struct OnboardingContentView: View {
     var isChallengeMode: Bool
     @Environment(\.presentationMode) var presentationMode
     
-    init(isChallengeMode: Bool = false, onboardingState: Int = -1) {
+    init(isChallengeMode: Bool = false, onboardingState: Int = 0) {
         let screenTimeViewModel = ScreenTimeViewModel()
         _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
         _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
@@ -54,7 +54,11 @@ struct OnboardingContentView: View {
                               selection: $selection)
         .onChange(of: selection) { newSelection in
             screenViewModel.updateSelectedApp(newSelection: newSelection)
-            onboardingViewModel.addOnboardingState()
+        }
+        .onChange(of: onboardingViewModel.isPickerPresented) { isPresented in
+            if !isPresented {
+                onboardingViewModel.addOnboardingState()
+            }
         }
         .onAppear() {
             selection = screenViewModel.selectedApp

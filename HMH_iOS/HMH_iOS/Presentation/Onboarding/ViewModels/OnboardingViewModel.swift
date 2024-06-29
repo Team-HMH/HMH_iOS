@@ -126,11 +126,15 @@ class OnboardingViewModel: ObservableObject {
     func backButtonTapped() {
         if onboardingState == 0 {
             UserManager.shared.appStateString = "login"
+        } else if onboardingState > 0 && onboardingState <= 3 {
+            onboardingState -= 1
+            resetAllSelections()
         } else {
             onboardingState -= 1
             print(onboardingState)
         }
     }
+
     
     func onIsCompleted() {
         isCompleted = true
@@ -301,6 +305,14 @@ class OnboardingViewModel: ObservableObject {
         }
     }
     
+    func resetAllSelections() {
+        for i in 0..<surveyButtonItems.count {
+            for j in 0..<surveyButtonItems[i].count {
+                surveyButtonItems[i][j].isSelected = false
+            }
+        }
+    }
+    
     init(viewModel: ScreenTimeViewModel, onboardingState: Int = 0, isChallengeMode: Bool = false) {
         self.surveyButtonItems = [
             [
@@ -324,9 +336,9 @@ class OnboardingViewModel: ObservableObject {
         ]
         self.onboardingState = onboardingState
         self.isCompleted = false
-        self.selectedGoalTime = ""
-        self.selectedAppHour = ""
-        self.selectedAppMinute = ""
+        self.selectedGoalTime = "1"
+        self.selectedAppHour = "0"
+        self.selectedAppMinute = "0"
         self.problems = []
         self.averageUseTime = ""
         self.period = 0
