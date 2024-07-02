@@ -27,22 +27,28 @@ struct OnboardingContentView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            OnboardingNavigationView()
-            if !isChallengeMode {
-                OnboardingProgressView()
-            } else {
-                
+        ZStack {
+            Color(.blackground)
+                .ignoresSafeArea()
+            VStack(alignment: .leading) {
+                VStack {
+                    OnboardingNavigationView()
+                        .frame(height: 60)
+                    if !isChallengeMode {
+                        OnboardingProgressView()
+                    }
+                }
+                OnboardingTitleView()
+                    .padding(.top, 31)
+                Spacer()
+                SurveyContainerView()
+                    .frame(maxWidth: .infinity)
+                Spacer()
+                NextButtonView(viewModel: onboardingViewModel)
             }
-            Spacer(minLength: 0)
-                .frame(height: 31)
-            OnboardingTitleView()
-            SurveyContainerView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            NextButtonView(viewModel: onboardingViewModel)
         }
         .padding(.horizontal, 20)
-        .background(.blackground, ignoresSafeAreaEdges: .all)
+        .padding(.bottom, 20)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
             if isChallengeMode && (newState == 1 || newState == 3 || newState == 7 ) {
@@ -89,7 +95,6 @@ struct OnboardingContentView: View {
                 )
             }
         )
-        
     }
 }
 
@@ -105,8 +110,6 @@ extension OnboardingContentView {
             Spacer()
             
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: 60)
     }
     
     private func OnboardingProgressView() -> some View {
