@@ -45,11 +45,7 @@ struct ChallengeView: View {
 extension ChallengeView {
     private var main: some View {
         ScrollView {
-            if viewModel.challengeType == .empty {
-                emptyChallengeHeaderView
-            } else {
-                headerView
-            }
+            emptyChallengeHeaderView
             listView
                 .padding(.top, 20)
             NavigationLink(
@@ -57,6 +53,7 @@ extension ChallengeView {
                 isActive: $viewModel.navigateToCreate,
                 label: {
                     EmptyView()
+                        .background(.blackground)
                 })
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.challenge,

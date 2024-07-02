@@ -82,7 +82,11 @@ class OnboardingViewModel: ObservableObject {
                     
                 }
             }
-            addOnboardingState()
+            if isChallengeMode {
+                onboardingState = 6
+            } else {
+                addOnboardingState()
+            }
         case 3:
             screenViewModel.requestAuthorization()
             if screenViewModel.authorizationCenter.authorizationStatus == .approved {
@@ -91,19 +95,20 @@ class OnboardingViewModel: ObservableObject {
         case 4:
             isPickerPresented = true
         case 5:
+            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
+            if isChallengeMode {
+                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
+                addOnboardingState()
+            } else {
+                addOnboardingState()
+            }
+            offIsCompleted()
+        case 6:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
             screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
             if isChallengeMode {
                 postCreateChallengeData()
                 isCompletePresented = true
-            } else {
-                addOnboardingState()
-            }
-        case 6:
-            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
-            if isChallengeMode {
-                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
-                addOnboardingState()
             } else {
                 postSignUpLoginData()
             }
@@ -124,17 +129,22 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func backButtonTapped() {
-        if onboardingState == 0 {
+        switch onboardingState {
+        case 0:
             UserManager.shared.appStateString = "login"
-        } else if onboardingState > 0 && onboardingState <= 3 {
+            offIsCompleted()
+        case 1, 2, 3 :
             onboardingState -= 1
+            offIsCompleted()
             resetAllSelections()
-        } else {
+        case 6:
             onboardingState -= 1
-            print(onboardingState)
+            offIsCompleted()
+        default:
+            onIsCompleted()
+            onboardingState -= 1
         }
     }
-
     
     func onIsCompleted() {
         isCompleted = true
@@ -230,7 +240,7 @@ class OnboardingViewModel: ObservableObject {
             }
         }
     }
-
+    
     
     func convertToTotalMilliseconds(hour: String?, minute: String?) -> Int {
         let hourInt = Int(hour ?? "") ?? 0
@@ -255,9 +265,9 @@ class OnboardingViewModel: ObservableObject {
         case 4:
             StringLiteral.OnboardigMain.appSelect
         case 5:
-            StringLiteral.OnboardigMain.goalTimeSelect
-        case 6:
             StringLiteral.OnboardigMain.appGoalTimeSelect
+        case 6:
+            StringLiteral.OnboardigMain.goalTimeSelect
         default:
             ""
         }
@@ -276,9 +286,9 @@ class OnboardingViewModel: ObservableObject {
         case 4:
             StringLiteral.OnboardigSub.appSelect
         case 5:
-            StringLiteral.OnboardigSub.goalTimeSelect
-        case 6:
             StringLiteral.OnboardigSub.appGoalTimeSelect
+        case 6:
+            StringLiteral.OnboardigSub.goalTimeSelect
         default:
             ""
         }

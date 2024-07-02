@@ -49,6 +49,7 @@ struct OnboardingContentView: View {
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)
+        .background(.blackground)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
             if isChallengeMode && (newState == 1 || newState == 3 || newState == 7 ) {
@@ -64,6 +65,7 @@ struct OnboardingContentView: View {
         .onChange(of: onboardingViewModel.isPickerPresented) { isPresented in
             if !isPresented {
                 onboardingViewModel.addOnboardingState()
+                onboardingViewModel.offIsCompleted()
             }
         }
         .onAppear() {
@@ -148,9 +150,9 @@ extension OnboardingContentView {
             case 0, 1, 2:
                 SurveyView(viewModel: onboardingViewModel)
             case 5:
-                GoalTimeView(viewModel: onboardingViewModel)
-            case 6:
                 AppGoalTimeView(viewModel: onboardingViewModel)
+            case 6:
+                GoalTimeView(viewModel: onboardingViewModel)
             default:
                 EmptyView()
             }
