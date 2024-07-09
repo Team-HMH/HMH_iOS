@@ -15,8 +15,8 @@ struct SurveyButton: View {
     
     var body: some View {
         Button {
-            viewModel.onIsCompleted()
             viewModel.changeSurveyButtonStatus(num: numberOfRow)
+            viewModel.onIsCompleted()
         } label: {
             Text(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].buttonTitle)
                 .font(.text4_semibold_16)

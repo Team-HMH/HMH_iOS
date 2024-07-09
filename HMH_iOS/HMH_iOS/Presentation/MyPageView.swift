@@ -13,22 +13,23 @@ struct MyPageView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Spacer().frame(height: 64)
-                ProfileView(viewModel: viewModel)
-                Spacer().frame(height: 36)
-                MyInfoView(viewModel: viewModel)
-                Spacer().frame(height: 34)
-                HMHInfoView(viewModel: viewModel)
-                Spacer()
-                AccountControlView(viewModel: viewModel)
-                NavigationLink(
-                    destination: ServicePrepareView(),
-                    isActive: $viewModel.navigateToPrepare,
-                    label: {
-                        EmptyView()
-                    })
-            }
+                ZStack {
+                    Color(.blackground)
+                        .ignoresSafeArea()
+                    VStack {
+                        ProfileView(viewModel: viewModel)
+                        MyInfoView(viewModel: viewModel)
+                        HMHInfoView(viewModel: viewModel)
+                        AccountControlView(viewModel: viewModel)
+                        NavigationLink(
+                            destination: ServicePrepareView(),
+                            isActive: $viewModel.navigateToPrepare,
+                            label: {
+                                EmptyView()
+                            })
+                    }
+
+                }
             .onAppear() {
                 viewModel.getUserData()
             }
@@ -60,8 +61,10 @@ struct MyPageView: View {
                     )
                 }
             )
-
         }
+        .customNavigationBar(title: StringLiteral.NavigationBar.myPage,
+                             showBackButton: false,
+                             showPointButton: false, point: 0)
     }
 }
 
@@ -77,7 +80,7 @@ extension MyPageView {
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
-                Text("\(viewModel.point)")
+                Text("\(viewModel.point)P")
                     .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)

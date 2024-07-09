@@ -67,7 +67,7 @@ class OnboardingViewModel: ObservableObject {
             offIsCompleted()
         case 1:
             for index in 0..<4{
-                if surveyButtonItems[onboardingState] [index].isSelected {
+                if surveyButtonItems[onboardingState][index].isSelected {
                     self.problems.append(surveyButtonItems[onboardingState][index].buttonTitle)
                 }
             }
@@ -82,30 +82,33 @@ class OnboardingViewModel: ObservableObject {
                     
                 }
             }
-            addOnboardingState()
-            offIsCompleted()
+            if isChallengeMode {
+                onboardingState = 6
+            } else {
+                addOnboardingState()
+            }
         case 3:
+            screenViewModel.requestAuthorization()
+            if screenViewModel.authorizationCenter.authorizationStatus == .approved {
+                onboardingState += 1
+            }
+        case 4:
+            isPickerPresented = true
+        case 5:
+            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
+            if isChallengeMode {
+                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
+                addOnboardingState()
+            } else {
+                addOnboardingState()
+            }
+            offIsCompleted()
+        case 6:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
             screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
             if isChallengeMode {
                 postCreateChallengeData()
                 isCompletePresented = true
-            } else {
-                addOnboardingState()
-            }
-        case 4:
-            screenViewModel.requestAuthorization()
-            if screenViewModel.hasScreenTimePermission {
-                onboardingState += 1
-            }
-        case 5:
-            isPickerPresented = true
-            
-        case 6:
-            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
-            if isChallengeMode {
-                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
-                addOnboardingState()
             } else {
                 postSignUpLoginData()
             }
@@ -126,9 +129,19 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func backButtonTapped() {
-        if onboardingState == 0 {
+        switch onboardingState {
+        case 0:
             UserManager.shared.appStateString = "login"
-        } else {
+            offIsCompleted()
+        case 1, 2, 3 :
+            onboardingState -= 1
+            offIsCompleted()
+            resetAllSelections()
+        case 6:
+            onboardingState -= 1
+            offIsCompleted()
+        default:
+            onIsCompleted()
             onboardingState -= 1
         }
     }
@@ -215,13 +228,19 @@ class OnboardingViewModel: ObservableObject {
     
     func changeSurveyButtonStatus(num: Int) {
         if onboardingState == 1 {
-            surveyButtonItems[onboardingState][num].isSelected.toggle()
+            let selectedCount = surveyButtonItems[onboardingState].filter { $0.isSelected }.count
+            if surveyButtonItems[onboardingState][num].isSelected {
+                surveyButtonItems[onboardingState][num].isSelected.toggle()
+            } else if selectedCount < 2 {
+                surveyButtonItems[onboardingState][num].isSelected = true
+            }
         } else {
             for index in 0..<4 {
                 surveyButtonItems[onboardingState][index].isSelected = (index == num)
             }
         }
     }
+    
     
     func convertToTotalMilliseconds(hour: String?, minute: String?) -> Int {
         let hourInt = Int(hour ?? "") ?? 0
@@ -242,13 +261,13 @@ class OnboardingViewModel: ObservableObject {
         case 2:
             StringLiteral.OnboardigMain.periodSelect
         case 3:
-            StringLiteral.OnboardigMain.goalTimeSelect
-        case 4:
             StringLiteral.OnboardigMain.permissionSelect
-        case 5:
+        case 4:
             StringLiteral.OnboardigMain.appSelect
-        case 6:
+        case 5:
             StringLiteral.OnboardigMain.appGoalTimeSelect
+        case 6:
+            StringLiteral.OnboardigMain.goalTimeSelect
         default:
             ""
         }
@@ -263,13 +282,13 @@ class OnboardingViewModel: ObservableObject {
         case 2:
             StringLiteral.OnboardigSub.periodSelect
         case 3:
-            StringLiteral.OnboardigSub.goalTimeSelect
-        case 4:
             StringLiteral.OnboardigSub.permissionSelect
-        case 5:
+        case 4:
             StringLiteral.OnboardigSub.appSelect
-        case 6:
+        case 5:
             StringLiteral.OnboardigSub.appGoalTimeSelect
+        case 6:
+            StringLiteral.OnboardigSub.goalTimeSelect
         default:
             ""
         }
@@ -277,11 +296,11 @@ class OnboardingViewModel: ObservableObject {
     
     func getNextButton() -> String {
         switch onboardingState {
-        case 0, 1, 2, 3:
+        case 0, 1, 2, 5:
             StringLiteral.OnboardingButton.next
-        case 4:
+        case 3:
             StringLiteral.OnboardingButton.permission
-        case 5:
+        case 4:
             StringLiteral.OnboardingButton.appSelect
         case 6:
             StringLiteral.OnboardingButton.complete
@@ -291,8 +310,16 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func handleOnAppear() {
-        if onboardingState == 4 && isChallengeMode {
+        if onboardingState == 3 && isChallengeMode {
             isPickerPresented = true
+        }
+    }
+    
+    func resetAllSelections() {
+        for i in 0..<surveyButtonItems.count {
+            for j in 0..<surveyButtonItems[i].count {
+                surveyButtonItems[i][j].isSelected = false
+            }
         }
     }
     
@@ -319,9 +346,9 @@ class OnboardingViewModel: ObservableObject {
         ]
         self.onboardingState = onboardingState
         self.isCompleted = false
-        self.selectedGoalTime = ""
-        self.selectedAppHour = ""
-        self.selectedAppMinute = ""
+        self.selectedGoalTime = "1"
+        self.selectedAppHour = "0"
+        self.selectedAppMinute = "0"
         self.problems = []
         self.averageUseTime = ""
         self.period = 0
