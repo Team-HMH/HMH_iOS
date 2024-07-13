@@ -5,16 +5,22 @@
 //  Created by 류희재 on 7/14/24.
 //
 
+//
+//  Project.swift
+//  ProjectDescriptionHelpers
+//
+//  Created by 류희재 on 2023/10/19.
+//
+
 import ProjectDescription
 import ProjectDescriptionHelpers
 import DependencyPlugin
 
-//TODO: SPM 등록하기 
 let project = Project.makeModule(
     name: "ThirdPartyLibs",
     targets: [.dynamicFramework],
     externalDependencies: [
-//        .SPM.SnapKit,
+        .SPM.SnapKit,
 //        .SPM.Then,
 //        .SPM.RxGesture,
 //        .SPM.Kingfisher,
@@ -25,3 +31,4 @@ let project = Project.makeModule(
 //        .SPM.ReactorKit
     ]
 )
+

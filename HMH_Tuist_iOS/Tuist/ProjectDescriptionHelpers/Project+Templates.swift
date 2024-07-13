@@ -21,7 +21,7 @@ public extension Project {
     static func makeModule(
         name: String,
         targets: Set<FeatureTarget> = Set([.staticFramework, .unitTest, .demo]),
-        organizationName: String = "hellohidi",
+        organizationName: String = "HMH-iOS",
         packages: [Package] = [],
         internalDependencies: [TargetDependency] = [],
         externalDependencies: [TargetDependency] = [],

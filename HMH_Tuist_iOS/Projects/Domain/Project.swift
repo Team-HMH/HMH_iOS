@@ -5,6 +5,8 @@
 //  Created by 류희재 on 7/14/24.
 //
 
+import Foundation
+
 import ProjectDescription
 import ProjectDescriptionHelpers
 import DependencyPlugin

@@ -13,7 +13,6 @@ let project = Project.makeModule(
     name: "RootFeature",
     targets: [.staticFramework, .demo],
     internalDependencies: [
-        .Features.Main.Feature,
+        .Features.Main.Feature
     ]
 )
-

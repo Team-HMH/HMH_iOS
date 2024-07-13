@@ -16,4 +16,3 @@ let project = Project.makeModule(
         .core
     ]
 )
-

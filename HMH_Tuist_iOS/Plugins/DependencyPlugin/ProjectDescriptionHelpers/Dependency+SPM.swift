@@ -17,7 +17,7 @@ public extension TargetDependency {
 
 //TODO: 환경에 맞게 SPM 세팅하기
 public extension TargetDependency.SPM {
-//    static let SnapKit = TargetDependency.external(name: "SnapKit")
+    static let SnapKit = TargetDependency.external(name: "SnapKit")
 //    static let Then = TargetDependency.external(name: "Then")
 //    static let Kingfisher = TargetDependency.external(name: "Kingfisher")
 //    static let RxDataSources = TargetDependency.external(name: "RxDataSources")
