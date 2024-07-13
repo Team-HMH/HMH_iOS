@@ -13,6 +13,8 @@ import ProjectDescription
 public extension Dep {
     //TODO: Feature별로 설정해주기
     struct Features {
+        public struct Main {}
+        public struct Root {}
     }
     
     struct Modules {}
@@ -71,19 +73,19 @@ public extension Dep.Features {
 //TODO: 폴더별로 분기처리하기 위해서 이런식으로 했다면 하나의 그룹이름만 주입해서 만드는게 좋지않나?
 //TODO: Feature별로 설정해주기
 
-//public extension Dep.Features.Main {
-//    static let group = "Main"
-//    
-//    static let Feature = Dep.Features.project(name: "Feature", group: group)
-//    static let Interface = Dep.Features.project(name: "\(group)FeatureInterface", group: group)
-//}
-//
+public extension Dep.Features.Main {
+    static let group = "Main"
+    
+    static let Feature = Dep.Features.project(name: "Feature", group: group)
+    static let Interface = Dep.Features.project(name: "\(group)FeatureInterface", group: group)
+}
+
 //public extension Dep.Features.Detail {
 //    static let group = "Detail"
 //    
 //    static let Feature = Dep.Features.project(name: "Feature", group: group)
 //    static let Interface = Dep.Features.project(name: "\(group)FeatureInterface", group: group)
 //}
-
+//
 
 

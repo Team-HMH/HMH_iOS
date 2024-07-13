@@ -1,29 +1,17 @@
+//
+//  Workspace.swift
+//  ProjectDescriptionHelpers
+//
+//  Created by 류희재 on 7/13/24.
+//
+
 import ProjectDescription
-import ProjectDescriptionHelpers
-import MyPlugin
 
-/*
-                +-------------+
-                |             |
-                |     App     | Contains HMHTuistIOS App target and HMHTuistIOS unit-test target
-                |             |
-         +------+-------------+-------+
-         |         depends on         |
-         |                            |
- +----v-----+                   +-----v-----+
- |          |                   |           |
- |   Kit    |                   |     UI    |   Two independent frameworks to share code and start modularising your app
- |          |                   |           |
- +----------+                   +-----------+
+let workspace = Workspace(
+    name: "HMH-Tuist-iOS",
+    projects: [
+        "Projects/App"
+    ]
+)
 
- */
 
-// MARK: - Project
-
-// Local plugin loaded
-let localHelper = LocalHelper(name: "MyPlugin")
-
-// Creates our project using a helper function defined in ProjectDescriptionHelpers
-let project = Project.app(name: "HMHTuistIOS",
-                          platform: .iOS,
-                          additionalTargets: ["HMHTuistIOSKit", "HMHTuistIOSUI"])
