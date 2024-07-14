@@ -15,16 +15,15 @@ public extension TargetDependency {
     enum Carthage {}
 }
 
-//TODO: 환경에 맞게 SPM 세팅하기
 public extension TargetDependency.SPM {
     static let SnapKit = TargetDependency.external(name: "SnapKit")
-//    static let Then = TargetDependency.external(name: "Then")
-//    static let Kingfisher = TargetDependency.external(name: "Kingfisher")
-//    static let RxDataSources = TargetDependency.external(name: "RxDataSources")
-//    static let RxGesture = TargetDependency.external(name: "RxGesture")
-//    static let RxSwift = TargetDependency.external(name: "RxSwift")
-//    static let RxCocoa = TargetDependency.external(name: "RxCocoa")
-//    static let RxRelay = TargetDependency.external(name: "RxRelay")
-//    static let ReactorKit = TargetDependency.external(name: "ReactorKit")
+    static let Then = TargetDependency.external(name: "Then")
+    static let Kingfisher = TargetDependency.external(name: "Kingfisher")
+    static let RxSwift = TargetDependency.external(name: "RxSwift")
+    static let Moya = TargetDependency.external(name: "Moya")
+    static let Alamofire = TargetDependency.external(name: "Alamofire")
+    static let Lottie = TargetDependency.external(name: "Lottie")
+    static let KakaoSDK = TargetDependency.external(name: "KakaoSDK")
+    static let KeychainAccess = TargetDependency.external(name: "KeychainAccess")
 }
 

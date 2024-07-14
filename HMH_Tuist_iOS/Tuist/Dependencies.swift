@@ -10,15 +10,17 @@ import ProjectDescriptionHelpers
 
 import ConfigPlugin
 
-//TODO: SPM에 맞게 해당 부분 세팅하기
 let spm = SwiftPackageManagerDependencies([
-    .remote(url: "https://github.com/SnapKit/SnapKit", requirement: .upToNextMinor(from: "5.0.0")),
-//    .remote(url: "https://github.com/devxoul/Then", requirement: .upToNextMajor(from: "2")),
-//    .remote(url: "https://github.com/onevcat/Kingfisher", requirement: .upToNextMajor(from: "7.6.2")),
-//    .remote(url: "https://github.com/ReactiveX/RxSwift", requirement: .upToNextMajor(from: "6.6.0")),
-//    .remote(url: "https://github.com/RxSwiftCommunity/RxGesture", requirement: .upToNextMajor(from: "4.0.4")),
-//    .remote(url: "https://github.com/RxSwiftCommunity/RxDataSources", requirement: .upToNextMajor(from: "5.0.2")),
-//    .remote(url: "https://github.com/ReactorKit/ReactorKit", requirement: .upToNextMajor(from: "3.0.0"))
+    .remote(url: "https://github.com/SnapKit/SnapKit", requirement: .upToNextMinor(from: "5.7.1")),
+    .remote(url: "https://github.com/devxoul/Then", requirement: .upToNextMajor(from: "3.0.0")),
+    .remote(url: "https://github.com/onevcat/Kingfisher", requirement: .upToNextMajor(from: "7.11.0")),
+    .remote(url: "https://github.com/ReactiveX/RxSwift", requirement: .upToNextMajor(from: "6.6.0")),
+    .remote(url: "https://github.com/Moya/Moya", requirement: .upToNextMajor(from: "15.0.3")),
+    .remote(url: "https://github.com/airbnb/lottie-ios", requirement: .upToNextMajor(from: "4.4.1")),
+    .remote(url: "https://github.com/kakao/kakao-ios-sdk.git", requirement: .upToNextMajor(from: "2.0.0")),
+    .remote(url: "https://github.com/Alamofire/Alamofire", requirement: .upToNextMajor(from: "5.9.1")),
+    .remote(url: "https://github.com/kishikawakatsumi/KeychainAccess", requirement: .upToNextMajor(from: "4.2.2"))
+    
 ], baseSettings: Settings.settings(
     configurations: XCConfig.framework
 ))

@@ -21,14 +21,14 @@ let project = Project.makeModule(
     targets: [.dynamicFramework],
     externalDependencies: [
         .SPM.SnapKit,
-//        .SPM.Then,
-//        .SPM.RxGesture,
-//        .SPM.Kingfisher,
-//        .SPM.RxCocoa,
-//        .SPM.RxDataSources,
-//        .SPM.RxRelay,
-//        .SPM.RxSwift,
-//        .SPM.ReactorKit
+        .SPM.Then,
+        .SPM.Kingfisher,
+        .SPM.RxSwift,
+        .SPM.Alamofire,
+        .SPM.KakaoSDK,
+        .SPM.KeychainAccess,
+        .SPM.Moya,
+        .SPM.Lottie
     ]
 )
 
