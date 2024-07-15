@@ -55,7 +55,7 @@ public extension Project {
                 // 터미널 명령어랑 비슷한듯? 일단 바쁘니까 나중에 정리해보도록 하자ㅏ https://www.daleseo.com/glob-patterns/#google_vignette
                 resources: [.glob(pattern: "Resources/**", excluding: [])],
                 //entitlement: 주로 iOS 애플리케이션에서 특정 기능이나 권한을 활성화하기 위해 사용하는 설정 파일
-//                entitlements: "\(name).entitlements",
+                entitlements: "\(name).entitlements",
                 dependencies: [
                     internalDependencies,
                     externalDependencies
