@@ -42,19 +42,19 @@ extension ChallengeRouter: BaseTargetType {
     var path: String {
         switch self {
         case .createChallenge:
-            return "challenge"
+            return "/v1/challenge"
         case .dailyChallengeFail:
-            return "dailychallenge/failure"
+            return "/v1/dailychallenge/failure"
         case .getChallenge:
-            return "challenge"
+            return "/v1/challenge"
         case .getdailyChallenge:
-            return "challenge/home"
+            return "/v1/challenge/home"
         case .addApp:
-            return "challenge/app"
+            return "/v1/challenge/app"
         case .deleteApp:
-            return "challenge/app"
+            return "/v1/challenge/app"
         case .postDailyChallenge:
-            return "challenge/daily/success"
+            return "/v1/challenge/daily/success"
         }
     }
     

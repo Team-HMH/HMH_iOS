@@ -39,17 +39,17 @@ extension PointRouter: BaseTargetType {
     var path: String {
         switch self {
         case .getUsagePoint:
-            return "point/use"
+            return "/v1/point/use"
         case .patchEarnPoint :
-            return "point/earn"
+            return "/v1/point/earn"
         case .getEarnPoint :
-            return "point/earn"
+            return "/v1/point/earn"
         case .getPointList:
-            return "point/list"
+            return "/v1/point/list"
         case .patchPointUse:
-            return "point/use"
+            return "/v1/point/use"
         case .getCurrentPoint:
-            return "user/point"
+            return "/v1/user/point"
         }
     }
     
