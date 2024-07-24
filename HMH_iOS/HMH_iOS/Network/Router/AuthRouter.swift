@@ -36,15 +36,15 @@ extension AuthRouter: BaseTargetType {
     var path: String {
         switch self {
         case .socialLogin:
-            return "user/login"
+            return "/v1/user/login"
         case .signUp:
-            return "user/signup"
+            return "/v1/user/signup"
         case .tokenRefresh:
-            return "user/reissue"
+            return "/v1/user/reissue"
         case .revoke:
-            return "user"
+            return "/v1/user"
         case .logout:
-            return "user/logout"
+            return "/v1/user/logout"
         }
     }
     

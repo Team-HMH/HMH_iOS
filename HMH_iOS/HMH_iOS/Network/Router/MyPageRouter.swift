@@ -25,7 +25,7 @@ extension MyPageRouter: BaseTargetType {
     var path: String {
         switch self {
         case .getUserData:
-            return "user"
+            return "/v1/user"
         }
     }
     
