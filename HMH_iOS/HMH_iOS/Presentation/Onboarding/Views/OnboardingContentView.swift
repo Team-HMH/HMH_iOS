@@ -52,7 +52,7 @@ struct OnboardingContentView: View {
         .background(.blackground)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
-            if isChallengeMode && (newState == 1 || newState == 3 || newState == 7 ) {
+            if isChallengeMode && (newState == 1 || newState == 4 || newState == 7 ) {
                 self.presentationMode.wrappedValue.dismiss()
                 onboardingViewModel.resetOnboardingState()
             }
@@ -149,7 +149,7 @@ extension OnboardingContentView {
             switch onboardingViewModel.onboardingState {
             case 0, 1, 2:
                 SurveyView(viewModel: onboardingViewModel)
-            case 5:
+            case 3:
                 AppGoalTimeView(viewModel: onboardingViewModel)
             case 6:
                 GoalTimeView(viewModel: onboardingViewModel)
