@@ -102,7 +102,7 @@ enum StringLiteral {
         static var goalTimeSelect = "총 목표 사용 시간을\n설정해 주세요"
         static var permissionSelect = "스크린타임과 푸시 알림\n권한 허용이 필요해요"
         static var appSelect = "중독에서 탈출하고 싶은\n앱을 선택해 주세요"
-        static var appGoalTimeSelect = "선택한 앱의 목표 사용 시간을\n설정해 주세요"
+        static var appGoalTimeSelect = "하루동안 목표로 할\n총 사용시간을 설정해 주세요"
     }
     
     enum OnboardigSub {
@@ -111,7 +111,7 @@ enum StringLiteral {
         static var goalTimeSelect = "목표 사용 시간은 최대 6시간까지 설정할 수 있어요"
         static var permissionSelect = "언제든지 설정에서 스크린타임과\n푸시 알림 권한을 변경할 수 있어요"
         static var appSelect = "목표 사용 시간이 지나면 앱이 잠겨요\n선택하고 싶은 앱은 언제든지 추가할 수 있어요"
-        static var appGoalTimeSelect = "목표 사용 시간은 최대 1시간 59분까지\n설정할 수 있어요"
+        static var appGoalTimeSelect = "목표 사용 시간은 최대 6시간 까지\n설정할 수 있어요"
     }
     
     enum TimeSurveySelect {
