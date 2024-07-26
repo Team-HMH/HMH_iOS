@@ -124,7 +124,7 @@ extension OnboardingContentView {
                     .cornerRadius(1.0)
                 Rectangle()
                     .foregroundColor(.bluePurpleLine)
-                    .frame(width: CGFloat(onboardingViewModel.onboardingState) / CGFloat(6) * 334, height: 4)
+                    .frame(width: CGFloat(onboardingViewModel.onboardingState) / CGFloat(4) * 334, height: 4)
                     .cornerRadius(10.0)
                     .animation(Animation.spring(duration: 0.5), value: onboardingViewModel.onboardingState)
             }
@@ -151,8 +151,6 @@ extension OnboardingContentView {
                 SurveyView(viewModel: onboardingViewModel)
             case 3:
                 AppGoalTimeView(viewModel: onboardingViewModel)
-            case 6:
-                GoalTimeView(viewModel: onboardingViewModel)
             default:
                 EmptyView()
             }

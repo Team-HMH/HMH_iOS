@@ -83,34 +83,25 @@ class OnboardingViewModel: ObservableObject {
                 }
             }
             if isChallengeMode {
-                onboardingState = 6
+                onboardingState = 3
             } else {
                 addOnboardingState()
                 offIsCompleted()
+            }
+        case 3:
+            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
+            if isChallengeMode {
+                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
+                postCreateChallengeData()
+                isCompletePresented = true
+            } else {
+                addOnboardingState()
             }
         case 4:
             screenViewModel.requestAuthorization()
             if screenViewModel.authorizationCenter.authorizationStatus == .approved {
                 postSignUpLoginData()
             }
-        case 5:
-            isPickerPresented = true
-        case 3:
-            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
-            if isChallengeMode {
-                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
-                addOnboardingState()
-            } else {
-                addOnboardingState()
-            }
-        case 6:
-            self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
-            screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
-            if isChallengeMode {
-                postCreateChallengeData()
-                isCompletePresented = true
-            }
-            offIsCompleted()
         default:
             break
         }
@@ -135,9 +126,6 @@ class OnboardingViewModel: ObservableObject {
             onboardingState -= 1
             offIsCompleted()
             resetAllSelections()
-        case 6:
-            onboardingState -= 1
-            offIsCompleted()
         default:
             onIsCompleted()
             onboardingState -= 1
@@ -197,7 +185,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func postCreateChallengeData() {
-        let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.goalTime)
+        let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.appGoalTime)
         
         let provider = Providers.challengeProvider
         provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
@@ -264,8 +252,6 @@ class OnboardingViewModel: ObservableObject {
             StringLiteral.OnboardigMain.appSelect
         case 3:
             StringLiteral.OnboardigMain.appGoalTimeSelect
-        case 6:
-            StringLiteral.OnboardigMain.goalTimeSelect
         default:
             ""
         }
@@ -285,8 +271,6 @@ class OnboardingViewModel: ObservableObject {
             StringLiteral.OnboardigSub.appSelect
         case 3:
             StringLiteral.OnboardigSub.appGoalTimeSelect
-        case 6:
-            StringLiteral.OnboardigSub.goalTimeSelect
         default:
             ""
         }
@@ -298,10 +282,6 @@ class OnboardingViewModel: ObservableObject {
             StringLiteral.OnboardingButton.next
         case 4:
             StringLiteral.OnboardingButton.permission
-        case 5:
-            StringLiteral.OnboardingButton.appSelect
-        case 6:
-            StringLiteral.OnboardingButton.complete
         default:
             ""
         }
