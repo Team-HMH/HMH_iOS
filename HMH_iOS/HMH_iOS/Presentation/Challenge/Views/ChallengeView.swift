@@ -49,7 +49,7 @@ extension ChallengeView {
             listView
                 .padding(.top, 20)
             NavigationLink(
-                destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2),
+                destination: OnboardingContentView(isChallengeMode: true, onboardingState: .periodSelect),
                 isActive: $viewModel.navigateToCreate,
                 label: {
                     EmptyView()
