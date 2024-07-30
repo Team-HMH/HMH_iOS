@@ -17,6 +17,10 @@ import ProjectDescription
 /// TEST : 테스트 BaseURL을 사용하는 debug scheme
 /// QA : 테스트 BaseURL을 사용하는 release scheme
 /// RELEASE : 실제 프로덕트 BaseURL을 사용하는 release scheme
+///
+/// -> 이부분에서 두개의 Config 파일
+/// 1) DEV, RELEASE -> 실제 BaseURL
+/// 2) TEST, QA -> 테스트 BaseURL
 
 
 public struct XCConfig {

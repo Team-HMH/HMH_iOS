@@ -44,6 +44,24 @@ public extension Project {
         ],
         "UIAppFonts": ["Pretendard-Regular.otf", "Pretendard-SemiBold.otf", "Pretendard-Medium.otf"]
     ]
+    
+        static let deviceActivityMonitorInfoPlist: [String: Plist.Value] = [
+            "NSExtension": [
+                "NSExtensionPointIdentifier": "com.apple.deviceactivity.monitor-extension",
+                "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).DeviceActivityMonitorExtension"
+            ]
+        ]
+    
+//    static let deviceActivityMonitorInfoPlist: [String: Plist.Value] = [
+//        "EXAppExtensionAttributes": [
+//            "EXExtensionPointIdentifier": "com.apple.deviceactivityui.report-extension"
+//        ],
+//        "UIAppFonts": [
+//            "Pretendard-Regular.otf",
+//            "Pretendard-SemiBold.otf",
+//            "Pretendard-Medium.otf"
+//        ]
+//    ]
 }
 
 

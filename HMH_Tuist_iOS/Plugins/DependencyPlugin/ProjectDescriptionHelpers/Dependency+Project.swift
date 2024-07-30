@@ -32,6 +32,8 @@ public extension Dep {
     static let domain = Dep.project(target: "Domain", path: .domain)
     
     static let core = Dep.project(target: "Core", path: .core)
+    
+    static let deviceActivityMonitor = Dep.project(target: "DeviceActivityMonitor", path: .deviceActivityMonitor)
 }
 
 // MARK: - Modules: 프로젝트 내 모듈 단위 종속성을 정의

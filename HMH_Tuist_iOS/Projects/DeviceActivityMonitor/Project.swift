@@ -2,19 +2,20 @@
 //  Project.swift
 //  ProjectDescriptionHelpers
 //
-//  Created by 류희재 on 7/14/24.
+//  Created by 류희재 on 7/30/24.
 //
 
 import ProjectDescription
 import ProjectDescriptionHelpers
 import DependencyPlugin
+import EnvPlugin
 
 let project = Project.makeModule(
-    name: "BaseFeatureDependency",
+    name: "DeviceActivityMonitor",
     targets: [.dynamicFramework],
     internalDependencies: [
-        .domain,
-        .Modules.dsKit,
-        .deviceActivityMonitor
+        .core
     ]
 )
+
+

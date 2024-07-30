@@ -40,7 +40,15 @@ public extension Project {
         
         if targets.contains(.app) {
             let bundleSuffix = name.contains("Demo") ? "test" : "release"
-            let infoPlist = name.contains("Demo") ? Project.demoInfoPlist : Project.appInfoPlist
+            var infoPlist = name.contains("Demo") ? Project.demoInfoPlist : Project.appInfoPlist
+            
+            switch name {
+                case "DeviceActivityMonitor":
+                    infoPlist = Project.deviceActivityMonitorInfoPlist
+                default:
+                    break
+            }
+            
             let setting = baseSetting
             
             let target = Target(
