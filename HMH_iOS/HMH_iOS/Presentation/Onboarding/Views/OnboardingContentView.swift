@@ -19,7 +19,7 @@ struct OnboardingContentView: View {
     var isChallengeMode: Bool
     @Environment(\.presentationMode) var presentationMode
     
-    init(isChallengeMode: Bool = false, onboardingState: Int = 0) {
+    init(isChallengeMode: Bool = false, onboardingState: OnboardingState = .timeSurveySelect) {
         let screenTimeViewModel = ScreenTimeViewModel()
         _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
         _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
@@ -52,7 +52,7 @@ struct OnboardingContentView: View {
         .background(.blackground)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
-            if isChallengeMode && (newState == 1 || newState == 3 || newState == 7 ) {
+            if isChallengeMode && (newState.rawValue == 1 || newState.rawValue == 4 || newState.rawValue == 7 ) {
                 self.presentationMode.wrappedValue.dismiss()
                 onboardingViewModel.resetOnboardingState()
             }
@@ -124,7 +124,7 @@ extension OnboardingContentView {
                     .cornerRadius(1.0)
                 Rectangle()
                     .foregroundColor(.bluePurpleLine)
-                    .frame(width: CGFloat(onboardingViewModel.onboardingState) / CGFloat(6) * 334, height: 4)
+                    .frame(width: CGFloat(onboardingViewModel.onboardingState.rawValue) / CGFloat(4) * 334, height: 4)
                     .cornerRadius(10.0)
                     .animation(Animation.spring(duration: 0.5), value: onboardingViewModel.onboardingState)
             }
@@ -147,12 +147,10 @@ extension OnboardingContentView {
     private func SurveyContainerView() -> some View {
         VStack {
             switch onboardingViewModel.onboardingState {
-            case 0, 1, 2:
+            case .timeSurveySelect, .problemSurveySelect, .periodSelect:
                 SurveyView(viewModel: onboardingViewModel)
-            case 5:
+            case .appGoalTimeSelect:
                 AppGoalTimeView(viewModel: onboardingViewModel)
-            case 6:
-                GoalTimeView(viewModel: onboardingViewModel)
             default:
                 EmptyView()
             }
