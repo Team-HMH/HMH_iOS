@@ -21,6 +21,11 @@ public extension ProjectDescription.Path {
         return .relativeToRoot("Projects/Modules/\(path)")
     }
     
+    // 하면함 모듈 폴더에 대한 상대 경로를 생성
+    static func relativeToHMHModules(_ path: String) -> Self {
+        return .relativeToRoot("Projects/HMHModules/\(path)")
+    }
+    
     /// 각각 앱 폴더에 대한 경로를 반환하는 속성
     static var app: Self {
         return .relativeToRoot("Projects/App")

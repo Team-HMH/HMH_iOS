@@ -22,6 +22,8 @@ public extension Dep {
     }
     
     struct Modules {}
+    
+    struct HMHModules {}
 }
 
 // MARK: - Root: 프로젝트의 핵심 모듈에 대한 종속성을 정의
@@ -32,8 +34,30 @@ public extension Dep {
     static let domain = Dep.project(target: "Domain", path: .domain)
     
     static let core = Dep.project(target: "Core", path: .core)
+}
+
+// MARK: - HMHModules: 하면함에서 직접 제작한 모듈에 대한 종속성 정의
+
+public extension Dep.HMHModules {
+    static let deviceActivityMonitor = Dep.project(
+        target: "DeviceActivityMonitor",
+        path: .relativeToHMHModules("DeviceActivityMonitor")
+    )
     
-    static let deviceActivityMonitor = Dep.project(target: "DeviceActivityMonitor", path: .deviceActivityMonitor)
+    static let hmhDeviceActivityReport = Dep.project(
+        target: "HMHDeviceActivityReport",
+        path: .relativeToHMHModules("HMHDeviceActivityReport")
+    )
+    
+    static let shieldActionExtension = Dep.project(
+        target: "ShieldActionExtension",
+        path: .relativeToHMHModules("ShieldActionExtension")
+    )
+    
+    static let shieldConfigureExtension = Dep.project(
+        target: "ShieldConfigureExtension",
+        path: .relativeToHMHModules("ShieldConfigureExtension")
+    )
 }
 
 // MARK: - Modules: 프로젝트 내 모듈 단위 종속성을 정의

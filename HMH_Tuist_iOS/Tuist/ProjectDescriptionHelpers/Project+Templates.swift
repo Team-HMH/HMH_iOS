@@ -43,10 +43,16 @@ public extension Project {
             var infoPlist = name.contains("Demo") ? Project.demoInfoPlist : Project.appInfoPlist
             
             switch name {
-                case "DeviceActivityMonitor":
-                    infoPlist = Project.deviceActivityMonitorInfoPlist
-                default:
-                    break
+            case "DeviceActivityMonitor":
+                infoPlist = Project.deviceActivityMonitorInfoPlist
+            case "HMHDeviceActivityReport":
+                infoPlist = Project.hmhDeviceActivityReportInfoPlist
+            case "ShieldActionExtension":
+                infoPlist = Project.shieldActionExtensionInfoPlist
+            case "ShieldConfigureExtension":
+                infoPlist = Project.shieldConfigureExtensionInfoPlist
+            default:
+                break
             }
             
             let setting = baseSetting
