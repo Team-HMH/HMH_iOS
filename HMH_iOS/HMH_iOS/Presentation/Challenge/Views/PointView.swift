@@ -36,7 +36,6 @@ extension PointView {
     
     private var listView: some View {
         ForEach(viewModel.pointList.indices, id: \.self) { index in
-            let point = viewModel.pointList[index]
             HStack {
                 VStack(alignment: .leading) {
                     Text("\(index + 1)" + StringLiteral.Challenge.pointTitle)
