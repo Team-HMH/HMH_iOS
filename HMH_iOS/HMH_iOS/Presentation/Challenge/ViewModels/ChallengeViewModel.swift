@@ -141,15 +141,25 @@ final class ChallengeViewModel: ObservableObject {
         
         let calendar = Calendar.current
         
-        for index in 0..<todayIndex {
-            if statuses[index] == "NONE" {
-                if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
-                    let formattedDate = dateFormatter.string(from: newDate)
-                    dates.append(formattedDate)
+        if todayIndex >= 0 {
+            for index in 0..<todayIndex {
+                if statuses[index] == "NONE" {
+                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
+                        let formattedDate = dateFormatter.string(from: newDate)
+                        dates.append(formattedDate)
+                    }
+                }
+            }
+        } else {
+            for index in 0..<days {
+                if statuses[index] == "NONE" {
+                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
+                        let formattedDate = dateFormatter.string(from: newDate)
+                        dates.append(formattedDate)
+                    }
                 }
             }
         }
-        
         return dates
     }
 }
