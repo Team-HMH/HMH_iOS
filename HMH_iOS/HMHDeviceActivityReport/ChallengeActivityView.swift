@@ -29,6 +29,7 @@ struct ChallengeAppListView: View {
                 Label(token)
                     .labelStyle(.iconOnly)
                     .scaleEffect(2)
+                    .padding(.leading, 4)
                     .padding(.trailing, 12)
             }
             Text(eachApp.displayName)
@@ -36,11 +37,10 @@ struct ChallengeAppListView: View {
                 .foregroundStyle(.gray2)
                 .padding(.bottom, 1)
             Spacer()
-            Text(String(eachApp.duration.toString()))
+            Text(String(eachApp.duration.toString()) + " 사용")
                 .font(.text6_medium_14)
                 .foregroundStyle(.whiteText)
         }
-        .padding(.horizontal, 20)
         .frame(height: 72)
     }
 }
