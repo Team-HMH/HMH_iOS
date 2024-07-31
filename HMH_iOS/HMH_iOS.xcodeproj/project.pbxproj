@@ -167,6 +167,9 @@
 		369D7EE52C04AE2000295791 /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		369D7EEB2C04AF3900295791 /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		369D7EF02C04BB8B00295791 /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367244E82BF3D770007A5A7B /* AppStorageKey.swift */; };
+		36B833BF2C5A3107009C2C3E /* ChallengeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B833BE2C5A3107009C2C3E /* ChallengeHeaderView.swift */; };
+		36B833C12C5A3117009C2C3E /* EmptyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B833C02C5A3117009C2C3E /* EmptyHeaderView.swift */; };
+		36B833C32C5A3BB2009C2C3E /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B833C22C5A3BB2009C2C3E /* GuideView.swift */; };
 		36EB5F872C1C161000FAF995 /* PatchPointUseResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB5F862C1C161000FAF995 /* PatchPointUseResponseDTO.swift */; };
 		36EB6EC02BDCC65600E8C939 /* AppActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */; };
 /* End PBXBuildFile section */
@@ -401,6 +404,9 @@
 		368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarModifier.swift; sourceTree = "<group>"; };
 		368E36B32C4AC641003FA911 /* Config_dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config_dev.xcconfig; sourceTree = "<group>"; };
+		36B833BE2C5A3107009C2C3E /* ChallengeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeHeaderView.swift; sourceTree = "<group>"; };
+		36B833C02C5A3117009C2C3E /* EmptyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyHeaderView.swift; sourceTree = "<group>"; };
+		36B833C22C5A3BB2009C2C3E /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
 		36EB5F862C1C161000FAF995 /* PatchPointUseResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchPointUseResponseDTO.swift; sourceTree = "<group>"; };
 		36EB6EBF2BDCC65600E8C939 /* AppActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -656,6 +662,7 @@
 			children = (
 				0B3C296E2BA01C2800435B30 /* HomeView.swift */,
 				3601C8372BC6EC5C005790F7 /* UsageTimeListItemView.swift */,
+				36B833C22C5A3BB2009C2C3E /* GuideView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -888,6 +895,8 @@
 			children = (
 				0B3C296C2BA01C2000435B30 /* ChallengeView.swift */,
 				367244142BF0956B007A5A7B /* PointView.swift */,
+				36B833BE2C5A3107009C2C3E /* ChallengeHeaderView.swift */,
+				36B833C02C5A3117009C2C3E /* EmptyHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1332,12 +1341,14 @@
 				3672440D2BF0863E007A5A7B /* BaseTargetType.swift in Sources */,
 				0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */,
 				0B719C382BF1C45D00DF1D92 /* CustomAlertModifier.swift in Sources */,
+				36B833C32C5A3BB2009C2C3E /* GuideView.swift in Sources */,
 				0BF56C932BC39127003ECFB1 /* PickerView.swift in Sources */,
 				367243D12BEDE9F6007A5A7B /* NetworkHelper.swift in Sources */,
 				367243FD2BEDEB32007A5A7B /* EmptyResponseDTO.swift in Sources */,
 				368124172C0350950060DDB7 /* MidnightTaskScheduler.swift in Sources */,
 				367244E92BF3D770007A5A7B /* AppStorageKey.swift in Sources */,
 				367243FB2BEDEB32007A5A7B /* CreateChallengeRequestDTO.swift in Sources */,
+				36B833C12C5A3117009C2C3E /* EmptyHeaderView.swift in Sources */,
 				0BBF28862BF2F84700101F40 /* WithdrawAlertView.swift in Sources */,
 				0BBF28802BF2F81A00101F40 /* UsePointsAlertView.swift in Sources */,
 				0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */,
@@ -1351,6 +1362,7 @@
 				0BC0E5B12BB04BA800FB0330 /* SurveyProblemView.swift in Sources */,
 				367243D72BEDE9F6007A5A7B /* MoyaLoggerPlugin.swift in Sources */,
 				367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */,
+				36B833BF2C5A3107009C2C3E /* ChallengeHeaderView.swift in Sources */,
 				3606F35F2C078CA8002A1386 /* DeviceActivityMonitorExtension.swift in Sources */,
 				0B6301582C15E0DF0020B375 /* GetEarnPointResponseDTO.swift in Sources */,
 				367244092BEDEC7F007A5A7B /* Providers.swift in Sources */,

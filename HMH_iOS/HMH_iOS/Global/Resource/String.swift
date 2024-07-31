@@ -141,6 +141,12 @@ enum StringLiteral {
         static var button = "탈출 스토리 보기"
     }
     
+    enum GuideTitle {
+        static let first = "나의 스크린타임에 가장 큰 영향을 주는\n앱을 추가해 사용을 제한하세요!"
+        static let second = "나의 스마트폰 스크린타임이\n내가 목표한 시간을 넘기면"
+        static let third = "추가한 앱들의 이용이 제한됩니다"
+    }
+    
     enum MyPageButton {
         static var travel = "지금까지의 여정"
         static var market = "우주 상점"

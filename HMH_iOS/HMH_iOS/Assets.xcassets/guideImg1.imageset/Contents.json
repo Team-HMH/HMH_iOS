@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "addAppButton.png",
+      "filename" : "guideImg1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "addAppButton@2x.png",
+      "filename" : "guideImg1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "addAppButton@3x.png",
+      "filename" : "guideImg1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
