@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GuideView: View {
     @Binding var isPresented: Bool
-    @State private var currentIndex = 0
+    @State private var currentIndex: Int = 0
     private typealias GuideTitle = StringLiteral.GuideTitle
     private let images = ["guideImg1", "guideImg2", "guideImg3"]
     private let titles = [GuideTitle.first, GuideTitle.second, GuideTitle.third]
@@ -17,6 +17,7 @@ struct GuideView: View {
     var body: some View {
         ZStack {
             Color(.black.withAlphaComponent(0.3))
+                .ignoresSafeArea()
             VStack {
                 Image(images[currentIndex])
                     .resizable()
@@ -42,7 +43,9 @@ struct GuideView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
-                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.horizontal, 90)
+                .padding(.bottom, 22)
             }
             .frame(width: 300, height: 397)
             .background(.gray7)
@@ -50,6 +53,8 @@ struct GuideView: View {
             .shadow(radius: 10)
             .transition(.scale)
         }
-        .ignoresSafeArea()
+        .onAppear {
+            currentIndex = 0
+        }
     }
 }
