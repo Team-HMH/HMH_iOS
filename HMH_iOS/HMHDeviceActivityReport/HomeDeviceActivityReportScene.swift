@@ -15,9 +15,7 @@ struct AppActivityReport: DeviceActivityReportScene {
     var userTotalGoalTime = 0
     @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var usageGrade = ""
-    @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
-    var isFail: Bool = false
-    
+
     @ObservedObject var screenTimeViewModel = ScreenTimeViewModel()
     let context : DeviceActivityReport.Context = .appActivity
     let content: (ActivityReport) -> AppActivityView
@@ -154,9 +152,6 @@ extension AppActivityReport {
     }
 
     private func calculateGrade(_ usagePercentage: Double) -> String {
-//        if isFail {
-//            return "F"
-//        }
         switch usagePercentage {
         case 0..<25:
             return "A"
@@ -200,12 +195,6 @@ extension AppActivityReport {
         default:
             titleString = ""
         }
-        
-//        if isFail {
-//            lottieTitle = "Main-F-final.json"
-//            titleString = StringLiteral.Home.usageStatusF
-//        }
-//        
         return [lottieTitle, titleString]
     }
     
