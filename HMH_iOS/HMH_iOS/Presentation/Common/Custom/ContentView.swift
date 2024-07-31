@@ -14,7 +14,8 @@ struct ContentView: View {
     @StateObject var userManager = UserManager.shared
     @StateObject var appStateViewModel = AppStateViewModel.shared
     
-    @State private var showWelcomeAlert = false
+    @State private var showGuideView = false
+    @State private var currentIndex = 0
     
     var body: some View {
         ZStack {
@@ -31,11 +32,11 @@ struct ContentView: View {
                 case .servicePrepare:
                     ServicePrepareView()
                 case .home:
-                    TabBarView()
+                    TabBarView(showGuideView: $showGuideView)
                         .onAppear {
                             appStateViewModel.onAppear()
                             if userManager.isFirstLogin {
-                                showWelcomeAlert = true
+                                showGuideView = true
                                 userManager.isFirstLogin = false
                             }
                         }
@@ -62,8 +63,8 @@ struct ContentView: View {
                             .opacity(appStateViewModel.showCustomAlert ? 1 : 0)
                         )
                         .overlay(
-                            GuideView(isPresented: $showWelcomeAlert)
-                                .opacity(showWelcomeAlert ? 1 : 0)
+                            GuideView(isPresented: $showGuideView)
+                                .opacity(showGuideView ? 1 : 0)
                         )
                 case .login:
                     LoginView(viewModel: loginViewModel)
@@ -73,6 +74,9 @@ struct ContentView: View {
                             }
                         }
                 }
+            }
+            if showGuideView {
+                GuideView(isPresented: $showGuideView)
             }
         }
     }

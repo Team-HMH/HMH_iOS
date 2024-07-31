@@ -13,10 +13,10 @@ enum Tab: CaseIterable {
     case myPageView
     
     @ViewBuilder
-    var view: some View {
+    func view(showGuideView: Binding<Bool>) -> some View {
         switch self {
         case .challengeView: ChallengeView(viewModel: .init())
-        case .homeView: HomeView(homeViewModel: .init())
+        case .homeView: HomeView(showGuideView: showGuideView)
         case .myPageView: MyPageView()
         }
     }
@@ -24,11 +24,12 @@ enum Tab: CaseIterable {
 
 struct TabBarView: View {
     @State var selectedTab: Tab = .homeView
+    @Binding var showGuideView: Bool
     
     var body: some View {
         NavigationStack{
             VStack(spacing: 0) {
-                selectedTab.view
+                selectedTab.view(showGuideView: $showGuideView)
                 CustomTabView(selectedTab: $selectedTab)
             }
         }
@@ -37,5 +38,5 @@ struct TabBarView: View {
 }
 
 #Preview {
-    TabBarView()
+    TabBarView(showGuideView: .constant(false))
 }
