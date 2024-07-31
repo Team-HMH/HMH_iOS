@@ -37,17 +37,13 @@ struct ChallengeHeaderView: View {
 
 struct ChallengeWeekView: View {
     @ObservedObject var viewModel: ChallengeViewModel
-    @State private var isExpanded = false
 
     var body: some View {
         VStack(alignment: .leading) {
             if viewModel.days > 0 {
-                ForEach(1...min(isExpanded ? (viewModel.days + 6) / 7 : 2, (viewModel.days + 6) / 7), id: \.self) { week in
+                ForEach(1...min((viewModel.days + 6) / 7, (viewModel.days + 6) / 7), id: \.self) { week in
                     challengeWeekRow(week: week)
                 }
-            }
-            if viewModel.challengeType == .large {
-                expandButton()
             }
         }
     }
@@ -60,29 +56,6 @@ struct ChallengeWeekView: View {
             }
         }
         .padding(.bottom, 8)
-    }
-    
-    @ViewBuilder
-    private func expandButton() -> some View {
-        HStack {
-            Button(action: {
-                withAnimation {
-                    isExpanded.toggle()
-                }
-            }, label: {
-                HStack {
-                    Text(isExpanded ? "접기" : "펼치기")
-                        .font(.detail4_medium_12)
-                        .foregroundStyle(.gray2)
-                    Image(isExpanded ? .chevronUp : .chevronDown)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 8, height: 9)
-                }
-                .frame(width: 57, height: 31)
-            })
-        }
-        .frame(maxWidth: .infinity)
     }
     
     @ViewBuilder
