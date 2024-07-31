@@ -14,6 +14,8 @@ struct ContentView: View {
     @StateObject var userManager = UserManager.shared
     @StateObject var appStateViewModel = AppStateViewModel.shared
     
+    @State private var showWelcomeAlert = false
+    
     var body: some View {
         ZStack {
             Color(.blackground)
@@ -30,9 +32,13 @@ struct ContentView: View {
                     ServicePrepareView()
                 case .home:
                     TabBarView()
-                        .onAppear(
-                            perform: appStateViewModel.onAppear
-                        )
+                        .onAppear {
+                            appStateViewModel.onAppear()
+                            if userManager.isFirstLogin {
+                                showWelcomeAlert = true
+                                userManager.isFirstLogin = false
+                            }
+                        }
                         .overlay(
                             CustomAlertView(
                                 alertType: appStateViewModel.currentAlertType,
@@ -54,6 +60,10 @@ struct ContentView: View {
                                 ), currentPoint: appStateViewModel.currentPoint, usagePoint: appStateViewModel.usagePoint
                             )
                             .opacity(appStateViewModel.showCustomAlert ? 1 : 0)
+                        )
+                        .overlay(
+                            GuideView(isPresented: $showWelcomeAlert)
+                                .opacity(showWelcomeAlert ? 1 : 0)
                         )
                 case .login:
                     LoginView(viewModel: loginViewModel)

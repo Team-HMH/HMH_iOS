@@ -20,10 +20,16 @@ class UserManager: ObservableObject {
     }
     
     @Published var appState: AppState = .login
+    @Published var isFirstLogin: Bool {
+        didSet {
+            UserDefaults.standard.set(isFirstLogin, forKey: "isFirstLogin")
+        }
+    }
     
     static let shared = UserManager()
     
     private init() {
+        self.isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
         appState = AppState(rawValue: appStateString) ?? .login
     }
     
