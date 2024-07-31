@@ -25,6 +25,7 @@ struct GuideView: View {
                     .padding(.horizontal, 22)
                     .padding(.top, 36)
                 Text(titles[currentIndex])
+                    .multilineTextAlignment(.center)
                     .padding(.top, 15)
                     .font(.text5_medium_16)
                     .foregroundStyle(.whiteText)
