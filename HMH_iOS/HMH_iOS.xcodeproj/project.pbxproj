@@ -580,6 +580,7 @@
 		0BBF287B2BF2F7EF00101F40 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				36B833C42C5AB101009C2C3E /* Modifier */,
 				365D84C72C21691C00621D26 /* Custom */,
 				365D84C62C21690E00621D26 /* Navigation */,
 				365D84C52C21690200621D26 /* TabBar */,
@@ -733,7 +734,6 @@
 				365CD6E52B7E4F8F00245CDD /* Manager */,
 				365CD6E72B7E4FD100245CDD /* Protocols */,
 				365CD6E42B7E4F8300245CDD /* Resource */,
-				368CAAE02BB9B23C00FA83B3 /* Struct */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1022,14 +1022,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		368CAAE02BB9B23C00FA83B3 /* Struct */ = {
+		36B833C42C5AB101009C2C3E /* Modifier */ = {
 			isa = PBXGroup;
 			children = (
 				368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */,
 				0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */,
 				368780E22C024DAD00454827 /* CustomButtonModifer.swift */,
 			);
-			path = Struct;
+			path = Modifier;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
