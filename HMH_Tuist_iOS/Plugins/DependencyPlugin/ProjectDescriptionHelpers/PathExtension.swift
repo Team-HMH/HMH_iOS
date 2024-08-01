@@ -45,10 +45,5 @@ public extension ProjectDescription.Path {
     static var core: Self {
         return .relativeToRoot("Projects/Core")
     }
-    
-    /// deviceActivityMonitor 폴더에 대한 경로르 반환하는 속성
-    static var deviceActivityMonitor: Self {
-        return .relativeToRoot("Projects/DeviceActivityMonitor")
-    }
 }
 
