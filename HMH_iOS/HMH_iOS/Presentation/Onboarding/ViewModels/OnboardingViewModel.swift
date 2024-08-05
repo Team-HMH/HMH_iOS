@@ -175,7 +175,8 @@ class OnboardingViewModel: ObservableObject {
     
     
     @MainActor func postSignUpLoginData() {
-        let appValues = [ Apps(appCode: "app goalTime", goalTime: appGoalTime) ]
+        let appValues = [ Apps(appCode: "app goalTime", goalTime: 3600000) ]
+        // goalTime 1시간으로 하드 코딩
         let request = SignUpRequestDTO(socialPlatform: socialPlatform, name: userName, onboarding: Onboarding(averageUseTime: self.averageUseTime, problem: self.problems), challenge: Challenge(period: self.period, goalTime: self.appGoalTime, apps: appValues))
         
         let provider = Providers.AuthProvider
