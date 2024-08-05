@@ -12,6 +12,8 @@ struct APIConstants {
     static let contentType = "Content-Type"
     static let applicationJSON = "application/json"
     static let auth = "Authorization"
+    static let timeZone = "Time-Zone"
+    static let seoul = "Asia/Seoul"
     
     static var accessToken: String {
         return "Bearer " + (UserManager.shared.accessToken ?? "")
@@ -24,7 +26,7 @@ struct APIConstants {
     static var appleAccessToken: String {
         return UserManager.shared.socialToken ?? ""
     }
-
+    
     static let OS = "OS"
     static let iOS = "iOS"
 }
@@ -32,28 +34,30 @@ struct APIConstants {
 extension APIConstants {
     static var hasSocialTokenHeader: [String: String] {
         return [contentType: applicationJSON,
-                auth: appleAccessToken]
+                       auth: appleAccessToken]
     }
     
     static var hasTokenHeader: [String: String] {
         return [contentType: applicationJSON,
-                OS: iOS,
-                auth: accessToken]
+                         OS: iOS,
+                       auth: accessToken]
     }
     
     static var hasAccessTokenHeader: [String: String] {
         return [contentType: applicationJSON,
-                auth: accessToken]
+                       auth: accessToken]
     }
     
     static var hasRefreshTokenHeader: [String: String] {
         return [contentType: applicationJSON,
-                auth: refreshToken]
+                       auth: refreshToken]
     }
     
     static var signUpHeader: [String: String] {
         return [contentType: applicationJSON,
-                auth: appleAccessToken,
-                OS: iOS]
+                       auth: appleAccessToken,
+                         OS: iOS,
+                   timeZone: seoul,
+        ]
     }
 }
