@@ -20,7 +20,7 @@ class HomeViewModel: ObservableObject {
     var usageGrade = ""
     
     @AppStorage("handleUsage") var isNotHandleUsage: Bool = true
-    @StateObject var screenTimeVM = ScreenTimeViewModel()
+    @ObservedObject var screenTimeVM = ScreenTimeViewModel()
     
     init(){    }
     
@@ -28,9 +28,9 @@ class HomeViewModel: ObservableObject {
         Providers.challengeProvider.request(target: .getdailyChallenge, instance: BaseResponse<HomeChallengeResponseDTO>.self) { result in
             if let data = result.data {
                 self.totalGoalTimeDouble = data.goalTime
+                self.screenTimeVM.handleTotalDeviceActivityMonitoring(interval: self.totalGoalTimeDouble/60000)
                 if self.isNotHandleUsage {
                     self.screenTimeVM.handleStartDeviceActivityMonitoring(interval: self.appGoalTimeDouble)
-                    self.screenTimeVM.handleTotalDeviceActivityMonitoring(interval: self.totalGoalTimeDouble/60000)
                     self.isNotHandleUsage = false
                 }
             }

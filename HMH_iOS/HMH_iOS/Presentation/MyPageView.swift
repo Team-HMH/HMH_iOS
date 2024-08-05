@@ -10,6 +10,7 @@ import SwiftUI
 struct MyPageView: View {
     
     @StateObject var viewModel = MyPageViewModel()
+    @State private var isShowGuideView = false
     
     var body: some View {
         NavigationView {
@@ -62,9 +63,12 @@ struct MyPageView: View {
                 }
             )
         }
-        .customNavigationBar(title: StringLiteral.NavigationBar.myPage,
+        .customNavigationBar(title: StringLiteral.NavigationBar.home,
                              showBackButton: false,
-                             showPointButton: false, point: 0)
+                             showPointButton: false,
+                             showGuideButton: false,
+                             point: 0,
+                             showGuideView: $isShowGuideView)
     }
 }
 

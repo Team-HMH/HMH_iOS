@@ -8,6 +8,8 @@ struct HomeView: View {
     
     // MARK: - Property
     
+    
+    @Binding var showGuideView :Bool
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @StateObject var homeViewModel = HomeViewModel()
     @State private var isPresented = false
@@ -31,6 +33,7 @@ struct HomeView: View {
         users: .all,
         devices: .init([.iPhone, .iPad])
     )
+    @State private var currentIndex = 0
     
     var body: some View {
         ScrollView {
@@ -38,7 +41,10 @@ struct HomeView: View {
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.home,
                              showBackButton: false,
-                             showPointButton: false, point: 0)
+                             showPointButton: false,
+                             showGuideButton: true,
+                             point: 0,
+                             showGuideView: $showGuideView)
         .background(.blackground)
         .task {
             await loadData()
