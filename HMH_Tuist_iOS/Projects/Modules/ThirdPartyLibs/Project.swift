@@ -21,7 +21,6 @@ let project = Project.makeModule(
     targets: [.dynamicFramework],
     externalDependencies: [
         .SPM.Kingfisher,
-        .SPM.Alamofire,
         .SPM.KakaoSDK,
         .SPM.KeychainAccess,
         .SPM.Moya,

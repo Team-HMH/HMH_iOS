@@ -8,6 +8,9 @@
 import SwiftUI
 import DeviceActivity
 
+import Core
+import DSKit
+
 struct AppActivityReport: DeviceActivityReportScene {
     @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var appGoalTimeDouble = 0

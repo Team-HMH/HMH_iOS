@@ -143,7 +143,7 @@ struct ListView: View {
     var backgroundView: some View {
         GeometryReader { geometry in
             let remainingPercent = Double(eachApp.duration) / 6000 // 0에서 1 사이의 값으로 정규화
-            let gradientColors: [Color] = [.bluePurpleButton.opacity(0.4), .bluePurpleButton]
+            let gradientColors: [Color] = [DSKitAsset.bluePurpleButton.opacity(0.4), .bluePurpleButton]
             ZStack(alignment: .topLeading) {
                 RoundedRectangle(cornerRadius: 4)
                     .fill(.gray7)  // RoundedRectangle에 직접 색상 적용

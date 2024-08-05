@@ -14,6 +14,6 @@ let project = Project.makeModule(
     name: "ShieldConfigureExtension",
     targets: [.dynamicFramework],
     internalDependencies: [
-        .core
+        .Modules.dsKit
     ]
 )

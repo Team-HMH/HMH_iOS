@@ -10,29 +10,31 @@ import UIKit
 import ManagedSettings
 import ManagedSettingsUI
 
+import DSKit
+
 // Override the functions below to customize the shields used in various situations.
 // The system provides a default appearance for any methods that your subclass doesn't override.
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     
     private func setShieldConfig(_ tokenName: String) -> ShieldConfiguration {
-        let CUSTOM_ICON = UIImage(resource: .shieldLock)
+        let CUSTOM_ICON = DSKitAsset.shieldLock.image
         let CUSTOM_TITLE = ShieldConfiguration.Label(
             text: "목표 사용 시간 종료",
-            color: .whiteText
+            color: DSKitAsset.whiteText.color
         )
         let CUSTOM_SUBTITLE = ShieldConfiguration.Label(
             text: "이제 \(tokenName)을(를)\n 사용할 수 없어요",
-            color: .gray2
+            color: DSKitAsset.gray2.color
         )
         let CUSTOM_PRIMARY_BUTTON_LABEL = ShieldConfiguration.Label(
             text: "닫기",
-            color: .whiteText
+            color: DSKitAsset.whiteText.color
         )
-        let CUSTOM_PRIAMRY_BUTTON_BACKGROUND: UIColor = .bluePurpleButton
+        let CUSTOM_PRIAMRY_BUTTON_BACKGROUND: UIColor = DSKitAsset.bluePurpleButton.color
         let CUSTOM_SECONDARY_BUTTON_LABEL = ShieldConfiguration.Label(
             text: "잠금 해제하기",
-            color: .gray1
+            color: DSKitAsset.gray1.color
         )
         
         let backgrounColor = UIColor(hue: 240/360, saturation: 14/100, brightness: 10/100, alpha: 1.0)

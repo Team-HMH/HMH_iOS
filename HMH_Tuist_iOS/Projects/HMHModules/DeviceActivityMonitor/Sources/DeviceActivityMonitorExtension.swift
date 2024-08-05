@@ -13,6 +13,7 @@ import UserNotifications
 
 import SwiftUI
 import FamilyControls
+import Core
 
 // Optionally override any of the functions below.
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.

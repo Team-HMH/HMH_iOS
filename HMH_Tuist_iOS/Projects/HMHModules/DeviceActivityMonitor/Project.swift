@@ -14,6 +14,7 @@ let project = Project.makeModule(
     name: "DeviceActivityMonitor",
     targets: [.dynamicFramework],
     internalDependencies: [
+        .Modules.dsKit,
         .core
     ]
 )
