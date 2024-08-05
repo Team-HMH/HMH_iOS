@@ -15,6 +15,7 @@ struct ChallengeView: View {
     
     @State private var isExpanded = false
     @State private var isPresented = false
+    @State private var isShowGuideView = false
     
     @State var context: DeviceActivityReport.Context = .init(rawValue: "Challenge Activity")
     @State var filter = DeviceActivityFilter(
@@ -57,7 +58,10 @@ extension ChallengeView {
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
                              showBackButton: false,
-                             showPointButton: true, point: viewModel.remainEarnPoint)
+                             showPointButton: true,
+                             showGuideButton: false,
+                             point: viewModel.remainEarnPoint,
+                             showGuideView: $isShowGuideView)
         .background(.blackground)
         .onAppear {
             viewModel.getChallengeInfo()

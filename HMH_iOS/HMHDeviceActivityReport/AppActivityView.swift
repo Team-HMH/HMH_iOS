@@ -43,12 +43,21 @@ struct ListView: View {
                     .foregroundStyle(.whiteText)
             }
             Spacer()
-            Text(String(eachApp.remainTime.toString()))
-                .font(.text6_medium_14)
-                .foregroundStyle(.whiteText)
-            + Text("남음")
-                .font(.text6_medium_14)
-                .foregroundStyle(.gray2)
+            if #available(iOSApplicationExtension 17.0, *) {
+                Text(String(eachApp.remainTime.toString()))
+                    .font(.text6_medium_14)
+                    .foregroundStyle(.whiteText)
+                + Text("남음")
+                    .font(.text6_medium_14)
+                    .foregroundStyle(.gray2)
+            } else {
+                Text(String(eachApp.remainTime.toString()))
+                    .font(.text6_medium_14)
+                    .foregroundColor(.whiteText)
+                + Text("남음")
+                    .font(.text6_medium_14)
+                    .foregroundColor(.gray2)
+            }
         }
         .padding(.horizontal, 18)
         .frame(height: 72)

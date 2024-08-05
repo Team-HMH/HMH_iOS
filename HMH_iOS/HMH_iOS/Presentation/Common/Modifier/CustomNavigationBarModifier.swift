@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import SwiftUI
 
 extension View {
-    func customNavigationBar(title: String, showBackButton: Bool, showPointButton: Bool, isPointView: Bool = false, point: Int) -> some View {
+    func customNavigationBar(title: String, showBackButton: Bool, showPointButton: Bool,
+                             showGuideButton: Bool, isPointView: Bool = false, point: Int, showGuideView: Binding<Bool>) -> some View {
         self.modifier(CustomNavigationBarModifier(title: title, point: point,
                                                   showBackButton: showBackButton,
                                                   showPointButton: showPointButton,
-                                                  isPointView: isPointView))
+                                                  showGuideButton: showGuideButton,
+                                                  isPointView: isPointView,
+                                                  showGuideView: showGuideView))
     }
 }
 
@@ -21,13 +25,16 @@ struct CustomNavigationBarModifier: ViewModifier {
     var point: Int
     var showBackButton: Bool
     var showPointButton: Bool
+    var showGuideButton: Bool
     var isPointView: Bool
-    
+    @Binding var showGuideView: Bool
     
     func body(content: Content) -> some View {
         VStack(spacing: 0) {
-            NavigationBarView(showBackButton: showBackButton,
+            NavigationBarView(showGuideView: $showGuideView,
+                              showBackButton: showBackButton,
                               showPointButton: showPointButton,
+                              showGuideButton: showGuideButton,
                               isPointView: isPointView,
                               title: title, point: point)
             content

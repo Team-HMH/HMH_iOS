@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PointView: View {
     @StateObject var viewModel = PointViewModel()
+    @State var isShowGuideView = false
     
     public var body: some View {
         main
@@ -26,10 +27,13 @@ extension PointView {
                 .padding(.horizontal, 20)
         }
         .showToast(toastType: .earnPoint, isPresented: $viewModel.isPresented)
-        .customNavigationBar(title: StringLiteral.NavigationBar.point,
+        .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
                              showBackButton: true,
                              showPointButton: true,
-                             isPointView: true, point: viewModel.currentPoint)
+                             showGuideButton: false,
+                             isPointView: true,
+                             point: viewModel.currentPoint,
+                             showGuideView: $isShowGuideView)
         .background(.blackground)
         .navigationBarHidden(true)
     }
