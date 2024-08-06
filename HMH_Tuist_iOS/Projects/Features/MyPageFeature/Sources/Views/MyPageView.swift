@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import DSKit
+
 struct MyPageView: View {
     
     @StateObject
@@ -28,32 +30,34 @@ struct MyPageView: View {
         }
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.blackground)
+        .background(DSKitAsset.blackground.swiftUIColor)
     }
 }
 
 extension MyPageView {
     private func ProfileView() -> some View {
         VStack {
-            Image(.profile)
+            Image(uiImage: DSKitAsset.profile.image)
                 .frame(width: 54, height: 54)
                 .padding(10)
-            Text(viewModel.getUserName())
-                .font(.title4_semibold_20)
+            //TODO: 서버통신이랑 이어지는 부분이라서
+//            Text(viewModel.getUserName())
+//                .font(.title4_semibold_20)
             Spacer()
                 .frame(height: 16)
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
-                Text(viewModel.getUserPoint())
-                    .font(.text6_medium_14)
+                //TODO: 서버통신이랑 이어지는 부분이라서
+//                Text(viewModel.getUserPoint())
+//                    .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 40)
-            .background(.gray7)
+            .background(DSKitAsset.gray7.swiftUIColor)
             .cornerRadius(8)
         }
-        .foregroundColor(.whiteText)
+        .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
         .frame(width: 133, height: 150)
     }
     private func MyInfoView() -> some View {
@@ -61,13 +65,13 @@ extension MyPageView {
             MyPageButton(viewModel: viewModel, buttonType: .travel)
             MyPageButton(viewModel: viewModel, buttonType: .market)
         }
-        .background(.gray7)
+        .background(DSKitAsset.gray7.swiftUIColor)
     }
     private func HMHInfoView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("정보")
                 .font(.text4_semibold_16)
-                .foregroundColor(.gray2)
+                .foregroundColor(DSKitAsset.gray2.swiftUIColor)
                 .padding(.vertical, 14)
             MyPageButton(viewModel: viewModel, buttonType: .info)
             MyPageButton(viewModel: viewModel, buttonType: .term)
@@ -82,7 +86,7 @@ extension MyPageView {
             Text(StringLiteral.MyPageAccountControl.revoke)
                 .font(.text6_medium_14)
         }
-        .foregroundColor(.gray3)
+        .foregroundColor(DSKitAsset.gray3.swiftUIColor)
         .frame(height: 77)
     }
 }

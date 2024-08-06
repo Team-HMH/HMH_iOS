@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct SocialLoginRequestDTO: Codable {
+public struct SocialLoginRequestDTO: Codable {
     let socialPlatform: String
 }

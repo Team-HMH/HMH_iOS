@@ -41,7 +41,7 @@ public class UserManager: ObservableObject {
         appStateString = "login"
     }
     
-    func revokeData() {
+    public func revokeData() {
         accessToken = ""
         refreshToken = ""
         socialToken = ""

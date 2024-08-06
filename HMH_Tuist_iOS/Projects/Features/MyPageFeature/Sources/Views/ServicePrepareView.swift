@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+import Core
+import DSKit
+
 struct ServicePrepareView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
@@ -23,13 +26,13 @@ struct ServicePrepareView: View {
                         UserManager.shared.appStateString = "home"
                     }
                 } label: {
-                    Image(.chevronLeft)
+                    Image(uiImage: DSKitAsset.chevronLeft.image)
                 }
                 Spacer()
                     .frame(width: 12)
                 Text(StringLiteral.MyPageButton.market)
                     .font(.text3_semibold_18)
-                    .foregroundColor(.whiteText)
+                    .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
                 Spacer()
             }
             .frame(height: 60)
@@ -37,11 +40,11 @@ struct ServicePrepareView: View {
                 .frame(height: 213)
             Text(StringLiteral.Prepare.title)
                 .font(.text3_semibold_18)
-                .foregroundColor(.whiteText)
+                .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
                 .padding()
             Text(StringLiteral.Prepare.subtitle)
                 .font(.text6_medium_14)
-                .foregroundColor(.gray2)
+                .foregroundColor(DSKitAsset.gray2.swiftUIColor)
                 .padding(EdgeInsets(top: 12, leading: 0, bottom: 35, trailing: 0))
             Button {
                 if presentationMode.wrappedValue.isPresented {
@@ -51,11 +54,11 @@ struct ServicePrepareView: View {
                 }
             } label: {
                 Text(StringLiteral.Prepare.button)
-                    .foregroundColor(.whiteBtn)
+                    .foregroundColor(DSKitAsset.whiteBtn.swiftUIColor)
                     .font(.text5_medium_16)
                     .frame(width: 225, height: 52)
             }
-            .background(.bluePurpleButton)
+            .background(DSKitAsset.bluePurpleButton.swiftUIColor)
             .cornerRadius(8)
             Spacer()
         }

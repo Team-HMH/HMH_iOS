@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MidnightRequestDTO: Codable {
+public struct MidnightRequestDTO: Codable {
     let finishedDailyChallenges: [FinishedDailyChallenge]
 }
 

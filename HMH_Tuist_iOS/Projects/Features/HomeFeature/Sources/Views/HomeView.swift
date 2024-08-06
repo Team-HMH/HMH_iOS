@@ -4,8 +4,12 @@ import DeviceActivity
 
 import Lottie
 
+import DSKit
+import BaseFeatureDependency
+
 struct HomeView: View {
-    @StateObject var screenTimeViewModel = ScreenTimeViewModel()
+    //TODO: 말썽꾸러기 스크린뷰모델
+//    @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @StateObject var homeViewModel = HomeViewModel()
 
     @State var appContext: DeviceActivityReport.Context = .init(rawValue: "App Activity")
@@ -26,7 +30,7 @@ struct HomeView: View {
         .customNavigationBar(title: StringLiteral.NavigationBar.home,
                              showBackButton: false,
                              showPointButton: false, point: 0)
-        .background(.blackground)
+        .background(DSKitAsset.blackground.swiftUIColor)
         .task {
             await loadData()
         }
@@ -38,26 +42,28 @@ extension HomeView {
     var main: some View {
         VStack {
             DeviceActivityReport(appContext, filter: appFilter)
-                .frame(maxWidth: .infinity, minHeight: 400 + 80 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count), maxHeight: .infinity)
+            //TODO: 말썽꾸러기 스크린뷰모델
+//                .frame(maxWidth: .infinity, minHeight: 400 + 80 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count), maxHeight: .infinity)
                 .padding(.bottom, 20)
         }
     }
     
     @MainActor
     func loadData() async {
-        screenTimeViewModel.requestAuthorization()
-        
-        appFilter = DeviceActivityFilter(
-            segment: .daily(
-                during: Calendar.current.dateInterval(
-                    of: .day, for: .now
-                ) ?? DateInterval()
-            ),
-            users: .all,
-            devices: .init([.iPhone]),
-            applications: screenTimeViewModel.selectedApp.applicationTokens,
-            categories: screenTimeViewModel.selectedApp.categoryTokens
-        )
+        //TODO: 말썽꾸러기 스크린뷰모델
+//        screenTimeViewModel.requestAuthorization()
+//        
+//        appFilter = DeviceActivityFilter(
+//            segment: .daily(
+//                during: Calendar.current.dateInterval(
+//                    of: .day, for: .now
+//                ) ?? DateInterval()
+//            ),
+//            users: .all,
+//            devices: .init([.iPhone]),
+//            applications: screenTimeViewModel.selectedApp.applicationTokens,
+//            categories: screenTimeViewModel.selectedApp.categoryTokens
+//        )
     }
 }
 

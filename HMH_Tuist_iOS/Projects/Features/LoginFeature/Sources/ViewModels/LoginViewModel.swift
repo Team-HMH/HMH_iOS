@@ -3,6 +3,9 @@ import AuthenticationServices
 
 import KakaoSDKUser
 
+import Core
+import DSKit
+
 class LoginViewModel: NSObject, ObservableObject {
     
     @Published var isLoading: Bool = true
@@ -51,20 +54,21 @@ class LoginViewModel: NSObject, ObservableObject {
         }
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func postSocialLoginData() {
-        let provider = Providers.AuthProvider
-        let request = SocialLoginRequestDTO(socialPlatform: UserManager.shared.socialPlatform ?? "")
-        
-        provider.request(target: .socialLogin(data: request), instance: BaseResponse<SocialLogineResponseDTO>.self) { data in
-            if data.status == 403 {
-                UserManager.shared.appStateString = "onboarding"
-            } else if data.status == 200 {
-                guard let data = data.data else { return }
-                UserManager.shared.refreshToken = data.token.refreshToken
-                UserManager.shared.accessToken = data.token.accessToken
-                UserManager.shared.appStateString = "home"
-            }
-        }
+//        let provider = Providers.AuthProvider
+//        let request = SocialLoginRequestDTO(socialPlatform: UserManager.shared.socialPlatform ?? "")
+//        
+//        provider.request(target: .socialLogin(data: request), instance: BaseResponse<SocialLogineResponseDTO>.self) { data in
+//            if data.status == 403 {
+//                UserManager.shared.appStateString = "onboarding"
+//            } else if data.status == 200 {
+//                guard let data = data.data else { return }
+//                UserManager.shared.refreshToken = data.token.refreshToken
+//                UserManager.shared.accessToken = data.token.accessToken
+//                UserManager.shared.appStateString = "home"
+//            }
+//        }
     }
 }
 

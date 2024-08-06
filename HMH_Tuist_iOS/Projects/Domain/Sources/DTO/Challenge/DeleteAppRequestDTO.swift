@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct DeleteAppRequestDTO: Codable {
+public struct DeleteAppRequestDTO: Codable {
     let appCode: String
 }

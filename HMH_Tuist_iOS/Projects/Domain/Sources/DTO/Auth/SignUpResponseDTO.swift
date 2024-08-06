@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SignUpResponseDTO: Codable {
+public struct SignUpResponseDTO: Codable {
     let userId: Int
     let token: Token
 }

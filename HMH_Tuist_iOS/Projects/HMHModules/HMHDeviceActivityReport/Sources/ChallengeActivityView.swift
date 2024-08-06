@@ -8,6 +8,8 @@
 import SwiftUI
 import FamilyControls
 
+import DSKit
+
 struct ChallengeActivityView: View {
     var activityReport: ChallengeActivity
     
@@ -33,12 +35,12 @@ struct ChallengeAppListView: View {
             }
             Text(eachApp.displayName)
                 .font(.text5_medium_16)
-                .foregroundStyle(.gray2)
+                .foregroundStyle(DSKitAsset.gray2.swiftUIColor)
                 .padding(.bottom, 1)
             Spacer()
             Text(String(eachApp.duration.toString()))
                 .font(.text6_medium_14)
-                .foregroundStyle(.whiteText)
+                .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
         }
         .padding(.horizontal, 20)
         .frame(height: 72)

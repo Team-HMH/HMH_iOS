@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct RefreshTokebResponseDTO: Codable {
-    let token: Token
+public struct RefreshTokebResponseDTO: Codable {
+    public let token: Token
 }

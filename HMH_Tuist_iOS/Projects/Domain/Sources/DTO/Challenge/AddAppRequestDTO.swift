@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct AddAppRequestDTO: Codable {
+public struct AddAppRequestDTO: Codable {
     let apps: [Apps]
 }

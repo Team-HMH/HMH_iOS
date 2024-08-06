@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct SocialLogineResponseDTO: Codable {
+public struct SocialLogineResponseDTO: Codable {
     let userId: Int
     let token: Token
 }
 
-struct Token: Codable {
-    let accessToken: String
-    let refreshToken: String
+public struct Token: Codable {
+    public let accessToken: String
+    public let refreshToken: String
 }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct CreateChallengeRequestDTO: Codable {
-    let period, goalTime: Int
+public struct CreateChallengeRequestDTO: Codable {
+    public let period, goalTime: Int
 }

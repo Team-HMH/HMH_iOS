@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-enum CustomAlertButtonType {
+public enum CustomAlertButtonType {
     case Confirm
     case Cancel
 }
 
-enum CustomAlertType {
+public enum CustomAlertType {
     case unlock
     case unlockComplete
     case insufficientPoints
@@ -94,7 +94,7 @@ struct CustomAlertModifier: ViewModifier {
     }
 }
 
-struct CustomAlertButtonView: View {
+public struct CustomAlertButtonView: View {
     
     typealias Action = () -> Void
     @Binding var isPresented: Bool
@@ -124,7 +124,7 @@ struct CustomAlertButtonView: View {
         self.alertType = alertType
     }
     
-    var body: some View {
+    public var body: some View {
         Button {
             action()
         } label: {
@@ -138,14 +138,14 @@ struct CustomAlertButtonView: View {
 }
 
 
-struct CustomAlertView: View {
+public struct CustomAlertView: View {
     let alertType: CustomAlertType
     let confirmBtn: CustomAlertButtonView
     let cancelBtn: CustomAlertButtonView
     let currentPoint: Int
     let usagePoint: Int
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.black
                 .opacity(0.1)

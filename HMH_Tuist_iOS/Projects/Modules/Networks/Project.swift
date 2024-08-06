@@ -13,6 +13,7 @@ let project = Project.makeModule(
     name: "Networks",
     targets: [.staticFramework],
     internalDependencies: [
-        .core
+        .domain
+//        .core
     ]
 )

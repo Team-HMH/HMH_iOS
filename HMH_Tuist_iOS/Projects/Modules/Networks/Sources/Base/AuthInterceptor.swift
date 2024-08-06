@@ -12,6 +12,7 @@ import Alamofire
 import Moya
 
 import Core
+import Domain
 
 ///// 토큰 만료 시 자동으로 refresh를 위한 서버 통신
 final class AuthInterceptor: RequestInterceptor {

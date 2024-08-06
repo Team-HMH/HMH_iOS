@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct PointRequestDTO: Codable {
+public struct PointRequestDTO: Codable {
     let challengeDate: String
 }

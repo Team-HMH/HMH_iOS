@@ -8,10 +8,12 @@
 import SwiftUI
 import FamilyControls
 
+import DSKit
+
 struct OnboardingContentView: View {
     
-    @StateObject
-    var screenViewModel = ScreenTimeViewModel()
+    //TODO: 말썽꾸러기 스크린뷰모델
+//    @StateObject var screenViewModel = ScreenTimeViewModel()
     @StateObject
     var onboardingViewModel: OnboardingViewModel
     @State private var selection = FamilyActivitySelection()
@@ -20,15 +22,16 @@ struct OnboardingContentView: View {
     @Environment(\.presentationMode) var presentationMode
     
     init(isChallengeMode: Bool = false, onboardingState: Int = 0) {
-        let screenTimeViewModel = ScreenTimeViewModel()
-        _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
-        _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
-        self.isChallengeMode = isChallengeMode
+        //TODO: 말썽꾸러기 스크린뷰모델
+//        let screenTimeViewModel = ScreenTimeViewModel()
+//        _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
+//        _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
+//        self.isChallengeMode = isChallengeMode
     }
     
     var body: some View {
         ZStack {
-            Color(.blackground)
+            Color(DSKitAsset.blackground.swiftUIColor)
                 .ignoresSafeArea()
             VStack(alignment: .leading) {
                 VStack {
@@ -49,7 +52,7 @@ struct OnboardingContentView: View {
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)
-        .background(.blackground)
+        .background(DSKitAsset.blackground.swiftUIColor)
         .navigationBarHidden(true)
         .onChange(of: onboardingViewModel.onboardingState) { newState in
             if isChallengeMode && (newState == 1 || newState == 3 || newState == 7 ) {
@@ -60,7 +63,8 @@ struct OnboardingContentView: View {
         .familyActivityPicker(isPresented: $onboardingViewModel.isPickerPresented,
                               selection: $selection)
         .onChange(of: selection) { newSelection in
-            screenViewModel.updateSelectedApp(newSelection: newSelection)
+            //TODO: 말썽꾸러기 스크린뷰모델
+//            screenViewModel.updateSelectedApp(newSelection: newSelection)
         }
         .onChange(of: onboardingViewModel.isPickerPresented) { isPresented in
             if !isPresented {
@@ -69,7 +73,8 @@ struct OnboardingContentView: View {
             }
         }
         .onAppear() {
-            selection = screenViewModel.selectedApp
+            //TODO: 말썽꾸러기 스크린뷰모델
+//            selection = screenViewModel.selectedApp
             onboardingViewModel.handleOnAppear()
         }
         .showToast(toastType: .onboardingWarn, isPresented: $onboardingViewModel.isOnboardingError)

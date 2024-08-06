@@ -13,7 +13,7 @@ struct PointListResponseDTO: Codable {
     let challengePointStatuses: [PointList]
 }
 
-struct PointList: Codable {
+public struct PointList: Codable {
     let challengeDate: String
     let status: String
 }

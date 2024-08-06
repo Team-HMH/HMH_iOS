@@ -15,14 +15,14 @@ struct UnlockAlertView: View {
     var body: some View {
         VStack(spacing: 14) {
             Text(StringLiteral.AlertTitle.unlock)
-                .foregroundColor(.whiteText)
+                .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
                 .font(.text3_semibold_18)
                 .multilineTextAlignment(.center)
             Text(StringLiteral.AlertDescription.unlock)
-                .foregroundColor(.gray1)
+                .foregroundColor(DSKitAsset.gray1.swiftUIColor)
                 .font(.text6_medium_14)
                 .multilineTextAlignment(.center)
-            Image(uiImage: .challengeWarn)
+            Image(uiImage: DSKitAsset.challengeWarn.image)
                 .resizable()
                 .frame(width: 120, height: 120)
             HStack(spacing: 8) {
