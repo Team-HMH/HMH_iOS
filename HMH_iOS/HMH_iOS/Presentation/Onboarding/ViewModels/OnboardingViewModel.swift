@@ -336,7 +336,7 @@ class OnboardingViewModel: ObservableObject {
         self.onboardingState = onboardingState
         self.isCompleted = false
         self.selectedGoalTime = "1"
-        self.selectedAppHour = "0"
+        self.selectedAppHour = "1"
         self.selectedAppMinute = "0"
         self.problems = []
         self.averageUseTime = ""
