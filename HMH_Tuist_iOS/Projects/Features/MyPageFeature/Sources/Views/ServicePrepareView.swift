@@ -10,11 +10,13 @@ import SwiftUI
 import Core
 import DSKit
 
-struct ServicePrepareView: View {
+public struct ServicePrepareView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     
-    var body: some View {
+    public init() {} 
+    
+    public var body: some View {
         VStack {
             HStack {
                 Spacer()

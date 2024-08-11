@@ -8,6 +8,8 @@
 import SwiftUI
 import AuthenticationServices
 
+import DSKit
+
 enum SignInProvider {
     case apple
     case kakao
@@ -36,7 +38,7 @@ struct LoginButton: View {
         }) {
             RoundedRectangle(cornerRadius: 6.3)
                 .frame(width:336, height: 51)
-                .foregroundColor(loginProvider == .apple ? .whiteBtn : .yelloBtn)
+                .foregroundColor(loginProvider == .apple ? DSKitAsset.whiteBtn.swiftUIColor : DSKitAsset.yelloBtn.swiftUIColor)
                 .overlay(
                     HStack {
                         Image(loginProvider.signInLogoImage)
@@ -45,7 +47,7 @@ struct LoginButton: View {
                             .padding(.leading, 14)
                             .padding(.trailing, loginProvider == .apple ? 63 : 75)
                         Text(loginProvider == .apple ? StringLiteral.LoginButton.apple : StringLiteral.LoginButton.kakao)
-                            .foregroundColor(.gray8)
+                            .foregroundColor(DSKitAsset.gray8.swiftUIColor)
                             .font(.text4_semibold_16)
                         Spacer()
                     }

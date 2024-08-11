@@ -9,6 +9,9 @@ import SwiftUI
 
 import Lottie
 
+import LoginFeature
+import DSKit
+
 struct SplashView: View {
     @ObservedObject var viewModel: LoginViewModel
     
@@ -24,7 +27,7 @@ struct SplashView: View {
                 .aspectRatio(contentMode: .fit)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.blackground, ignoresSafeAreaEdges: .all)
+        .background(DSKitAsset.blackground.swiftUIColor, ignoresSafeAreaEdges: .all)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, execute: {
                 viewModel.handleSplashScreen()

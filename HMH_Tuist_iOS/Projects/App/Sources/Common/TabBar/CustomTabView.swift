@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import DSKit
+
 struct CustomTabView: View {
     @Binding var selectedTab: Tab
     
@@ -14,7 +16,7 @@ struct CustomTabView: View {
         
         VStack {
             Divider()
-                .background(Color.gray8)
+                .background(DSKitAsset.gray8.swiftUIColor)
             Spacer()
             HStack(spacing: 30) {
                 Spacer()
@@ -27,7 +29,7 @@ struct CustomTabView: View {
             }
         }
         .frame(height: 66)
-        .background(Color.gray7)
+        .background(DSKitAsset.gray7.swiftUIColor)
     }
     
 }
@@ -55,7 +57,7 @@ struct TabButton: View {
                     .font(.detail3_semibold_12)
             }
             .frame(width: 60, height: 49)
-            .tint(selectedTab == tab ? .whiteBtn : .gray3)
+            .tint(selectedTab == tab ? DSKitAsset.whiteBtn.swiftUIColor : DSKitAsset.gray3.swiftUIColor)
         }
     }
     

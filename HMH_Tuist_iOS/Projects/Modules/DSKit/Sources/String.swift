@@ -9,9 +9,9 @@ import Foundation
 
 public enum StringLiteral {
     public enum TabBar {
-        static var challengeTitle = "챌린지"
-        static var homeTitle = "홈"
-        static var myPageTitle = "마이페이지"
+        public static var challengeTitle = "챌린지"
+        public static var homeTitle = "홈"
+        public static var myPageTitle = "마이페이지"
     }
     
     public enum NavigationBar {
@@ -34,11 +34,11 @@ public enum StringLiteral {
     }
     
     public enum Challenge {
-        static let noChallengeTitle = "별을 향한 새로운\n챌린지를 생성해 주세요"
-        static let createButton = "챌린지 생성하기"
-        static let pointTitle = "일차 보상"
-        static let pointSubTitle = "일 챌린지"
-        static let pointButton = "+"
+        public static let noChallengeTitle = "별을 향한 새로운\n챌린지를 생성해 주세요"
+        public static let createButton = "챌린지 생성하기"
+        public static let pointTitle = "일차 보상"
+        public static let pointSubTitle = "일 챌린지"
+        public static let pointButton = "+"
     }
     
     enum MyPage {
@@ -83,8 +83,8 @@ public enum StringLiteral {
     }
     
     public enum LoginButton {
-        static var apple = "Apple ID로 계속하기"
-        static var kakao = "Kakao로 계속하기"
+        public static var apple = "Apple ID로 계속하기"
+        public static var kakao = "Kakao로 계속하기"
     }
     
     public enum OnboardingButton {
@@ -136,9 +136,9 @@ public enum StringLiteral {
     }
     
     public enum OnboardingComplete {
-        static var title = "회원가입 완료!"
-        static var subTitle = "하면함의 챌린저가 되신 걸 환영해요\n그럼, 블랙홀 탈출 스토리부터 알아볼까요?"
-        static var button = "탈출 스토리 보기"
+        public static var title = "회원가입 완료!"
+        public static var subTitle = "하면함의 챌린저가 되신 걸 환영해요\n그럼, 블랙홀 탈출 스토리부터 알아볼까요?"
+        public static var button = "탈출 스토리 보기"
     }
     
     public enum MyPageButton {
@@ -163,5 +163,11 @@ public enum StringLiteral {
         public static var title = "서비스 준비 중이에요"
         public static var subtitle = "더 나은 서비스가 될테니\n조금만 기다려 주세요 :)"
         public static var button = "서비스 센터에 연락해 해제"
+    }
+    
+    public enum GuideTitle {
+        public static let first = "나의 스크린타임에 가장 큰 영향을 주는\n앱을 추가해 사용을 제한하세요!"
+        public static let second = "나의 스마트폰 스크린타임이\n내가 목표한 시간을 넘기면"
+        public static let third = "추가한 앱들의 이용이 제한됩니다"
     }
 }

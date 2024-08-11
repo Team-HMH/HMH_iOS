@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+import ChallengeFeature
+import HomeFeature
+import MyPageFeature
+
 enum Tab: CaseIterable {
     case challengeView
     case homeView
@@ -16,7 +20,7 @@ enum Tab: CaseIterable {
     var view: some View {
         switch self {
         case .challengeView: ChallengeView(viewModel: .init())
-        case .homeView: HomeView(homeViewModel: .init())
+        case .homeView: HomeView()
         case .myPageView: MyPageView()
         }
     }

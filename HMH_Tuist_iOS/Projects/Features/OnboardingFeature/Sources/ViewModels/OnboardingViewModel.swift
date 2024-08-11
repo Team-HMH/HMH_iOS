@@ -14,7 +14,7 @@ import DSKit
 import Domain
 
 
-class OnboardingViewModel: ObservableObject {
+public class OnboardingViewModel: ObservableObject {
     
     //TODO: 말썽꾸러기 스크린뷰모델
 //    var screenViewModel: ScreenTimeViewModel
@@ -28,7 +28,7 @@ class OnboardingViewModel: ObservableObject {
     var onboardingState: Int
     
     @Published
-    var isCompleted: Bool
+    public var isCompleted: Bool
     
     @Published
     var isPickerPresented: Bool = false
@@ -169,7 +169,7 @@ class OnboardingViewModel: ObservableObject {
         onboardingState = 0
     }
     
-    func getSurveyState() -> Int {
+    public func getSurveyState() -> Int {
         return onboardingState <= 2 ? onboardingState : 0
     }
     

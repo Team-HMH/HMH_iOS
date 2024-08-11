@@ -9,12 +9,14 @@ import SwiftUI
 
 import DSKit
 
-struct MyPageView: View {
+public struct MyPageView: View {
+    
+    public init() {}
     
     @StateObject
     var viewModel = MyPageViewModel()
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Spacer()
                 .frame(height: 64)

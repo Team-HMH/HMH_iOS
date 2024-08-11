@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+import Core
+import DSKit
+
 struct StoryContentView: View {
     @State var storyState = 0
     
@@ -20,11 +23,11 @@ struct StoryContentView: View {
                 .frame(height: 40)
             Text("아무데나 눌러서 이동")
                 .font(.text5_medium_16)
-                .foregroundColor(.gray1)
+                .foregroundColor(DSKitAsset.gray1.swiftUIColor)
             
         }
         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
-        .background(.blackground, ignoresSafeAreaEdges: .all)
+        .background(DSKitAsset.blackground.swiftUIColor, ignoresSafeAreaEdges: .all)
         .navigationBarBackButtonHidden()
         .onTapGesture {
             self.storyState += 1

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import DSKit
+
 struct SurveyButton: View {
     
     var numberOfRow: Int
@@ -24,9 +26,9 @@ struct SurveyButton: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 62)
-        .foregroundColor(.whiteBtn)
-        .background(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].isSelected ? .bluePurpleOpacity22 : .gray7)
-        .border(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].isSelected ? .bluePurpleLine : .gray7, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+        .foregroundColor(DSKitAsset.whiteBtn.swiftUIColor)
+        .background(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].isSelected ? DSKitAsset.bluePurpleOpacity22.swiftUIColor : DSKitAsset.gray7.swiftUIColor)
+        .border(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].isSelected ? DSKitAsset.bluePurpleLine.swiftUIColor : DSKitAsset.gray7.swiftUIColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }

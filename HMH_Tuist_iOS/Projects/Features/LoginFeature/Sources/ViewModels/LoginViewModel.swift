@@ -6,13 +6,13 @@ import KakaoSDKUser
 import Core
 import DSKit
 
-class LoginViewModel: NSObject, ObservableObject {
+public class LoginViewModel: NSObject, ObservableObject {
     
-    @Published var isLoading: Bool = true
+    @Published public var isLoading: Bool = true
     @Published var isPresented: Bool = false
     @Published var alertType: CustomAlertType = .unlock
     
-    func handleSplashScreen() {
+    public func handleSplashScreen() {
         self.isLoading = false
     }
     
@@ -74,7 +74,7 @@ class LoginViewModel: NSObject, ObservableObject {
 
 extension LoginViewModel: ASAuthorizationControllerDelegate {
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
@@ -100,7 +100,7 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
         guard let idToken = String(data: credential.identityToken ?? Data(), encoding: .utf8) else { return print("no idToken!!") }
     }
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print(error.localizedDescription)
     }
 }

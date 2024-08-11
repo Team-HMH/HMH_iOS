@@ -12,7 +12,7 @@ import Domain
 final class PointViewModel: ObservableObject {
     @Published var challengeDay = 1
     @Published var currentPoint = 0
-    @Published var pointList: [PointList] = []
+    @Published public var pointList: [PointList] = []
     @Published var statusList: [String] = []
     @Published var isPresented = false
     @Published var earnPoint = 0

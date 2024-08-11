@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-import OnboardingFeature
 import DSKit
 
 struct PickerView: UIViewRepresentable {

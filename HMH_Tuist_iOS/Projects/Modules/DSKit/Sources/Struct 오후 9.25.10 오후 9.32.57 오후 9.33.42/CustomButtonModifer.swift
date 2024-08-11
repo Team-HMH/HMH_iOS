@@ -24,8 +24,9 @@ struct HMHButtonStyle: ButtonStyle {
     }
 }
 
-struct CustomButtonStyle: ViewModifier {
-    func body(content: Content) -> some View {
+public struct CustomButtonStyle: ViewModifier {
+    public init() {}
+    public func body(content: Content) -> some View {
         content
             .frame(height: 52)
             .frame(maxWidth: .infinity)

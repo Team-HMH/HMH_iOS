@@ -96,12 +96,12 @@ struct CustomAlertModifier: ViewModifier {
 
 public struct CustomAlertButtonView: View {
     
-    typealias Action = () -> Void
+    public typealias Action = () -> Void
     @Binding var isPresented: Bool
     
-    var action: Action
-    var buttonType: CustomAlertButtonType
-    var alertType: CustomAlertType
+    public var action: Action
+    public var buttonType: CustomAlertButtonType
+    public var alertType: CustomAlertType
     
     private var buttonBackgroundColor: Color {
         switch (buttonType, alertType) {
@@ -114,7 +114,7 @@ public struct CustomAlertButtonView: View {
         }
     }
     
-    init(buttonType: CustomAlertButtonType,
+    public init(buttonType: CustomAlertButtonType,
          alertType: CustomAlertType,
          isPresented: Binding<Bool>,
          action: @escaping Action) {
@@ -144,6 +144,14 @@ public struct CustomAlertView: View {
     let cancelBtn: CustomAlertButtonView
     let currentPoint: Int
     let usagePoint: Int
+    
+    public init(alertType: CustomAlertType, confirmBtn: CustomAlertButtonView, cancelBtn: CustomAlertButtonView, currentPoint: Int, usagePoint: Int) {
+        self.alertType = alertType
+        self.confirmBtn = confirmBtn
+        self.cancelBtn = cancelBtn
+        self.currentPoint = currentPoint
+        self.usagePoint = usagePoint
+    }
     
     public var body: some View {
         ZStack {
@@ -184,7 +192,7 @@ public struct CustomAlertView: View {
 }
 
 extension View {
-    func customAlert(isPresented: Binding<Bool>, customAlert: @escaping () -> CustomAlertView) -> some View {
+    public func customAlert(isPresented: Binding<Bool>, customAlert: @escaping () -> CustomAlertView) -> some View {
         self.modifier(CustomAlertModifier(isPresent: isPresented, alert: customAlert))
     }
 }

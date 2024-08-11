@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import DSKit
+
 struct MyPageButton: View {
     
     @ObservedObject var viewModel: MyPageViewModel
@@ -26,13 +28,13 @@ struct MyPageButton: View {
                 Text(viewModel.getButtonTitle(type: buttonType))
                     .font(.text5_medium_16)
                 Spacer()
-                Image(buttonType == .travel ? .chevrongray : .chevronRight)
+                Image(uiImage: buttonType == .travel ? DSKitAsset.chevrongray.image : DSKitAsset.chevronRight.image)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 58)
-            .foregroundColor(buttonType == .travel ? .gray5 : .whiteText)
+            .foregroundColor(buttonType == .travel ? DSKitAsset.gray5.swiftUIColor : DSKitAsset.whiteText.swiftUIColor)
         }
-        .background(.blackground)
+        .background(DSKitAsset.blackground.swiftUIColor)
         .onTapGesture {
             viewModel.myPageButtonClick(type: buttonType)
         }

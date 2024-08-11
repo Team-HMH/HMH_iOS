@@ -7,7 +7,10 @@ import Lottie
 import DSKit
 import BaseFeatureDependency
 
-struct HomeView: View {
+public struct HomeView: View {
+    
+    public init() {} 
+    
     //TODO: 말썽꾸러기 스크린뷰모델
 //    @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @StateObject var homeViewModel = HomeViewModel()
@@ -23,7 +26,7 @@ struct HomeView: View {
         devices: .init([.iPhone, .iPad])
     )
     
-    var body: some View {
+    public var body: some View {
         ScrollView {
             main
         }
@@ -39,7 +42,7 @@ struct HomeView: View {
 }
 
 extension HomeView {
-    var main: some View {
+    public var main: some View {
         VStack {
             DeviceActivityReport(appContext, filter: appFilter)
             //TODO: 말썽꾸러기 스크린뷰모델

@@ -19,14 +19,14 @@ public class UserManager: ObservableObject {
         }
     }
     
-    @Published var appState: AppState = .login
-    @Published var isFirstLogin: Bool {
+    @Published public var appState: AppState = .login
+    @Published public var isFirstLogin: Bool {
         didSet {
             UserDefaults.standard.set(isFirstLogin, forKey: "isFirstLogin")
         }
     }
    
-    //TODO: 의존성 주입 or 다른 방법으로 바꿔야 합니다!!! 최악의 방법인 싱글톤
+    //TODO: 의존성 주입 or 다른 방법으로 바꿔야 합니다!!! 최악의 방법인 싱글톤 패턴 자체가 아님
     public static let shared = UserManager()
     
     private init() {

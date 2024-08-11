@@ -9,6 +9,10 @@ import UserNotifications
 import UIKit
 import SwiftUI
 
+import ChallengeFeature
+import DSKit
+import Core
+
 class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
 
@@ -41,10 +45,10 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     }
 }
 
-class AppStateViewModel: ObservableObject {
+public class AppStateViewModel: ObservableObject {
     static let shared = AppStateViewModel()
     
-    @StateObject var screenTimeModel = ScreenTimeViewModel()
+//    @StateObject var screenTimeModel = ScreenTimeViewModel()
     @StateObject var challengeModel = ChallengeViewModel()
     
     @Published var showCustomAlert: Bool = false
@@ -80,42 +84,43 @@ class AppStateViewModel: ObservableObject {
     }
     
     /// 포인트 사용해서 잠금 해제하는 부분
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func patchPointUse() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let currentDate = dateFormatter.string(from: Date())
-        let request = PointRequestDTO(challengeDate: currentDate)
-        Providers.pointProvider.request(target: .patchPointUse(data: request),
-                                        instance: BaseResponse<PatchPointUseResponseDTO>.self) { result in
-            if result.status == 400 {
-                self.currentAlertType = .insufficientPoints
-            } else if result.status == 200 {
-                // 특정 앱이 아닌 설정해둔 모든 앱이 잠기므로 모든 앱 잠금 해제
-                self.screenTimeModel.unblockAllApps()
-                self.currentAlertType = .unlockComplete
-                self.challengeModel.sendFailChallenge(date: Date().formattedString())
-            } else {
-                self.showCustomAlert = false
-            }
-            guard let data = result.data else { return }
-        }
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let currentDate = dateFormatter.string(from: Date())
+//        let request = PointRequestDTO(challengeDate: currentDate)
+//        Providers.pointProvider.request(target: .patchPointUse(data: request),
+//                                        instance: BaseResponse<PatchPointUseResponseDTO>.self) { result in
+//            if result.status == 400 {
+//                self.currentAlertType = .insufficientPoints
+//            } else if result.status == 200 {
+//                // 특정 앱이 아닌 설정해둔 모든 앱이 잠기므로 모든 앱 잠금 해제
+//                self.screenTimeModel.unblockAllApps()
+//                self.currentAlertType = .unlockComplete
+//                self.challengeModel.sendFailChallenge(date: Date().formattedString())
+//            } else {
+//                self.showCustomAlert = false
+//            }
+//            guard let data = result.data else { return }
+//        }
     }
     // 포인트를 사용해 이용시간 잠금을 해제할 때 사용하는 api
-    
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func getUsagePoint() {
-        Providers.pointProvider.request(target: .getUsagePoint,
-                                        instance: BaseResponse<UsagePointResponseDTO>.self) { result in
-            guard let data = result.data else { return }
-            self.usagePoint = data.usagePoint
-        }
+//        Providers.pointProvider.request(target: .getUsagePoint,
+//                                        instance: BaseResponse<UsagePointResponseDTO>.self) { result in
+//            guard let data = result.data else { return }
+//            self.usagePoint = data.usagePoint
+//        }
     }
     // 앱 잠금해제시에 사용될 포인트를 조회하는 api입니다.
-    
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func getCurrentPoint() {
-        Providers.pointProvider.request(target: .getCurrentPoint,
-                                        instance: BaseResponse<Int>.self) { result in
-            guard let data = result.data else { return }
-            self.currentPoint = data
-        }
+//        Providers.pointProvider.request(target: .getCurrentPoint,
+//                                        instance: BaseResponse<Int>.self) { result in
+//            guard let data = result.data else { return }
+//            self.currentPoint = data
+//        }
     }
 }

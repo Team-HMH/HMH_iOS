@@ -10,7 +10,7 @@ import SwiftUI
 import Core
 import DSKit
 
-enum MyPageButtonType {
+public enum MyPageButtonType {
     case travel
     case market
     case term

@@ -9,6 +9,14 @@ import SwiftUI
 
 import KakaoSDKAuth
 
+import LoginFeature
+import OnboardingFeature
+import MyPageFeature
+import HomeFeature
+
+import DSKit
+import Core
+
 struct ContentView: View {
     @StateObject var loginViewModel = LoginViewModel()
     @StateObject var userManager = UserManager.shared
@@ -18,7 +26,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color(.blackground)
+            Color(DSKitAsset.blackground.swiftUIColor)
                 .ignoresSafeArea()
             if loginViewModel.isLoading {
                 SplashView(viewModel: loginViewModel)

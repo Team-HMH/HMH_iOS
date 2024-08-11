@@ -9,11 +9,12 @@ import SwiftUI
 import FamilyControls
 
 import DSKit
+import Core
 
-struct OnboardingContentView: View {
+public struct OnboardingContentView: View {
     
     //TODO: 말썽꾸러기 스크린뷰모델
-//    @StateObject var screenViewModel = ScreenTimeViewModel()
+    //    @StateObject var screenViewModel = ScreenTimeViewModel()
     @StateObject
     var onboardingViewModel: OnboardingViewModel
     @State private var selection = FamilyActivitySelection()
@@ -21,15 +22,16 @@ struct OnboardingContentView: View {
     var isChallengeMode: Bool
     @Environment(\.presentationMode) var presentationMode
     
-    init(isChallengeMode: Bool = false, onboardingState: Int = 0) {
+    public init(isChallengeMode: Bool = false, onboardingState: Int = 0) {
         //TODO: 말썽꾸러기 스크린뷰모델
-//        let screenTimeViewModel = ScreenTimeViewModel()
-//        _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
-//        _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
-//        self.isChallengeMode = isChallengeMode
+        //        let screenTimeViewModel = ScreenTimeViewModel()
+        //        _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
+        //        _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
+        _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(onboardingState: onboardingState, isChallengeMode: isChallengeMode))
+        self.isChallengeMode = isChallengeMode
     }
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color(DSKitAsset.blackground.swiftUIColor)
                 .ignoresSafeArea()
@@ -64,7 +66,7 @@ struct OnboardingContentView: View {
                               selection: $selection)
         .onChange(of: selection) { newSelection in
             //TODO: 말썽꾸러기 스크린뷰모델
-//            screenViewModel.updateSelectedApp(newSelection: newSelection)
+            //            screenViewModel.updateSelectedApp(newSelection: newSelection)
         }
         .onChange(of: onboardingViewModel.isPickerPresented) { isPresented in
             if !isPresented {
@@ -74,7 +76,7 @@ struct OnboardingContentView: View {
         }
         .onAppear() {
             //TODO: 말썽꾸러기 스크린뷰모델
-//            selection = screenViewModel.selectedApp
+            //            selection = screenViewModel.selectedApp
             onboardingViewModel.handleOnAppear()
         }
         .showToast(toastType: .onboardingWarn, isPresented: $onboardingViewModel.isOnboardingError)
@@ -111,7 +113,7 @@ extension OnboardingContentView {
             Button(action: {
                 onboardingViewModel.backButtonTapped()
             }, label: {
-                Image(.chevronLeft)
+                Image(uiImage: DSKitAsset.chevronLeft.image)
                     .frame(width: 24, height: 24)
             })
             Spacer()
@@ -123,12 +125,12 @@ extension OnboardingContentView {
         VStack {
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .foregroundColor(.gray3)
+                    .foregroundColor(DSKitAsset.gray3.swiftUIColor)
                     .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                     .frame(height: 4)
                     .cornerRadius(1.0)
                 Rectangle()
-                    .foregroundColor(.bluePurpleLine)
+                    .foregroundColor(DSKitAsset.bluePurpleLine.swiftUIColor)
                     .frame(width: CGFloat(onboardingViewModel.onboardingState) / CGFloat(6) * 334, height: 4)
                     .cornerRadius(10.0)
                     .animation(Animation.spring(duration: 0.5), value: onboardingViewModel.onboardingState)
@@ -141,11 +143,11 @@ extension OnboardingContentView {
             Text(onboardingViewModel.getOnboardigMain())
                 .font(.title3_semibold_22)
                 .lineSpacing(1.5)
-                .foregroundStyle(.whiteText)
+                .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
             Text(onboardingViewModel.getOnboardigSub())
                 .font(.detail1_regular_14)
                 .lineSpacing(1.5)
-                .foregroundStyle(.gray2)
+                .foregroundStyle(DSKitAsset.gray2.swiftUIColor)
         }
     }
     

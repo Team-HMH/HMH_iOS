@@ -10,10 +10,14 @@ import AuthenticationServices
 
 import DSKit
 
-struct LoginView: View {
+public struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel
+    
+    public init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+    }
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color(DSKitAsset.blackground.swiftUIColor)
                 .ignoresSafeArea()

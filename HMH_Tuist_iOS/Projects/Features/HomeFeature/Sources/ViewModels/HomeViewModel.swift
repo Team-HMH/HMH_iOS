@@ -13,7 +13,7 @@ import Combine
 
 import Core
 
-class HomeViewModel: ObservableObject {
+public class HomeViewModel: ObservableObject {
     @AppStorage(AppStorageKey.totalGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var totalGoalTimeDouble = 0
     @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
@@ -26,7 +26,7 @@ class HomeViewModel: ObservableObject {
     //TODO: 말썽꾸러기 스크린뷰모델
 //    @StateObject var screenTimeVM = ScreenTimeViewModel()
     
-    init(){
+    public init(){
         getDailyChallenge()
     }
     
