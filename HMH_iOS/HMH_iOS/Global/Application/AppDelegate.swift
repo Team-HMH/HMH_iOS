@@ -9,8 +9,10 @@ import UIKit
 import SwiftUI
 import UserNotifications
 import BackgroundTasks
+import Amplitude
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    let amplitudeAPIKey = Bundle.main.infoDictionary?["AMPLITUDE_API_KEY"] as! String
     var appStateViewModel = AppStateViewModel.shared
     let taskIdentifier = "com.HMH.dailyTask"
     
@@ -25,6 +27,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         sendDailyChallengeDataIfNeeded()
         registerBackgroundTasks()
         scheduleDailyResetTask()
+        
+        Amplitude.instance().defaultTracking.sessions = true
+        Amplitude.instance().defaultTracking.screenViews = true
+        Amplitude.instance().defaultTracking = AMPDefaultTrackingOptions.initWithAllEnabled()
+        Amplitude.instance().initializeApiKey(amplitudeAPIKey)
         
         return true
     }
