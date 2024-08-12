@@ -8,6 +8,9 @@
 import SwiftUI
 import DeviceActivity
 
+import Core
+import DSKit
+
 struct AppActivityReport: DeviceActivityReportScene {
     @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var appGoalTimeDouble = 0
@@ -18,7 +21,8 @@ struct AppActivityReport: DeviceActivityReportScene {
     @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var isFail: Bool = false
     
-    @ObservedObject var screenTimeViewModel = ScreenTimeViewModel()
+    //TODO: 이거 모듈간 의존성 어떻게 할지 생각하고 다시 정하기 위해서 주석처리해둠
+//    @ObservedObject var screenTimeViewModel = ScreenTimeViewModel()
     let context : DeviceActivityReport.Context = .appActivity
     let content: (ActivityReport) -> AppActivityView
     

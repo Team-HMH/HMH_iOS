@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import DSKit
+
 struct SwipeView: View {
     var imageNames: [ImageResource]
     private let timer = Timer.publish(every: 3.0, on: .main, in: .common).autoconnect()
@@ -29,7 +31,7 @@ struct SwipeView: View {
             HStack {
                 ForEach(0..<imageNames.count, id: \.self) { index in
                     Rectangle()
-                        .fill(selectedImageIndex == index ? Color(.white) : Color(.gray2))
+                        .fill(selectedImageIndex == index ? Color(.white) : Color(DSKitAsset.gray2.swiftUIColor))
                         .frame(width: 8, height: 8)
                         .onTapGesture {
                             selectedImageIndex = index

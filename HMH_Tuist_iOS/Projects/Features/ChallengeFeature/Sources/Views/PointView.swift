@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+import Core
+import DSKit
+
 struct PointView: View {
     @StateObject var viewModel = PointViewModel()
     
@@ -30,28 +33,30 @@ extension PointView {
                              showBackButton: true,
                              showPointButton: true,
                              isPointView: true, point: viewModel.currentPoint)
-        .background(.blackground)
+        .background(DSKitAsset.blackground.swiftUIColor)
         .navigationBarHidden(true)
     }
     
     private var listView: some View {
-        ForEach(viewModel.pointList.indices, id: \.self) { index in
-            let point = viewModel.pointList[index]
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("\(index + 1)" + StringLiteral.Challenge.pointTitle)
-                        .font(.text4_semibold_16)
-                        .foregroundColor(.whiteText)
-                        .padding(.bottom, 2)
-                    Text("\(viewModel.challengeDay)" + StringLiteral.Challenge.pointSubTitle)
-                        .font(.detail4_medium_12)
-                        .foregroundColor(.gray2)
-                }
-                Spacer()
-                EarnPointButton(day: index, status: viewModel.statusList[index], viewModel: viewModel)
-            }
-            .frame(height: 80)
-        }
+        Spacer()
+        //TODO: 무슨 에러인지 일단 모르겟어서 고쳐봅시다
+//        ForEach(viewModel.pointList.indices, id: \.self) { index in
+//            let point = viewModel.pointList[index]
+//            HStack {
+//                VStack(alignment: .leading) {
+//                    Text("\(index + 1)" + StringLiteral.Challenge.pointTitle)
+//                        .font(.text4_semibold_16)
+//                        .foregroundColor(.whiteText)
+//                        .padding(.bottom, 2)
+//                    Text("\(viewModel.challengeDay)" + StringLiteral.Challenge.pointSubTitle)
+//                        .font(.detail4_medium_12)
+//                        .foregroundColor(.gray2)
+//                }
+//                Spacer()
+//                EarnPointButton(day: index, status: viewModel.statusList[index], viewModel: viewModel)
+//            }
+//            .frame(height: 80)
+//        }
     }
 }
 
@@ -80,30 +85,30 @@ struct EarnPointButton: View {
     private var buttonColor: Color {
         switch status {
         case "UNEARNED":
-            return .bluePurpleButton
+            return DSKitAsset.bluePurpleButton.swiftUIColor
         case "EARNED":
-            return .bluePurpleOpacity22
+            return DSKitAsset.bluePurpleOpacity22.swiftUIColor
         case "FAILURE":
-            return .gray6
+            return DSKitAsset.gray6.swiftUIColor
         case "NONE":
-            return .gray7
+            return DSKitAsset.gray7.swiftUIColor
         default:
-            return .gray7
+            return DSKitAsset.gray7.swiftUIColor
         }
     }
     
     private var buttonTextColor: Color {
         switch status {
         case "UNEARNED":
-            return .whiteBtn
+            return DSKitAsset.whiteBtn.swiftUIColor
         case "EARNED":
-            return .bluePurpleOpacity70
+            return DSKitAsset.bluePurpleOpacity70.swiftUIColor
         case "FAILURE":
-            return .gray2
+            return DSKitAsset.gray2.swiftUIColor
         case "NONE":
-            return .gray3
+            return DSKitAsset.gray3.swiftUIColor
         default:
-            return .gray3
+            return DSKitAsset.gray3.swiftUIColor
         }
     }
 }

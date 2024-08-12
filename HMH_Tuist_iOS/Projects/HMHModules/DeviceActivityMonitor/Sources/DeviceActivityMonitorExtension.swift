@@ -13,15 +13,18 @@ import UserNotifications
 
 import SwiftUI
 import FamilyControls
+import Core
 
 // Optionally override any of the functions below.
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
-    @AppStorage(AppStorageKey.selectionApp.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
+    //TODO: 이 부분 왜 에러나는지 모르겟용
+//    @AppStorage(AppStorageKey.selectionApp.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var selectionApps = FamilyActivitySelection()
     
-    @StateObject var screenTimeVM = ScreenTimeViewModel()
+    //TODO: 이거 모듈간 의존성 어떻게 할지 생각하고 다시 정하기 위해서 주석처리해둠
+//    @StateObject var screenTimeVM = ScreenTimeViewModel()
     
     let store = ManagedSettingsStore()
     let userNotiCenter = UNUserNotificationCenter.current()
@@ -39,7 +42,8 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     override func eventDidReachThreshold(_ event: DeviceActivityEvent.Name, activity: DeviceActivityName) {
         store.shield.applications = selectionApps.applicationTokens // 이러면 다른 앱도 잠김
         Task {
-            await screenTimeVM.handleSetBlockApplication()
+            //TODO: 이거 모듈간 의존성 어떻게 할지 생각하고 다시 정하기 위해서 주석처리해둠
+//            await screenTimeVM.handleSetBlockApplication()
         }
         let notiContent = UNMutableNotificationContent()
         notiContent.title = "하면함"

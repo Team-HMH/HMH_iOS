@@ -7,10 +7,17 @@
 
 import SwiftUI
 import FamilyControls
+import Foundation
 
-class OnboardingViewModel: ObservableObject {
+import Core
+import DSKit
+import Domain
+
+
+public class OnboardingViewModel: ObservableObject {
     
-    var screenViewModel: ScreenTimeViewModel
+    //TODO: 말썽꾸러기 스크린뷰모델
+//    var screenViewModel: ScreenTimeViewModel
     
     @Published
     var surveyButtonItems: [[SurveyButtonInfo]]
@@ -21,7 +28,7 @@ class OnboardingViewModel: ObservableObject {
     var onboardingState: Int
     
     @Published
-    var isCompleted: Bool
+    public var isCompleted: Bool
     
     @Published
     var isPickerPresented: Bool = false
@@ -88,16 +95,19 @@ class OnboardingViewModel: ObservableObject {
                 addOnboardingState()
             }
         case 3:
-            screenViewModel.requestAuthorization()
-            if screenViewModel.authorizationCenter.authorizationStatus == .approved {
-                onboardingState += 1
-            }
+            break
+            //TODO: 말썽꾸러기 스크린뷰모델
+//            screenViewModel.requestAuthorization()
+//            if screenViewModel.authorizationCenter.authorizationStatus == .approved {
+//                onboardingState += 1
+//            }
         case 4:
             isPickerPresented = true
         case 5:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
             if isChallengeMode {
-                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
+                //TODO: 말썽꾸러기 스크린뷰모델
+//                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
                 addOnboardingState()
             } else {
                 addOnboardingState()
@@ -105,7 +115,8 @@ class OnboardingViewModel: ObservableObject {
             offIsCompleted()
         case 6:
             self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
-            screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
+            //TODO: 말썽꾸러기 스크린뷰모델
+//            screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
             if isChallengeMode {
                 postCreateChallengeData()
                 isCompletePresented = true
@@ -158,7 +169,7 @@ class OnboardingViewModel: ObservableObject {
         onboardingState = 0
     }
     
-    func getSurveyState() -> Int {
+    public func getSurveyState() -> Int {
         return onboardingState <= 2 ? onboardingState : 0
     }
     
@@ -180,50 +191,75 @@ class OnboardingViewModel: ObservableObject {
     
     
     @MainActor func postSignUpLoginData() {
-        let appValues = [ Apps(appCode: "app goalTime", goalTime: appGoalTime) ]
-        let request = SignUpRequestDTO(socialPlatform: socialPlatform, name: userName, onboarding: Onboarding(averageUseTime: self.averageUseTime, problem: self.problems), challenge: Challenge(period: self.period, goalTime: self.goalTime, apps: appValues))
-        
-        let provider = Providers.AuthProvider
-        provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
-            print(data.status)
-            if data.status == 201 {
-                UserManager.shared.appStateString = "onboardingComplete"
-                UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
-                UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
-            } else if data.message == "이미 회원가입된 유저입니다." {
-                self.isOnboardingError = true
-            } else {
-                self.isOnboardingError = true
-            }
-        }
+        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+//        let appValues = [ Apps(
+//            appCode: "app goalTime",
+//            goalTime: appGoalTime
+//            )
+//        ]
+//        let request = SignUpRequestDTO(
+//            socialPlatform: socialPlatform,
+//            name: userName,
+//            onboarding: Onboarding(
+//                averageUseTime: self.averageUseTime,
+//                problem: self.problems
+//            ),
+//            challenge: Challenge(
+//                period: self.period,
+//                goalTime: self.goalTime,
+//                apps: appValues
+//            )
+//        )
+//        
+//        let provider = Providers.AuthProvider
+//        provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
+//            print(data.status)
+//            if data.status == 201 {
+//                UserManager.shared.appStateString = "onboardingComplete"
+//                UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
+//                UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
+//            } else if data.message == "이미 회원가입된 유저입니다." {
+//                self.isOnboardingError = true
+//            } else {
+//                self.isOnboardingError = true
+//            }
+//        }
     }
     
     func postCreateChallengeData() {
-        let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.goalTime)
-        
-        let provider = Providers.challengeProvider
-        provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
-            print(data.status)
-        }
+        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+//        let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.goalTime)
+//        
+//        let provider = Providers.challengeProvider
+//        provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
+//            print(data.status)
+//        }
     }
     
     func patchApp(appGoalTime: Int) {
-        let applist = [Apps(appCode: "#temp", goalTime: appGoalTime)]
-        let requestDTO = AddAppRequestDTO(apps: applist)
-        Providers.challengeProvider.request(target: .addApp(data: requestDTO),
-                                            instance: BaseResponse<AddAppResponseDTO>.self) { result in
-            print("result: \(result)")
-        }
+        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+//        let applist = [
+//            Apps(
+//                appCode: "#temp",
+//                goalTime: appGoalTime
+//            )
+//        ]
+//        let requestDTO = AddAppRequestDTO(apps: applist)
+//        Providers.challengeProvider.request(target: .addApp(data: requestDTO),
+//                                            instance: BaseResponse<AddAppResponseDTO>.self) { result in
+//            print("result: \(result)")
+//        }
     }
     
     @MainActor func createAppChallengeData(appGoalTime: Int) {
-        var applist: [Apps] = []
-        //        screenViewModel.hashVaule
-        applist = [Apps(appCode: "#24333", goalTime: appGoalTime)]
-        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { [weak self] result in
-            UserManager.shared.appStateString = "home"
-            self?.screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: self?.appGoalTime ?? 0)
-        }
+        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+//        var applist: [Apps] = []
+//        //        screenViewModel.hashVaule
+//        applist = [Apps(appCode: "#24333", goalTime: appGoalTime)]
+//        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { [weak self] result in
+//            UserManager.shared.appStateString = "home"
+//            self?.screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: self?.appGoalTime ?? 0)
+//        }
     }
     
     func changeSurveyButtonStatus(num: Int) {
@@ -323,7 +359,8 @@ class OnboardingViewModel: ObservableObject {
         }
     }
     
-    init(viewModel: ScreenTimeViewModel, onboardingState: Int = 0, isChallengeMode: Bool = false) {
+    //TODO: 말썽꾸러기 스크린뷰모델
+    init(/*viewModel: ScreenTimeViewModel, */onboardingState: Int = 0, isChallengeMode: Bool = false) {
         self.surveyButtonItems = [
             [
                 SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
@@ -354,7 +391,8 @@ class OnboardingViewModel: ObservableObject {
         self.period = 0
         self.goalTime = 0
         self.appGoalTime = 0
-        self.screenViewModel = viewModel
+        //TODO: 말썽꾸러기 스크린뷰모델
+//        self.screenViewModel = viewModel
         self.isChallengeMode = isChallengeMode
     }
 }

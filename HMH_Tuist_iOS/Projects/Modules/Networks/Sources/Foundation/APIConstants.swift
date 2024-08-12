@@ -8,6 +8,8 @@
 import Foundation
 import Moya
 
+import Core
+
 struct APIConstants {
     static let contentType = "Content-Type"
     static let applicationJSON = "application/json"

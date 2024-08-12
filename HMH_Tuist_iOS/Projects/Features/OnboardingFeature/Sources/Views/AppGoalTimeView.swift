@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import DSKit
+
 struct AppGoalTimeView: View {
     var timesHour = Array(0...1).map { String($0) }
     var timesMinute = Array(0...59).map { String($0) }
@@ -19,12 +21,12 @@ struct AppGoalTimeView: View {
                     .frame(width: 67)
                 Text("시간")
                     .font(.text2_medium_20)
-                    .foregroundColor(.gray2)
+                    .foregroundColor(DSKitAsset.gray2.swiftUIColor)
                 PickerView(times: timesMinute, selectedTimes: $viewModel.selectedAppMinute, viewModel: viewModel)
                     .frame(width: 67)
                 Text("분")
                     .font(.text2_medium_20)
-                    .foregroundColor(.gray2)
+                    .foregroundColor(DSKitAsset.gray2.swiftUIColor)
             }
         }
         .padding(.bottom, 150)
