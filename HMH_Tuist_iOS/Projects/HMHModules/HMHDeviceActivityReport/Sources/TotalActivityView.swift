@@ -9,6 +9,9 @@ import SwiftUI
 
 import Lottie
 
+import Core
+import DSKit
+
 struct TotalActivityView: View {
     @AppStorage(AppStorageKey.usageGrade.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var usageGrade = ""
@@ -25,8 +28,8 @@ struct TotalActivityView: View {
                     .aspectRatio(contentMode: .fit)
                 VStack(alignment: .leading){
                     Text(totalActivity.titleState.isEmpty ? StringLiteral.Home.usageStatusA : totalActivity.titleState[1])
-                        .font(.text1_medium_22)
-                        .foregroundStyle(.whiteText)
+                        .font(Font.text1_medium_22)
+                        .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
                         .frame(alignment: .topLeading)
                         .padding(EdgeInsets(top: 8,
                                             leading: 20,
@@ -36,7 +39,7 @@ struct TotalActivityView: View {
                     VStack(alignment: .leading) {
                         Text("목표 사용 시간 \(convertMillisecondsToHourString(milliseconds: totalActivity.totalGoalTime)) 중")
                             .font(.detail4_medium_12)
-                            .foregroundStyle(.gray2)
+                            .foregroundStyle(DSKitAsset.gray2.swiftUIColor)
                             .frame(alignment: .leading)
                             .padding(EdgeInsets(top: 0,
                                                 leading: 20,
@@ -45,24 +48,24 @@ struct TotalActivityView: View {
                         HStack {
                             Text("\(convertMillisecondsToHourString(milliseconds: totalActivity.totalTime)) 사용")
                                 .font(.title2_semibold_24)
-                                .foregroundStyle(.whiteText)
+                                .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Spacer()
                             Text(convertMillisecondsToHourString(milliseconds: totalActivity.remainTime) + " 남음")
                                 .font(.detail3_semibold_12)
-                                .foregroundStyle(.whiteText)
+                                .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
                         }
                         . padding(EdgeInsets(top: 2,
                                              leading: 20,
                                              bottom: 24,
                                              trailing: 20))
                         ProgressView(value: Double(totalActivity.totalTime), total: Double(totalActivity.totalGoalTime))
-                            .foregroundStyle(.gray5)
+                            .foregroundStyle(DSKitAsset.gray5.swiftUIColor)
                             .padding(EdgeInsets(top: 0,
                                                 leading: 20,
                                                 bottom: 0,
                                                 trailing: 20))
-                            .tint(.whiteText)
+                            .tint(DSKitAsset.whiteText.swiftUIColor)
                     }
                     .frame(maxHeight: 83)
                 }

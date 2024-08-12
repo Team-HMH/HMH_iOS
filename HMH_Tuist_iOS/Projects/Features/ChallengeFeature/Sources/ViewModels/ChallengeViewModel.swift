@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FamilyControls
+import Domain
 
 enum ChallengeType {
     case empty
@@ -14,7 +15,7 @@ enum ChallengeType {
     case large
 }
 
-final class ChallengeViewModel: ObservableObject {
+public final class ChallengeViewModel: ObservableObject {
     @Published var startDate = ""
     @Published var visableStartDate = ""
     @Published var todayIndex = 0
@@ -36,7 +37,7 @@ final class ChallengeViewModel: ObservableObject {
         static let failure = "FAILURE"
     }
     
-    init() {
+    public init() {
         getChallengeInfo()
     }
     
@@ -50,21 +51,21 @@ final class ChallengeViewModel: ObservableObject {
         }
     }
     
-    
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func getChallengeInfo() {
-        Providers.challengeProvider.request(target: .getChallenge,
-                                            instance: BaseResponse<GetChallengeResponseDTO>.self) { result in
-            guard let data = result.data else { return }
-            self.days = data.period
-            self.appList = data.apps
-            self.statuses = data.statuses
-            self.todayIndex = data.todayIndex
-            self.startDate = data.startDate
-            self.visableStartDate = self.formatDateString(data.startDate) ?? ""
-            
-            self.sendSucessIfNeeded()
-            self.getChallengeType()
-        }
+//        Providers.challengeProvider.request(target: .getChallenge,
+//                                            instance: BaseResponse<GetChallengeResponseDTO>.self) { result in
+//            guard let data = result.data else { return }
+//            self.days = data.period
+//            self.appList = data.apps
+//            self.statuses = data.statuses
+//            self.todayIndex = data.todayIndex
+//            self.startDate = data.startDate
+//            self.visableStartDate = self.formatDateString(data.startDate) ?? ""
+//            
+//            self.sendSucessIfNeeded()
+//            self.getChallengeType()
+//        }
     }
     
     func challengeButtonTapped() {
@@ -75,18 +76,19 @@ final class ChallengeViewModel: ObservableObject {
         }
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func addApp(appGoalTime: Int) {
-        var applist: [Apps] = []
-        
-        screenViewModel.selectedApp.applications.forEach { app in
-            applist.append(Apps(appCode: app.localizedDisplayName ?? "basic name", goalTime: appGoalTime))
-        }
-        
-        screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: appGoalTime)
-        
-        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-            print(result)
-        }
+//        var applist: [Apps] = []
+//        
+//        screenViewModel.selectedApp.applications.forEach { app in
+//            applist.append(Apps(appCode: app.localizedDisplayName ?? "basic name", goalTime: appGoalTime))
+//        }
+//        
+//        screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: appGoalTime)
+//        
+//        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+//            print(result)
+//        }
         
     }
     
@@ -104,28 +106,30 @@ final class ChallengeViewModel: ObservableObject {
         return formattedDateString
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func sendFailChallenge(date: String) {
-        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: [FinishedDailyChallenge(challengeDate: date, isSuccess: false)])
-        Providers.challengeProvider.request(target: .postDailyChallenge(data: midnightDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-            print("Daily challenge data sent successfully.")
-        }
+//        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: [FinishedDailyChallenge(challengeDate: date, isSuccess: false)])
+//        Providers.challengeProvider.request(target: .postDailyChallenge(data: midnightDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+//            print("Daily challenge data sent successfully.")
+//        }
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func sendSucessIfNeeded() {
-        let noneDates = findNoneDates(statuses: statuses, todayIndex: todayIndex, startDate: startDate)
-        var finishChallenges: [FinishedDailyChallenge] = []
-        
-        noneDates.forEach { date in
-            finishChallenges.append(FinishedDailyChallenge(challengeDate: date, isSuccess: true))
-        }
-        
-        if !(finishChallenges.isEmpty) {
-            let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
-            
-            Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-                print("Daily challenge data sent successfully.")
-            }
-        }
+//        let noneDates = findNoneDates(statuses: statuses, todayIndex: todayIndex, startDate: startDate)
+//        var finishChallenges: [FinishedDailyChallenge] = []
+//        
+//        noneDates.forEach { date in
+//            finishChallenges.append(FinishedDailyChallenge(challengeDate: date, isSuccess: true))
+//        }
+//        
+//        if !(finishChallenges.isEmpty) {
+//            let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
+//            
+//            Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
+//                print("Daily challenge data sent successfully.")
+//            }
+//        }
     }
     
     func findNoneDates(statuses: [String], todayIndex: Int, startDate: String) -> [String] {

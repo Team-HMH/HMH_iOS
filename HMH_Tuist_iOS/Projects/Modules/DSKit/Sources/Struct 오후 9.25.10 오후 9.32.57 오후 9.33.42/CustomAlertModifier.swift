@@ -1,0 +1,220 @@
+//
+//  CustomAlertModifier.swift
+//  HMH_iOS
+//
+//  Created by Seonwoo Kim on 5/13/24.
+//
+
+import SwiftUI
+
+public enum CustomAlertButtonType {
+    case Confirm
+    case Cancel
+}
+
+public enum CustomAlertType {
+    case unlock
+    case unlockComplete
+    case insufficientPoints
+    case usePoints
+    case withdraw
+    case challengeCreationComplete
+    case logout
+    
+    var frameHeight: CGFloat {
+        switch self {
+        case .unlock:
+            320
+        case .unlockComplete:
+            382
+        case .insufficientPoints:
+            320
+        case .usePoints:
+            350
+        case .withdraw:
+            220
+        case .challengeCreationComplete:
+            340
+        case .logout:
+            190
+        }
+    }
+        
+    var confirmButtonText: String {
+        switch self {
+        case .unlock:
+            StringLiteral.AlertConfirmButton.unlock
+        case .unlockComplete:
+            StringLiteral.AlertConfirmButton.unlockComplete
+        case .insufficientPoints:
+            StringLiteral.AlertConfirmButton.insufficientPoints
+        case .withdraw:
+            StringLiteral.AlertConfirmButton.withdraw
+        case .logout:
+            StringLiteral.AlertConfirmButton.logout
+        default:
+            ""
+        }
+    }
+    
+    var cancelButtonText: String {
+        switch self {
+        case .unlock:
+            StringLiteral.AlertCancelButton.unlock
+        case .unlockComplete:
+            StringLiteral.AlertCancelButton.unlockComplete
+        case .insufficientPoints:
+            StringLiteral.AlertCancelButton.insufficientPoints
+        case .withdraw:
+            StringLiteral.AlertCancelButton.withdraw
+        case .usePoints:
+            StringLiteral.AlertCancelButton.usePoints
+        case .logout:
+            StringLiteral.AlertCancelButton.logout
+        case .challengeCreationComplete:
+            StringLiteral.AlertCancelButton.challengeCreationComplete
+        }
+    }
+}
+
+struct CustomAlertModifier: ViewModifier {
+    
+    @Binding var isPresent: Bool
+    let alert: () -> CustomAlertView
+    
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                ZStack {
+                    if isPresent {
+                        alert()
+                    }
+                }
+            )
+    }
+}
+
+public struct CustomAlertButtonView: View {
+    
+    public typealias Action = () -> Void
+    @Binding var isPresented: Bool
+    
+    public var action: Action
+    public var buttonType: CustomAlertButtonType
+    public var alertType: CustomAlertType
+    
+    private var buttonBackgroundColor: Color {
+        switch (buttonType, alertType) {
+        case (.Confirm, _):
+            return .clear
+        case (.Confirm, .logout), (.Confirm, .withdraw):
+            return DSKitAsset.gray6.swiftUIColor
+        case (.Cancel, _):
+            return DSKitAsset.bluePurpleButton.swiftUIColor
+        }
+    }
+    
+    public init(buttonType: CustomAlertButtonType,
+         alertType: CustomAlertType,
+         isPresented: Binding<Bool>,
+         action: @escaping Action) {
+        self._isPresented = isPresented
+        self.action = action
+        self.buttonType = buttonType
+        self.alertType = alertType
+    }
+    
+    public var body: some View {
+        Button {
+            action()
+        } label: {
+            Text(buttonType == .Confirm ? alertType.confirmButtonText : alertType.cancelButtonText)
+                .foregroundColor(DSKitAsset.whiteBtn.swiftUIColor)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(buttonBackgroundColor)
+        .cornerRadius(8)
+    }
+}
+
+
+public struct CustomAlertView: View {
+    let alertType: CustomAlertType
+    let confirmBtn: CustomAlertButtonView
+    let cancelBtn: CustomAlertButtonView
+    let currentPoint: Int
+    let usagePoint: Int
+    
+    public init(alertType: CustomAlertType, confirmBtn: CustomAlertButtonView, cancelBtn: CustomAlertButtonView, currentPoint: Int, usagePoint: Int) {
+        self.alertType = alertType
+        self.confirmBtn = confirmBtn
+        self.cancelBtn = cancelBtn
+        self.currentPoint = currentPoint
+        self.usagePoint = usagePoint
+    }
+    
+    public var body: some View {
+        ZStack {
+            Color.black
+                .opacity(0.1)
+                .ignoresSafeArea()
+            
+            VStack(spacing: .zero) {
+                alertView
+            }
+            .frame(width: 310, height: alertType.frameHeight)
+            .background(DSKitAsset.gray7.swiftUIColor)
+            .cornerRadius(10)
+        }
+        .background(ClearBackground())
+    }
+    
+    private var alertView: some View {
+        Group {
+            switch alertType {
+            case .unlock:
+                UnlockAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            case .unlockComplete:
+                UnlockCompleteAlertView(confirmBtn: confirmBtn, currentPoint: currentPoint, usagePoint: usagePoint)
+            case .insufficientPoints:
+                InsufficientPointsAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            case .usePoints:
+                UsePointsAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn, currentPoint: currentPoint, usagePoint: usagePoint)
+            case .withdraw:
+                WithdrawAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            case .challengeCreationComplete:
+                ChallengeCreationCompleteAlertView(cancelBtn: cancelBtn)
+            case .logout:
+                LogoutAlertView(confirmBtn: confirmBtn, cancelBtn: cancelBtn)
+            }
+        }
+    }
+}
+
+extension View {
+    public func customAlert(isPresented: Binding<Bool>, customAlert: @escaping () -> CustomAlertView) -> some View {
+        self.modifier(CustomAlertModifier(isPresent: isPresented, alert: customAlert))
+    }
+}
+
+struct ClearBackground: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let view = ClearBackgroundView()
+        DispatchQueue.main.async {
+            view.superview?.superview?.backgroundColor = .clear
+        }
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIView, context: Context) {}
+}
+
+open class ClearBackgroundView: UIView {
+    open override func layoutSubviews() {
+        guard let parentView = superview?.superview else {
+            print("ERROR: Failed to get parent view to make it clear")
+            return
+        }
+        parentView.backgroundColor = .clear
+    }
+}

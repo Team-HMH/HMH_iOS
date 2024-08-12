@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import DSKit
+
 struct NextButtonView: View {
     
     @ObservedObject var viewModel: OnboardingViewModel
@@ -22,8 +24,9 @@ struct NextButtonView: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 52)
-            .foregroundColor(viewModel.isCompleted ? .whiteBtn : .gray2)
-            .background(viewModel.isCompleted ? .bluePurpleButton : .gray5)
+            .foregroundColor(
+                viewModel.isCompleted ? DSKitAsset.whiteBtn.swiftUIColor : DSKitAsset.gray2.swiftUIColor)
+            .background(viewModel.isCompleted ? DSKitAsset.bluePurpleButton.swiftUIColor : DSKitAsset.gray5.swiftUIColor)
             .clipShape(RoundedRectangle(cornerRadius: 4))
             .disabled(!viewModel.isCompleted)
         }

@@ -8,6 +8,9 @@
 import DeviceActivity
 import SwiftUI
 
+import Core
+import DSKit
+
 extension DeviceActivityReport.Context {
     // If your app initializes a DeviceActivityReport with this context, then the system will use
     // your extension's corresponding DeviceActivityReportScene to render the contents of the

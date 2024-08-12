@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Font {
+public extension Font {
     
     // title
     static let title1_semibold_32: Font = .custom("Pretendard-SemiBold", size: 32)

@@ -11,7 +11,9 @@ import FamilyControls
 import DeviceActivity
 import Combine
 
-class HomeViewModel: ObservableObject {
+import Core
+
+public class HomeViewModel: ObservableObject {
     @AppStorage(AppStorageKey.totalGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
     var totalGoalTimeDouble = 0
     @AppStorage(AppStorageKey.appGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
@@ -20,24 +22,27 @@ class HomeViewModel: ObservableObject {
     var usageGrade = ""
     
     @AppStorage("handleUsage") var isNotHandleUsage: Bool = true
-    @StateObject var screenTimeVM = ScreenTimeViewModel()
     
-    init(){
+    //TODO: 말썽꾸러기 스크린뷰모델
+//    @StateObject var screenTimeVM = ScreenTimeViewModel()
+    
+    public init(){
         getDailyChallenge()
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func getDailyChallenge() {
-        Providers.challengeProvider.request(target: .getdailyChallenge, instance: BaseResponse<HomeChallengeResponseDTO>.self) { result in
-            if let data = result.data {
-                self.totalGoalTimeDouble = data.goalTime
-                self.appGoalTimeDouble = data.apps[0].goalTime
-                if self.isNotHandleUsage {
-                    self.screenTimeVM.handleStartDeviceActivityMonitoring(interval: self.appGoalTimeDouble)
-                    self.screenTimeVM.handleTotalDeviceActivityMonitoring(interval: self.totalGoalTimeDouble/60000)
-                    self.isNotHandleUsage = false
-                }
-            }
-        }
+//        Providers.challengeProvider.request(target: .getdailyChallenge, instance: BaseResponse<HomeChallengeResponseDTO>.self) { result in
+//            if let data = result.data {
+//                self.totalGoalTimeDouble = data.goalTime
+//                self.appGoalTimeDouble = data.apps[0].goalTime
+//                if self.isNotHandleUsage {
+//                    self.screenTimeVM.handleStartDeviceActivityMonitoring(interval: self.appGoalTimeDouble)
+//                    self.screenTimeVM.handleTotalDeviceActivityMonitoring(interval: self.totalGoalTimeDouble/60000)
+//                    self.isNotHandleUsage = false
+//                }
+//            }
+//        }
     }
     
     func convertMillisecondsToTimeInterval(milliseconds: Int) -> TimeInterval {

@@ -7,7 +7,10 @@
 
 import SwiftUI
 
-enum MyPageButtonType {
+import Core
+import DSKit
+
+public enum MyPageButtonType {
     case travel
     case market
     case term
@@ -46,12 +49,13 @@ class MyPageViewModel: ObservableObject {
         }
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func getUserData() {
-        let provider = Providers.myPageProvider
-        provider.request(target: .getUserData, instance: BaseResponse<GetUserDataResponseDTO>.self) { data in
-            self.name = data.data?.name ?? ""
-            self.point = data.data?.point ?? 0
-        }
+//        let provider = Providers.myPageProvider
+//        provider.request(target: .getUserData, instance: BaseResponse<GetUserDataResponseDTO>.self) { data in
+//            self.name = data.data?.name ?? ""
+//            self.point = data.data?.point ?? 0
+//        }
     }
     
     func myPageButtonClick(type: MyPageButtonType) {
@@ -83,18 +87,20 @@ class MyPageViewModel: ObservableObject {
         alertType = .withdraw
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func revokeUser() {
-        let provider = Providers.AuthProvider
-        provider.request(target: .revoke, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-            UserManager.shared.revokeData()
-        }
+//        let provider = Providers.AuthProvider
+//        provider.request(target: .revoke, instance: BaseResponse<EmptyResponseDTO>.self) { data in
+//            UserManager.shared.revokeData()
+//        }
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func logoutUser() {
-        let provider = Providers.AuthProvider
-        provider.request(target: .logout, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-            UserManager.shared.clearLogout()
-        }
+//        let provider = Providers.AuthProvider
+//        provider.request(target: .logout, instance: BaseResponse<EmptyResponseDTO>.self) { data in
+//            UserManager.shared.clearLogout()
+//        }
     }
     
     func confirmAction() {

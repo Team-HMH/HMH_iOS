@@ -3,13 +3,16 @@ import AuthenticationServices
 
 import KakaoSDKUser
 
-class LoginViewModel: NSObject, ObservableObject {
+import Core
+import DSKit
+
+public class LoginViewModel: NSObject, ObservableObject {
     
-    @Published var isLoading: Bool = true
+    @Published public var isLoading: Bool = true
     @Published var isPresented: Bool = false
     @Published var alertType: CustomAlertType = .unlock
     
-    func handleSplashScreen() {
+    public func handleSplashScreen() {
         self.isLoading = false
     }
     
@@ -51,26 +54,27 @@ class LoginViewModel: NSObject, ObservableObject {
         }
     }
     
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func postSocialLoginData() {
-        let provider = Providers.AuthProvider
-        let request = SocialLoginRequestDTO(socialPlatform: UserManager.shared.socialPlatform ?? "")
-        
-        provider.request(target: .socialLogin(data: request), instance: BaseResponse<SocialLogineResponseDTO>.self) { data in
-            if data.status == 403 {
-                UserManager.shared.appStateString = "onboarding"
-            } else if data.status == 200 {
-                guard let data = data.data else { return }
-                UserManager.shared.refreshToken = data.token.refreshToken
-                UserManager.shared.accessToken = data.token.accessToken
-                UserManager.shared.appStateString = "home"
-            }
-        }
+//        let provider = Providers.AuthProvider
+//        let request = SocialLoginRequestDTO(socialPlatform: UserManager.shared.socialPlatform ?? "")
+//        
+//        provider.request(target: .socialLogin(data: request), instance: BaseResponse<SocialLogineResponseDTO>.self) { data in
+//            if data.status == 403 {
+//                UserManager.shared.appStateString = "onboarding"
+//            } else if data.status == 200 {
+//                guard let data = data.data else { return }
+//                UserManager.shared.refreshToken = data.token.refreshToken
+//                UserManager.shared.accessToken = data.token.accessToken
+//                UserManager.shared.appStateString = "home"
+//            }
+//        }
     }
 }
 
 extension LoginViewModel: ASAuthorizationControllerDelegate {
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
@@ -96,7 +100,7 @@ extension LoginViewModel: ASAuthorizationControllerDelegate {
         guard let idToken = String(data: credential.identityToken ?? Data(), encoding: .utf8) else { return print("no idToken!!") }
     }
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print(error.localizedDescription)
     }
 }

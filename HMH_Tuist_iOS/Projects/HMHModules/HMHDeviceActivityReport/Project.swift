@@ -14,6 +14,7 @@ let project = Project.makeModule(
     name: "HMHDeviceActivityReport",
     targets: [.dynamicFramework],
     internalDependencies: [
+        .Modules.dsKit,
         .core
     ]
 )

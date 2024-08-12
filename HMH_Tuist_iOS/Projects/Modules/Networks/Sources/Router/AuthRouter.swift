@@ -8,6 +8,7 @@
 import Foundation
 
 import Moya
+import Domain
 
 enum AuthRouter {
     case socialLogin(data: SocialLoginRequestDTO)

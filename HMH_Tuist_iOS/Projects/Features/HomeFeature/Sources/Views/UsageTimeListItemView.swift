@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import DSKit
+
 struct UsageTimeListItemView: View {
     var appName: String
     var usageTime: Int
@@ -16,7 +18,7 @@ struct UsageTimeListItemView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(.gray7)
+                .foregroundStyle(DSKitAsset.gray7.swiftUIColor)
                 .frame(minWidth: 335, maxHeight: 72)
                 .padding(.horizontal)
            // Color(.bluePurpleProgress)
@@ -28,15 +30,15 @@ struct UsageTimeListItemView: View {
                 VStack (alignment: .leading){
                     Text(appName)
                         .font(.detail3_semibold_12)
-                        .foregroundStyle(.gray1)
+                        .foregroundStyle(DSKitAsset.gray1.swiftUIColor)
                     Text(String(usageTime) + "분")
                         .font(.detail2_semibold_13)
-                        .foregroundStyle(.whiteText)
+                        .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
                 }
                 Spacer()
                 Text("\(remainingTime)남음")
                     .font(.text6_medium_14)
-                    .foregroundStyle(.whiteText)
+                    .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
             }
             .frame(maxWidth: 335, minHeight: 72)
             .padding(EdgeInsets(top: 0, leading: 38, bottom: 8, trailing: 38))

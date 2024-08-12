@@ -10,7 +10,10 @@ import SwiftUI
 import FamilyControls
 import DeviceActivity
 
-struct ChallengeView: View {
+import OnboardingFeature
+import DSKit
+
+public struct ChallengeView: View {
     @StateObject var screenTimeViewModel = ScreenTimeViewModel()
     @ObservedObject var viewModel: ChallengeViewModel
     
@@ -48,18 +51,19 @@ extension ChallengeView {
             emptyChallengeHeaderView
             listView
                 .padding(.top, 20)
+            //TODO: Coordinator 패턴 적용해서 이 부분 뜯어내면 좋을거 같습니다
             NavigationLink(
                 destination: OnboardingContentView(isChallengeMode: true, onboardingState: 2),
                 isActive: $viewModel.navigateToCreate,
                 label: {
                     EmptyView()
-                        .background(.blackground)
+                        .background(DSKitAsset.blackground.swiftUIColor)
                 })
         }
         .customNavigationBar(title: StringLiteral.NavigationBar.challenge,
                              showBackButton: false,
                              showPointButton: true, point: viewModel.remainEarnPoint)
-        .background(.blackground)
+        .background(DSKitAsset.blackground.swiftUIColor)
         .onAppear {
             viewModel.getChallengeInfo()
         }
@@ -67,14 +71,14 @@ extension ChallengeView {
     
     var emptyChallengeHeaderView: some View {
         ZStack(alignment: .top) {
-            Image(.challengeBackground)
+            Image(uiImage: DSKitAsset.challengeBackground.image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             VStack(alignment: .leading) {
                 Text(StringLiteral.Challenge.noChallengeTitle)
                     .font(.text1_medium_22)
                     .lineSpacing(22 * 1.5 - 22)
-                    .foregroundStyle(.whiteText)
+                    .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
                     .padding(.top, 14)
                     .padding(.leading, 23)
                 Spacer()
@@ -96,17 +100,17 @@ extension ChallengeView {
     
     var headerView: some View {
         ZStack(alignment: .top) {
-            Image(.challengeBackground)
+            Image(uiImage: DSKitAsset.challengeBackground.image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             VStack(alignment: .leading) {
                 Text("\(viewModel.visableStartDate) 시작부터")
                     .font(.text5_medium_16)
-                    .foregroundStyle(.gray1)
+                    .foregroundStyle(DSKitAsset.gray1.swiftUIColor)
                     .padding(.top, 14)
                 Text("\(viewModel.todayIndex + 1)일차")
                     .font(.title1_semibold_32)
-                    .foregroundStyle(.whiteText)
+                    .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
                     .padding(.top, 2)
                     .padding(.bottom, 32)
                 if viewModel.challengeType != .empty {
@@ -123,7 +127,7 @@ extension ChallengeView {
             HStack (alignment: .center) {
                 Text("잠금 앱")
                     .font(.text5_medium_16)
-                    .foregroundStyle(.gray1)
+                    .foregroundStyle(DSKitAsset.gray1.swiftUIColor)
                 Spacer()
             }
             .padding(.horizontal, 20)
@@ -132,7 +136,7 @@ extension ChallengeView {
             Button(action: {
                 isPresented = true
             }, label: {
-                Image(.addAppButton)
+                Image(uiImage: DSKitAsset.addAppButton.image)
             })
             .familyActivityPicker(isPresented: $isPresented,
                                   selection: screenTimeViewModel.$selectedApp)
@@ -189,8 +193,8 @@ extension ChallengeView {
                 HStack {
                     Text(isExpanded ? "접기" : "펼치기")
                         .font(.detail4_medium_12)
-                        .foregroundStyle(.gray2)
-                    Image(isExpanded ? .chevronUp : .chevronDown)
+                        .foregroundStyle(DSKitAsset.gray2.swiftUIColor)
+                    Image(uiImage: isExpanded ? DSKitAsset.chevronUp.image : DSKitAsset.chevronDown.image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 8, height: 9)
@@ -208,18 +212,18 @@ extension ChallengeView {
             VStack {
                 Text("\(index + 1)")
                     .font(.text6_medium_14)
-                    .foregroundStyle(.gray2)
+                    .foregroundStyle(DSKitAsset.gray2.swiftUIColor)
                 ZStack {
                     Circle()
-                        .stroke(index == viewModel.todayIndex ? .bluePurpleOpacity70 : .gray6, lineWidth: 2)
+                        .stroke(index == viewModel.todayIndex ? DSKitAsset.bluePurpleOpacity70.swiftUIColor : DSKitAsset.gray6.swiftUIColor, lineWidth: 2)
                         .frame(width: 44, height: 44)
                     switch viewModel.statuses[index] {
                     case "FAILURE":
-                        Image(.failStar)
+                        Image(uiImage: DSKitAsset.failStar.image)
                             .resizable()
                             .frame(width: 24, height: 24)
                     case "EARNED":
-                        Image(.doneStar)
+                        Image(uiImage: DSKitAsset.doneStar.image)
                     case "UNEARNED":
                         let gradient = LinearGradient(
                             gradient: Gradient(stops: [
@@ -232,7 +236,7 @@ extension ChallengeView {
                         gradient
                             .mask(Circle().frame(width: 44, height: 44))
                             .frame(width: 44, height: 44)
-                        Image(.successStar)
+                        Image(uiImage: DSKitAsset.successStar.image)
                             .resizable()
                             .frame(width: 24, height: 24)
                     default:

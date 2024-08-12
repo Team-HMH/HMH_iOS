@@ -8,16 +8,23 @@
 import SwiftUI
 import AuthenticationServices
 
-struct LoginView: View {
-    @ObservedObject var viewModel: LoginViewModel
+import DSKit
 
-    var body: some View {
+public struct LoginView: View {
+    @ObservedObject var viewModel: LoginViewModel
+    
+    public init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+    }
+
+    public var body: some View {
         ZStack {
-            Color(.blackground)
+            Color(DSKitAsset.blackground.swiftUIColor)
                 .ignoresSafeArea()
             VStack(spacing: 10) {
-                SwipeView(imageNames: [.onboardingFirst, .onboardingSecond, .onboardingThird])
-                    .padding(.bottom, 75)
+                //TODO: 이미지 타입 문제거 같은데 지금 해결하기엔 싱싱미역
+//                SwipeView(imageNames: [.onboardingFirst, .onboardingSecond, .onboardingThird])
+//                    .padding(.bottom, 75)
                 LoginButton(loginProvider: .kakao, viewModel: viewModel)
                 LoginButton(loginProvider: .apple, viewModel: viewModel)
             }
