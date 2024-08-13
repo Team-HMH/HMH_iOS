@@ -1,0 +1,121 @@
+//
+//  MyPageViewModel.swift
+//  HMH_iOS
+//
+//  Created by Seonwoo Kim on 4/12/24.
+//
+
+import SwiftUI
+
+import Core
+import DSKit
+
+public enum MyPageButtonType {
+    case travel
+    case market
+    case term
+    case info
+    
+    var titleText: String {
+        switch self {
+        case .travel:
+            return StringLiteral.MyPageButton.travel
+        case .market:
+            return StringLiteral.MyPageButton.market
+        case .term:
+            return StringLiteral.MyPageButton.term
+        case .info:
+            return StringLiteral.MyPageButton.info
+        }
+    }
+    
+    var imageName: String? {
+        switch self {
+        case .travel:
+            return "map"
+        case .market:
+            return "market"
+        case .term, .info:
+            return nil
+        }
+    }
+}
+
+
+class MyPageViewModel_Refactor: ObservableObject {
+    @Published var isPresented = false
+    @Published var alertType: CustomAlertType = .logout
+    @Published var name = ""
+    @Published var point = 0
+    @Published var navigateToPrepare = false
+    
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+    func getUserData() {
+//        let provider = Providers.myPageProvider
+//        provider.request(target: .getUserData, instance: BaseResponse<GetUserDataResponseDTO>.self) { data in
+//            self.name = data.data?.name ?? ""
+//            self.point = data.data?.point ?? 0
+//        }
+    }
+    
+    func myPageButtonClick(type: MyPageButtonType) {
+        switch type {
+        case .term:
+            guard let url = URL(string: StringLiteral.MyPageURL.term) else {return}
+            UIApplication.shared.open(url)
+        case .info:
+            guard let url = URL(string: StringLiteral.MyPageURL.info) else {return}
+            UIApplication.shared.open(url)
+        case .market:
+            navigateToPrepare = true
+        default:
+            return
+        }
+    }
+    
+    func backButtonClicked() {
+        navigateToPrepare = false
+    }
+    
+    func logoutButtonClicked() {
+        isPresented = true
+        alertType = .logout
+    }
+    
+    func withdrawButtonClicked() {
+        isPresented = true
+        alertType = .withdraw
+    }
+    
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+    func revokeUser() {
+//        let provider = Providers.AuthProvider
+//        provider.request(target: .revoke, instance: BaseResponse<EmptyResponseDTO>.self) { data in
+//            UserManager.shared.revokeData()
+//        }
+    }
+    
+    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+    func logoutUser() {
+//        let provider = Providers.AuthProvider
+//        provider.request(target: .logout, instance: BaseResponse<EmptyResponseDTO>.self) { data in
+//            UserManager.shared.clearLogout()
+//        }
+    }
+    
+    func confirmAction() {
+        UserManager.shared.appStateString = "login"
+        if alertType == .logout {
+            logoutUser()
+            isPresented = false
+        } else {
+            revokeUser()
+            UserManager.shared.revokeData()
+            isPresented = false
+        }
+    }
+    
+    func cancelAction() {
+        isPresented = false
+    }
+}
