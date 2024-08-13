@@ -9,6 +9,8 @@ import UserNotifications
 import UIKit
 import SwiftUI
 
+import Amplitude
+
 class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
 
@@ -58,11 +60,15 @@ class AppStateViewModel: ObservableObject {
         case .usePoints:
             currentAlertType = .unlock
         case .unlock:
+            Amplitude.instance().logEvent("click_unlock_button")
             patchPointUse()
             getUsagePoint()
         case .unlockComplete:
+            Amplitude.instance().logEvent("click_unlock_complete_button")
             showCustomAlert = false
         case .insufficientPoints:
+            Amplitude.instance().logEvent("click_unlock_buypoint")
+            Amplitude.instance().logEvent("view_shop", withEventProperties: ["view_type": "click_unlock_buypoint"] )
             showCustomAlert = false
             UserManager.shared.appStateString = "servicePrepare"
         default:
