@@ -8,16 +8,16 @@
 import SwiftUI
 
 import DSKit
+import Core
 
 public struct MyPageView_Refactor: View {
     
     
     @State private var isPresented: Bool = false
+
+    @StateObject var viewModel: MyPageViewModel_Refactor
     
-    public init() {}
     
-    @StateObject
-    var viewModel = MyPageViewModel_Refactor()
     
     public var body: some View {
         VStack {
@@ -36,6 +36,37 @@ public struct MyPageView_Refactor: View {
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(DSKitAsset.blackground.swiftUIColor)
+        .customAlert(
+            isPresented: $isPresented,
+            customAlert: {
+                CustomAlertView(
+                    alertType: viewModel.alertType,
+                    confirmBtn: CustomAlertButtonView(
+                        buttonType: .Confirm,
+                        alertType: viewModel.alertType,
+                        isPresented: $isPresented,
+                        action: {
+                            UserManager.shared.appStateString = "login"
+                            
+                            if viewModel.alertType == .logout {
+                                viewModel.send(action: .logout)
+                            } else {
+                                viewModel.send(action: .revokeUser)
+                                UserManager.shared.revokeData()
+                            }
+                        }
+                    ),
+                    cancelBtn: CustomAlertButtonView(
+                        buttonType: .Cancel,
+                        alertType: viewModel.alertType,
+                        isPresented: $isPresented,
+                        action: {
+                            isPresented = false
+                        }
+                    ), currentPoint: 0, usagePoint: 0
+                )
+            }
+        )
     }
 }
 
@@ -46,16 +77,16 @@ extension MyPageView_Refactor {
                 .frame(width: 54, height: 54)
                 .padding(10)
             //TODO: 서버통신이랑 이어지는 부분이라서
-//            Text(viewModel.getUserName())
-//                .font(.title4_semibold_20)
+            Text(viewModel.name)
+                .font(.title4_semibold_20)
             Spacer()
                 .frame(height: 16)
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
                 //TODO: 서버통신이랑 이어지는 부분이라서
-//                Text(viewModel.getUserPoint())
-//                    .font(.text6_medium_14)
+                Text("\(viewModel.point)")
+                    .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 40)
@@ -86,10 +117,18 @@ extension MyPageView_Refactor {
         HStack {
             Text(StringLiteral.MyPageAccountControl.logout)
                 .font(.text6_medium_14)
+                .onTapGesture {
+                    isPresented = true
+                    viewModel.alertType = .logout
+                }
             Rectangle()
                 .frame(width: 1, height: 16)
             Text(StringLiteral.MyPageAccountControl.revoke)
                 .font(.text6_medium_14)
+                .onTapGesture {
+                    isPresented = true
+                    viewModel.alertType = .withdraw
+                }
         }
         .foregroundColor(DSKitAsset.gray3.swiftUIColor)
         .frame(height: 77)

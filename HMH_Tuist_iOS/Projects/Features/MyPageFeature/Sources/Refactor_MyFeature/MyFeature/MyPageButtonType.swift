@@ -9,6 +9,7 @@
 import Foundation
 
 import DSKit
+import UIKit
 
 public enum MyPageButtonType {
     case travel
@@ -37,6 +38,19 @@ public enum MyPageButtonType {
             return "market"
         case .term, .info:
             return nil
+        }
+    }
+    
+    var clickAction: Void {
+        switch self {
+        case .travel:
+            let url = URL(string: StringLiteral.MyPageURL.term)!
+            UIApplication.shared.open(url)
+        case .market:
+            let url = URL(string: StringLiteral.MyPageURL.info)!
+            UIApplication.shared.open(url)
+        default:
+            break
         }
     }
 }

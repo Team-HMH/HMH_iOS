@@ -10,12 +10,15 @@ import Foundation
 
 protocol UserServiceType {
     func getUserData()
+    func getUserPoint()
 }
 
 class UserService: UserServiceType {
     func getUserData() {}
+    func getUserPoint() {}
 }
 
 class StubUserService: UserServiceType {
     func getUserData() {}
+    func getUserPoint() {}
 }

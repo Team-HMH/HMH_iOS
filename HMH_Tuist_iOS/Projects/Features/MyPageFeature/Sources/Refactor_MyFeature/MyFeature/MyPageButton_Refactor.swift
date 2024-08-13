@@ -38,7 +38,7 @@ struct MyPageButton_Refactor: View {
         }
         .background(DSKitAsset.blackground.swiftUIColor)
         .onTapGesture {
-            viewModel.myPageButtonClick(type: buttonType)
+            buttonType.clickAction
         }
     }
 }
