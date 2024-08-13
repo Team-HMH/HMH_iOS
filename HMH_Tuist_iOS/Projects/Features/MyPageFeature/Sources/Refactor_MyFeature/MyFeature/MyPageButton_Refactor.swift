@@ -13,7 +13,7 @@ import DSKit
 
 struct MyPageButton_Refactor: View {
     
-//    @ObservedObject var viewModel: MyPageViewModel_Refactor
+    @ObservedObject var viewModel: MyPageViewModel_Refactor
     
     var buttonType: MyPageButtonType
     

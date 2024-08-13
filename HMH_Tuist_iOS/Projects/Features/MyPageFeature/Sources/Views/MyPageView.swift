@@ -80,15 +80,26 @@ extension MyPageView {
         }
     }
     private func AccountControlView() -> some View {
-        HStack {
-            Text(StringLiteral.MyPageAccountControl.logout)
-                .font(.text6_medium_14)
+        HStack(spacing: 19) {
+            Button(action: {
+                viewModel.logoutButtonClicked()
+            }) {
+                Text(StringLiteral.MyPageAccountControl.logout)
+                    .font(.text6_medium_14)
+            }
+            .foregroundColor(DSKitAsset.gray3.swiftUIColor)
+            
             Rectangle()
                 .frame(width: 1, height: 16)
-            Text(StringLiteral.MyPageAccountControl.revoke)
-                .font(.text6_medium_14)
+            
+            Button(action: {
+                viewModel.withdrawButtonClicked()
+            }) {
+                Text(StringLiteral.MyPageAccountControl.revoke)
+                    .font(.text6_medium_14)
+            }
+            .foregroundColor(DSKitAsset.gray3.swiftUIColor)
         }
-        .foregroundColor(DSKitAsset.gray3.swiftUIColor)
         .frame(height: 77)
     }
 }

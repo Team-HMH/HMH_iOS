@@ -49,6 +49,8 @@ class MyPageViewModel_Refactor: ObservableObject {
     @Published var point = 0
     @Published var navigateToPrepare = false
     
+    
+    
     //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
     func getUserData() {
 //        let provider = Providers.myPageProvider
