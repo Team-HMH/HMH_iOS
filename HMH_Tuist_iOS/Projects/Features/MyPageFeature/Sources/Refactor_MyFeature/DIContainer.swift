@@ -9,9 +9,10 @@
 import Foundation
 
 class DIContainer: ObservableObject {
-    var repositorys: RepositoryType
+    var services: ServiceType
     
-    init(repositorys: RepositoryType) {
-        self.repositorys = repositorys
+    init(services: ServiceType) {
+        self.services = services
     }
 }
+

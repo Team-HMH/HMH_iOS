@@ -9,8 +9,16 @@
 import Foundation
 
 protocol AuthServiceType {
+    func revokeUser()
+    func logoutUser()
 }
 
-class AuthService: AuthServiceType {}
+class AuthService: AuthServiceType {
+    func revokeUser() {}
+    func logoutUser() {}
+}
 
-class StubAuthService: AuthServiceType {}
+class StubAuthService: AuthServiceType {
+    func revokeUser() {}
+    func logoutUser() {}
+}

@@ -7,47 +7,56 @@
 
 import SwiftUI
 
+import Combine
+
 import Core
 import DSKit
 
-public enum MyPageButtonType {
-    case travel
-    case market
-    case term
-    case info
-    
-    var titleText: String {
-        switch self {
-        case .travel:
-            return StringLiteral.MyPageButton.travel
-        case .market:
-            return StringLiteral.MyPageButton.market
-        case .term:
-            return StringLiteral.MyPageButton.term
-        case .info:
-            return StringLiteral.MyPageButton.info
-        }
-    }
-    
-    var imageName: String? {
-        switch self {
-        case .travel:
-            return "map"
-        case .market:
-            return "market"
-        case .term, .info:
-            return nil
-        }
-    }
-}
-
-
 class MyPageViewModel_Refactor: ObservableObject {
-    @Published var isPresented = false
+    
+    private var container: DIContainer
+    
+    init(container: DIContainer) {
+        self.container = container
+    }
+    
     @Published var alertType: CustomAlertType = .logout
     @Published var name = ""
     @Published var point = 0
     @Published var navigateToPrepare = false
+    
+    //MARK: Action
+    enum Action {
+        case getUserData
+        case revokeUser
+        case logoutButtonClicked
+        case myPageButtonClick(MyPageButtonType)
+    }
+    
+    func send(action: Action) {
+        switch action {
+        case .getUserData:
+            container.services.userService.getUserData()
+        case .revokeUser:
+            container.services.authService.revokeUser()
+        case .logoutButtonClicked:
+            container.services.authService.logoutUser()
+        case let .myPageButtonClick(type):
+            switch type {
+            case .term:
+                guard let url = URL(string: StringLiteral.MyPageURL.term) else {return}
+                UIApplication.shared.open(url)
+            case .info:
+                guard let url = URL(string: StringLiteral.MyPageURL.info) else {return}
+                UIApplication.shared.open(url)
+            case .market:
+                navigateToPrepare = true
+            default:
+                return
+            }
+            }
+        }
+    }
     
     
     
@@ -60,20 +69,20 @@ class MyPageViewModel_Refactor: ObservableObject {
 //        }
     }
     
-    func myPageButtonClick(type: MyPageButtonType) {
-        switch type {
-        case .term:
-            guard let url = URL(string: StringLiteral.MyPageURL.term) else {return}
-            UIApplication.shared.open(url)
-        case .info:
-            guard let url = URL(string: StringLiteral.MyPageURL.info) else {return}
-            UIApplication.shared.open(url)
-        case .market:
-            navigateToPrepare = true
-        default:
-            return
-        }
-    }
+//    func myPageButtonClick(type: MyPageButtonType) {
+//        switch type {
+//        case .term:
+//            guard let url = URL(string: StringLiteral.MyPageURL.term) else {return}
+//            UIApplication.shared.open(url)
+//        case .info:
+//            guard let url = URL(string: StringLiteral.MyPageURL.info) else {return}
+//            UIApplication.shared.open(url)
+//        case .market:
+//            navigateToPrepare = true
+//        default:
+//            return
+//        }
+//    }
     
     func backButtonClicked() {
         navigateToPrepare = false

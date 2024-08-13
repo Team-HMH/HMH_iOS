@@ -11,6 +11,9 @@ import DSKit
 
 public struct MyPageView_Refactor: View {
     
+    
+    @State private var isPresented: Bool = false
+    
     public init() {}
     
     @StateObject

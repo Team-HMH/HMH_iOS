@@ -9,8 +9,13 @@
 import Foundation
 
 protocol UserServiceType {
+    func getUserData()
 }
 
-class UserService: UserServiceType {}
+class UserService: UserServiceType {
+    func getUserData() {}
+}
 
-class StubUserService: UserServiceType {}
+class StubUserService: UserServiceType {
+    func getUserData() {}
+}
