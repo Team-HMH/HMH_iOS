@@ -73,6 +73,7 @@ extension HomeView {
                 Spacer()
                 Button(action: {
                     isPresented = true
+                    homeViewModel.editButtonClicked()
                 }, label: {
                     Text("편집")
                         .font(.text4_semibold_16)
@@ -88,6 +89,7 @@ extension HomeView {
                 .frame(height: 72 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count))
             Button(action: {
                 isPresented = true
+                homeViewModel.addButtonClicked()
             }, label: {
                 Image(.appAddBtn)
                     .resizable()

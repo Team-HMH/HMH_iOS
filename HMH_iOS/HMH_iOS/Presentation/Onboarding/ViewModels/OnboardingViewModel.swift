@@ -104,6 +104,7 @@ class OnboardingViewModel: ObservableObject {
         case .appGoalTimeSelect:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
             if isChallengeMode {
+                Amplitude.instance().logEvent("view_newchallenge_totaltime")
                 screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
                 postCreateChallengeData()
                 isCompletePresented = true
@@ -124,9 +125,8 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func alertAction() {
-        postCreateChallengeData()
-        addOnboardingState()
         isCompletePresented = false
+        Amplitude.instance().logEvent("click_newchallenge_complete")
     }
     
     func addOnboardingState() {
@@ -212,7 +212,7 @@ class OnboardingViewModel: ObservableObject {
         
         let provider = Providers.challengeProvider
         provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
-            print(data.status)
+            Amplitude.instance().logEvent("click_newchallenge_period", withEventProperties: ["period": self.amplitudeModel.period] )
         }
     }
     

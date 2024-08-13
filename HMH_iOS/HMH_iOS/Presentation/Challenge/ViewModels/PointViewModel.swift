@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Amplitude
+
 final class PointViewModel: ObservableObject {
     @Published var challengeDay = 1
     @Published var currentPoint = 0
@@ -38,6 +40,8 @@ final class PointViewModel: ObservableObject {
     // 앱 잠금해제시에 사용될 포인트를 조회하는 api입니다.
     
     func patchEarnPoint(day: Int) {
+        Amplitude.instance().logEvent("click_getpoint_button", withEventProperties: ["get_point_date": day + 1] )
+        
         let date = pointList[day].challengeDate
         let request = PointRequestDTO(challengeDate: date)
         Providers.pointProvider.request(target: .patchEarnPoint(data: request),
@@ -51,6 +55,8 @@ final class PointViewModel: ObservableObject {
     // 하루하루 챌린지를 성공하고, 포인트를 받는 버튼을 눌렀을 때, 포인트를 받는 API
     
     func getPointList() {
+        Amplitude.instance().logEvent("view_point")
+        
         Providers.pointProvider.request(target: .getPointList,
                                         instance: BaseResponse<PointListResponseDTO>.self) { result in
             guard let data = result.data else { return }
