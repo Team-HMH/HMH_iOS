@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct BaseResponse<T: Decodable>: Decodable {
-    var status: Int
-    var message: String?
-    var data: T?
+public struct BaseResponse<T: Decodable>: Decodable {
+    public var status: Int
+    public var message: String?
+    public var data: T?
 }

@@ -15,6 +15,7 @@ import DSKit
 class MyPageViewModel_Refactor: ObservableObject {
     
     private var container: DIContainer
+    private var cancelBag = CancelBag()
     
     init(container: DIContainer) {
         self.container = container
@@ -36,37 +37,26 @@ class MyPageViewModel_Refactor: ObservableObject {
         switch action {
         case .getUserData:
             container.services.userService.getUserData()
+                .sink { _ in
+                    
+                } receiveValue: { [weak self] data in
+                    self?.name = data.data?.name ?? ""
+                    self?.point = data.data?.point ?? 0
+                }.store(in: cancelBag)
             
         case .revokeUser:
             container.services.authService.revokeUser()
+                .sink { _ in
+                } receiveValue: {  _ in
+                    UserManager.shared.revokeData()
+                }.store(in: cancelBag)
             
         case .logout:
             container.services.authService.logoutUser()
-        }
-        
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-        func getUserData() {
-            //        let provider = Providers.myPageProvider
-            //        provider.request(target: .getUserData, instance: BaseResponse<GetUserDataResponseDTO>.self) { data in
-            //            self.name = data.data?.name ?? ""
-            //            self.point = data.data?.point ?? 0
-            //        }
-        }
-        
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-        func revokeUser() {
-            //        let provider = Providers.AuthProvider
-            //        provider.request(target: .revoke, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-            //            UserManager.shared.revokeData()
-            //        }
-        }
-        
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-        func logoutUser() {
-            //        let provider = Providers.AuthProvider
-            //        provider.request(target: .logout, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-            //            UserManager.shared.clearLogout()
-            //        }
+                .sink { _ in
+                } receiveValue: {  _ in
+                    UserManager.shared.revokeData()
+                }.store(in: cancelBag)
         }
     }
 }

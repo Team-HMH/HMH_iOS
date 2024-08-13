@@ -8,17 +8,32 @@
 
 import Foundation
 
-protocol UserServiceType {
-    func getUserData()
-    func getUserPoint()
+import Combine
+import Domain
+import Networks
+
+typealias DefaultUserService = BaseService<UserAPI>
+
+import Foundation
+
+public struct BaseResponse<T: Decodable>: Decodable {
+    public var status: Int
+    public var message: String?
+    public var data: T?
 }
 
-class UserService: UserServiceType {
-    func getUserData() {}
-    func getUserPoint() {}
+protocol UserServiceType {
+    func getUserData() -> AnyPublisher<BaseResponse<GetUserDataResponseDTO>, Error>
+}
+
+extension DefaultUserService: UserServiceType {
+    func getUserData() -> AnyPublisher<BaseResponse<GetUserDataResponseDTO>, Error> {
+        return requestObjectWithNetworkErrorInCombine(.getUserData)
+    }
 }
 
 class StubUserService: UserServiceType {
-    func getUserData() {}
-    func getUserPoint() {}
+    func getUserData() -> AnyPublisher<BaseResponse<GetUserDataResponseDTO>, Error> {
+        Empty().eraseToAnyPublisher()
+    }
 }

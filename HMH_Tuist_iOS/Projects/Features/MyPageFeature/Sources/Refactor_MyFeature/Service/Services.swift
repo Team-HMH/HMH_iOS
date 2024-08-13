@@ -18,8 +18,8 @@ class Services: ServiceType {
     var userService: UserServiceType
     
     init() {
-        self.authService = AuthService()
-        self.userService = UserService()
+        self.authService = DefaultAuthService()
+        self.userService = DefaultUserService()
     }
 }
 

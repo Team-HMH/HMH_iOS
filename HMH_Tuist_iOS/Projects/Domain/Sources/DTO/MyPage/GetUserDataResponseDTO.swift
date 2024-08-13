@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct GetUserDataResponseDTO: Codable {
-    let name: String
-    let point: Int
+public struct GetUserDataResponseDTO: Codable {
+    public let name: String
+    public  let point: Int
     
     enum CodingKeys: CodingKey {
         case name
