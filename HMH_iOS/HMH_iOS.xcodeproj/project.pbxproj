@@ -26,6 +26,7 @@
 		0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A836D2C08C0520095060C /* HMHToastView.swift */; };
 		0B719C382BF1C45D00DF1D92 /* CustomAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */; };
 		0B7222372C6A09A4005EB365 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 0B7222362C6A09A4005EB365 /* Amplitude */; };
+		0B7222392C6B48ED005EB365 /* OnboardingAmplitudeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7222382C6B48EC005EB365 /* OnboardingAmplitudeModel.swift */; };
 		0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */; };
 		0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */; };
 		0B82ECB22BC916C6002D5CF3 /* MyPageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */; };
@@ -286,6 +287,7 @@
 		0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPointResponseDTO.swift; sourceTree = "<group>"; };
 		0B6A836D2C08C0520095060C /* HMHToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHToastView.swift; sourceTree = "<group>"; };
 		0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModifier.swift; sourceTree = "<group>"; };
+		0B7222382C6B48EC005EB365 /* OnboardingAmplitudeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAmplitudeModel.swift; sourceTree = "<group>"; };
 		0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyButton.swift; sourceTree = "<group>"; };
 		0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageButton.swift; sourceTree = "<group>"; };
@@ -646,6 +648,7 @@
 			isa = PBXGroup;
 			children = (
 				0BC0E5A82BB03EE400FB0330 /* OnboardingModel.swift */,
+				0B7222382C6B48EC005EB365 /* OnboardingAmplitudeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1368,6 +1371,7 @@
 				367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */,
 				36B833BF2C5A3107009C2C3E /* ChallengeHeaderView.swift in Sources */,
 				3606F35F2C078CA8002A1386 /* DeviceActivityMonitorExtension.swift in Sources */,
+				0B7222392C6B48ED005EB365 /* OnboardingAmplitudeModel.swift in Sources */,
 				0B6301582C15E0DF0020B375 /* GetEarnPointResponseDTO.swift in Sources */,
 				367244092BEDEC7F007A5A7B /* Providers.swift in Sources */,
 				368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */,
