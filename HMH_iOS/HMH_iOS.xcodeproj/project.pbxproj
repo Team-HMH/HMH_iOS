@@ -13,6 +13,8 @@
 		0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C296E2BA01C2800435B30 /* HomeView.swift */; };
 		0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29702BA01C3000435B30 /* MyPageView.swift */; };
 		0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29722BA01DCE00435B30 /* CustomTabView.swift */; };
+		0B3DC0842C6C804C0021AC61 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 0B3DC0832C6C804C0021AC61 /* Amplitude */; };
+		0B3DC0862C6C80880021AC61 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 0B3DC0852C6C80880021AC61 /* Amplitude */; };
 		0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5140532BE3A2D600C78B9F /* LoginView.swift */; };
 		0B6301562C15B8C20020B375 /* ServicePrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6301552C15B8C20020B375 /* ServicePrepareView.swift */; };
 		0B6301582C15E0DF0020B375 /* GetEarnPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6301572C15E0DF0020B375 /* GetEarnPointResponseDTO.swift */; };
@@ -440,6 +442,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B3DC0842C6C804C0021AC61 /* Amplitude in Frameworks */,
 				3672443C2BF32481007A5A7B /* DeviceActivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +468,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B3DC0862C6C80880021AC61 /* Amplitude in Frameworks */,
 				3606F3702C07A8B6002A1386 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1096,6 +1100,7 @@
 			);
 			name = DeviceActivityMonitor;
 			packageProductDependencies = (
+				0B3DC0832C6C804C0021AC61 /* Amplitude */,
 			);
 			productName = DeviceActivityMonitor;
 			productReference = 3672443B2BF32481007A5A7B /* DeviceActivityMonitor.appex */;
@@ -1151,6 +1156,7 @@
 			name = HMHDeviceActivityReport;
 			packageProductDependencies = (
 				3606F36F2C07A8B6002A1386 /* Lottie */,
+				0B3DC0852C6C80880021AC61 /* Amplitude */,
 			);
 			productName = HMHDeviceActivityReport;
 			productReference = 368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */;
@@ -2012,6 +2018,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0B3DC0832C6C804C0021AC61 /* Amplitude */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7222352C6A09A4005EB365 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
+			productName = Amplitude;
+		};
+		0B3DC0852C6C80880021AC61 /* Amplitude */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7222352C6A09A4005EB365 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
+			productName = Amplitude;
+		};
 		0B7222362C6A09A4005EB365 /* Amplitude */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0B7222352C6A09A4005EB365 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
