@@ -37,8 +37,7 @@ class MyPageViewModel_Refactor: ObservableObject {
         switch action {
         case .getUserData:
             container.services.userService.getUserData()
-                .sink { _ in
-                    
+                .sink { _ in                    
                 } receiveValue: { [weak self] data in
                     self?.name = data.data?.name ?? ""
                     self?.point = data.data?.point ?? 0

@@ -14,10 +14,7 @@ public struct MyPageView_Refactor: View {
     
     
     @State private var isPresented: Bool = false
-
     @StateObject var viewModel: MyPageViewModel_Refactor
-    
-    
     
     public var body: some View {
         VStack {

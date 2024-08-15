@@ -11,7 +11,7 @@ import Foundation
 import DSKit
 import UIKit
 
-public enum MyPageButtonType {
+enum MyPageButtonType_Refactor {
     case travel
     case market
     case term
