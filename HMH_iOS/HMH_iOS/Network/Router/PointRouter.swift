@@ -14,7 +14,7 @@ enum PointRouter {
     case patchEarnPoint(data: PointRequestDTO)
     case getEarnPoint
     case getPointList
-    case patchPointUse(data: PointRequestDTO)
+    case patchPointUse
     case getCurrentPoint
 }
 
@@ -39,7 +39,7 @@ extension PointRouter: BaseTargetType {
     var path: String {
         switch self {
         case .getUsagePoint:
-            return "/v1/point/use"
+            return "/v2/point/use"
         case .patchEarnPoint :
             return "/v1/point/earn"
         case .getEarnPoint :
@@ -78,8 +78,8 @@ extension PointRouter: BaseTargetType {
             return .requestJSONEncodable(data)
         case .getEarnPoint:
             return .requestPlain
-        case .patchPointUse(let data):
-            return .requestJSONEncodable(data)
+        case .patchPointUse:
+            return .requestPlain
         case .getPointList:
             return .requestPlain
         case .getCurrentPoint:
