@@ -13,6 +13,6 @@ struct MidnightRequestDTO: Codable {
 
 // MARK: - FinishedDailyChallenge
 struct FinishedDailyChallenge: Codable {
-    let challengeDate: String
+    let challengePeriodIndex: Int
     let isSuccess: Bool
 }
