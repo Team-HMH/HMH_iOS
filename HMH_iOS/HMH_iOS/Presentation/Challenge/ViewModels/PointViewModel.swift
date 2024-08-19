@@ -16,6 +16,7 @@ final class PointViewModel: ObservableObject {
     @Published var earnPoint = 0
     
     init() {
+        self.getEarnPoint()
         self.getPointList()
         self.getUsagePoint()
     }
