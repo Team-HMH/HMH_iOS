@@ -38,7 +38,7 @@ extension AuthRouter: BaseTargetType {
         case .socialLogin:
             return "/v1/user/login"
         case .signUp:
-            return "/v1/user/signup"
+            return "/v2/user/signup"
         case .tokenRefresh:
             return "/v1/user/reissue"
         case .revoke:

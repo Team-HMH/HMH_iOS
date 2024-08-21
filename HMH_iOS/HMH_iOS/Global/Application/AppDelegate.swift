@@ -84,15 +84,24 @@ extension AppDelegate {
             return
         }
         
+        // 챌린지 시작 날짜 가져오기
+        let challengeStartDateString = appStateViewModel.challengeModel.startDate
+        guard let challengeStartDate = dateFormatter.date(from: challengeStartDateString) else {
+            print("Invalid challenge start date format")
+            return
+        }
+        
         // Calculate the date range from the last login date to yesterday
         var date = lastDate
-        var dateArray: [String] = []
+        var dateArray: [(dateString: String, index: Int)] = []
         
         while date < currentDate {
             date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
             let dateString = dateFormatter.string(from: date)
+            
             if dateString < currentDateString {
-                dateArray.append(dateString)
+                let index = Calendar.current.dateComponents([.day], from: challengeStartDate, to: date).day ?? 0
+                dateArray.append((dateString: dateString, index: index))
             }
         }
         
@@ -100,9 +109,9 @@ extension AppDelegate {
         UserDefaults.standard.lastSentDate = currentDateString
     }
     
-    private func sendDailyChallengeData(dates: [String]) {
-        let finishedChallenges = dates.map { date -> FinishedDailyChallenge in
-            return FinishedDailyChallenge(challengeDate: date, isSuccess: true)
+    private func sendDailyChallengeData(dates: [(dateString: String, index: Int)]) {
+        let finishedChallenges = dates.map { dateInfo -> FinishedDailyChallenge in
+            return FinishedDailyChallenge(challengePeriodIndex: dateInfo.index, isSuccess: true)
         }
         
         let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: finishedChallenges)
@@ -111,6 +120,7 @@ extension AppDelegate {
             print("Daily challenge data sent successfully.")
         }
     }
+    
     
     // 자정 데이터 초기화
     private func registerBackgroundTasks() {

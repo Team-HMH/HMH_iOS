@@ -40,12 +40,15 @@ extension APIConstants {
     static var hasTokenHeader: [String: String] {
         return [contentType: applicationJSON,
                          OS: iOS,
-                       auth: accessToken]
+                       auth: accessToken,
+                   timeZone: seoul
+        ]
     }
     
     static var hasAccessTokenHeader: [String: String] {
         return [contentType: applicationJSON,
-                       auth: accessToken]
+                       auth: accessToken,
+                   timeZone: seoul]
     }
     
     static var hasRefreshTokenHeader: [String: String] {

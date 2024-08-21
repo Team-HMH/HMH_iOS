@@ -11,7 +11,7 @@ import SwiftUI
 
 class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
-
+    
     func requestAuthorization() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if granted {
@@ -80,12 +80,26 @@ class AppStateViewModel: ObservableObject {
     }
     
     /// 포인트 사용해서 잠금 해제하는 부분
-    func patchPointUse() {
+    /// 오늘의 index를 구하는 메서드
+    func getTodayIndex() -> Int? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let currentDate = dateFormatter.string(from: Date())
-        let request = PointRequestDTO(challengeDate: currentDate)
-        Providers.pointProvider.request(target: .patchPointUse(data: request),
+        
+        guard let startDate = dateFormatter.date(from: challengeModel.startDate) else {
+            print("Invalid start date format")
+            return nil
+        }
+        
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: startDate, to: currentDate)
+        
+        return components.day
+    }
+    
+    /// 포인트 사용해서 잠금 해제하는 부분
+    func patchPointUse() {
+        Providers.pointProvider.request(target: .patchPointUse,
                                         instance: BaseResponse<PatchPointUseResponseDTO>.self) { result in
             if result.status == 400 {
                 self.currentAlertType = .insufficientPoints
@@ -93,13 +107,18 @@ class AppStateViewModel: ObservableObject {
                 // 특정 앱이 아닌 설정해둔 모든 앱이 잠기므로 모든 앱 잠금 해제
                 self.screenTimeModel.unblockAllApps()
                 self.currentAlertType = .unlockComplete
-                self.challengeModel.sendFailChallenge(date: Date().formattedString())
+                
+                if let todayIndex = self.getTodayIndex() {
+                    self.challengeModel.sendFailChallenge(index: todayIndex)
+                }
             } else {
                 self.showCustomAlert = false
             }
             guard let data = result.data else { return }
         }
     }
+    
+    
     // 포인트를 사용해 이용시간 잠금을 해제할 때 사용하는 api
     
     func getUsagePoint() {

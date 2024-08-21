@@ -75,9 +75,7 @@ struct ChallengeWeekView: View {
                         Image(.failStar)
                             .resizable()
                             .frame(width: 24, height: 24)
-                    case "EARNED":
-                        Image(.doneStar)
-                    case "UNEARNED":
+                    case "UNEARNED", "EARNED":
                         let gradient = LinearGradient(
                             gradient: Gradient(stops: [
                                 .init(color: Color(red: 61/255, green: 23/255, blue: 211/255, opacity: 0), location: 0),

@@ -104,8 +104,8 @@ final class ChallengeViewModel: ObservableObject {
         return formattedDateString
     }
     
-    func sendFailChallenge(date: String) {
-        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: [FinishedDailyChallenge(challengeDate: date, isSuccess: false)])
+    func sendFailChallenge(index: Int) {
+        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: [FinishedDailyChallenge(challengePeriodIndex: index, isSuccess: false)])
         Providers.challengeProvider.request(target: .postDailyChallenge(data: midnightDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
             print("Daily challenge data sent successfully.")
         }
@@ -115,17 +115,35 @@ final class ChallengeViewModel: ObservableObject {
         let noneDates = findNoneDates(statuses: statuses, todayIndex: todayIndex, startDate: startDate)
         var finishChallenges: [FinishedDailyChallenge] = []
         
-        noneDates.forEach { date in
-            finishChallenges.append(FinishedDailyChallenge(challengeDate: date, isSuccess: true))
+        for date in noneDates {
+            if let index = getChallengePeriodIndex(for: date, startDate: startDate) {
+                finishChallenges.append(FinishedDailyChallenge(challengePeriodIndex: index, isSuccess: true))
+            }
         }
         
-        if !(finishChallenges.isEmpty) {
+        if !finishChallenges.isEmpty {
             let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
             
             Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
                 print("Daily challenge data sent successfully.")
             }
         }
+    }
+    
+    func getChallengePeriodIndex(for date: String, startDate: String) -> Int? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let start = dateFormatter.date(from: startDate),
+              let targetDate = dateFormatter.date(from: date) else {
+            print("Invalid date format")
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: start, to: targetDate)
+        
+        return components.day
     }
     
     func findNoneDates(statuses: [String], todayIndex: Int, startDate: String) -> [String] {
@@ -151,14 +169,14 @@ final class ChallengeViewModel: ObservableObject {
                 }
             }
         } else {
-//            for index in 0..<days {
-//                if statuses[index] == "NONE" {
-//                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
-//                        let formattedDate = dateFormatter.string(from: newDate)
-//                        dates.append(formattedDate)
-//                    }
-//                }
-//            }
+            //            for index in 0..<days {
+            //                if statuses[index] == "NONE" {
+            //                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
+            //                        let formattedDate = dateFormatter.string(from: newDate)
+            //                        dates.append(formattedDate)
+            //                    }
+            //                }
+            //            }
         }
         return dates
     }
