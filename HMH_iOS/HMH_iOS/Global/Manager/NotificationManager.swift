@@ -83,6 +83,7 @@ class AppStateViewModel: ObservableObject {
     func onAppear() {
         getUsagePoint()
         getCurrentPoint()
+        Amplitude.instance().logEvent("view_unlock_popup")
     }
     
     /// 포인트 사용해서 잠금 해제하는 부분
