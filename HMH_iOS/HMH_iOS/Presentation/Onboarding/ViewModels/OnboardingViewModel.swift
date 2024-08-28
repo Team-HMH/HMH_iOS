@@ -189,16 +189,17 @@ class OnboardingViewModel: ObservableObject {
         let provider = Providers.AuthProvider
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
             print(data.status)
+            Amplitude.instance().logEvent("click_survey1_answer", withEventProperties: ["answer_value": self.amplitudeModel.averageUseTimeIndex] )
+            Amplitude.instance().logEvent("click_survey2_answer", withEventProperties: ["answer_value": self.amplitudeModel.problemIndex] )
+            Amplitude.instance().logEvent("click_challenge_period_answer", withEventProperties: ["period": self.amplitudeModel.period] )
+            Amplitude.instance().logEvent("complete_onboarding_finish")
             if data.status == 201 {
                 UserManager.shared.appStateString = "onboardingComplete"
                 UserManager.shared.isFirstLogin = true
                 UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
                 UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
                 
-                Amplitude.instance().logEvent("click_survey1_answer", withEventProperties: ["answer_value": self.amplitudeModel.averageUseTimeIndex] )
-                Amplitude.instance().logEvent("click_survey2_answer", withEventProperties: ["answer_value": self.amplitudeModel.problemIndex] )
-                Amplitude.instance().logEvent("click_challenge_period_answer", withEventProperties: ["period": self.amplitudeModel.period] )
-                Amplitude.instance().logEvent("complete_onboarding_finish")
+
             } else if data.message == "이미 회원가입된 유저입니다." {
                 self.isOnboardingError = true
             } else {

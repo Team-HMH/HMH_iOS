@@ -35,6 +35,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         AppStateViewModel.shared.onAppear()
         AppStateViewModel.shared.currentAlertType = .usePoints
         AppStateViewModel.shared.showCustomAlert = true
+        Amplitude.instance().logEvent("view_unlock_popup")
         completionHandler()
     }
     
