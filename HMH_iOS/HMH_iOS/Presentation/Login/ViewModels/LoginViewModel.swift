@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplitude
 import AuthenticationServices
 
 import KakaoSDKUser
@@ -14,6 +15,8 @@ class LoginViewModel: NSObject, ObservableObject {
     }
     
     func handleAppleLogin() {
+        Amplitude.instance().logEvent("click_onboarding_apple")
+        
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
         
@@ -23,6 +26,8 @@ class LoginViewModel: NSObject, ObservableObject {
     }
     
     func handleKakaoLogin() {
+        Amplitude.instance().logEvent("click_onboarding_kakao")
+        
         if (UserApi.isKakaoTalkLoginAvailable()) {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error = error {

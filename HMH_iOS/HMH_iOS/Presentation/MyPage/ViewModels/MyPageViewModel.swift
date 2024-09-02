@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Amplitude
+
 enum MyPageButtonType {
     case travel
     case market
@@ -64,6 +66,7 @@ class MyPageViewModel: ObservableObject {
             UIApplication.shared.open(url)
         case .market:
             navigateToPrepare = true
+            Amplitude.instance().logEvent("view_shop", withEventProperties: ["view_type": "mypage"] )
         default:
             return
         }

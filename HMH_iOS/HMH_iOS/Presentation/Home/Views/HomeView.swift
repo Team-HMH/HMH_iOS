@@ -2,6 +2,7 @@ import SwiftUI
 import FamilyControls
 import DeviceActivity
 
+import Amplitude
 import Lottie
 
 struct HomeView: View {
@@ -73,6 +74,7 @@ extension HomeView {
                 Spacer()
                 Button(action: {
                     isPresented = true
+                    homeViewModel.editButtonClicked()
                 }, label: {
                     Text("편집")
                         .font(.text4_semibold_16)
@@ -82,12 +84,14 @@ extension HomeView {
                                       selection: screenTimeViewModel.$selectedApp)
                 .onChange(of: screenTimeViewModel.selectedApp) { newSelection in
                     screenTimeViewModel.selectedApp = newSelection
+                    Amplitude.instance().logEvent("complete_add_new")
                 }
             }
             DeviceActivityReport(appContext, filter: appFilter)
                 .frame(height: 72 * CGFloat(screenTimeViewModel.selectedApp.applicationTokens.count))
             Button(action: {
                 isPresented = true
+                homeViewModel.addButtonClicked()
             }, label: {
                 Image(.appAddBtn)
                     .resizable()

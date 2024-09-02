@@ -10,6 +10,7 @@ import SwiftUI
 import FamilyControls
 import DeviceActivity
 import Combine
+import Amplitude
 
 class HomeViewModel: ObservableObject {
     @AppStorage(AppStorageKey.totalGoalTime.rawValue, store: UserDefaults(suiteName: APP_GROUP_NAME))
@@ -49,4 +50,11 @@ class HomeViewModel: ObservableObject {
         return (hours, minutes, seconds)
     }
 
+    func addButtonClicked() {
+        Amplitude.instance().logEvent("click_add_button")
+    }
+    
+    func editButtonClicked() {
+        Amplitude.instance().logEvent("click_edit_button")
+    }
 }

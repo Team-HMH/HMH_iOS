@@ -10,6 +10,7 @@ import SwiftUI
 import FamilyControls
 import ManagedSettings
 import DeviceActivity
+import Amplitude
 
 @MainActor
 final class ScreenTimeViewModel: ObservableObject {
@@ -43,6 +44,8 @@ final class ScreenTimeViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.selectedApp = newSelection
         }
+        
+        Amplitude.instance().logEvent("click_add_complete")
     }
     
     func requestAuthorization() {

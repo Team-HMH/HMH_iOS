@@ -25,13 +25,13 @@ struct ContentView: View {
                 SplashView(viewModel: loginViewModel)
             } else {
                 switch userManager.appState {
-                case .onboarding:
+                case .home:
                     OnboardingContentView()
                 case .onboardingComplete:
                     OnboardingCompleteView()
                 case .servicePrepare:
                     ServicePrepareView()
-                case .home:
+                case .onboarding:
                     TabBarView(showGuideView: $showGuideView)
                         .onAppear {
                             appStateViewModel.onAppear()

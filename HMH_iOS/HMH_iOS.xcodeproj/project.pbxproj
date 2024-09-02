@@ -13,6 +13,8 @@
 		0B3C296F2BA01C2800435B30 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C296E2BA01C2800435B30 /* HomeView.swift */; };
 		0B3C29712BA01C3000435B30 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29702BA01C3000435B30 /* MyPageView.swift */; };
 		0B3C29732BA01DCE00435B30 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C29722BA01DCE00435B30 /* CustomTabView.swift */; };
+		0B3DC0842C6C804C0021AC61 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 0B3DC0832C6C804C0021AC61 /* Amplitude */; };
+		0B3DC0862C6C80880021AC61 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 0B3DC0852C6C80880021AC61 /* Amplitude */; };
 		0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5140532BE3A2D600C78B9F /* LoginView.swift */; };
 		0B6301562C15B8C20020B375 /* ServicePrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6301552C15B8C20020B375 /* ServicePrepareView.swift */; };
 		0B6301582C15E0DF0020B375 /* GetEarnPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6301572C15E0DF0020B375 /* GetEarnPointResponseDTO.swift */; };
@@ -25,6 +27,8 @@
 		0B6A836B2C0864640095060C /* UserPointResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */; };
 		0B6A836E2C08C0520095060C /* HMHToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A836D2C08C0520095060C /* HMHToastView.swift */; };
 		0B719C382BF1C45D00DF1D92 /* CustomAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */; };
+		0B7222372C6A09A4005EB365 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 0B7222362C6A09A4005EB365 /* Amplitude */; };
+		0B7222392C6B48ED005EB365 /* OnboardingAmplitudeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7222382C6B48EC005EB365 /* OnboardingAmplitudeModel.swift */; };
 		0B7646BB2BB13F6100C56D7A /* SurveyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */; };
 		0B82ECB02BC9152F002D5CF3 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */; };
 		0B82ECB22BC916C6002D5CF3 /* MyPageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */; };
@@ -285,6 +289,7 @@
 		0B6A836A2C0864640095060C /* UserPointResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPointResponseDTO.swift; sourceTree = "<group>"; };
 		0B6A836D2C08C0520095060C /* HMHToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMHToastView.swift; sourceTree = "<group>"; };
 		0B719C372BF1C45D00DF1D92 /* CustomAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModifier.swift; sourceTree = "<group>"; };
+		0B7222382C6B48EC005EB365 /* OnboardingAmplitudeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAmplitudeModel.swift; sourceTree = "<group>"; };
 		0B7646BA2BB13F6100C56D7A /* SurveyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyButton.swift; sourceTree = "<group>"; };
 		0B82ECAF2BC9152F002D5CF3 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		0B82ECB12BC916C6002D5CF3 /* MyPageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageButton.swift; sourceTree = "<group>"; };
@@ -420,6 +425,7 @@
 				0B8693912BE8B99E000D7CE1 /* KakaoSDKCommon in Frameworks */,
 				365CD6D52B7E4CE900245CDD /* RxMoya in Frameworks */,
 				365CD6CF2B7E4CE900245CDD /* CombineMoya in Frameworks */,
+				0B7222372C6A09A4005EB365 /* Amplitude in Frameworks */,
 				365CD6DE2B7E4D4E00245CDD /* Then in Frameworks */,
 				0BDDA0172C005A53001BD43E /* KeychainAccess in Frameworks */,
 				365CD6DB2B7E4D3600245CDD /* SnapKit in Frameworks */,
@@ -436,6 +442,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B3DC0842C6C804C0021AC61 /* Amplitude in Frameworks */,
 				3672443C2BF32481007A5A7B /* DeviceActivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,6 +468,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B3DC0862C6C80880021AC61 /* Amplitude in Frameworks */,
 				3606F3702C07A8B6002A1386 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,6 +652,7 @@
 			isa = PBXGroup;
 			children = (
 				0BC0E5A82BB03EE400FB0330 /* OnboardingModel.swift */,
+				0B7222382C6B48EC005EB365 /* OnboardingAmplitudeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1071,6 +1080,7 @@
 				0B8693902BE8B99E000D7CE1 /* KakaoSDKCommon */,
 				0B8693922BE8B99E000D7CE1 /* KakaoSDKUser */,
 				0BDDA0162C005A53001BD43E /* KeychainAccess */,
+				0B7222362C6A09A4005EB365 /* Amplitude */,
 			);
 			productName = HMH_iOS;
 			productReference = 365CD6B92B7E4C4F00245CDD /* HMH_iOS.app */;
@@ -1090,6 +1100,7 @@
 			);
 			name = DeviceActivityMonitor;
 			packageProductDependencies = (
+				0B3DC0832C6C804C0021AC61 /* Amplitude */,
 			);
 			productName = DeviceActivityMonitor;
 			productReference = 3672443B2BF32481007A5A7B /* DeviceActivityMonitor.appex */;
@@ -1145,6 +1156,7 @@
 			name = HMHDeviceActivityReport;
 			packageProductDependencies = (
 				3606F36F2C07A8B6002A1386 /* Lottie */,
+				0B3DC0852C6C80880021AC61 /* Amplitude */,
 			);
 			productName = HMHDeviceActivityReport;
 			productReference = 368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */;
@@ -1194,6 +1206,7 @@
 				365CD6DC2B7E4D4E00245CDD /* XCRemoteSwiftPackageReference "Then" */,
 				0B86938B2BE8B99E000D7CE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				0BDDA0152C005A53001BD43E /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				0B7222352C6A09A4005EB365 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
 			);
 			productRefGroup = 365CD6BA2B7E4C4F00245CDD /* Products */;
 			projectDirPath = "";
@@ -1364,6 +1377,7 @@
 				367243E62BEDEAF8007A5A7B /* SignUpRequestDTO.swift in Sources */,
 				36B833BF2C5A3107009C2C3E /* ChallengeHeaderView.swift in Sources */,
 				3606F35F2C078CA8002A1386 /* DeviceActivityMonitorExtension.swift in Sources */,
+				0B7222392C6B48ED005EB365 /* OnboardingAmplitudeModel.swift in Sources */,
 				0B6301582C15E0DF0020B375 /* GetEarnPointResponseDTO.swift in Sources */,
 				367244092BEDEC7F007A5A7B /* Providers.swift in Sources */,
 				368780E32C024DAD00454827 /* CustomButtonModifer.swift in Sources */,
@@ -1937,6 +1951,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0B7222352C6A09A4005EB365 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		0B86938B2BE8B99E000D7CE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1996,6 +2018,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0B3DC0832C6C804C0021AC61 /* Amplitude */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7222352C6A09A4005EB365 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
+			productName = Amplitude;
+		};
+		0B3DC0852C6C80880021AC61 /* Amplitude */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7222352C6A09A4005EB365 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
+			productName = Amplitude;
+		};
+		0B7222362C6A09A4005EB365 /* Amplitude */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7222352C6A09A4005EB365 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
+			productName = Amplitude;
+		};
 		0B86938C2BE8B99E000D7CE1 /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0B86938B2BE8B99E000D7CE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;

@@ -9,6 +9,8 @@ import UserNotifications
 import UIKit
 import SwiftUI
 
+import Amplitude
+
 class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
     
@@ -33,6 +35,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         AppStateViewModel.shared.onAppear()
         AppStateViewModel.shared.currentAlertType = .usePoints
         AppStateViewModel.shared.showCustomAlert = true
+        Amplitude.instance().logEvent("view_unlock_popup")
         completionHandler()
     }
     
@@ -58,11 +61,15 @@ class AppStateViewModel: ObservableObject {
         case .usePoints:
             currentAlertType = .unlock
         case .unlock:
+            Amplitude.instance().logEvent("click_unlock_button")
             patchPointUse()
             getUsagePoint()
         case .unlockComplete:
+            Amplitude.instance().logEvent("click_unlock_complete_button")
             showCustomAlert = false
         case .insufficientPoints:
+            Amplitude.instance().logEvent("click_unlock_buypoint")
+            Amplitude.instance().logEvent("view_shop", withEventProperties: ["view_type": "click_unlock_buypoint"] )
             showCustomAlert = false
             UserManager.shared.appStateString = "servicePrepare"
         default:
@@ -77,6 +84,7 @@ class AppStateViewModel: ObservableObject {
     func onAppear() {
         getUsagePoint()
         getCurrentPoint()
+        Amplitude.instance().logEvent("view_unlock_popup")
     }
     
     /// 포인트 사용해서 잠금 해제하는 부분

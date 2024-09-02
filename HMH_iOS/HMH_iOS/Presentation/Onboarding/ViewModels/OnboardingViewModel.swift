@@ -8,6 +8,8 @@
 import SwiftUI
 import FamilyControls
 
+import Amplitude
+
 enum OnboardingState: Int {
     case timeSurveySelect = 0
     case problemSurveySelect
@@ -60,16 +62,19 @@ class OnboardingViewModel: ObservableObject {
     
     var appGoalTime: Int
     
+    private var amplitudeModel = OnboardingAmplitudeModel(averageUseTimeIndex: 0, problemIndex: [], period: 0)
+    
     @AppStorage("socialPlatform") private var socialPlatform = ""
     @AppStorage("userName") private var userName = ""
     
     @MainActor func saveOnboardingData() {
-        print(onboardingState)
+        Amplitude.instance().logEvent("click_onboarding_next")
         switch onboardingState {
         case .timeSurveySelect:
             for index in 0..<4{
                 if surveyButtonItems[onboardingState.rawValue][index].isSelected {
                     self.averageUseTime = surveyButtonItems[onboardingState.rawValue][index].buttonTitle
+                    amplitudeModel.averageUseTimeIndex = index + 1
                 }
             }
             addOnboardingState()
@@ -78,6 +83,7 @@ class OnboardingViewModel: ObservableObject {
             for index in 0..<4{
                 if surveyButtonItems[onboardingState.rawValue][index].isSelected {
                     self.problems.append(surveyButtonItems[onboardingState.rawValue][index].buttonTitle)
+                    amplitudeModel.problemIndex.append(index + 1)
                 }
             }
             addOnboardingState()
@@ -86,9 +92,7 @@ class OnboardingViewModel: ObservableObject {
             for index in 0..<4{
                 if surveyButtonItems[onboardingState.rawValue] [index].isSelected {
                     self.period = removeLastCharacterAndConvertToInt(from: surveyButtonItems[onboardingState.rawValue] [index].buttonTitle) ?? 0
-                    
-                    print(surveyButtonItems[onboardingState.rawValue] [index].buttonTitle)
-                    
+                    amplitudeModel.period = self.period
                 }
             }
             if isChallengeMode {
@@ -100,16 +104,20 @@ class OnboardingViewModel: ObservableObject {
         case .appGoalTimeSelect:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
             if isChallengeMode {
+                Amplitude.instance().logEvent("view_newchallenge_totaltime")
                 screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
                 postCreateChallengeData()
                 isCompletePresented = true
             } else {
+                Amplitude.instance().logEvent("click_challenge_totaltime")
                 addOnboardingState()
             }
         case .permissionSelect:
             screenViewModel.requestAuthorization()
             if screenViewModel.authorizationCenter.authorizationStatus == .approved {
                 postSignUpLoginData()
+            } else {
+                Amplitude.instance().logEvent("click_permission_afterwards")
             }
         default:
             break
@@ -117,9 +125,8 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func alertAction() {
-        postCreateChallengeData()
-        addOnboardingState()
         isCompletePresented = false
+        Amplitude.instance().logEvent("click_newchallenge_complete")
     }
     
     func addOnboardingState() {
@@ -182,11 +189,17 @@ class OnboardingViewModel: ObservableObject {
         let provider = Providers.AuthProvider
         provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
             print(data.status)
+            Amplitude.instance().logEvent("click_survey1_answer", withEventProperties: ["answer_value": self.amplitudeModel.averageUseTimeIndex] )
+            Amplitude.instance().logEvent("click_survey2_answer", withEventProperties: ["answer_value": self.amplitudeModel.problemIndex] )
+            Amplitude.instance().logEvent("click_challenge_period_answer", withEventProperties: ["period": self.amplitudeModel.period] )
+            Amplitude.instance().logEvent("complete_onboarding_finish")
             if data.status == 201 {
                 UserManager.shared.appStateString = "onboardingComplete"
                 UserManager.shared.isFirstLogin = true
                 UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
                 UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
+                
+
             } else if data.message == "이미 회원가입된 유저입니다." {
                 self.isOnboardingError = true
             } else {
@@ -200,7 +213,7 @@ class OnboardingViewModel: ObservableObject {
         
         let provider = Providers.challengeProvider
         provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
-            print(data.status)
+            Amplitude.instance().logEvent("click_newchallenge_period", withEventProperties: ["period": self.amplitudeModel.period] )
         }
     }
     

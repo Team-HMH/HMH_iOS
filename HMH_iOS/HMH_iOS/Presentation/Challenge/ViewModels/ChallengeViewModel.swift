@@ -8,6 +8,8 @@
 import SwiftUI
 import FamilyControls
 
+import Amplitude
+
 enum ChallengeType {
     case empty
     case normal
@@ -70,6 +72,7 @@ final class ChallengeViewModel: ObservableObject {
     func challengeButtonTapped() {
         if !(statuses.contains("UNEARNED")) {
             navigateToCreate = true
+            Amplitude.instance().logEvent("click_newchallenge_button")
         } else {
             isToastPresented = true
         }
