@@ -61,7 +61,7 @@ extension NavigationBarView {
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
             } else if showPointButton {
                 NavigationLink(destination: PointView(viewModel: .init())) {
-                    point != 0 ? Image(.remainEarnPoint) : Image(.navigationPoint)
+                    point == 0 ? Image(.navigationPoint) : Image(.remainEarnPoint)
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
             } else {
