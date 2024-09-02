@@ -163,6 +163,7 @@ enum StringLiteral {
     enum MyPageURL {
         static var term = "https://msmmx.notion.site/33acb29be57245f394eb93ddb2e3b8cc"
         static var info = "https://msmmx.notion.site/7006ac1eb36545c38ea2bdfc7e34d2cb"
+        static var openChat = "https://open.kakao.com/o/s5Im8leg"
     }
     
     enum Prepare {
