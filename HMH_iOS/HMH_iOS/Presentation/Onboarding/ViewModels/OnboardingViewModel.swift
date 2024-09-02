@@ -99,7 +99,6 @@ class OnboardingViewModel: ObservableObject {
                 onboardingState = .appGoalTimeSelect
             } else {
                 addOnboardingState()
-                offIsCompleted()
             }
         case .appGoalTimeSelect:
             self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
