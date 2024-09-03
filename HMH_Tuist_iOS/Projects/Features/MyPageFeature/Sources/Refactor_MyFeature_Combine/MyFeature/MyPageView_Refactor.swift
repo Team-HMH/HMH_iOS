@@ -11,8 +11,6 @@ import DSKit
 import Core
 
 public struct MyPageView_Refactor: View {
-    
-    
     @State private var isPresented: Bool = false
     @StateObject var viewModel: MyPageViewModel_Refactor
     
@@ -73,7 +71,6 @@ extension MyPageView_Refactor {
             Image(uiImage: DSKitAsset.profile.image)
                 .frame(width: 54, height: 54)
                 .padding(10)
-            //TODO: 서버통신이랑 이어지는 부분이라서
             Text(viewModel.name)
                 .font(.title4_semibold_20)
             Spacer()
@@ -81,7 +78,6 @@ extension MyPageView_Refactor {
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
-                //TODO: 서버통신이랑 이어지는 부분이라서
                 Text("\(viewModel.point)")
                     .font(.text6_medium_14)
             }
@@ -95,8 +91,8 @@ extension MyPageView_Refactor {
     }
     private func MyInfoView() -> some View {
         VStack(spacing: 0) {
-            MyPageButton_Refactor(viewModel: viewModel, buttonType: .travel)
-            MyPageButton_Refactor(viewModel: viewModel, buttonType: .market)
+            MyPageButton_Refactor(buttonType: .travel)
+            MyPageButton_Refactor(buttonType: .market)
         }
         .background(DSKitAsset.gray7.swiftUIColor)
     }
@@ -106,8 +102,8 @@ extension MyPageView_Refactor {
                 .font(.text4_semibold_16)
                 .foregroundColor(DSKitAsset.gray2.swiftUIColor)
                 .padding(.vertical, 14)
-            MyPageButton_Refactor(viewModel: viewModel, buttonType: .info)
-            MyPageButton_Refactor(viewModel: viewModel, buttonType: .term)
+            MyPageButton_Refactor(buttonType: .info)
+            MyPageButton_Refactor(buttonType: .term)
         }
     }
     private func AccountControlView() -> some View {

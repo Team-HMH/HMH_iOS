@@ -32,6 +32,7 @@ class StubAuthService: AuthServiceType {
     func revokeUser() -> AnyPublisher<EmptyResponseDTO, Error> {
         Empty().eraseToAnyPublisher()
     }
+    
     func logoutUser() -> AnyPublisher<EmptyResponseDTO, Error>  {
         Empty().eraseToAnyPublisher()
     }

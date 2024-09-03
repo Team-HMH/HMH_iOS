@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-
 import Combine
 
 import Core
@@ -21,26 +20,34 @@ class MyPageViewModel_Refactor: ObservableObject {
         self.container = container
     }
     
-    @Published var alertType: CustomAlertType = .logout
-    @Published var name = ""
-    @Published var point = 0
-    @Published var navigateToPrepare = false
+    @Published private(set) var state = State(
+        alertType: .logout,
+        name: "",
+        point: 0
+    )
     
     //MARK: Action
+    
     enum Action {
         case getUserData
         case revokeUser
         case logout
     }
     
+    struct State {
+        var alertType: CustomAlertType
+        var name: String
+        var point: Int
+    }
+    
     func send(action: Action) {
         switch action {
         case .getUserData:
             container.services.userService.getUserData()
-                .sink { _ in                    
+                .sink { _ in
                 } receiveValue: { [weak self] data in
-                    self?.name = data.data?.name ?? ""
-                    self?.point = data.data?.point ?? 0
+                    self?.state.name = data.data?.name ?? ""
+                    self?.state.point = data.data?.point ?? 0
                 }.store(in: cancelBag)
             
         case .revokeUser:
