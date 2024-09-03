@@ -28,6 +28,7 @@ public struct MyPageView_Refactor: View {
             Spacer()
             AccountControlView()
         }
+        .onAppear { viewModel.send(action: .onAppearEvent)}
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(DSKitAsset.blackground.swiftUIColor)
@@ -35,29 +36,21 @@ public struct MyPageView_Refactor: View {
             isPresented: $isPresented,
             customAlert: {
                 CustomAlertView(
-                    alertType: viewModel.alertType,
+                    alertType: viewModel.state.alertType,
                     confirmBtn: CustomAlertButtonView(
                         buttonType: .Confirm,
-                        alertType: viewModel.alertType,
+                        alertType: viewModel.state.alertType,
                         isPresented: $isPresented,
                         action: {
                             UserManager.shared.appStateString = "login"
-                            
-                            if viewModel.alertType == .logout {
-                                viewModel.send(action: .logout)
-                            } else {
-                                viewModel.send(action: .revokeUser)
-                                UserManager.shared.revokeData()
-                            }
+                            viewModel.send(action: .confirmButtonDidTap)
                         }
                     ),
                     cancelBtn: CustomAlertButtonView(
                         buttonType: .Cancel,
-                        alertType: viewModel.alertType,
+                        alertType: viewModel.state.alertType,
                         isPresented: $isPresented,
-                        action: {
-                            isPresented = false
-                        }
+                        action: { isPresented = false }
                     ), currentPoint: 0, usagePoint: 0
                 )
             }
@@ -71,14 +64,14 @@ extension MyPageView_Refactor {
             Image(uiImage: DSKitAsset.profile.image)
                 .frame(width: 54, height: 54)
                 .padding(10)
-            Text(viewModel.name)
+            Text(viewModel.state.name)
                 .font(.title4_semibold_20)
             Spacer()
                 .frame(height: 16)
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
-                Text("\(viewModel.point)")
+                Text("\(viewModel.state.point)")
                     .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)
@@ -89,6 +82,7 @@ extension MyPageView_Refactor {
         .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
         .frame(width: 133, height: 150)
     }
+    
     private func MyInfoView() -> some View {
         VStack(spacing: 0) {
             MyPageButton_Refactor(buttonType: .travel)
@@ -96,6 +90,7 @@ extension MyPageView_Refactor {
         }
         .background(DSKitAsset.gray7.swiftUIColor)
     }
+    
     private func HMHInfoView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("정보")
@@ -106,13 +101,14 @@ extension MyPageView_Refactor {
             MyPageButton_Refactor(buttonType: .term)
         }
     }
+    
     private func AccountControlView() -> some View {
         HStack {
             Text(StringLiteral.MyPageAccountControl.logout)
                 .font(.text6_medium_14)
                 .onTapGesture {
                     isPresented = true
-                    viewModel.alertType = .logout
+                    viewModel.send(action: .logoutButtonDidTap)
                 }
             Rectangle()
                 .frame(width: 1, height: 16)
@@ -120,7 +116,7 @@ extension MyPageView_Refactor {
                 .font(.text6_medium_14)
                 .onTapGesture {
                     isPresented = true
-                    viewModel.alertType = .withdraw
+                    viewModel.send(action: .withdrawButtonDidTap)
                 }
         }
         .foregroundColor(DSKitAsset.gray3.swiftUIColor)

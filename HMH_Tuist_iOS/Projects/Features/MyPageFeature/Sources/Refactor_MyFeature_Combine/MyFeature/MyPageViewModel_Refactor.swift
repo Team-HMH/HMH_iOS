@@ -13,11 +13,11 @@ import DSKit
 
 class MyPageViewModel_Refactor: ObservableObject {
     
-    private var container: DIContainer
+    private var useCase: MyPageUseCaseType
     private var cancelBag = CancelBag()
     
-    init(container: DIContainer) {
-        self.container = container
+    init(useCase: MyPageUseCaseType) {
+        self.useCase = useCase
     }
     
     @Published private(set) var state = State(
@@ -29,9 +29,10 @@ class MyPageViewModel_Refactor: ObservableObject {
     //MARK: Action
     
     enum Action {
-        case getUserData
-        case revokeUser
-        case logout
+        case onAppearEvent
+        case logoutButtonDidTap
+        case withdrawButtonDidTap
+        case confirmButtonDidTap
     }
     
     struct State {
@@ -42,27 +43,20 @@ class MyPageViewModel_Refactor: ObservableObject {
     
     func send(action: Action) {
         switch action {
-        case .getUserData:
-            container.services.userService.getUserData()
+        case .onAppearEvent:
+            useCase.getUserDate()
                 .sink { _ in
                 } receiveValue: { [weak self] data in
-                    self?.state.name = data.data?.name ?? ""
-                    self?.state.point = data.data?.point ?? 0
+                    self?.state.name = data.name
+                    self?.state.point = data.point
                 }.store(in: cancelBag)
             
-        case .revokeUser:
-            container.services.authService.revokeUser()
-                .sink { _ in
-                } receiveValue: {  _ in
-                    UserManager.shared.revokeData()
-                }.store(in: cancelBag)
-            
-        case .logout:
-            container.services.authService.logoutUser()
-                .sink { _ in
-                } receiveValue: {  _ in
-                    UserManager.shared.revokeData()
-                }.store(in: cancelBag)
+        case .logoutButtonDidTap:
+            state.alertType = .logout
+        case .withdrawButtonDidTap:
+            state.alertType = .withdraw
+        case .confirmButtonDidTap:
+            state.alertType == .logout ? useCase.logout() : useCase.revokeUser()
         }
     }
 }
