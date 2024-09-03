@@ -5,7 +5,6 @@
 //  Created by Seonwoo Kim on 4/12/24.
 //
 
-import SwiftUI
 import Combine
 
 import Core
@@ -35,6 +34,8 @@ class MyPageViewModel_Refactor: ObservableObject {
         case confirmButtonDidTap
     }
     
+    //MARK: State
+    
     struct State {
         var alertType: CustomAlertType
         var name: String
@@ -53,8 +54,10 @@ class MyPageViewModel_Refactor: ObservableObject {
             
         case .logoutButtonDidTap:
             state.alertType = .logout
+            
         case .withdrawButtonDidTap:
             state.alertType = .withdraw
+            
         case .confirmButtonDidTap:
             state.alertType == .logout ? useCase.logout() : useCase.revokeUser()
         }
