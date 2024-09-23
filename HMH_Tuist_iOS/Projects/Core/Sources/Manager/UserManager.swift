@@ -34,7 +34,7 @@ public class UserManager: ObservableObject {
         appState = AppState(rawValue: appStateString) ?? .login
     }
     
-    func clearLogout() {
+    public func clearLogout() {
         accessToken = ""
         refreshToken = ""
         socialToken = ""

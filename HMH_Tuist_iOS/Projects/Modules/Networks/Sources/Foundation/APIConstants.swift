@@ -10,7 +10,7 @@ import Moya
 
 import Core
 
-struct APIConstants {
+public struct APIConstants {
     static let contentType = "Content-Type"
     static let applicationJSON = "application/json"
     static let auth = "Authorization"
@@ -31,7 +31,7 @@ struct APIConstants {
     static let iOS = "iOS"
 }
 
-extension APIConstants {
+public extension APIConstants {
     static var hasSocialTokenHeader: [String: String] {
         return [contentType: applicationJSON,
                 auth: appleAccessToken]

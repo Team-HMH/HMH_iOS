@@ -7,4 +7,4 @@
 
 import Foundation
 
-struct EmptyResponseDTO: Codable { }
+public struct EmptyResponseDTO: Codable { }
