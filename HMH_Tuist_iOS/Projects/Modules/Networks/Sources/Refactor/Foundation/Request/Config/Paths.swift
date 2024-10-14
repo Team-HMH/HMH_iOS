@@ -10,26 +10,34 @@ public enum Paths {
     
     //MARK: - Auth
     
-    static let signUp = "/auth/sign-up"
-    static let signIn = "/auth/sign-in"
+    static let signUp = "user/signup"
+    static let socialLogin = "user/login"
+    static let tokenRefresh = "user/reissue"
     
     //MARK: - User
     
-    static let editNickName = "/users/my/nickname"
-    static let deleteAccount = "/users/my"
+    static let logout = "user/logout"
+    static let deleteAccount = "user"
     static let getUserData = "/users"
+    static let getCurrentPoint = "user/point"
     
-    //MARK: - Room
+    //MARK: - Point
     
-    static let createRoom = "/rooms"
-    static let getRooms = "/rooms"
-    static let getRoomDetail = "/rooms/{roomId}"
-    static let editRoomInfo = "/rooms/{roomId}"
-    static let deleteRoom = "/rooms/{roomId}"
-    static let getRoomMyInfo = "/rooms/{roomId}/my"
-    static let matchRoom = "/rooms/{roomId}/match"
-    static let enterRoom = "/rooms/enter"
-    static let exitRoom = "/rooms/{roomId}/exit"
-    static let deleteHistoryRoom = "/rooms/{roomId}/history"
+    static let getUsagePoint = "point/use"
+    static let patchEarnPoint = "point/earn"
+    static let getEarnPoint = "point/earn"
+    static let getPointList = "point/list"
+    static let patchPointUse = "point/use"
+    
+    //MARK: - Point
+    
+    static let createChallenge = "challenge"
+    static let dailyChallengeFail = "dailychallenge/failure"
+    static let getChallenge = "challenge"
+    static let getdailyChallenge =  "challenge/home"
+    static let addApp = "challenge/app"
+    static let deleteApp = "challenge/app"
+    static let postDailyChallenge = "challenge/daily/success"
+    
 }
 
