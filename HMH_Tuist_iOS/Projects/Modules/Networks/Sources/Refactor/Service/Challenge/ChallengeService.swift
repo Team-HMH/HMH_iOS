@@ -7,3 +7,21 @@
 //
 
 import Foundation
+import Combine
+
+typealias ChallengeService = BaseService<ChallengeAPI>
+
+protocol ChallengeServiceType {
+    
+}
+
+extension ChallengeService: ChallengeServiceType {
+
+    
+}
+
+struct StubChallengeService: ChallengeServiceType {
+    
+}
+
+

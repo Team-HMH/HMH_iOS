@@ -7,3 +7,20 @@
 //
 
 import Foundation
+import Combine
+
+typealias UserService = BaseService<UserAPI>
+
+protocol UserServiceType {
+    
+}
+
+extension UserService: UserServiceType {
+
+    
+}
+
+struct StubUserService: UserServiceType {
+    
+}
+

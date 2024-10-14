@@ -7,3 +7,22 @@
 //
 
 import Foundation
+import Combine
+
+typealias AuthService = BaseService<AuthAPI>
+
+protocol AuthServiceType {
+    
+}
+
+extension AuthService: AuthServiceType {
+
+    
+}
+
+struct StubAuthService: AuthServiceType {
+    
+}
+
+
+
