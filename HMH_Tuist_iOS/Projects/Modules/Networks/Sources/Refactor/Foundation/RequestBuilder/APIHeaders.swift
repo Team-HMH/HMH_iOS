@@ -1,5 +1,5 @@
 //
-//  APIConstants.swift
+//  APIHeaders.swift
 //  HMH_iOS
 //
 //  Created by 지희의 MAC on 1/11/24.
@@ -10,7 +10,7 @@ import Moya
 
 import Core
 
-public struct APIConstants {
+public struct APIHeaders {
     static let contentType = "Content-Type"
     static let applicationJSON = "application/json"
     static let auth = "Authorization"
@@ -31,7 +31,7 @@ public struct APIConstants {
     static let iOS = "iOS"
 }
 
-public extension APIConstants {
+public extension APIHeaders {
     static var hasSocialTokenHeader: [String: String] {
         return [contentType: applicationJSON,
                 auth: appleAccessToken]

@@ -22,15 +22,15 @@ extension AuthRouter: BaseTargetType {
     var headers: Parameters? {
         switch self {
         case .socialLogin:
-            return APIConstants.hasSocialTokenHeader
+            return APIHeaders.hasSocialTokenHeader
         case .signUp:
-            return APIConstants.signUpHeader
+            return APIHeaders.signUpHeader
         case .tokenRefresh:
-            return APIConstants.hasRefreshTokenHeader
+            return APIHeaders.hasRefreshTokenHeader
         case .revoke:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         case .logout:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         }
     }
     

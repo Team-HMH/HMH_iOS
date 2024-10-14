@@ -23,17 +23,17 @@ extension PointRouter: BaseTargetType {
     var headers: [String : String]? {
         switch self {
         case .getUsagePoint:
-            return APIConstants.hasAccessTokenHeader
+            return APIHeaders.hasAccessTokenHeader
         case .patchEarnPoint :
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         case .getEarnPoint:
-            return APIConstants.hasAccessTokenHeader
+            return APIHeaders.hasAccessTokenHeader
         case .getPointList:
-            return APIConstants.hasAccessTokenHeader
+            return APIHeaders.hasAccessTokenHeader
         case .patchPointUse:
-            return APIConstants.hasAccessTokenHeader
+            return APIHeaders.hasAccessTokenHeader
         case .getCurrentPoint:
-            return APIConstants.hasAccessTokenHeader
+            return APIHeaders.hasAccessTokenHeader
         }
     }
     

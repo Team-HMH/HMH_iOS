@@ -24,19 +24,19 @@ extension ChallengeRouter: BaseTargetType {
     var headers: [String : String]? {
         switch self {
         case .createChallenge:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         case .dailyChallengeFail :
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         case .getChallenge:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         case .getdailyChallenge:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         case .addApp:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         case .deleteApp:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         case .postDailyChallenge:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         }
     }
     

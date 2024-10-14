@@ -18,7 +18,7 @@ extension MyPageRouter: BaseTargetType {
     var headers: [String : String]? {
         switch self {
         case .getUserData:
-            return APIConstants.hasTokenHeader
+            return APIHeaders.hasTokenHeader
         }
     }
     
