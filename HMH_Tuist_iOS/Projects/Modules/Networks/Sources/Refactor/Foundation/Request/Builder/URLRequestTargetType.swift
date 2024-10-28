@@ -15,6 +15,7 @@ protocol URLRequestTargetType {
     var method: HTTPMethod { get }
     var headers : [String : String]? { get }
     var task: Task { get }
+    var isWithInterceptor: Bool { get }
     
     func asURLRequest() -> AnyPublisher<URLRequest, HMHNetworkError.RequestError>
 }

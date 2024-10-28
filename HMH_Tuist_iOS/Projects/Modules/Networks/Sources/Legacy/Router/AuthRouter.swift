@@ -19,7 +19,9 @@ enum AuthRouter {
 }
 
 extension AuthRouter: BaseTargetType {
-    var headers: Parameters? {
+
+    
+    var headers: [String : String]? {
         switch self {
         case .socialLogin:
             return APIHeaders.hasSocialTokenHeader

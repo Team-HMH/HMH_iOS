@@ -17,6 +17,10 @@ enum AuthAPI {
 }
 
 extension AuthAPI: BaseAPI {
+    var isWithInterceptor: Bool {
+        return false
+    }
+    
     var path: String? {
         switch self {
         case .signUp:

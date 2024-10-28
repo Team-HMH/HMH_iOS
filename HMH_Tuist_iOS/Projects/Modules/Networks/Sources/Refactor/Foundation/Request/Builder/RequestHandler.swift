@@ -29,17 +29,14 @@ class RequestHandler {
             .mapError { ErrorHandler.handleError(target, error: .invalidRequest($0)) }
             .flatMap { urlRequest in
                 if isWithInterceptor {
-                    return TokenInterceptor
-                        .catch { error in
-                            // Adapt 실패 시 에러 처리
-                            Just(urlRequest) // 원래 요청을 반환
-                                .setFailureType(to: HMHNetworkError.RequestError.self)
-                        }
+                    return TokenInterceptor.shared.adapt(urlRequest)
                 } else {
                     return Just(urlRequest)
-                        .setFailureType(to: HMHNetworkError.RequestError.self)
+                        .setFailureType(to: HMHNetworkError.self)
+                        .eraseToAnyPublisher()
                 }
             }
+            .map { $0 }
             .flatMap { urlRequest in
                 self.session.dataTaskPublisher(for: urlRequest)
                     .tryMap { data, response -> NetworkResponse in

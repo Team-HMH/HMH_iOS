@@ -32,6 +32,10 @@ public struct APIHeaders {
 }
 
 public extension APIHeaders {
+    static var noTokenHeader: Dictionary<String,String> {
+        [contentType: applicationJSON]
+    }
+    
     static var hasSocialTokenHeader: [String: String] {
         return [contentType: applicationJSON,
                 auth: appleAccessToken]

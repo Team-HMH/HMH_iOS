@@ -18,6 +18,10 @@ enum UserAPI {
 }
 
 extension UserAPI: BaseAPI {
+    var isWithInterceptor: Bool {
+        return false
+    }
+    
     var path: String? {
         switch self {
         case .logout:

@@ -19,6 +19,10 @@ enum PointAPI {
 }
 
 extension PointAPI: BaseAPI {
+    var isWithInterceptor: Bool {
+        return false
+    }
+    
     var path: String? {
         switch self {
         case .getUsagePoint:

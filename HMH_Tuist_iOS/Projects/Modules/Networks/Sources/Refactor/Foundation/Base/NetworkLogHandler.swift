@@ -15,7 +15,7 @@ struct NetworkLogHandler {
         let url = endpoint.url + (endpoint.path ?? "")
         let method = endpoint.method.rawValue
         let headers = endpoint.headers ?? [:]
-        let parameters = endpoint.parameters ?? [:]
+        let parameters = endpoint.task
         
         print("""
             ================== 📤 Request ===================>

@@ -21,6 +21,10 @@ enum ChallengeAPI {
 }
 
 extension ChallengeAPI: BaseAPI {
+    var isWithInterceptor: Bool {
+        return true
+    }
+    
     var path: String? {
         switch self {
         case .createChallenge:

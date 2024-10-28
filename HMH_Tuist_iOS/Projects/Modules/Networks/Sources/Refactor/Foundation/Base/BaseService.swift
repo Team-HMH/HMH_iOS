@@ -46,7 +46,7 @@ final class BaseService<Target: URLRequestTargetType> {
 extension BaseService {
     /// 네트워크 응답 처리 메소드
     private func fetchResponse(with target: API) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
-        return requestHandler.executeRequest(for: target)
+        return requestHandler.executeRequest(for: target, isWithInterceptor: target.isWithInterceptor)
             .handleEvents(receiveSubscription:  {  _ in
                 NetworkLogHandler.requestLogging(target)
             }, receiveOutput:  {  response in
