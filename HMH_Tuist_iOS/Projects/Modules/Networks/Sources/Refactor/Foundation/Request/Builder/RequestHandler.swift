@@ -23,10 +23,23 @@ class RequestHandler {
         return URLSession(configuration: configuration)
     }()
     
-    func executeRequest<T: URLRequestTargetType>(for target: T) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
+    func executeRequest<T: URLRequestTargetType>(for target: T, isWithInterceptor: Bool) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
         return target.asURLRequest()
             .map { $0 }
             .mapError { ErrorHandler.handleError(target, error: .invalidRequest($0)) }
+            .flatMap { urlRequest in
+                if isWithInterceptor {
+                    return TokenInterceptor
+                        .catch { error in
+                            // Adapt 실패 시 에러 처리
+                            Just(urlRequest) // 원래 요청을 반환
+                                .setFailureType(to: HMHNetworkError.RequestError.self)
+                        }
+                } else {
+                    return Just(urlRequest)
+                        .setFailureType(to: HMHNetworkError.RequestError.self)
+                }
+            }
             .flatMap { urlRequest in
                 self.session.dataTaskPublisher(for: urlRequest)
                     .tryMap { data, response -> NetworkResponse in
