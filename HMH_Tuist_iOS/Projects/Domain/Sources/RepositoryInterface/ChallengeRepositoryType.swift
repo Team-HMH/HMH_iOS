@@ -16,7 +16,7 @@ public protocol ChallengeRepositoryType {
     func getLockChallenge() -> AnyPublisher<Bool, Error>
     func postLockChallenge() -> AnyPublisher<Void, Error>
     func deleteApp(appCode: String) -> AnyPublisher<Void, Error>
-    func addApp(apps: [App]) -> AnyPublisher<Void, Error>
+    func addApp(apps: [AppInfo]) -> AnyPublisher<Void, Error>
     func getChallenge() -> AnyPublisher<ChallengeDetail, Error>
 }
 

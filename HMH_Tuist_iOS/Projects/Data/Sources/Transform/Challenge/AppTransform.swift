@@ -12,19 +12,19 @@ import Networks
 import Domain
 
 extension Apps {
-    public func toEntity() -> App {
+    public func toEntity() -> AppInfo {
         return .init(
-            appCode: self.appCode,
-            goalTime: self.goalTime
+            appCode: appCode,
+            goalTime: goalTime
         )
     }
 }
 
-extension App {
+extension AppInfo {
     public func toDTO() -> Apps {
         return .init(
-            appCode: self.appCode,
-            goalTime: self.goalTime
+            appCode: appCode,
+            goalTime: goalTime
         )
     }
 }

@@ -8,14 +8,14 @@
 import Foundation
 
 public struct PointListResult: Decodable {
-    let point: Int
-    let period: Int
-    let challengePointStatuses: [PointList]
+    public let point: Int
+    public let period: Int
+    public let challengePointStatuses: [ChallengePointStatuses]
 }
 
-public struct PointList: Decodable {
-    let challengeDate: String
-    let status: String
+public struct ChallengePointStatuses: Decodable {
+    public let challengeDate: String
+    public let status: String
 }
 
 public extension PointListResult {
@@ -24,7 +24,7 @@ public extension PointListResult {
     }
 }
 
-public extension PointList {
+public extension ChallengePointStatuses {
     static var stub: Self {
         return .init(challengeDate: "Asdfasdfasdfas", status: "ASdfasdfasdfas")
     }

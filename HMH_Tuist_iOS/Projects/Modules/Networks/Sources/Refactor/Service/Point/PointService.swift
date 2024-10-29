@@ -11,7 +11,7 @@ import Combine
 
 typealias PointService = BaseService<PointAPI>
 
-protocol PointServiceType {
+public protocol PointServiceType {
     func patchPointUse() -> AnyPublisher<UsePointResult, HMHNetworkError>
     func getEarnPoint() -> AnyPublisher<EarnPointResult, HMHNetworkError>
     func getUsagePoint() -> AnyPublisher<UsagePointResult, HMHNetworkError>

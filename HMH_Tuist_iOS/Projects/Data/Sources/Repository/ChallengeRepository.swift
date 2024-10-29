@@ -55,7 +55,7 @@ struct ChallengeRepository: ChallengeRepositoryType {
             .asVoidWithGeneralError()
     }
     
-    func addApp(apps: [App]) -> AnyPublisher<Void, Error> {
+    func addApp(apps: [AppInfo]) -> AnyPublisher<Void, Error> {
         let request = AddAppRequest(apps: apps.map { $0.toDTO() })
         return service.addApp(request: request)
             .asVoidWithGeneralError()

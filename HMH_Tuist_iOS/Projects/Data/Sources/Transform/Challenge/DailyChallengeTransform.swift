@@ -11,9 +11,8 @@ import Foundation
 import Domain
 import Networks
 
-extension ChallengeSuccessResult {
-    func toEntity() -> DailyChallenge {
-        return .init(challengeDate: self.challengData, isSuccess: <#T##Bool#>)
-        
+extension FinishedDailyChallenge {
+    func toEntity() -> DailyChallengeInfo {
+        return .init(challengeDate: challengeDate, isSuccess: isSuccess)
     }
 }

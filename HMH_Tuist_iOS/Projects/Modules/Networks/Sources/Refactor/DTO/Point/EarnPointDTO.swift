@@ -9,7 +9,7 @@
 import Foundation
 
 public struct EarnPointResult: Decodable {
-    let earnPoint: Int
+    public let earnPoint: Int
 }
 
 public extension EarnPointResult {

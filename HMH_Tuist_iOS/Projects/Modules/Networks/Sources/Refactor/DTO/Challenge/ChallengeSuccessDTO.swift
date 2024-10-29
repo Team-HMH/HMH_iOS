@@ -12,8 +12,8 @@ public struct ChallengeSuccessRequest: Encodable {
 }
 
 public struct FinishedDailyChallenge: Encodable {
-    let challengeDate: String
-    let isSuccess: Bool
+    public let challengeDate: String
+    public let isSuccess: Bool
 }
 
 public struct ChallengeSuccessResult: Decodable {

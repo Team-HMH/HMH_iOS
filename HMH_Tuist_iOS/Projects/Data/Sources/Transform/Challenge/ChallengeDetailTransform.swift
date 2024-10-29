@@ -14,12 +14,12 @@ import Networks
 extension GetChallengeResult {
     public func toEntity() -> ChallengeDetail {
         return .init(
-            period: self.period,
-            statuses: self.statuses,
-            todayIndex: self.todayIndex,
-            startDate: self.startDate,
-            goalTime: self.goalTime,
-            apps: self.apps.map { $0.toEntity() }
+            period: period,
+            statuses: statuses,
+            todayIndex: todayIndex,
+            startDate: startDate,
+            goalTime: goalTime,
+            apps: apps.map { $0.toEntity() }
         )
     }
 }

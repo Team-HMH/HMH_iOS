@@ -9,7 +9,7 @@
 import Foundation
 
 public struct UsagePointResult: Decodable {
-    let usagePoint: Int
+    public let usagePoint: Int
 }
 
 public extension UsagePointResult {

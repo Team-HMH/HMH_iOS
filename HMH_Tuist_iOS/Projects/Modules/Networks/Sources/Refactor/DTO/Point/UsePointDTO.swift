@@ -9,8 +9,8 @@
 import Foundation
 
 public struct UsePointResult: Decodable {
-    let usagePoint: Int
-    let userPoint: Int
+    public let usagePoint: Int
+    public let userPoint: Int
 }
 
 public extension UsePointResult {

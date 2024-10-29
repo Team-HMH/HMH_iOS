@@ -8,12 +8,16 @@
 
 import Foundation
 
-struct UserPointRequest: Encodable {
+public struct UserPointRequest: Encodable {
     let challengeDate: String
+    
+    public init(challengeDate: String) {
+        self.challengeDate = challengeDate
+    }
 }
 
 public struct UserPointResult: Decodable {
-    let userPoint: Int
+    public let userPoint: Int
 }
 
 public extension UserPointResult {
