@@ -29,3 +29,9 @@ public struct Apps: Codable {
     public let appCode: String
     public let goalTime: Int
 }
+
+extension Apps {
+    static var stub: Self {
+        .init(appCode: "####", goalTime: 3)
+    }
+}

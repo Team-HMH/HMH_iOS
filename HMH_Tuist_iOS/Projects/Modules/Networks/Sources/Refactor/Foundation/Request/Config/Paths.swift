@@ -21,6 +21,7 @@ public enum Paths {
     static let getUserData = "/users"
     static let getCurrentPoint = "user/point"
     
+    
     //MARK: - Point
     
     static let getUsagePoint = "point/use"
@@ -29,15 +30,15 @@ public enum Paths {
     static let getPointList = "point/list"
     static let patchPointUse = "point/use"
     
-    //MARK: - Point
+    //MARK: - Challenge
     
-    static let createChallenge = "challenge"
-    static let dailyChallengeFail = "dailychallenge/failure"
-    static let getChallenge = "challenge"
     static let getdailyChallenge =  "challenge/home"
-    static let addApp = "challenge/app"
+    static let getSuccesChallenge = "challenge/daily/success"
+    static let createChallenge = "challenge"
+    static let getLockChallenge = "user/daily/lock"
+    static let postLockChallenge = "user/daily/lock"
     static let deleteApp = "challenge/app"
-    static let postDailyChallenge = "challenge/daily/success"
-    
+    static let getChallenge = "challenge"
+    static let addApp = "challenge/app"
 }
 

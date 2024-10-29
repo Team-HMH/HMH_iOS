@@ -14,19 +14,21 @@ public struct APIHeaders {
     static let contentType = "Content-Type"
     static let applicationJSON = "application/json"
     static let auth = "Authorization"
+    static let timezone = "Time-Zone"
     
     static var accessToken: String {
-        return "Bearer " + (UserManager.shared.accessToken ?? "")
+        return "Bearer " + (UserManager.shared.accessToken)
     }
     
     static var refreshToken: String {
-        return "Bearer " + (UserManager.shared.refreshToken ?? "")
+        return "Bearer " + (UserManager.shared.refreshToken)
     }
     
     static var appleAccessToken: String {
-        return UserManager.shared.socialToken ?? ""
+        return UserManager.shared.socialToken
     }
 
+    static let TIMEZONE = "Asia/Seoul"
     static let OS = "OS"
     static let iOS = "iOS"
 }

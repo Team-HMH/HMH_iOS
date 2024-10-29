@@ -8,16 +8,17 @@
 
 import Foundation
 
-import Domain
+import Data
 
 enum ChallengeAPI {
-    case createChallenge(data: CreateChallengeRequest)
-    case dailyChallengeFail
-    case getChallenge
     case getdailyChallenge
-    case addApp(data: AddAppRequest)
+    case getSuccesChallenge
+    case createChallenge(data: CreateChallengeRequest)
+    case getLockChallenge
+    case postLockChallenge
     case deleteApp(data: DeleteAppRequest)
-    case postDailyChallenge(data: ChallengeSuccessResult)
+    case addApp(data: AddAppRequest)
+    case getChallenge
 }
 
 extension ChallengeAPI: BaseAPI {
@@ -27,78 +28,69 @@ extension ChallengeAPI: BaseAPI {
     
     var path: String? {
         switch self {
-        case .createChallenge:
-            return Paths.createChallenge
-        case .dailyChallengeFail:
-            return Paths.dailyChallengeFail
-        case .getChallenge:
-            return Paths.getChallenge
         case .getdailyChallenge:
             return Paths.getChallenge
-        case .addApp:
-            return Paths.addApp
+        case .getSuccesChallenge:
+            return Paths.getSuccesChallenge
+        case .createChallenge:
+            return Paths.createChallenge
+        case .getLockChallenge:
+            return Paths.getLockChallenge
+        case .postLockChallenge:
+            return Paths.postLockChallenge
         case .deleteApp:
             return Paths.deleteApp
-        case .postDailyChallenge:
-            return Paths.postDailyChallenge
+        case .addApp:
+            return Paths.addApp
+        case .getChallenge:
+            return Paths.getChallenge
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .createChallenge:
-            return .post
-        case .dailyChallengeFail:
-            return .patch
-        case .getChallenge:
-            return .get
         case .getdailyChallenge:
             return .get
-        case .addApp:
+        case .getSuccesChallenge:
+            return .get
+        case .createChallenge:
+            return .post
+        case .getLockChallenge:
+            return .get
+        case .postLockChallenge:
             return .post
         case .deleteApp:
             return .delete
-        case .postDailyChallenge:
+        case .addApp:
             return .post
+        case .getChallenge:
+            return .get
         }
     }
     
     var task: Task {
         switch self {
-        case .createChallenge(let data):
-            return .requestJSONEncodable(data)
-        case .dailyChallengeFail:
-            return .requestPlain
-        case .getChallenge:
-            return .requestPlain
         case .getdailyChallenge:
             return .requestPlain
-        case .addApp(let data):
+        case .getSuccesChallenge:
+            return .requestPlain
+        case .createChallenge(let data):
             return .requestJSONEncodable(data)
+        case .getLockChallenge:
+            return .requestPlain
+        case .postLockChallenge:
+            return .requestPlain
         case .deleteApp(let data):
             return .requestJSONEncodable(data)
-        case .postDailyChallenge(let data):
+        case .addApp(let data):
             return .requestJSONEncodable(data)
+        case .getChallenge:
+            return .requestPlain
         }
     }
     
     var headers: [String : String]? {
-        switch self {
-        case .createChallenge:
-            return APIHeaders.hasTokenHeader
-        case .dailyChallengeFail :
-            return APIHeaders.hasTokenHeader
-        case .getChallenge:
-            return APIHeaders.hasTokenHeader
-        case .getdailyChallenge:
-            return APIHeaders.hasTokenHeader
-        case .addApp:
-            return APIHeaders.hasTokenHeader
-        case .deleteApp:
-            return APIHeaders.hasTokenHeader
-        case .postDailyChallenge:
-            return APIHeaders.hasTokenHeader
-        }
+        return APIHeaders.hasTokenHeader
     }
 }
 
