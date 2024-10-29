@@ -20,10 +20,8 @@ let project = Project.makeModule(
     name: "ThirdPartyLibs",
     targets: [.dynamicFramework],
     externalDependencies: [
-        .SPM.Kingfisher,
         .SPM.KakaoSDK,
         .SPM.KeychainAccess,
-        .SPM.Moya,
         .SPM.Lottie
     ]
 )
