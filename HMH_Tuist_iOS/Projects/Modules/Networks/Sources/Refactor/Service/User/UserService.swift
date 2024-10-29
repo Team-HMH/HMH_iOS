@@ -30,11 +30,11 @@ extension UserService: UserServiceType {
     }
     
     func getUserData() -> AnyPublisher<UserResult, HMHNetworkError> {
-        requestWithResult(.getUserData, UserResult.self)
+        requestWithResult(.getUserData)
     }
     
     func getCurrentPoint() -> AnyPublisher<PointResult, HMHNetworkError> {
-        requestWithResult(.getCurrentPoint, PointResult.self)
+        requestWithResult(.getCurrentPoint)
     }
 }
 

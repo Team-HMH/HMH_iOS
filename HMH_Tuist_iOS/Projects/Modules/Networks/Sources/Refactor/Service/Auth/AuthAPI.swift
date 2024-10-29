@@ -11,8 +11,8 @@ import Foundation
 import Domain
 
 enum AuthAPI {
-    case signUp(data: SignUpRequestDTO)
-    case socialLogin(data: SocialLoginRequestDTO)
+    case signUp(request: SignUpRequest)
+    case socialLogin(request: SocialLoginRequest)
     case tokeRefresh
 }
 
@@ -45,10 +45,10 @@ extension AuthAPI: BaseAPI {
     
     var task: Task {
         switch self {
-        case .signUp(let data):
-            return .requestJSONEncodable(data)
-        case .socialLogin(let data):
-            return .requestJSONEncodable(data)
+        case .signUp(let request):
+            return .requestJSONEncodable(request)
+        case .socialLogin(let request):
+            return .requestJSONEncodable(request)
         case .tokeRefresh:
             return .requestPlain
         }

@@ -24,11 +24,11 @@ public protocol ChallengeServiceType {
 
 extension ChallengeService: ChallengeServiceType {
     func getdailyChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
-        return requestWithResult(.getdailyChallenge, GetChallengeResult.self)
+        return requestWithResult(.getdailyChallenge)
     }
     
     func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
-        return requestWithResult(.getSuccesChallenge, ChallengeSuccessResult.self)
+        return requestWithResult(.getSuccesChallenge)
     }
     
     func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
@@ -36,7 +36,7 @@ extension ChallengeService: ChallengeServiceType {
     }
     
     func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError> {
-        return requestWithResult(.getLockChallenge, GetLockResult.self)
+        return requestWithResult(.getLockChallenge)
     }
     
     func postLockChallenge() -> AnyPublisher<Void, HMHNetworkError> {
@@ -52,7 +52,7 @@ extension ChallengeService: ChallengeServiceType {
     }
     
     func getChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
-        return requestWithResult(.getChallenge, GetChallengeResult.self)
+        return requestWithResult(.getChallenge)
     }
 }
 

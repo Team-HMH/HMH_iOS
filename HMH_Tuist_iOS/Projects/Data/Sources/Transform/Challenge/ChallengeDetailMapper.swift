@@ -13,13 +13,26 @@ import Networks
 
 extension GetChallengeResult {
     public func toEntity() -> ChallengeDetail {
-        return .init(
-            period: period,
+        .init(
             statuses: statuses,
             todayIndex: todayIndex,
             startDate: startDate,
+            challengeInfo: .init(
+                period: period,
+                goalTime: goalTime,
+                apps: apps.map { $0.toEntity() }
+            )
+        )
+    }
+}
+
+extension ChallengeInfo {
+    public func toDTO() -> ChallengeRequest {
+        .init(
+            period: period,
             goalTime: goalTime,
-            apps: apps.map { $0.toEntity() }
+            apps: apps.map {$0.toDTO()
+            }
         )
     }
 }

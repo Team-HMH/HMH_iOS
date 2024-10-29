@@ -22,7 +22,7 @@ final class BaseService<Target: URLRequestTargetType> {
         return URLSession(configuration: configuration)
     }()
     
-    func requestWithResult<T: Decodable>(_ target: API, _ responseType: T.Type) -> AnyPublisher<T, HMHNetworkError> {
+    func requestWithResult<T: Decodable>(_ target: API) -> AnyPublisher<T, HMHNetworkError> {
         return fetchResponse(with: target)
             .flatMap { response in
                 self.validate(response: response)
