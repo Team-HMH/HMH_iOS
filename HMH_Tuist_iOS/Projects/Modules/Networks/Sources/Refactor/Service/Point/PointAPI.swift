@@ -11,11 +11,11 @@ import Foundation
 import Domain
 
 enum PointAPI {
-    case getUsagePoint
-    case patchEarnPoint(data: PointRequestDTO)
+    case patchPointUse
     case getEarnPoint
+    case getUsagePoint
     case getPointList
-    case patchPointUse(data: PointRequestDTO)
+    case patchEarnPoint(request: UserPointRequest)
 }
 
 extension PointAPI: BaseAPI {
@@ -25,46 +25,46 @@ extension PointAPI: BaseAPI {
     
     var path: String? {
         switch self {
-        case .getUsagePoint:
-            return Paths.getUsagePoint
-        case .patchEarnPoint(data: let data):
-            return Paths.patchEarnPoint
-        case .getEarnPoint:
-            return Paths.getEarnPoint
-        case .getPointList:
-            return Paths.getPointList
         case .patchPointUse:
             return Paths.patchPointUse
+        case .getEarnPoint:
+            return Paths.getEarnPoint
+        case .getUsagePoint:
+            return Paths.getUsagePoint
+        case .getPointList:
+            return Paths.getPointList
+        case .patchEarnPoint:
+            return Paths.patchEarnPoint
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getUsagePoint:
-            return .get
-        case .patchEarnPoint:
+        case .patchPointUse:
             return .patch
         case .getEarnPoint:
             return .get
+        case .getUsagePoint:
+            return .get
         case .getPointList:
             return .get
-        case .patchPointUse:
+        case .patchEarnPoint:
             return .patch
         }
     }
     
     var task: Task {
         switch self {
-        case .getUsagePoint:
+        case .patchPointUse:
             return .requestPlain
-        case .patchEarnPoint(data: let data):
-            return .requestJSONEncodable(data)
         case .getEarnPoint:
+            return .requestPlain
+        case .getUsagePoint:
             return .requestPlain
         case .getPointList:
             return .requestPlain
-        case .patchPointUse(data: let data):
-            return .requestJSONEncodable(data)
+        case .patchEarnPoint(let request):
+            return .requestJSONEncodable(request)
         }
     }
     
