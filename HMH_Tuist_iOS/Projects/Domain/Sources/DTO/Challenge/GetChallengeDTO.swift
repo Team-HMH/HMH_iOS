@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetChallengeResponseDTO: Codable {
+struct GetChallengeResult: Decodable {
     let period: Int
     let statuses: [String]
     let todayIndex: Int

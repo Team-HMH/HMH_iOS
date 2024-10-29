@@ -7,12 +7,11 @@
 
 import Foundation
 
-public struct MidnightRequestDTO: Codable {
+public struct ChallengeSuccessResult: Decodable {
     let finishedDailyChallenges: [FinishedDailyChallenge]
 }
 
-// MARK: - FinishedDailyChallenge
-struct FinishedDailyChallenge: Codable {
+struct FinishedDailyChallenge: Decodable {
     let challengeDate: String
     let isSuccess: Bool
 }

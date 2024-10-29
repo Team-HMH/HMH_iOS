@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HomeChallengeResponseDTO: Codable {
+struct HomeChallengeResult: Decodable {
     let status: String?
     let goalTime: Int
     let apps: [Apps]

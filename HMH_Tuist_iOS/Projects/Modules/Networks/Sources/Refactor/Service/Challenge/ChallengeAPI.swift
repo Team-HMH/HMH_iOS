@@ -11,13 +11,13 @@ import Foundation
 import Domain
 
 enum ChallengeAPI {
-    case createChallenge(data: CreateChallengeRequestDTO)
+    case createChallenge(data: CreateChallengeRequest)
     case dailyChallengeFail
     case getChallenge
     case getdailyChallenge
-    case addApp(data: AddAppRequestDTO)
-    case deleteApp(data: DeleteAppRequestDTO)
-    case postDailyChallenge(data: MidnightRequestDTO)
+    case addApp(data: AddAppRequest)
+    case deleteApp(data: DeleteAppRequest)
+    case postDailyChallenge(data: ChallengeSuccessResult)
 }
 
 extension ChallengeAPI: BaseAPI {

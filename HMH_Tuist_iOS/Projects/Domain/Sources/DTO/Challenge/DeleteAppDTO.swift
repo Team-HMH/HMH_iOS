@@ -7,6 +7,7 @@
 
 import Foundation
 
-public struct DeleteAppRequestDTO: Codable {
+// noResult
+public struct DeleteAppRequest: Encodable {
     let appCode: String
 }
