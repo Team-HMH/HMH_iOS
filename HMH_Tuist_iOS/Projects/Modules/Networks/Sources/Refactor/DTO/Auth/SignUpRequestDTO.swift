@@ -28,6 +28,11 @@ public struct Challenge: Codable {
 public struct Apps: Codable {
     public let appCode: String
     public let goalTime: Int
+    
+    public init(appCode: String, goalTime: Int) {
+        self.appCode = appCode
+        self.goalTime = goalTime
+    }
 }
 
 extension Apps {

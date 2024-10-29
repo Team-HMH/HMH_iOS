@@ -17,7 +17,7 @@ public struct FinishedDailyChallenge: Encodable {
 }
 
 public struct ChallengeSuccessResult: Decodable {
-    let statuses: [String]
+    public let statuses: [String]
 }
 
 public extension ChallengeSuccessResult {

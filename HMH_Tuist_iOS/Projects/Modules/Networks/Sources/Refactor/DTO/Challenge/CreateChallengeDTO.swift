@@ -10,4 +10,9 @@ import Foundation
 public struct CreateChallengeRequest: Encodable {
     let period: Int
     let goalTime: Int
+    
+    public init(period: Int, goalTime: Int) {
+        self.period = period
+        self.goalTime = goalTime
+    }
 }

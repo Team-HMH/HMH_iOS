@@ -8,16 +8,14 @@
 
 import Foundation
 
-import Data
-
 enum ChallengeAPI {
     case getdailyChallenge
     case getSuccesChallenge
-    case createChallenge(data: CreateChallengeRequest)
+    case createChallenge(request: CreateChallengeRequest)
     case getLockChallenge
     case postLockChallenge
-    case deleteApp(data: DeleteAppRequest)
-    case addApp(data: AddAppRequest)
+    case deleteApp(request: DeleteAppRequest)
+    case addApp(request: AddAppRequest)
     case getChallenge
 }
 
@@ -74,16 +72,16 @@ extension ChallengeAPI: BaseAPI {
             return .requestPlain
         case .getSuccesChallenge:
             return .requestPlain
-        case .createChallenge(let data):
-            return .requestJSONEncodable(data)
+        case .createChallenge(let request):
+            return .requestJSONEncodable(request)
         case .getLockChallenge:
             return .requestPlain
         case .postLockChallenge:
             return .requestPlain
-        case .deleteApp(let data):
-            return .requestJSONEncodable(data)
-        case .addApp(let data):
-            return .requestJSONEncodable(data)
+        case .deleteApp(let request):
+            return .requestJSONEncodable(request)
+        case .addApp(let request):
+            return .requestJSONEncodable(request)
         case .getChallenge:
             return .requestPlain
         }

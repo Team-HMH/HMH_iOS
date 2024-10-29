@@ -9,18 +9,16 @@
 import Foundation
 import Combine
 
-import Data
-
 typealias ChallengeService = BaseService<ChallengeAPI>
 
-protocol ChallengeServiceType {
+public protocol ChallengeServiceType {
     func getdailyChallenge()  -> AnyPublisher<GetChallengeResult, HMHNetworkError>
     func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError>
-    func createChallenge(data: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError>
+    func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError>
     func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError>
     func postLockChallenge() -> AnyPublisher<Void, HMHNetworkError>
-    func deleteApp(data: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError>
-    func addApp(data: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError>
+    func deleteApp(request: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError>
+    func addApp(request: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError>
     func getChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError>
 }
 
@@ -33,8 +31,8 @@ extension ChallengeService: ChallengeServiceType {
         return requestWithResult(.getSuccesChallenge, ChallengeSuccessResult.self)
     }
     
-    func createChallenge(data: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
-        return requestWithNoResult(.createChallenge(data: data))
+    func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
+        return requestWithNoResult(.createChallenge(request: request))
     }
     
     func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError> {
@@ -45,12 +43,12 @@ extension ChallengeService: ChallengeServiceType {
         return requestWithNoResult(.postLockChallenge)
     }
     
-    func deleteApp(data: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
-        return requestWithNoResult(.deleteApp(data: data))
+    func deleteApp(request: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
+        return requestWithNoResult(.deleteApp(request: request))
     }
     
-    func addApp(data: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
-        return requestWithNoResult(.addApp(data: data))
+    func addApp(request: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
+        return requestWithNoResult(.addApp(request: request))
     }
     
     func getChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
@@ -71,7 +69,7 @@ struct StubChallengeService: ChallengeServiceType {
             .eraseToAnyPublisher()
     }
     
-    func createChallenge(data: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
@@ -89,13 +87,13 @@ struct StubChallengeService: ChallengeServiceType {
             .eraseToAnyPublisher()
     }
     
-    func deleteApp(data: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    func deleteApp(request: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func addApp(data: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    func addApp(request: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()

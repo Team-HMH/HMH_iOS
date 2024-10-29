@@ -10,6 +10,10 @@ import Foundation
 
 public struct AddAppRequest: Encodable {
     let apps: [Apps]
+    
+    public init(apps: [Apps]) {
+        self.apps = apps
+    }
 }
 
 struct AddAppResult: Decodable {

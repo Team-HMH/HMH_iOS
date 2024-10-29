@@ -8,12 +8,12 @@
 import Foundation
 
 public struct GetChallengeResult: Decodable {
-    let period: Int
-    let statuses: [String]
-    let todayIndex: Int
-    let startDate: String
-    let goalTime: Int
-    let apps: [Apps]
+    public let period: Int
+    public let statuses: [String]
+    public let todayIndex: Int
+    public let startDate: String
+    public let goalTime: Int
+    public let apps: [Apps]
 }
 
 public extension GetChallengeResult {

@@ -14,6 +14,5 @@ let project = Project.makeModule(
     targets: [.staticFramework],
     internalDependencies: [
         .domain
-//        .core
     ]
 )

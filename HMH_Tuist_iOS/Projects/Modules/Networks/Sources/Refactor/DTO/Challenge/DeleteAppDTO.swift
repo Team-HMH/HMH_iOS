@@ -7,7 +7,10 @@
 
 import Foundation
 
-// noResult
 public struct DeleteAppRequest: Encodable {
     let appCode: String
+    
+    public init(appCode: String) {
+        self.appCode = appCode
+    }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 public struct GetLockResult: Decodable {
-    let isLockToday: Bool
+    public let isLockToday: Bool
 }
 
 public extension GetLockResult {
