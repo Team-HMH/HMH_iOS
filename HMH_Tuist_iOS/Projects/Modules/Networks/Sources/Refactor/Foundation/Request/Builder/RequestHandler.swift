@@ -54,8 +54,11 @@ class RequestHandler {
                     }
                     .eraseToAnyPublisher()
             }
-        
             .eraseToAnyPublisher()
+    }
+    
+    func tokenRequest() {
+        TokenInterceptor.shared.retry(for: session)
     }
 }
 

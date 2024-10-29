@@ -9,25 +9,24 @@
 import Foundation
 import Combine
 
-//class ErrorHandler {
-//    static let shared = ErrorHandler()
-//    private init () {}
-//
-//    private let loggingHandler = NetworkLogHandler.shared
-//
-//    func handleError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError) -> HMHNetworkError {
-////        guard let hmhNetworkError = error as? HMHNetworkError else {
-////            return .unknown
-////        }
-//        loggingHandler.responseError(target, result: error)
-//
-//        return error
-//    }
-//}
-
 struct ErrorHandler {
     static func handleError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError) -> HMHNetworkError { NetworkLogHandler.responseError(target, result: error)
         return error
+    }
+    
+    // 유효하지 않은 응답인 경우 에러 처리
+    static func handleInvalidResponse(response: NetworkResponse) -> HMHNetworkError {
+        if let data = response.data {
+            do {
+                // 에러 응답 모델로 디코딩 시도
+                let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                return .invalidResponse(.invalidStatusCode(code: response.response.statusCode, data: errorResponse.data))
+            } catch {
+                return .invalidResponse(.invalidStatusCode(code: response.response.statusCode))
+            }
+        } else {
+            return .invalidResponse(.invalidStatusCode(code: response.response.statusCode))
+        }
     }
 }
 

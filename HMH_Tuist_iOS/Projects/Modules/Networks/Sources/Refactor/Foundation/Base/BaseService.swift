@@ -15,6 +15,13 @@ final class BaseService<Target: URLRequestTargetType> {
     
     private let requestHandler = RequestHandler.shared
     
+    private lazy var session: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 10
+        configuration.timeoutIntervalForResource = 10
+        return URLSession(configuration: configuration)
+    }()
+    
     func requestWithResult<T: Decodable>(_ target: API, _ responseType: T.Type) -> AnyPublisher<T, HMHNetworkError> {
         return fetchResponse(with: target)
             .flatMap { response in
@@ -59,26 +66,16 @@ extension BaseService {
     /// 응답 유효성 검사 메서드
     private func validate(response: NetworkResponse) -> AnyPublisher<Void, HMHNetworkError> {
         guard response.response.isValidateStatus() else {
-            guard let data = response.data else {
-                return Fail(error: HMHNetworkError.invalidResponse(.invalidStatusCode(code: response.response.statusCode)))
-                    .eraseToAnyPublisher()
+            if response.response.unAuthorized() {
+                RequestHandler.shared.tokenRequest()
             }
-            
-            return Just(data)
-                .decode(type: ErrorResponse.self, decoder: JSONDecoder())
-                .mapError { _ in HMHNetworkError.invalidResponse(.invalidStatusCode(code: response.response.statusCode)) }
-                .flatMap { response in
-                    Fail(error: HMHNetworkError.invalidResponse(.invalidStatusCode(
-                                code: response.statusCode,
-                                data: response.data
-                            )
-                        )
-                    ).eraseToAnyPublisher()
-                }
-                .eraseToAnyPublisher()
+            let error = ErrorHandler.handleInvalidResponse(response: response)
+            return Fail(error: error).eraseToAnyPublisher()
         }
+
         return Just(()).setFailureType(to: HMHNetworkError.self).eraseToAnyPublisher()
     }
+
     
     /// 디코딩 메소드
     private func decode<T: Decodable>(data: Data, target: API) -> AnyPublisher<T, HMHNetworkError> {
@@ -95,6 +92,10 @@ extension BaseService {
 extension HTTPURLResponse {
     func isValidateStatus() -> Bool {
         return (200...299).contains(self.statusCode)
+    }
+    
+    func unAuthorized() -> Bool {
+        return self.statusCode == 401
     }
 }
 
