@@ -62,15 +62,6 @@ extension UserAPI: BaseAPI {
     }
     
     var headers: [String : String]? {
-        switch self {
-        case .logout:
-            return APIHeaders.hasTokenHeader
-        case .deleteAccount:
-            return APIHeaders.hasTokenHeader
-        case .getUserData:
-            return APIHeaders.hasTokenHeader
-        case .getCurrentPoint:
-            return APIHeaders.hasAccessTokenHeader
-        }
+        return APIHeaders.hasTokenHeader
     }
 }

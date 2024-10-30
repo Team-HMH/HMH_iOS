@@ -93,12 +93,6 @@
                      location = "group:KeychainAccess/KeychainAccess.xcodeproj">
                   </FileRef>
                   <FileRef
-                     location = "group:Kingfisher/Kingfisher.xcodeproj">
-                  </FileRef>
-                  <FileRef
-                     location = "group:Moya/Moya.xcodeproj">
-                  </FileRef>
-                  <FileRef
                      location = "group:kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
                   </FileRef>
                   <FileRef

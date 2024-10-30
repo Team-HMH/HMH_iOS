@@ -13,8 +13,14 @@ import Core
 public struct APIHeaders {
     static let contentType = "Content-Type"
     static let applicationJSON = "application/json"
+    
     static let auth = "Authorization"
+    
     static let timezone = "Time-Zone"
+    static let TIMEZONE = "Asia/Seoul"
+    
+    static let os = "OS"
+    static let iOS = "iOS"
     
     static var accessToken: String {
         return "Bearer " + (UserManager.shared.accessToken)
@@ -28,9 +34,7 @@ public struct APIHeaders {
         return UserManager.shared.socialToken
     }
 
-    static let TIMEZONE = "Asia/Seoul"
-    static let OS = "OS"
-    static let iOS = "iOS"
+    
 }
 
 public extension APIHeaders {
@@ -38,30 +42,56 @@ public extension APIHeaders {
         [contentType: applicationJSON]
     }
     
-    static var hasSocialTokenHeader: [String: String] {
-        return [contentType: applicationJSON,
-                auth: appleAccessToken]
+    static var hasSocialTokenHeader: [String:String] {
+        return [
+            contentType: applicationJSON,
+            auth: appleAccessToken
+        ]
     }
     
-    static var hasTokenHeader: [String: String] {
-        return [contentType: applicationJSON,
-                OS: iOS,
-                auth: accessToken]
+    static var hasTokenHeader: [String:String] {
+        return [
+            contentType: applicationJSON,
+            auth: accessToken
+        ]
+    }
+    
+    static var hasTokenWithTimeZoneHeader: [String:String] {
+        return [
+            contentType: applicationJSON,
+            auth: accessToken,
+            timezone: TIMEZONE
+        ]
+    }
+    
+    static var hasTokenWithOSHeader: [String:String] {
+        return [
+            contentType: applicationJSON,
+            auth: accessToken,
+            os: iOS
+        ]
+    }
+    
+    static var hasTokenWithAllHeader: [String: String] {
+        return [
+            contentType: applicationJSON,
+            auth: accessToken,
+            os: iOS,
+            timezone: TIMEZONE
+        ]
     }
     
     static var hasAccessTokenHeader: [String: String] {
-        return [contentType: applicationJSON,
-                auth: accessToken]
+        return [
+            contentType: applicationJSON,
+            auth: accessToken
+        ]
     }
     
     static var hasRefreshTokenHeader: [String: String] {
-        return [contentType: applicationJSON,
-                auth: refreshToken]
-    }
-    
-    static var signUpHeader: [String: String] {
-        return [contentType: applicationJSON,
-                auth: appleAccessToken,
-                OS: iOS]
+        return [
+            contentType: applicationJSON,
+            auth: refreshToken
+        ]
     }
 }

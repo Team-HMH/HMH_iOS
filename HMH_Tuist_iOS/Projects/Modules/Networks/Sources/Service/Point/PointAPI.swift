@@ -70,10 +70,16 @@ extension PointAPI: BaseAPI {
     
     var headers: [String : String]? {
         switch self {
+        case .patchPointUse:
+            return APIHeaders.hasTokenWithTimeZoneHeader
         case .getEarnPoint:
             return APIHeaders.hasTokenHeader
-        default:
-            return APIHeaders.hasAccessTokenHeader
+        case .getUsagePoint:
+            return APIHeaders.hasTokenHeader
+        case .getPointList:
+            return APIHeaders.hasTokenHeader
+        case .patchEarnPoint:
+            return APIHeaders.hasTokenWithOSHeader
         }
     }
 }

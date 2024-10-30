@@ -88,7 +88,24 @@ extension ChallengeAPI: BaseAPI {
     }
     
     var headers: [String : String]? {
-        return APIHeaders.hasTokenHeader
+        switch self {
+        case .getdailyChallenge:
+            return APIHeaders.hasTokenWithTimeZoneHeader
+        case .getSuccesChallenge:
+            return APIHeaders.hasTokenWithTimeZoneHeader //안되면 contenttype 빼고
+        case .createChallenge(request: let request):
+            return APIHeaders.hasTokenWithAllHeader
+        case .getLockChallenge:
+            return APIHeaders.hasTokenWithTimeZoneHeader
+        case .postLockChallenge:
+            return APIHeaders.hasTokenWithTimeZoneHeader
+        case .deleteApp(request: let request):
+            return APIHeaders.hasTokenWithTimeZoneHeader
+        case .addApp(request: let request):
+            return APIHeaders.hasTokenWithOSHeader
+        case .getChallenge:
+            return APIHeaders.hasTokenWithAllHeader
+        }
     }
 }
 
