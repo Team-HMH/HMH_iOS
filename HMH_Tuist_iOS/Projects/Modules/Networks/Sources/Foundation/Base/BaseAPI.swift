@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol BaseAPI: URLRequestTargetType { }
+public protocol BaseAPI: URLRequestTargetType { }
 
 extension BaseAPI {
     public var url: String {

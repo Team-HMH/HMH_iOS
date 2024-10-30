@@ -10,7 +10,7 @@ import Foundation
 
 import Domain
 
-enum PointAPI {
+public enum PointAPI {
     case patchPointUse
     case getEarnPoint
     case getUsagePoint
@@ -19,11 +19,11 @@ enum PointAPI {
 }
 
 extension PointAPI: BaseAPI {
-    var isWithInterceptor: Bool {
+    public var isWithInterceptor: Bool {
         return false
     }
     
-    var path: String? {
+    public var path: String? {
         switch self {
         case .patchPointUse:
             return Paths.patchPointUse
@@ -38,7 +38,7 @@ extension PointAPI: BaseAPI {
         }
     }
     
-    var method: HTTPMethod {
+    public var method: HTTPMethod {
         switch self {
         case .patchPointUse:
             return .patch
@@ -53,7 +53,7 @@ extension PointAPI: BaseAPI {
         }
     }
     
-    var task: Task {
+    public var task: Task {
         switch self {
         case .patchPointUse:
             return .requestPlain
@@ -68,7 +68,7 @@ extension PointAPI: BaseAPI {
         }
     }
     
-    var headers: [String : String]? {
+    public var headers: [String : String]? {
         switch self {
         case .patchPointUse:
             return APIHeaders.hasTokenWithTimeZoneHeader

@@ -21,19 +21,19 @@ public protocol UserServiceType {
 }
 
 extension UserService: UserServiceType {
-    func logout() -> AnyPublisher<Void, HMHNetworkError> {
+    public func logout() -> AnyPublisher<Void, HMHNetworkError> {
         requestWithNoResult(.logout)
     }
     
-    func deleteAccount() -> AnyPublisher<Void, HMHNetworkError> {
+    public func deleteAccount() -> AnyPublisher<Void, HMHNetworkError> {
         requestWithNoResult(.deleteAccount)
     }
     
-    func getUserData() -> AnyPublisher<UserResult, HMHNetworkError> {
+    public func getUserData() -> AnyPublisher<UserResult, HMHNetworkError> {
         requestWithResult(.getUserData)
     }
     
-    func getCurrentPoint() -> AnyPublisher<PointResult, HMHNetworkError> {
+    public func getCurrentPoint() -> AnyPublisher<PointResult, HMHNetworkError> {
         requestWithResult(.getCurrentPoint)
     }
 }

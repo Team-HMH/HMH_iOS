@@ -9,18 +9,15 @@
 import Foundation
 import Combine
 
-final class BaseService<Target: URLRequestTargetType> {
+public final class BaseService<Target: URLRequestTargetType> {
     
-    typealias API = Target
+    public typealias API = Target
     
-    private let requestHandler = RequestHandler.shared
+    private let requestHandler: RequestHandling
     
-    private lazy var session: URLSession = {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 10
-        configuration.timeoutIntervalForResource = 10
-        return URLSession(configuration: configuration)
-    }()
+    public init(requestHandler: RequestHandling) {
+        self.requestHandler = requestHandler
+    }
     
     func requestWithResult<T: Decodable>(_ target: API) -> AnyPublisher<T, HMHNetworkError> {
         return fetchResponse(with: target)
@@ -72,10 +69,10 @@ extension BaseService {
             let error = ErrorHandler.handleInvalidResponse(response: response)
             return Fail(error: error).eraseToAnyPublisher()
         }
-
+        
         return Just(()).setFailureType(to: HMHNetworkError.self).eraseToAnyPublisher()
     }
-
+    
     
     /// 디코딩 메소드
     private func decode<T: Decodable>(data: Data, target: API) -> AnyPublisher<T, HMHNetworkError> {

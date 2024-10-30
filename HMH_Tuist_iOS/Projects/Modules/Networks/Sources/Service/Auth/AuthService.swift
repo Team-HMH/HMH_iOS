@@ -11,7 +11,7 @@ import Combine
 
 typealias AuthService = BaseService<AuthAPI>
 
-public protocol AuthServiceType {
+protocol AuthServiceType {
     func signUp(request: SignUpRequest) -> AnyPublisher<AuthResult, HMHNetworkError>
     func socialLogin(request: SocialLoginRequest) -> AnyPublisher<AuthResult, HMHNetworkError>
 }

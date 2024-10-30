@@ -10,5 +10,5 @@ import Foundation
 struct HomeChallengeResult: Decodable {
     let status: String?
     let goalTime: Int
-    let apps: [Apps]
+    let apps: [AppInfoDTO]
 }

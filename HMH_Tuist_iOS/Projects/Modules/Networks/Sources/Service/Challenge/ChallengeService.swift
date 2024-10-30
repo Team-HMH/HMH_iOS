@@ -23,35 +23,35 @@ public protocol ChallengeServiceType {
 }
 
 extension ChallengeService: ChallengeServiceType {
-    func getdailyChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
+    public func getdailyChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
         return requestWithResult(.getdailyChallenge)
     }
     
-    func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
+    public func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
         return requestWithResult(.getSuccesChallenge)
     }
     
-    func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    public func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return requestWithNoResult(.createChallenge(request: request))
     }
     
-    func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError> {
+    public func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError> {
         return requestWithResult(.getLockChallenge)
     }
     
-    func postLockChallenge() -> AnyPublisher<Void, HMHNetworkError> {
+    public func postLockChallenge() -> AnyPublisher<Void, HMHNetworkError> {
         return requestWithNoResult(.postLockChallenge)
     }
     
-    func deleteApp(request: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    public func deleteApp(request: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return requestWithNoResult(.deleteApp(request: request))
     }
     
-    func addApp(request: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    public func addApp(request: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return requestWithNoResult(.addApp(request: request))
     }
     
-    func getChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
+    public func getChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
         return requestWithResult(.getChallenge)
     }
 }

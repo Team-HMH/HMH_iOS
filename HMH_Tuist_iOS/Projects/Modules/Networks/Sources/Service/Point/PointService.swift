@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-typealias PointService = BaseService<PointAPI>
+public typealias PointService = BaseService<PointAPI>
 
 public protocol PointServiceType {
     func patchPointUse() -> AnyPublisher<UsePointResult, HMHNetworkError>
@@ -20,23 +20,23 @@ public protocol PointServiceType {
 }
 
 extension PointService: PointServiceType {
-    func patchPointUse() -> AnyPublisher<UsePointResult, HMHNetworkError> {
+    public func patchPointUse() -> AnyPublisher<UsePointResult, HMHNetworkError> {
         requestWithResult(.patchPointUse)
     }
     
-    func getEarnPoint() -> AnyPublisher<EarnPointResult, HMHNetworkError> {
+    public func getEarnPoint() -> AnyPublisher<EarnPointResult, HMHNetworkError> {
         requestWithResult(.getEarnPoint)
     }
     
-    func getUsagePoint() -> AnyPublisher<UsagePointResult, HMHNetworkError> {
+    public func getUsagePoint() -> AnyPublisher<UsagePointResult, HMHNetworkError> {
         requestWithResult(.getUsagePoint)
     }
     
-    func getPointList() -> AnyPublisher<PointListResult, HMHNetworkError> {
+    public func getPointList() -> AnyPublisher<PointListResult, HMHNetworkError> {
         requestWithResult(.getPointList)
     }
     
-    func patchEarnPoint(request: UserPointRequest) -> AnyPublisher<UserPointResult, HMHNetworkError> {
+    public func patchEarnPoint(request: UserPointRequest) -> AnyPublisher<UserPointResult, HMHNetworkError> {
         requestWithResult(.patchEarnPoint(request: request))
     }
 }

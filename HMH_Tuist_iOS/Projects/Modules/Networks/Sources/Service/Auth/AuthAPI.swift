@@ -57,7 +57,7 @@ extension AuthAPI: BaseAPI {
     var headers: [String : String]? {
         switch self {
         case .signUp:
-            return APIHeaders.signUpHeader
+            return APIHeaders.hasTokenWithAllHeader
         case .socialLogin:
             return APIHeaders.hasSocialTokenHeader
         case .tokeRefresh:

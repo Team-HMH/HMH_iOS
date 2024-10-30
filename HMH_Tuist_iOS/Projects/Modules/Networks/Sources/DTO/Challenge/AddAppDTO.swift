@@ -9,13 +9,13 @@
 import Foundation
 
 public struct AddAppRequest: Encodable {
-    let apps: [Apps]
+    let apps: [AppInfoDTO]
     
-    public init(apps: [Apps]) {
+    public init(apps: [AppInfoDTO]) {
         self.apps = apps
     }
 }
 
 struct AddAppResult: Decodable {
-    let apps: [Apps]
+    let apps: [AppInfoDTO]
 }

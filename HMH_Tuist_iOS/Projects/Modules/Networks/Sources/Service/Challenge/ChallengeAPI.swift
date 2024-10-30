@@ -93,15 +93,15 @@ extension ChallengeAPI: BaseAPI {
             return APIHeaders.hasTokenWithTimeZoneHeader
         case .getSuccesChallenge:
             return APIHeaders.hasTokenWithTimeZoneHeader //안되면 contenttype 빼고
-        case .createChallenge(request: let request):
+        case .createChallenge:
             return APIHeaders.hasTokenWithAllHeader
         case .getLockChallenge:
             return APIHeaders.hasTokenWithTimeZoneHeader
         case .postLockChallenge:
             return APIHeaders.hasTokenWithTimeZoneHeader
-        case .deleteApp(request: let request):
+        case .deleteApp:
             return APIHeaders.hasTokenWithTimeZoneHeader
-        case .addApp(request: let request):
+        case .addApp:
             return APIHeaders.hasTokenWithOSHeader
         case .getChallenge:
             return APIHeaders.hasTokenWithAllHeader

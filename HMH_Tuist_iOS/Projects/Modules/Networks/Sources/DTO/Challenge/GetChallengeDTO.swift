@@ -13,7 +13,7 @@ public struct GetChallengeResult: Decodable {
     public let todayIndex: Int
     public let startDate: String
     public let goalTime: Int
-    public let apps: [Apps]
+    public let apps: [AppInfoDTO]
 }
 
 public extension GetChallengeResult {

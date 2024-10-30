@@ -71,7 +71,7 @@ extension HMHNetworkError {
     public enum ResponseError: Error {
         case cancelled
         case unhandled
-        case invalidStatusCode(code: Int, data: String? = nil)
+        case invalidStatusCode(code: Int, message: String? = nil)
         
         var description: String {
             switch self {

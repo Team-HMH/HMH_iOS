@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-enum Task {
+public enum Task {
     case requestPlain
     case requestParameters(Parameters)
     case requestJSONEncodable(Encodable)

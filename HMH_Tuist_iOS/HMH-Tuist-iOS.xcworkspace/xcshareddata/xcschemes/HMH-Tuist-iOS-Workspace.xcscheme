@@ -532,6 +532,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F13A87E240A54270A150D681"
+               BuildableName = "NetworksTests.xctest"
+               BlueprintName = "NetworksTests"
+               ReferencedContainer = "container:Projects/Modules/Networks/Networks.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "155E57EFC440A9B0889AB3AC"
                BuildableName = "OnboardingFeature.framework"
                BlueprintName = "OnboardingFeature"
@@ -644,6 +658,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F13A87E240A54270A150D681"
+               BuildableName = "NetworksTests.xctest"
+               BlueprintName = "NetworksTests"
+               ReferencedContainer = "container:Projects/Modules/Networks/Networks.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

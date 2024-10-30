@@ -1,19 +1,20 @@
 //
-//  RequestHandler.swift
+//  MockRequestHandler.swift
 //  Networks
 //
-//  Created by 류희재 on 10/14/24.
+//  Created by 류희재 on 10/30/24.
 //  Copyright © 2024 HMH-iOS. All rights reserved.
 //
+
+import Combine
+import Foundation
+
+import Networks
 
 import Foundation
 import Combine
 
-public class RequestHandler {
-    
-    static let shared = RequestHandler()
-    
-    private init() {}
+public class MockRequestHandler: RequestHandling {
     
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
@@ -23,7 +24,7 @@ public class RequestHandler {
         return URLSession(configuration: configuration)
     }()
     
-    func executeRequest<T: URLRequestTargetType>(for target: T, isWithInterceptor: Bool) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
+    public func executeRequest<T: URLRequestTargetType>(for target: T, isWithInterceptor: Bool) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
         return target.asURLRequest()
             .map { $0 }
             .mapError { ErrorHandler.handleError(target, error: .invalidRequest($0)) }
@@ -57,7 +58,7 @@ public class RequestHandler {
             .eraseToAnyPublisher()
     }
     
-    func tokenRequest() {
+    public func tokenRequest() {
 //        TokenInterceptor.shared.retry(for: session)
     }
 }
