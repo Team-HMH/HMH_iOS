@@ -8,4 +8,4 @@
 
 import Foundation
 
-struct VoidResult: Decodable {}
+public struct VoidResult: Decodable {}

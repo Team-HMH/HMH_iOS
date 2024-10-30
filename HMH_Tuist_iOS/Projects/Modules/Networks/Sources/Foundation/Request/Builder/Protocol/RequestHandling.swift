@@ -11,5 +11,5 @@ import Combine
 
 public protocol RequestHandling {
     func executeRequest<T: URLRequestTargetType>(for target: T, isWithInterceptor: Bool) -> AnyPublisher<NetworkResponse, HMHNetworkError>
-    func tokenRequest()
+    func tokenRequest() -> AnyPublisher<Void, HMHNetworkError>
 }

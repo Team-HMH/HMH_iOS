@@ -21,23 +21,23 @@ public protocol PointServiceType {
 
 extension PointService: PointServiceType {
     public func patchPointUse() -> AnyPublisher<UsePointResult, HMHNetworkError> {
-        requestWithResult(.patchPointUse)
+        sendRequest(.patchPointUse)
     }
     
     public func getEarnPoint() -> AnyPublisher<EarnPointResult, HMHNetworkError> {
-        requestWithResult(.getEarnPoint)
+        sendRequest(.getEarnPoint)
     }
     
     public func getUsagePoint() -> AnyPublisher<UsagePointResult, HMHNetworkError> {
-        requestWithResult(.getUsagePoint)
+        sendRequest(.getUsagePoint)
     }
     
     public func getPointList() -> AnyPublisher<PointListResult, HMHNetworkError> {
-        requestWithResult(.getPointList)
+        sendRequest(.getPointList)
     }
     
     public func patchEarnPoint(request: UserPointRequest) -> AnyPublisher<UserPointResult, HMHNetworkError> {
-        requestWithResult(.patchEarnPoint(request: request))
+        sendRequest(.patchEarnPoint(request: request))
     }
 }
 

@@ -12,14 +12,20 @@ import Combine
 typealias ReissueAPIService = BaseService<AuthAPI>
 
 protocol ReissueAPIServiceType {
-    
+    func tokenRefresh() -> AnyPublisher<TokenResult, HMHNetworkError>
 }
 
 extension ReissueAPIService: ReissueAPIServiceType {
-
+    func tokenRefresh() -> AnyPublisher<TokenResult, HMHNetworkError> {
+        sendRequest(.tokeRefresh)
+    }
     
 }
 
 struct StubReissueAPIService: ReissueAPIServiceType {
-    
+    func tokenRefresh() -> AnyPublisher<TokenResult, HMHNetworkError> {
+        return Just(TokenResult(accessToken: "",refreshToken: ""))
+        .setFailureType(to: HMHNetworkError.self)
+        .eraseToAnyPublisher()
+    }
 }

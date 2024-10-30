@@ -12,6 +12,8 @@ import Foundation
     case invalidRequest(RequestError)
     case invalidResponse(ResponseError)
     case decodingFailed(DecodeError)
+    case autheticationError
+    case timeOutError
     case unknown(Error)
     
     var description: String {
@@ -22,6 +24,10 @@ import Foundation
             return "응답 시 발생된" + responseError.description
         case .decodingFailed(let decodeError):
             return decodeError.description
+        case .autheticationError:
+            return "인터셉터에서 생긴 인증 오류 입니다!"
+        case .timeOutError:
+            return "시간 초과되었습니다!"
         case .unknown(let error):
             return "알 수 없는 오류 \(error)가 발생하였습니다!"
         }

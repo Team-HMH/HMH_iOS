@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-public class RequestHandler {
+public class RequestHandler: RequestHandling {
     
     static let shared = RequestHandler()
     
@@ -19,24 +19,23 @@ public class RequestHandler {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 10
         configuration.timeoutIntervalForResource = 10
-        // TODO: Interceptor 추가
         return URLSession(configuration: configuration)
     }()
     
-    func executeRequest<T: URLRequestTargetType>(for target: T, isWithInterceptor: Bool) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
+    public func executeRequest<T: URLRequestTargetType>(for target: T, isWithInterceptor: Bool) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
         return target.asURLRequest()
             .map { $0 }
             .mapError { ErrorHandler.handleError(target, error: .invalidRequest($0)) }
-//            .flatMap { urlRequest in
-//                if isWithInterceptor {
-////                    return TokenInterceptor.shared.adapt(urlRequest)
-//                } else {
-//                    return Just(urlRequest)
-//                        .setFailureType(to: HMHNetworkError.self)
-//                        .eraseToAnyPublisher()
-//                }
-//            }
-//            .map { $0 }
+            .flatMap { urlRequest in
+                if isWithInterceptor {
+                    return TokenInterceptor.shared.adapt(urlRequest)
+                } else {
+                    return Just(urlRequest)
+                        .setFailureType(to: HMHNetworkError.self)
+                        .eraseToAnyPublisher()
+                }
+            }
+            .map { $0 }
             .flatMap { urlRequest in
                 self.session.dataTaskPublisher(for: urlRequest)
                     .tryMap { data, response -> NetworkResponse in
@@ -57,8 +56,13 @@ public class RequestHandler {
             .eraseToAnyPublisher()
     }
     
-    func tokenRequest() {
-//        TokenInterceptor.shared.retry(for: session)
+    public func tokenRequest() -> AnyPublisher<Void, HMHNetworkError> {
+        TokenInterceptor.shared.retry(for: session)
+            .sink(receiveCompletion: {
+                
+            }, receiveValue: {
+                
+            })
     }
 }
 
