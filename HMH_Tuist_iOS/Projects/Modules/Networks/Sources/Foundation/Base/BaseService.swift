@@ -19,34 +19,36 @@ public final class BaseService<Target: URLRequestTargetType> {
         self.requestHandler = requestHandler
     }
     
-    func sendRequest<T: Decodable>(_ target: API, retryCnt: Int = 0) -> AnyPublisher<T, HMHNetworkError> {
-            guard retryCnt < 3 else {
-                return Fail(error: .timeOutError).eraseToAnyPublisher()
-            }
-            
-            return fetchResponse(with: target)
-                .flatMap { response in
-                    self.validate(response: response, target: target, retryCnt: retryCnt)
-                        .map { _ in response.data! }
-                        .mapError { ErrorHandler.handleError(target, error: $0) }
-                }
-                .flatMap { data -> AnyPublisher<T, HMHNetworkError> in
-                    self.decode(data: data, target: target)
-                        .map { decodedValue in
-                            if T.self == VoidResult.self {
-                                return () as! T // VoidResult일 때 빈 값 반환
-                            }
-                            return decodedValue // 일반적인 경우
-                        }
-                        .eraseToAnyPublisher()
-                }
-                .eraseToAnyPublisher()
-        }
-    }
+    func requestWithResult<T: Decodable>(_ target: API) -> AnyPublisher<T, HMHNetworkError> {
+          return fetchResponse(with: target)
+              .flatMap { response in
+                  self.validate(response: response, target: target)
+                      .map { _ in response.data! }
+                      .mapError { ErrorHandler.handleError(target, error: $0) }
+              }
+              .flatMap { self.decode(data: $0, target: target) }
+              .eraseToAnyPublisher()
+      }
+
+      func requestWithNoResult(_ target: API) -> AnyPublisher<Void, HMHNetworkError> {
+          return fetchResponse(with: target)
+              .flatMap { response -> AnyPublisher<Data, HMHNetworkError> in
+                  self.validate(response: response, target: target) // validate 연결
+                      .map { _ in response.data! } // 성공 시 data 반환
+                      .eraseToAnyPublisher()
+              }
+              .mapError { ErrorHandler.handleError(target, error: $0) }
+              .flatMap { data -> AnyPublisher<VoidResult, HMHNetworkError> in
+                  self.decode(data: data, target: target)
+              }
+              .map { _ in () }
+              .eraseToAnyPublisher()
+      }
+}
 extension BaseService {
     /// 네트워크 응답 처리 메소드
     private func fetchResponse(with target: API) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
-        return requestHandler.executeRequest(for: target, isWithInterceptor: target.isWithInterceptor)
+        return requestHandler.executeRequest(for: target)
             .handleEvents(receiveSubscription:  {  _ in
                 NetworkLogHandler.requestLogging(target)
             }, receiveOutput:  {  response in
@@ -57,15 +59,13 @@ extension BaseService {
     }
     
     /// 응답 유효성 검사 메서드
-    private func validate(response: NetworkResponse, target: API, retryCnt: Int = 0) -> AnyPublisher<Void, HMHNetworkError> {
+    private func validate(response: NetworkResponse, target: API) -> AnyPublisher<Void, HMHNetworkError> {
         guard response.response.isValidateStatus() else {
             // 401 인증 오류 발생 시 토큰 갱신 후 재요청
             if response.response.unAuthorized() {
-                return requestHandler.tokenRequest()
+                return requestHandler.tokenRequest(for: target)
                     .flatMap { _ in
-                        self.sendRequest(target, retryCnt: retryCnt + 1)
-                            .map { _ in () }
-                            .eraseToAnyPublisher()
+                        self.validate(response: response, target: target)
                     }
                     .eraseToAnyPublisher()
             }

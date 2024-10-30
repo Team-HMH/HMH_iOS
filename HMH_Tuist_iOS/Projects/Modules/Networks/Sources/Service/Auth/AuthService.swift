@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-typealias AuthService = BaseService<AuthAPI>
+public typealias AuthService = BaseService<AuthAPI>
 
 public protocol AuthServiceType {
     func signUp(request: SignUpRequest) -> AnyPublisher<AuthResult, HMHNetworkError>
@@ -18,10 +18,10 @@ public protocol AuthServiceType {
 
 extension AuthService: AuthServiceType {
     public func signUp(request: SignUpRequest) -> AnyPublisher<AuthResult, HMHNetworkError> {
-        sendRequest(.signUp(request: request))
+        requestWithResult(.signUp(request: request))
     }
     public func socialLogin(request: SocialLoginRequest) -> AnyPublisher<AuthResult, HMHNetworkError> {
-        sendRequest(.socialLogin(request: request))
+        requestWithResult(.socialLogin(request: request))
     }
 }
 

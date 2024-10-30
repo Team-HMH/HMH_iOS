@@ -10,18 +10,18 @@ import Foundation
 
 import Domain
 
-enum AuthAPI {
+public enum AuthAPI {
     case signUp(request: SignUpRequest)
     case socialLogin(request: SocialLoginRequest)
     case tokeRefresh
 }
 
 extension AuthAPI: BaseAPI {
-    var isWithInterceptor: Bool {
+    public var isWithInterceptor: Bool {
         return false
     }
     
-    var path: String? {
+    public var path: String? {
         switch self {
         case .signUp:
             return Paths.signUp
@@ -32,7 +32,7 @@ extension AuthAPI: BaseAPI {
         }
     }
     
-    var method: HTTPMethod {
+    public var method: HTTPMethod {
         switch self {
         case .signUp:
             return .post
@@ -43,7 +43,7 @@ extension AuthAPI: BaseAPI {
         }
     }
     
-    var task: Task {
+    public var task: Task {
         switch self {
         case .signUp(let request):
             return .requestJSONEncodable(request)
@@ -54,7 +54,7 @@ extension AuthAPI: BaseAPI {
         }
     }
     
-    var headers: [String : String]? {
+    public var headers: [String : String]? {
         switch self {
         case .signUp:
             return APIHeaders.hasTokenWithAllHeader

@@ -9,11 +9,15 @@
 import Foundation
 import Combine
 
+import Core
+
 public class RequestHandler: RequestHandling {
     
-    static let shared = RequestHandler()
+    //    static let shared = RequestHandler()
     
-    private init() {}
+    public init() {}
+    
+    private var retryCnt = 0
     
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
@@ -22,12 +26,13 @@ public class RequestHandler: RequestHandling {
         return URLSession(configuration: configuration)
     }()
     
-    public func executeRequest<T: URLRequestTargetType>(for target: T, isWithInterceptor: Bool) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
+    public func executeRequest<T: URLRequestTargetType>(for target: T) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
+
         return target.asURLRequest()
             .map { $0 }
             .mapError { ErrorHandler.handleError(target, error: .invalidRequest($0)) }
             .flatMap { urlRequest in
-                if isWithInterceptor {
+                if target.isWithInterceptor {
                     return TokenInterceptor.shared.adapt(urlRequest)
                 } else {
                     return Just(urlRequest)
@@ -56,13 +61,26 @@ public class RequestHandler: RequestHandling {
             .eraseToAnyPublisher()
     }
     
-    public func tokenRequest() -> AnyPublisher<Void, HMHNetworkError> {
-        TokenInterceptor.shared.retry(for: session)
-            .sink(receiveCompletion: {
+    public func tokenRequest<T: URLRequestTargetType>(for target: T) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
+        retryCnt += 1
+        return TokenInterceptor.shared.retry(for: session, retryCnt: retryCnt)
+            .flatMap { tokenResult -> AnyPublisher<NetworkResponse, HMHNetworkError> in
+                // 업데이트된 토큰을 UserManager에 저장
+                UserManager.shared.accessToken = tokenResult.accessToken
+                UserManager.shared.refreshToken = tokenResult.refreshToken
                 
-            }, receiveValue: {
+                // 토큰 갱신 후 요청을 다시 실행
+                return self.executeRequest(for: target)
+            }
+            .catch { error -> AnyPublisher<NetworkResponse, HMHNetworkError> in
+                // 토큰 갱신 실패 시 UserManager의 토큰 초기화
+                UserManager.shared.accessToken = ""
+                UserManager.shared.refreshToken = ""
                 
-            })
+                // 실패를 그대로 반환하여 스트림 종료
+                return Fail(error: error).eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
 }
 

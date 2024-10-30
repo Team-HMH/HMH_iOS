@@ -18,7 +18,7 @@ public struct AppInfoDTO: Codable {
     }
 }
 
-extension AppInfoDTO {
+public extension AppInfoDTO {
     static var stub: Self {
         .init(appCode: "####", goalTime: 3)
     }

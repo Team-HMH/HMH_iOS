@@ -12,12 +12,12 @@ import Core
 
 struct TokenInterceptor {
     
-    private var retryLimit = 2
+    private var retryLimit = 3
     let cancelBag = CancelBag()
     
     static let shared = TokenInterceptor(
         service: ReissueAPIService(
-            requestHandler: RequestHandler.shared
+            requestHandler: RequestHandler()
         )
     )
     
@@ -30,12 +30,17 @@ struct TokenInterceptor {
     
     func adapt(_ request: URLRequest) -> AnyPublisher<URLRequest, HMHNetworkError> {
         return Just(request)
-            .setFailureType(to: HMHNetworkError.self) // 성공 시 반환될 값의 타입 설정
-            .eraseToAnyPublisher() // AnyPublisher로 반환
+            .setFailureType(to: HMHNetworkError.self)
+            .eraseToAnyPublisher()
     }
     
     
-    func retry(for session: URLSession) -> AnyPublisher<TokenResult, HMHNetworkError> {
-        service.tokenRefresh()
+    func retry(for session: URLSession, retryCnt: Int) -> AnyPublisher<TokenResult, HMHNetworkError> {
+        print(retryCnt)
+        if retryCnt > retryLimit {
+            return Fail(error: .timeOutError).eraseToAnyPublisher()
+        } else {
+            return service.tokenRefresh()
+        }
     }
 }

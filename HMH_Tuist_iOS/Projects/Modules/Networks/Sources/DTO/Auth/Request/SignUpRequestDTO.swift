@@ -43,3 +43,26 @@ public struct ChallengeRequest: Encodable {
         self.apps = apps
     }
 }
+
+public extension SignUpRequest {
+    static var stub: Self {
+        .init(
+            socialPlatform: "iOS", 
+            name: "류희재",
+            onboarding: .stub,
+            challenge: .stub
+        )
+    }
+}
+
+public extension OnboardingRequest {
+    static var stub: Self {
+        .init(averageUseTime: "1~4시간", problem: ["중독 문제이슈"])
+    }
+}
+
+public extension ChallengeRequest {
+    static var stub: Self {
+        .init(period: 1, goalTime: 1, apps: [.stub, .stub, .stub])
+    }
+}

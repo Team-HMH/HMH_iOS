@@ -17,7 +17,7 @@ protocol ReissueAPIServiceType {
 
 extension ReissueAPIService: ReissueAPIServiceType {
     func tokenRefresh() -> AnyPublisher<TokenResult, HMHNetworkError> {
-        sendRequest(.tokeRefresh)
+        requestWithResult(.tokeRefresh)
     }
     
 }

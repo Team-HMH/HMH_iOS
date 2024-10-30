@@ -11,7 +11,7 @@ import Foundation
 import Networks
 import Domain
 
-extension Apps {
+extension AppInfoDTO {
     public func toEntity() -> AppInfo {
         return .init(
             appCode: appCode,
@@ -21,7 +21,7 @@ extension Apps {
 }
 
 extension AppInfo {
-    public func toDTO() -> Apps {
+    public func toDTO() -> AppInfoDTO {
         return .init(
             appCode: appCode,
             goalTime: goalTime

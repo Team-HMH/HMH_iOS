@@ -20,7 +20,7 @@ final class PointServiceTests: XCTestCase {
     
     override func setUp() {
         cancelBag = CancelBag()
-        mockRequestHandler = MockRequestHandler()
+        mockRequestHandler = RequestHandler()
         sut = PointService(requestHandler: mockRequestHandler)
         
         UserManager.shared.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzMwMjcyMDkyLCJleHAiOjE3MzA0NDQ4OTJ9.FULSF-b-cu4iH25ld_EgL99g310XT1uTHcyyebBgxxpYERXXk19Mb-TyfaeDEWUMpkC6vjrjWz5yPc27fPbPTQ"
@@ -45,7 +45,7 @@ final class PointServiceTests: XCTestCase {
             }
             .store(in: cancelBag)
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation])
         
     }
     
@@ -61,7 +61,7 @@ final class PointServiceTests: XCTestCase {
             }
             .store(in: cancelBag)
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation])
         
     }
     

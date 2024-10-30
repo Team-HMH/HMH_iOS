@@ -14,39 +14,39 @@ import Core
 typealias UserService = BaseService<UserAPI>
 
 public protocol UserServiceType {
-    func logout() -> AnyPublisher<VoidResult, HMHNetworkError>
-    func deleteAccount() -> AnyPublisher<VoidResult, HMHNetworkError>
+    func logout() -> AnyPublisher<Void, HMHNetworkError>
+    func deleteAccount() -> AnyPublisher<Void, HMHNetworkError>
     func getUserData() -> AnyPublisher<UserResult, HMHNetworkError>
     func getCurrentPoint() -> AnyPublisher<PointResult, HMHNetworkError>
 }
 
 extension UserService: UserServiceType {
-    public func logout() -> AnyPublisher<VoidResult, HMHNetworkError> {
-        sendRequest(.logout)
+    public func logout() -> AnyPublisher<Void, HMHNetworkError> {
+        requestWithNoResult(.logout)
     }
     
-    public func deleteAccount() -> AnyPublisher<VoidResult, HMHNetworkError> {
-        sendRequest(.deleteAccount)
+    public func deleteAccount() -> AnyPublisher<Void, HMHNetworkError> {
+        requestWithNoResult(.deleteAccount)
     }
     
     public func getUserData() -> AnyPublisher<UserResult, HMHNetworkError> {
-        sendRequest(.getUserData)
+        requestWithResult(.getUserData)
     }
     
     public func getCurrentPoint() -> AnyPublisher<PointResult, HMHNetworkError> {
-        sendRequest(.getCurrentPoint)
+        requestWithResult(.getCurrentPoint)
     }
 }
 
 struct StubUserService: UserServiceType {
-    func logout() -> AnyPublisher<VoidResult, HMHNetworkError> {
-        return Just(VoidResult())
+    func logout() -> AnyPublisher<Void, HMHNetworkError> {
+        return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func deleteAccount() -> AnyPublisher<VoidResult, HMHNetworkError> {
-        return Just(VoidResult())
+    func deleteAccount() -> AnyPublisher<Void, HMHNetworkError> {
+        return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
