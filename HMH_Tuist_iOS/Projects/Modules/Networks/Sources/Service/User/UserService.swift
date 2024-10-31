@@ -11,7 +11,7 @@ import Combine
 
 import Core
 
-typealias UserService = BaseService<UserAPI>
+public typealias UserService = BaseService<UserAPI>
 
 public protocol UserServiceType {
     func logout() -> AnyPublisher<Void, HMHNetworkError>

@@ -16,6 +16,12 @@ public struct AddAppRequest: Encodable {
     }
 }
 
-struct AddAppResult: Decodable {
+public struct AddAppResult: Decodable {
     let apps: [AppInfoDTO]
+}
+
+public extension AddAppRequest {
+    static var stub: Self {
+        .init(apps: [.stub,.stub,.stub,.stub])
+    }
 }

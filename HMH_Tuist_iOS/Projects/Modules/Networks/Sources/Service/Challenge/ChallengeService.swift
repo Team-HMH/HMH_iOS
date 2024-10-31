@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-typealias ChallengeService = BaseService<ChallengeAPI>
+public typealias ChallengeService = BaseService<ChallengeAPI>
 
 public protocol ChallengeServiceType {
     func getdailyChallenge()  -> AnyPublisher<GetChallengeResult, HMHNetworkError>

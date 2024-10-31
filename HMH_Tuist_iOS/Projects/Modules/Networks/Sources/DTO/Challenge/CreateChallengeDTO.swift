@@ -16,3 +16,9 @@ public struct CreateChallengeRequest: Encodable {
         self.goalTime = goalTime
     }
 }
+
+public extension CreateChallengeRequest {
+    static var stub: Self {
+        .init(period: 1, goalTime: 1)
+    }
+}

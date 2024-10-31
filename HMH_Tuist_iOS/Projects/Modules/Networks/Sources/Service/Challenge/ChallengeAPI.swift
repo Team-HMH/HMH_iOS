@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ChallengeAPI {
+public enum ChallengeAPI {
     case getdailyChallenge
     case getSuccesChallenge
     case createChallenge(request: CreateChallengeRequest)
@@ -20,11 +20,11 @@ enum ChallengeAPI {
 }
 
 extension ChallengeAPI: BaseAPI {
-    var isWithInterceptor: Bool {
+    public var isWithInterceptor: Bool {
         return true
     }
     
-    var path: String? {
+    public var path: String? {
         switch self {
         case .getdailyChallenge:
             return Paths.getChallenge
@@ -45,7 +45,7 @@ extension ChallengeAPI: BaseAPI {
         }
     }
     
-    var method: HTTPMethod {
+    public var method: HTTPMethod {
         switch self {
         case .getdailyChallenge:
             return .get
@@ -66,7 +66,7 @@ extension ChallengeAPI: BaseAPI {
         }
     }
     
-    var task: Task {
+    public var task: Task {
         switch self {
         case .getdailyChallenge:
             return .requestPlain
@@ -87,7 +87,7 @@ extension ChallengeAPI: BaseAPI {
         }
     }
     
-    var headers: [String : String]? {
+    public var headers: [String : String]? {
         switch self {
         case .getdailyChallenge:
             return APIHeaders.hasTokenWithTimeZoneHeader

@@ -10,7 +10,7 @@ import Foundation
 
 import Domain
 
-enum UserAPI {
+public enum UserAPI {
     case logout
     case deleteAccount
     case getUserData
@@ -18,11 +18,11 @@ enum UserAPI {
 }
 
 extension UserAPI: BaseAPI {
-    var isWithInterceptor: Bool {
+    public var isWithInterceptor: Bool {
         return false
     }
     
-    var path: String? {
+    public var path: String? {
         switch self {
         case .logout:
             return Paths.logout
@@ -35,7 +35,7 @@ extension UserAPI: BaseAPI {
         }
     }
     
-    var method: HTTPMethod {
+    public var method: HTTPMethod {
         switch self {
         case .logout:
             return .post
@@ -48,7 +48,7 @@ extension UserAPI: BaseAPI {
         }
     }
     
-    var task: Task {
+    public var task: Task {
         switch self {
         case .logout:
             return .requestPlain
@@ -61,7 +61,7 @@ extension UserAPI: BaseAPI {
         }
     }
     
-    var headers: [String : String]? {
+    public var headers: [String : String]? {
         return APIHeaders.hasTokenHeader
     }
 }

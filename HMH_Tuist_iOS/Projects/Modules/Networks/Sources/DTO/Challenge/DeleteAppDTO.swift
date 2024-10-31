@@ -14,3 +14,9 @@ public struct DeleteAppRequest: Encodable {
         self.appCode = appCode
     }
 }
+
+public extension DeleteAppRequest {
+    static var stub: Self {
+        .init(appCode: "######")
+    }
+}
