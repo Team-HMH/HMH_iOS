@@ -6,76 +6,37 @@
 //  Copyright © 2024 HMH-iOS. All rights reserved.
 //
 
-import Foundation
 import Combine
-import KakaoSDKAuth
-import KakaoSDKUser
+import AuthenticationServices
 
-final class OAuthKakaoService: OAuthServiceType {
-    func authorize() -> AnyPublisher<String, HMHNetworkError> {
-        return self?.login().sink(receiveCompletion: { [weak self]
-            
-        }, receiveValue: {
-            
-        })
+//extension ASAuthorizationController: HasDelegate {
+//    public typealias Delegate = ASAuthorizationControllerDelegate
+//}
+
+class ASAuthorizationControllerProxy: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    // Combine Subject를 사용해 이벤트를 전달합니다.
+    var didCompleteAuthorization = PassthroughSubject<ASAuthorization, Never>()
+    var didCompleteWithError = PassthroughSubject<Error, Never>()
+    
+    private var presentationWindow: UIWindow
+
+    init(presentationWindow: UIWindow) {
+        self.presentationWindow = presentationWindow
     }
     
-    
-    private var cancellables = Set<AnyCancellable>()
-    
-    func authorize() -> Future<Void, HMHNetworkError> {
-        return Future { [weak self] promise in
-            self?.login().sink(receiveCompletion: { completion in
-                if case let .failure(error) = completion {
-                    promise(.failure(error))
-                }
-            }, receiveValue: { oAuthToken in
-                promise(.success(oAuthToken))
-            })
-            .store(in: &self!.cancellables)
-        }
+    // ASAuthorizationControllerDelegate 메서드를 통해 결과를 Subject로 전송합니다.
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        didCompleteAuthorization.send(authorization)
+        didCompleteAuthorization.send(completion: .finished)
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        didCompleteWithError.send(error)
+        didCompleteWithError.send(completion: .finished)
     }
     
-    func login() -> Future<(OAuthToken, String?, String?), AuthError> {
-        return Future { promise in
-            let isKakaoTalkLoginAvailable = UserApi.isKakaoTalkLoginAvailable()
-            
-            if isKakaoTalkLoginAvailable {
-                UserApi.shared.loginWithKakaoTalk()
-                    .flatMap { oAuthToken in
-                        UserApi.shared.me()
-                            .map { user in (oAuthToken, user.kakaoAccount?.name, user.kakaoAccount?.phoneNumber) }
-                            .eraseToAnyPublisher()
-                    }
-                    .sink(receiveCompletion: { completion in
-                        if case .failure(_) = completion {
-                            promise(.failure(AuthError.kakaoLoginError))
-                        }
-                    }, receiveValue: { data in
-                        promise(.success(data))
-                    })
-                    .store(in: &self.cancellables)
-            } else {
-                UserApi.shared.loginWithKakaoAccount()
-                    .flatMap { oAuthToken in
-                        UserApi.shared.me()
-                            .map { user in (oAuthToken, user.kakaoAccount?.name, user.kakaoAccount?.phoneNumber) }
-                            .eraseToAnyPublisher()
-                    }
-                    .sink(receiveCompletion: { completion in
-                        if case .failure(_) = completion {
-                            promise(.failure(AuthError.kakaoLoginError))
-                        }
-                    }, receiveValue: { data in
-                        promise(.success(data))
-                    })
-                    .store(in: &self.cancellables)
-            }
-        }
-    }
-    
-    deinit {
-        print("죽음")
+    // ASAuthorizationControllerPresentationContextProviding 메서드
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return presentationWindow
     }
 }
-

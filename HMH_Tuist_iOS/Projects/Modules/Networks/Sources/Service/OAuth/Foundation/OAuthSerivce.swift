@@ -10,19 +10,21 @@ import Foundation
 import Combine
 
 protocol OAuthServiceType {
-    func authorize() -> AnyPublisher<String, HMHNetworkError>
+    func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError>
 }
 
 final class OAuthSerivce: OAuthServiceType {
-    func authorize() -> AnyPublisher<String, HMHNetworkError> {
-        
+    func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError> {
+        return Just("")
+            .setFailureType(to: HMHNetworkError.AuthError.self)
+            .eraseToAnyPublisher()
     }
 }
 
 final class StubOAuthService: OAuthServiceType {
-    func authorize() -> AnyPublisher<String, HMHNetworkError> {
+    func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError> {
         return Just("")
-            .setFailureType(to: HMHNetworkError.self)
+            .setFailureType(to: HMHNetworkError.AuthError.self)
             .eraseToAnyPublisher()
     }
     
