@@ -10,10 +10,11 @@ import Foundation
 import Combine
 import KakaoSDKAuth
 import KakaoSDKUser
+import Core
 
 final class OAuthKakaoService: OAuthServiceType {
     
-    private var cancellables = Set<AnyCancellable>()
+    let cancelBag = CancelBag()
     
     func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError> {
         return login()
@@ -22,69 +23,24 @@ final class OAuthKakaoService: OAuthServiceType {
     }
     
     func login() -> Future<OAuthToken, HMHNetworkError.AuthError> {
-        return Future { [weak self] promise in
-            let isKakaoTalkLoginAvailable = UserApi.isKakaoTalkLoginAvailable()
+        return Future { promise in
             let userApi = UserApi.shared
             
-            let loginPublisher: AnyPublisher<OAuthToken, HMHNetworkError.AuthError>
-            
-            if isKakaoTalkLoginAvailable {
-                loginPublisher = Future<OAuthToken, HMHNetworkError.AuthError> { promise in
-                    userApi.loginWithKakaoTalk { (token, error) in
-                        if let token = token {
-                            promise(.success(token))
-                        } else {
-                            promise(.failure(.kakaoLoginError))
-                        }
+            if UserApi.isKakaoTalkLoginAvailable() {
+                userApi.loginWithKakaoTalk { (token, error) in
+                    guard let token else {
+                        return promise(.failure(.kakaoLoginError))
                     }
-                }
-                .flatMap { token -> AnyPublisher<OAuthToken, HMHNetworkError.AuthError> in
-                    return Future<OAuthToken, HMHNetworkError.AuthError> { promise in
-                        userApi.me { user, error in
-                            if let _ = user {
-                                promise(.success(token))
-                            } else {
-                                promise(.failure(.kakaoLoginError))
-                            }
-                        }
-                    }
-                    .eraseToAnyPublisher()
-                }
-                .eraseToAnyPublisher()
-            } else {
-                loginPublisher = Future<OAuthToken, HMHNetworkError.AuthError> { promise in
-                    userApi.loginWithKakaoAccount { (token, error) in
-                        if let token = token {
-                            promise(.success(token))
-                        } else {
-                            promise(.failure(.kakaoLoginError))
-                        }
-                    }
-                }
-                .flatMap { token -> AnyPublisher<OAuthToken, HMHNetworkError.AuthError> in
-                    return Future<OAuthToken, HMHNetworkError.AuthError> { promise in
-                        userApi.me { user, error in
-                            if let _ = user {
-                                promise(.success(token))
-                            } else {
-                                promise(.failure(.kakaoLoginError))
-                            }
-                        }
-                    }
-                    .eraseToAnyPublisher()
-                }
-                .eraseToAnyPublisher()
-            }
-            
-            loginPublisher
-                .sink(receiveCompletion: { completion in
-                    if case .failure = completion {
-                        promise(.failure(.kakaoLoginError))
-                    }
-                }, receiveValue: { token in
                     promise(.success(token))
-                })
-                .store(in: &self!.cancellables)
+                }
+            } else {
+                userApi.loginWithKakaoAccount { (token, error) in
+                    guard let token else {
+                        return promise(.failure(.kakaoLoginError))
+                    }
+                    promise(.success(token))
+                }
+            }
         }
     }
     
