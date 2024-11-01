@@ -5,9 +5,10 @@
 //  Created by 이지희 on 5/12/24.
 //
 
-import Foundation
+import SwiftUI
 
 import Domain
+import DSKit
 
 final class PointViewModel: ObservableObject {
     @Published var challengeDay = 1
@@ -21,7 +22,22 @@ final class PointViewModel: ObservableObject {
         self.getPointList()
         self.getUsagePoint()
     }
-    
+  
+  func configureButton(status: String) -> (Color, Color) {
+    switch status {
+    case "UNEARNED":
+        return (DSKitAsset.bluePurpleButton.swiftUIColor,DSKitAsset.whiteBtn.swiftUIColor)
+    case "EARNED":
+        return (DSKitAsset.bluePurpleOpacity22.swiftUIColor, DSKitAsset.bluePurpleOpacity70.swiftUIColor)
+    case "FAILURE":
+        return (DSKitAsset.gray6.swiftUIColor, DSKitAsset.gray2.swiftUIColor)
+    case "NONE":
+        return (DSKitAsset.gray7.swiftUIColor, DSKitAsset.gray3.swiftUIColor)
+    default:
+        return (DSKitAsset.gray7.swiftUIColor, DSKitAsset.gray3.swiftUIColor)
+    }
+  }
+  
     func getEarnPoint() {
         //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
 //        Providers.pointProvider.request(target: .getEarnPoint,

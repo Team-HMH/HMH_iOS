@@ -74,41 +74,13 @@ struct EarnPointButton: View {
         }, label: {
             Text(StringLiteral.Challenge.pointButton + " \(viewModel.earnPoint)P")
                 .font(.text4_semibold_16)
-                .foregroundStyle(buttonTextColor)
+                .foregroundStyle(viewModel.configureButton(status: status).1)
                 .frame(width: 73, height: 40)
-                .background(buttonColor)
+                .background(viewModel.configureButton(status: status).0)
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 3, height: 3)))
         })
         .disabled(status != "UNEARNED")
     }
     
-    private var buttonColor: Color {
-        switch status {
-        case "UNEARNED":
-            return DSKitAsset.bluePurpleButton.swiftUIColor
-        case "EARNED":
-            return DSKitAsset.bluePurpleOpacity22.swiftUIColor
-        case "FAILURE":
-            return DSKitAsset.gray6.swiftUIColor
-        case "NONE":
-            return DSKitAsset.gray7.swiftUIColor
-        default:
-            return DSKitAsset.gray7.swiftUIColor
-        }
-    }
-    
-    private var buttonTextColor: Color {
-        switch status {
-        case "UNEARNED":
-            return DSKitAsset.whiteBtn.swiftUIColor
-        case "EARNED":
-            return DSKitAsset.bluePurpleOpacity70.swiftUIColor
-        case "FAILURE":
-            return DSKitAsset.gray2.swiftUIColor
-        case "NONE":
-            return DSKitAsset.gray3.swiftUIColor
-        default:
-            return DSKitAsset.gray3.swiftUIColor
-        }
-    }
+  
 }
