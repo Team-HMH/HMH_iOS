@@ -8,7 +8,7 @@
 import ProjectDescription
 
 public extension SourceFilesList {
-    static let demoSources: SourceFilesList = "Demo/Sources/**/*.swift"
+    static let demoSources: SourceFilesList = "Sources/**/*.swift"
     static let interface: SourceFilesList = "Interface/Sources/**/*.swift"
     static let sources: SourceFilesList = "Sources/**/*.swift"
     static let testing: SourceFilesList = "Testing/**"

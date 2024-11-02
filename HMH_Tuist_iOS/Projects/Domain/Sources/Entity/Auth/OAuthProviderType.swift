@@ -8,6 +8,7 @@
 
 import Foundation
 
-public protocol OAuthProviderType {
-    var socialPlatform: String { get }
+public enum OAuthProviderType {
+    case kakao
+    case apple
 }

@@ -20,7 +20,7 @@ public final class ChallengeViewModel: ObservableObject {
     @Published var visableStartDate = ""
     @Published var todayIndex = 0
     @Published var days = 7
-    @Published var appList: [Apps] = []
+    @Published var appList: [AppInfo] = []
     @Published var statuses: [String] = []
     @Published var titleString = ""
     @Published var subTitleString = ""

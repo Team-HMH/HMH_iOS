@@ -15,18 +15,16 @@ import Networks
 public struct AuthRepository: AuthRepositoryType {
     
     private let authService: AuthServiceType
-    private let factory: (OAuthProviderType) -> OAuthServiceType
+    private let oauthServiceFactory: OAuthServiceFactoryType
     
-    init(authService: AuthServiceType,
-         factory: @escaping (OAuthProviderType) -> OAuthServiceType
-    ) {
+    init(authService: AuthServiceType, oauthServiceFactory: OAuthServiceFactoryType) {
         self.authService = authService
-        self.factory = factory
+        self.oauthServiceFactory = oauthServiceFactory
     }
     
     public func authorize(_ serviceType: OAuthProviderType) -> AnyPublisher<String, Error> {
-        return factory(serviceType)
-            .authorize()
+        let oauthService = oauthServiceFactory.makeOAuthService(for: serviceType)
+        return oauthService.authorize()
             .map { $0 }
             .mapToGeneralError()
     }

@@ -154,6 +154,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2EE1E3864350B203170C3C4F"
+               BuildableName = "DataDemo.app"
+               BlueprintName = "DataDemo"
+               ReferencedContainer = "container:Projects/Data/Data.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "5C67F6FBCC2E336D182BC65D"
                BuildableName = "DeviceActivityMonitor.framework"
                BlueprintName = "DeviceActivityMonitor"
