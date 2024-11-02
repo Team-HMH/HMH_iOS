@@ -13,10 +13,22 @@ import Domain
 import Networks
 
 public struct AuthRepository: AuthRepositoryType {
-    private let service: AuthServiceType
     
-    init(service: AuthServiceType) {
-        self.service = service
+    private let authService: AuthServiceType
+    private let factory: (OAuthProviderType) -> OAuthServiceType
+    
+    init(authService: AuthServiceType,
+         factory: @escaping (OAuthProviderType) -> OAuthServiceType
+    ) {
+        self.authService = authService
+        self.factory = factory
+    }
+    
+    public func authorize(_ serviceType: OAuthProviderType) -> AnyPublisher<String, Error> {
+        return factory(serviceType)
+            .authorize()
+            .map { $0 }
+            .mapToGeneralError()
     }
     
     public func signUp(socialPlatform: String, name: String, averageUseTime: String, problem: [String], challengeInfo: ChallengeInfo) -> AnyPublisher<Auth, Error> {
@@ -29,14 +41,16 @@ public struct AuthRepository: AuthRepositoryType {
             ),
             challenge: challengeInfo.toDTO()
         )
-        return service.signUp(request: request)
+        
+        return authService.signUp(request: request)
             .map { $0.toEntity() }
             .mapToGeneralError()
     }
     
     public func socialLogin(socialPlatform: String) -> AnyPublisher<Auth, Error> {
         let request = SocialLoginRequest(socialPlatform: socialPlatform)
-        return service.socialLogin(request: request)
+        
+        return authService.socialLogin(request: request)
             .map { $0.toEntity() }
             .mapToGeneralError()
     }

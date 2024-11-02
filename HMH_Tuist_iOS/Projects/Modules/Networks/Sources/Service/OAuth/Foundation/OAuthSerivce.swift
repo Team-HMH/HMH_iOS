@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-protocol OAuthServiceType {
+public protocol OAuthServiceType {
     func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError>
 }
 

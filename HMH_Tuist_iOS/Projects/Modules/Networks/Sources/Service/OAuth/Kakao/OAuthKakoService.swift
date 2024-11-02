@@ -12,17 +12,18 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import Core
 
-final class OAuthKakaoService: OAuthServiceType {
+public final class OAuthKakaoService: OAuthServiceType {
     
+    public init() {} 
     let cancelBag = CancelBag()
     
-    func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError> {
+    public func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError> {
         return login()
             .map { $0.accessToken }
             .eraseToAnyPublisher()
     }
     
-    func login() -> Future<OAuthToken, HMHNetworkError.AuthError> {
+    private func login() -> Future<OAuthToken, HMHNetworkError.AuthError> {
         return Future { promise in
             let userApi = UserApi.shared
             

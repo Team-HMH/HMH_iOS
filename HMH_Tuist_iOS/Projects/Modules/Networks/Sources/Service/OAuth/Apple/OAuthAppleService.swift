@@ -10,12 +10,12 @@ import Foundation
 import AuthenticationServices
 import Combine
 
-final class OAuthAppleService: OAuthServiceType {
-    
+public final class OAuthAppleService: OAuthServiceType {
+    public init() {} 
     
     private let appleLoginManager = AppleLoginManager()
     
-    func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError> {
+    public func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError> {
         return login()
             .map { $0 }
             .eraseToAnyPublisher()
