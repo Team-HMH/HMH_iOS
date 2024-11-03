@@ -10,10 +10,16 @@ import SwiftUI
 import Domain
 import DSKit
 
+// 추후 이동
+struct DailyPoint: Hashable {
+    var challengeDate: String
+    let status: String
+}
+
 final class PointViewModel: ObservableObject {
     @Published var challengeDay = 1
     @Published var currentPoint = 0
-    @Published public var pointList: [PointList] = []
+    @Published public var pointList: [DailyPoint] = []
     @Published var statusList: [String] = []
     @Published var isPresented = false
     @Published var earnPoint = 0
