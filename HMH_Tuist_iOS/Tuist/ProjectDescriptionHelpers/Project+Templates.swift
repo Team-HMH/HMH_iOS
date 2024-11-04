@@ -156,7 +156,6 @@ public extension Project {
                 deploymentTarget: env.deploymentTarget,
                 infoPlist: .default,
                 sources: .unitTests,
-                resources: [.glob(pattern: "Tests/Resources/**", excluding: [])],
                 dependencies: deps,
                 settings: .settings(base: SettingsDictionary().setCodeSignManual(), configurations: XCConfig.tests)
             )

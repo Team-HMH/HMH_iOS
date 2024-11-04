@@ -140,6 +140,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "372E276F143AFFAD2448C971"
+               BuildableName = "Data.framework"
+               BlueprintName = "Data"
+               ReferencedContainer = "container:Projects/Data/Data.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "5C67F6FBCC2E336D182BC65D"
                BuildableName = "DeviceActivityMonitor.framework"
                BlueprintName = "DeviceActivityMonitor"
@@ -238,10 +252,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "360CA41534C4E3038DE14C0E"
+               BlueprintIdentifier = "141A87512EEB9E82909D15D1"
+               BuildableName = "KakaoOpenSDK_KakaoSDKCommon.bundle"
+               BlueprintName = "KakaoOpenSDK_KakaoSDKCommon"
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7C14AC27021FF442200B3853"
                BuildableName = "KakaoSDKAuth.framework"
                BlueprintName = "KakaoSDKAuth"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -252,10 +280,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "31D0F2C4386A0F787BAD9EC3"
+               BlueprintIdentifier = "7A4B81795AB7B3A41AFC92E4"
                BuildableName = "KakaoSDKCert.framework"
                BlueprintName = "KakaoSDKCert"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -266,10 +294,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0613CB49A8667C36ED2D5A02"
+               BlueprintIdentifier = "98459E8BC6B6914855F2F2D5"
                BuildableName = "KakaoSDKCommon.framework"
                BlueprintName = "KakaoSDKCommon"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -280,10 +308,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1EBDF96E8DB6832EB08FFD9A"
+               BlueprintIdentifier = "58065A78153B638972A1D612"
                BuildableName = "KakaoSDKFriend.framework"
                BlueprintName = "KakaoSDKFriend"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -294,10 +322,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "197F19F4BD35F79B632C1426"
+               BlueprintIdentifier = "33262881DAEF794C076C75C1"
                BuildableName = "KakaoSDKNavi.framework"
                BlueprintName = "KakaoSDKNavi"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -308,10 +336,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0AE8F0AFDB57A5D38534647E"
+               BlueprintIdentifier = "D776DD6F4486A2D71BA8A04E"
                BuildableName = "KakaoSDKShare.framework"
                BlueprintName = "KakaoSDKShare"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -322,10 +350,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7F74AF9FA1047406BCF7E4B9"
+               BlueprintIdentifier = "F0E80157B63AC92DEC668E6E"
                BuildableName = "KakaoSDKTalk.framework"
                BlueprintName = "KakaoSDKTalk"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -336,10 +364,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6ACB296B01C32A517BA0A6AC"
+               BlueprintIdentifier = "9992115F8933D8BC3172BA5A"
                BuildableName = "KakaoSDKTemplate.framework"
                BlueprintName = "KakaoSDKTemplate"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -350,10 +378,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "333492458F003721C47266F8"
+               BlueprintIdentifier = "29DF1CDF286567DB176A09D0"
                BuildableName = "KakaoSDKUser.framework"
                BlueprintName = "KakaoSDKUser"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -368,34 +396,6 @@
                BuildableName = "KeychainAccess.framework"
                BlueprintName = "KeychainAccess"
                ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/KeychainAccess/KeychainAccess.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3B395FD6136F57D630138BD"
-               BuildableName = "Kingfisher.framework"
-               BlueprintName = "Kingfisher"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/Kingfisher/Kingfisher.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F6E2F8C3B7D9EB13105F5694"
-               BuildableName = "Kingfisher_Kingfisher.bundle"
-               BlueprintName = "Kingfisher_Kingfisher"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/Kingfisher/Kingfisher.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -448,10 +448,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "47401B5CD068B6D46385A325"
+               BlueprintIdentifier = "11789D24A0490E463CDA3C81"
                BuildableName = "Lottie.framework"
                BlueprintName = "Lottie"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/lottie-ios/lottie-ios.xcodeproj">
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/lottie-ios/Lottie.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -462,10 +462,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A4DFF0D3EE507E4032CBEC48"
-               BuildableName = "Moya.framework"
-               BlueprintName = "Moya"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/Moya/Moya.xcodeproj">
+               BlueprintIdentifier = "2BF4F5BDA824781BEE220881"
+               BuildableName = "Lottie_Lottie.bundle"
+               BlueprintName = "Lottie_Lottie"
+               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/lottie-ios/Lottie.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -521,6 +521,20 @@
                BlueprintIdentifier = "2EE557D34B930B760FD4A735"
                BuildableName = "Networks.framework"
                BlueprintName = "Networks"
+               ReferencedContainer = "container:Projects/Modules/Networks/Networks.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F13A87E240A54270A150D681"
+               BuildableName = "NetworksTests.xctest"
+               BlueprintName = "NetworksTests"
                ReferencedContainer = "container:Projects/Modules/Networks/Networks.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -636,34 +650,6 @@
                ReferencedContainer = "container:Projects/Modules/ThirdPartyLibs/ThirdPartyLibs.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E5160C4211E8A471AC1D65ED"
-               BuildableName = "kakao_ios_sdk_KakaoSDKCommon.bundle"
-               BlueprintName = "kakao-ios-sdk_KakaoSDKCommon"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "48EBD937F80C4AFF57DE3E4F"
-               BuildableName = "lottie_ios_Lottie.bundle"
-               BlueprintName = "lottie-ios_Lottie"
-               ReferencedContainer = "container:Tuist/Dependencies/SwiftPackageManager/.build/checkouts/lottie-ios/lottie-ios.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -672,6 +658,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F13A87E240A54270A150D681"
+               BuildableName = "NetworksTests.xctest"
+               BlueprintName = "NetworksTests"
+               ReferencedContainer = "container:Projects/Modules/Networks/Networks.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

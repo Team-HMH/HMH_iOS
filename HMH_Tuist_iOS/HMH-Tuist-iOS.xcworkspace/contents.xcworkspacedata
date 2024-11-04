@@ -11,6 +11,9 @@
          location = "group:Core/Core.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Data/Data.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Domain/Domain.xcodeproj">
       </FileRef>
       <Group
@@ -90,16 +93,10 @@
                      location = "group:KeychainAccess/KeychainAccess.xcodeproj">
                   </FileRef>
                   <FileRef
-                     location = "group:Kingfisher/Kingfisher.xcodeproj">
+                     location = "group:kakao-ios-sdk/KakaoOpenSDK.xcodeproj">
                   </FileRef>
                   <FileRef
-                     location = "group:Moya/Moya.xcodeproj">
-                  </FileRef>
-                  <FileRef
-                     location = "group:kakao-ios-sdk/kakao-ios-sdk.xcodeproj">
-                  </FileRef>
-                  <FileRef
-                     location = "group:lottie-ios/lottie-ios.xcodeproj">
+                     location = "group:lottie-ios/Lottie.xcodeproj">
                   </FileRef>
                </Group>
             </Group>

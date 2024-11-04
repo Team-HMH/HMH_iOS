@@ -14,8 +14,7 @@ let project = Project.makeModule(
     name: env.workspaceName,
     targets: [.app],
     internalDependencies: [
-//        .data, //현재 너무 역할이 애매함으로 Network 모듈로 수정해둠
-        .Modules.networks,
+        .data,
         .Features.RootFeature
     ]
 )
