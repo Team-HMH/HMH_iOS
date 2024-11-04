@@ -20,6 +20,7 @@ extension AuthService: AuthServiceType {
     public func signUp(request: SignUpRequest) -> AnyPublisher<AuthResult, HMHNetworkError> {
         requestWithResult(.signUp(request: request))
     }
+    
     public func socialLogin(request: SocialLoginRequest) -> AnyPublisher<AuthResult, HMHNetworkError> {
         requestWithResult(.socialLogin(request: request))
     }

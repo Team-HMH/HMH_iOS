@@ -12,7 +12,7 @@ import Foundation
     case invalidRequest(RequestError)
     case invalidResponse(ResponseError)
     case decodingFailed(DecodeError)
-    case oautheticationError(AuthError)
+    case oautheticationError(AuthrizationError)
     case timeOutError
     case unknown(Error)
     

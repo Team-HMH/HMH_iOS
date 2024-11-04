@@ -29,7 +29,7 @@ public struct AuthRepository: AuthRepositoryType {
             .mapToGeneralError()
     }
     
-    public func signUp(socialPlatform: String, name: String, averageUseTime: String, problem: [String], challengeInfo: ChallengeInfo) -> AnyPublisher<Auth, Error> {
+    public func signUp(socialPlatform: String, name: String, averageUseTime: String, problem: [String], challengeInfo: ChallengeInfo) -> AnyPublisher<Auth, AuthError> {
         let request = SignUpRequest(
             socialPlatform: socialPlatform,
             name: name,
@@ -42,14 +42,14 @@ public struct AuthRepository: AuthRepositoryType {
         
         return authService.signUp(request: request)
             .map { $0.toEntity() }
-            .mapToGeneralError()
+            .mapToDomainError(to: AuthError.self)
     }
     
-    public func socialLogin(socialPlatform: String) -> AnyPublisher<Auth, Error> {
+    public func socialLogin(socialPlatform: String) -> AnyPublisher<Auth, AuthError> {
         let request = SocialLoginRequest(socialPlatform: socialPlatform)
         
         return authService.socialLogin(request: request)
             .map { $0.toEntity() }
-            .mapToGeneralError()
+            .mapToDomainError(to: AuthError.self)
     }
 }

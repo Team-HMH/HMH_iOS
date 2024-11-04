@@ -19,35 +19,35 @@ public struct PointRepository: PointRepositoryType {
         self.service = service
     }
     
-    public func patchPointUse() -> AnyPublisher<UserPointInfo, Error> {
+    public func patchPointUse() -> AnyPublisher<UserPointInfo, PointError> {
         service.patchPointUse()
             .map { $0.toEntity() }
-            .mapToGeneralError()
+            .mapToDomainError(to: PointError.self)
     }
     
-    public func getEarnPoint() -> AnyPublisher<Int, Error> {
+    public func getEarnPoint() -> AnyPublisher<Int, PointError> {
         service.getEarnPoint()
             .map { $0.earnPoint }
-            .mapToGeneralError()
+            .mapToDomainError(to: PointError.self)
     }
     
-    public func getUsagePoint() -> AnyPublisher<Int, Error> {
+    public func getUsagePoint() -> AnyPublisher<Int, PointError> {
         service.getUsagePoint()
             .map { $0.usagePoint }
-            .mapToGeneralError()
+            .mapToDomainError(to: PointError.self)
     }
     
-    public func getPointList() -> AnyPublisher<PointDetail, Error> {
+    public func getPointList() -> AnyPublisher<PointDetail, PointError> {
         service.getPointList()
             .map { $0.toEntity() }
-            .mapToGeneralError()
+            .mapToDomainError(to: PointError.self)
     }
     
-    public func patchEarnPoint(date: String) -> AnyPublisher<Int, Error> {
+    public func patchEarnPoint(date: String) -> AnyPublisher<Int, PointError> {
         let request = UserPointRequest(challengeDate: date)
         return service.patchEarnPoint(request: request)
             .map { $0.userPoint }
-            .mapToGeneralError()
+            .mapToDomainError(to: PointError.self)
     }
 }
 

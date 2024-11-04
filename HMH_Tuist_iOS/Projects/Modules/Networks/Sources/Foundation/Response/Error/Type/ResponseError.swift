@@ -21,30 +21,51 @@ extension HMHNetworkError {
             case .unhandled:
                 return "응답이 올바르지 않습니다"
             case .invalidStatusCode(let code, let errMessage):
-                switch code {
-                case 401:
-                    return "autheticationError: 인증오류입니다"
-                case 403:
-                    return errMessage ?? "forbiddeError: 금지된 에러입니다"
-                case 404:
-                    return errMessage ?? "notFoundError: 찾을 수 없습니다"
-                case 408:
-                    return "timeoutError: 시간을 초과했습니다"
-                case 409:
-                    return errMessage ?? "409 -> 해당 statuscode와 관련된 오류입니다"
-                case 500:
-                    return "internalServerError: 서버 내부 오류입니다"
-                default:
-                    return "\(code) -> 해당 statuscode와 관련된 오류입니다"
-                }
+                return "\(StatusCodeError.from(code).description)/n\(errMessage ?? "추가적인 에러 메세지는 없습니다")"
             }
         }
-        
-        var statusCode: Int? {
-            if case let .invalidStatusCode(code, _) = self {
-                return code
-            }
-            return nil
+    }
+}
+
+extension HMHNetworkError.ResponseError {
+    public func invalidStatusCodeMessage() -> String? {
+        if case let .invalidStatusCode(_, message) = self {
+            return message
         }
+        return nil
+    }
+}
+
+enum StatusCodeError: Int {
+    case invalidRequestError = 400
+    case authenticationError = 401
+    case forbiddenError = 403
+    case notFoundError = 404
+    case notAllowedHTTPMethodError = 405
+    case timeoutError = 408
+    case internalServerError = 500
+    case notSupportedError = 501
+    case badGatewayError = 502
+    case invalidServiceError = 503
+    case unknownError
+    
+    var description: String {
+        switch self {
+        case .invalidRequestError: return "400:INVALID_REQUEST_ERROR"
+        case .authenticationError: return "401:AUTHENTICATION_FAILURE_ERROR"
+        case .forbiddenError: return "403:FORBIDDEN_ERROR"
+        case .notFoundError: return "404:NOT_FOUND_ERROR"
+        case .notAllowedHTTPMethodError: return "405:NOT_ALLOWED_HTTP_METHOD_ERROR"
+        case .timeoutError: return "408:TIMEOUT_ERROR"
+        case .internalServerError: return "500:INTERNAL_SERVER_ERROR"
+        case .notSupportedError: return "501:NOT_SUPPORTED_ERROR"
+        case .badGatewayError: return "502:BAD_GATEWAY_ERROR"
+        case .invalidServiceError: return "503:INVALID_SERVICE_ERROR"
+        case .unknownError: return "UNKNOWN_ERROR"
+        }
+    }
+    
+    static func from(_ code: Int) -> StatusCodeError {
+        return StatusCodeError(rawValue: code) ?? .unknownError
     }
 }

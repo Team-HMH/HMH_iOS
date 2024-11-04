@@ -10,9 +10,9 @@ import Foundation
 import Combine
 
 public protocol PointRepositoryType {
-    func patchPointUse() -> AnyPublisher<UserPointInfo, Error>
-    func getEarnPoint() -> AnyPublisher<Int, Error>
-    func getUsagePoint() -> AnyPublisher<Int, Error>
-    func getPointList() -> AnyPublisher<PointDetail, Error>
-    func patchEarnPoint(date: String) -> AnyPublisher<Int, Error>
+    func patchPointUse() -> AnyPublisher<UserPointInfo, PointError>
+    func getEarnPoint() -> AnyPublisher<Int, PointError>
+    func getUsagePoint() -> AnyPublisher<Int, PointError>
+    func getPointList() -> AnyPublisher<PointDetail, PointError>
+    func patchEarnPoint(date: String) -> AnyPublisher<Int, PointError>
 }
