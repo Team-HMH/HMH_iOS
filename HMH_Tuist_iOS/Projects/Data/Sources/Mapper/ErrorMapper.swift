@@ -6,25 +6,6 @@
 //  Copyright © 2024 HMH-iOS. All rights reserved.
 //
 
-//import Foundation
-//
-//import Domain
-//
-//class ErrorMapper {
-//    static func map<T: DomainError>(message: String, to errorType: T.Type) -> T {
-//        return errorType.error(with: message)
-//    }
-//}
-
-
-//
-//  ErrorMapper.swift
-//  Data
-//
-//  Created by 류희재 on 11/4/24.
-//  Copyright © 2024 HMH-iOS. All rights reserved.
-//
-
 import Foundation
 import Combine
 
