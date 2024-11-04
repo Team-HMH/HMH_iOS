@@ -23,7 +23,7 @@ final class UserServiceTests: XCTestCase {
         mockRequestHandler = RequestHandler()
         sut = UserService(requestHandler: mockRequestHandler)
         
-        UserManager.shared.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzMwMjcyMDkyLCJleHAiOjE3MzA0NDQ4OTJ9.FULSF-b-cu4iH25ld_EgL99g310XT1uTHcyyebBgxxpYERXXk19Mb-TyfaeDEWUMpkC6vjrjWz5yPc27fPbPTQ"
+        UserManager.shared.accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzMwMjcyMDkyLCJleHAiOjE3MzA0NDQ4OTJ9.FULSF-b-cu4iH25ld_EgL99g310XT1uTHcyyebBgxxpYERXXk19Mb-TyfaeDEWUMpkC6vjrjWz5yPc27fPbPTQ"
         UserManager.shared.refreshToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzMwMjcyMDkyLCJleHAiOjE3MzE0ODE2OTJ9.9SrHLvCCbFVt_p6GZvh0P91CgLSZfH3VgFDH2HZHiVHXdjC0O_4OUiv9wZI4Hmf3BwSer8awR8ilOTsKIODS6A"
     }
     

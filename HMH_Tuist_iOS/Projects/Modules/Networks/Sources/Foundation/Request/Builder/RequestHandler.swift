@@ -13,7 +13,7 @@ import Core
 
 public class RequestHandler: RequestHandling {
     
-    //    static let shared = RequestHandler()
+    static let shared = RequestHandler()
     
     public init() {}
     

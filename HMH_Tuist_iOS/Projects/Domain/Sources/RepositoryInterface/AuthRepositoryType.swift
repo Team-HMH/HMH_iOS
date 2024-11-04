@@ -18,4 +18,5 @@ public protocol AuthRepositoryType {
         challengeInfo: ChallengeInfo
     ) -> AnyPublisher<Auth, Error>
     func socialLogin(socialPlatform: String) -> AnyPublisher<Auth, Error>
+    func authorize(_ serviceType: OAuthProviderType) -> AnyPublisher<String, Error>
 }

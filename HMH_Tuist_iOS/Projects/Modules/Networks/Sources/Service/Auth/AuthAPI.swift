@@ -59,7 +59,7 @@ extension AuthAPI: BaseAPI {
         case .signUp:
             return APIHeaders.hasTokenWithAllHeader
         case .socialLogin:
-            return APIHeaders.hasSocialTokenHeader
+            return APIHeaders.hasTokenHeader
         case .tokeRefresh:
             return APIHeaders.hasRefreshTokenHeader
         }

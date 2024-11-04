@@ -23,8 +23,8 @@ final class PointServiceTests: XCTestCase {
         mockRequestHandler = RequestHandler()
         sut = PointService(requestHandler: mockRequestHandler)
         
-        UserManager.shared.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzMwMjcyMDkyLCJleHAiOjE3MzA0NDQ4OTJ9.FULSF-b-cu4iH25ld_EgL99g310XT1uTHcyyebBgxxpYERXXk19Mb-TyfaeDEWUMpkC6vjrjWz5yPc27fPbPTQ"
-        UserManager.shared.refreshToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzMwMjcyMDkyLCJleHAiOjE3MzE0ODE2OTJ9.9SrHLvCCbFVt_p6GZvh0P91CgLSZfH3VgFDH2HZHiVHXdjC0O_4OUiv9wZI4Hmf3BwSer8awR8ilOTsKIODS6A"
+        UserManager.shared.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NSIsImlhdCI6MTczMDU1Mjk0OSwiZXhwIjoxNzMwNzI1NzQ5fQ.FdkQxEz_aNOGRt1dIIIf5FyrDQN9IdSJghBb-fXofPtpsno2X54V0PVCYHF2Kt7FgFXZirsKKOgpEoNqdt14Fw"
+        UserManager.shared.refreshToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NSIsImlhdCI6MTczMDU1Mjk0OSwiZXhwIjoxNzMxNzYyNTQ5fQ.uBfqSwIl7ypuM0ZWTUiOASEM6__D2heKPc2NkgIFDmg9lcNBi2PoKxvq8L9NRhTbsEFdYDMKVOgRNWOOZc4RxQ"
     }
     
     override func tearDown() {
@@ -101,7 +101,7 @@ final class PointServiceTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         
-        sut.patchEarnPoint(request: UserPointRequest(challengeDate: "s"))
+        sut.patchEarnPoint(request: UserPointRequest(challengeDate: "2024-03-16"))
             .sink { completion in
                 if case let .failure(err) = completion { XCTFail(err.localizedDescription)}
             } receiveValue: { roomDetails in

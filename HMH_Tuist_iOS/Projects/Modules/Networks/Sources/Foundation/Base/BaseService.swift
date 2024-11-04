@@ -15,7 +15,7 @@ public final class BaseService<Target: URLRequestTargetType> {
     
     private let requestHandler: RequestHandling
     
-    public init(requestHandler: RequestHandling) {
+    public init(requestHandler: RequestHandling = RequestHandler()) {
         self.requestHandler = requestHandler
     }
     
