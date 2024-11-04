@@ -17,13 +17,13 @@ public final class OAuthKakaoService: OAuthServiceType {
     public init() {} 
     let cancelBag = CancelBag()
     
-    public func authorize() -> AnyPublisher<String, HMHNetworkError.AuthError> {
+    public func authorize() -> AnyPublisher<String, HMHNetworkError.AuthrizationError> {
         return login()
             .map { $0.accessToken }
             .eraseToAnyPublisher()
     }
     
-    private func login() -> Future<OAuthToken, HMHNetworkError.AuthError> {
+    private func login() -> Future<OAuthToken, HMHNetworkError.AuthrizationError> {
         return Future { promise in
             let userApi = UserApi.shared
             

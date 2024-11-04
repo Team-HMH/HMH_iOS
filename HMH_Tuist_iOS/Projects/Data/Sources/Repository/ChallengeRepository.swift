@@ -20,50 +20,54 @@ struct ChallengeRepository: ChallengeRepositoryType {
         self.service = service
     }
     
-    func getdailyChallenge() -> AnyPublisher<ChallengeDetail, Error> {
+    func getdailyChallenge() -> AnyPublisher<ChallengeDetail, ChallengeError> {
         service.getdailyChallenge()
             .map { $0.toEntity() }
-            .mapToGeneralError()
+            .mapToDomainError(to: ChallengeError.self)
     }
     
-    func getSuccesChallenge() -> AnyPublisher<[String], Error> {
+    func getSuccesChallenge() -> AnyPublisher<[String], ChallengeError> {
         service.getSuccesChallenge()
             .map { $0.statuses }
-            .mapToGeneralError()
+            .mapToDomainError(to: ChallengeError.self)
     }
     
-    func createChallenge(period: Int, goalTime: Int) -> AnyPublisher<Void, Error> {
+    func createChallenge(period: Int, goalTime: Int) -> AnyPublisher<Void, ChallengeError> {
         let request = CreateChallengeRequest(period: period, goalTime: goalTime)
         return service.createChallenge(request: request)
-            .asVoidWithGeneralError()
+            .map { _ in () }
+            .mapToDomainError(to: ChallengeError.self)
     }
     
-    func getLockChallenge() -> AnyPublisher<Bool, Error> {
+    func getLockChallenge() -> AnyPublisher<Bool, ChallengeError> {
         return service.getLockChallenge()
             .map { $0.isLockToday }
-            .mapToGeneralError()
+            .mapToDomainError(to: ChallengeError.self)
     }
     
-    func postLockChallenge() -> AnyPublisher<Void, Error> {
+    func postLockChallenge() -> AnyPublisher<Void, ChallengeError> {
         return service.postLockChallenge()
-            .asVoidWithGeneralError()
+            .map { _ in () }
+            .mapToDomainError(to: ChallengeError.self)
     }
     
-    func deleteApp(appCode: String) -> AnyPublisher<Void, Error> {
+    func deleteApp(appCode: String) -> AnyPublisher<Void, ChallengeError> {
         let request = DeleteAppRequest(appCode: appCode)
         return service.deleteApp(request: request)
-            .asVoidWithGeneralError()
+            .map { _ in () }
+            .mapToDomainError(to: ChallengeError.self)
     }
     
-    func addApp(apps: [AppInfo]) -> AnyPublisher<Void, Error> {
+    func addApp(apps: [AppInfo]) -> AnyPublisher<Void, ChallengeError> {
         let request = AddAppRequest(apps: apps.map { $0.toDTO() })
         return service.addApp(request: request)
-            .asVoidWithGeneralError()
+            .map { _ in () }
+            .mapToDomainError(to: ChallengeError.self)
     }
     
-    func getChallenge() -> AnyPublisher<ChallengeDetail, Error> {
+    func getChallenge() -> AnyPublisher<ChallengeDetail, ChallengeError> {
         service.getChallenge()
             .map { $0.toEntity() }
-            .mapToGeneralError()
+            .mapToDomainError(to: ChallengeError.self)
     }
 }

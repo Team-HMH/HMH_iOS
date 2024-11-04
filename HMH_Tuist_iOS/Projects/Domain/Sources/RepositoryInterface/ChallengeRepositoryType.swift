@@ -10,13 +10,13 @@ import Foundation
 import Combine
 
 public protocol ChallengeRepositoryType {
-    func getdailyChallenge()  -> AnyPublisher<ChallengeDetail, Error>
-    func getSuccesChallenge() -> AnyPublisher<[String], Error>
-    func createChallenge(period: Int, goalTime: Int) -> AnyPublisher<Void, Error>
-    func getLockChallenge() -> AnyPublisher<Bool, Error>
-    func postLockChallenge() -> AnyPublisher<Void, Error>
-    func deleteApp(appCode: String) -> AnyPublisher<Void, Error>
-    func addApp(apps: [AppInfo]) -> AnyPublisher<Void, Error>
-    func getChallenge() -> AnyPublisher<ChallengeDetail, Error>
+    func getdailyChallenge()  -> AnyPublisher<ChallengeDetail, ChallengeError>
+    func getSuccesChallenge() -> AnyPublisher<[String], ChallengeError>
+    func createChallenge(period: Int, goalTime: Int) -> AnyPublisher<Void, ChallengeError>
+    func getLockChallenge() -> AnyPublisher<Bool, ChallengeError>
+    func postLockChallenge() -> AnyPublisher<Void, ChallengeError>
+    func deleteApp(appCode: String) -> AnyPublisher<Void, ChallengeError>
+    func addApp(apps: [AppInfo]) -> AnyPublisher<Void, ChallengeError>
+    func getChallenge() -> AnyPublisher<ChallengeDetail, ChallengeError>
 }
 

@@ -48,3 +48,12 @@ extension HMHNetworkError {
         }
     }
 }
+
+extension HMHNetworkError.ResponseError {
+    public func invalidStatusCodeMessage() -> String? {
+        if case let .invalidStatusCode(_, message) = self {
+            return message
+        }
+        return nil
+    }
+}

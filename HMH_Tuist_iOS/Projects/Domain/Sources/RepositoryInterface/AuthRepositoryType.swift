@@ -10,13 +10,14 @@ import Foundation
 import Combine
 
 public protocol AuthRepositoryType {
+    func authorize(_ serviceType: OAuthProviderType) -> AnyPublisher<String, Error>
     func signUp(
         socialPlatform: String,
         name: String,
         averageUseTime: String,
         problem: [String],
         challengeInfo: ChallengeInfo
-    ) -> AnyPublisher<Auth, Error>
-    func socialLogin(socialPlatform: String) -> AnyPublisher<Auth, Error>
-    func authorize(_ serviceType: OAuthProviderType) -> AnyPublisher<String, Error>
+    ) -> AnyPublisher<Auth, AuthError>
+    func socialLogin(socialPlatform: String) -> AnyPublisher<Auth, AuthError>
+    
 }
