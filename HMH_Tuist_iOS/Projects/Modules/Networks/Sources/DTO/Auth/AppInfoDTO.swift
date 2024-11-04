@@ -20,7 +20,7 @@ public struct AppInfoDTO: Codable {
 
 public extension AppInfoDTO {
     static var stub: Self {
-        .init(appCode: "####", goalTime: 3)
+        .init(appCode: "#25393", goalTime: 1204928)
     }
 }
 

@@ -47,7 +47,7 @@ public struct ChallengeRequest: Encodable {
 public extension SignUpRequest {
     static var stub: Self {
         .init(
-            socialPlatform: "iOS", 
+            socialPlatform: "KAKAO", 
             name: "류희재",
             onboarding: .stub,
             challenge: .stub
@@ -57,12 +57,12 @@ public extension SignUpRequest {
 
 public extension OnboardingRequest {
     static var stub: Self {
-        .init(averageUseTime: "1~4시간", problem: ["중독 문제이슈"])
+        .init(averageUseTime: "1~4시간", problem: ["스스로 제어가 안돼요", "특정 앱에 수시로 접속하게 됨"])
     }
 }
 
 public extension ChallengeRequest {
     static var stub: Self {
-        .init(period: 1, goalTime: 1, apps: [.stub, .stub, .stub])
+        .init(period: 7, goalTime: 7200000, apps: [.stub])
     }
 }

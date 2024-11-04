@@ -14,7 +14,7 @@ import Networks
 extension PointListResult {
     func toEntity() -> PointDetail {
         .init(
-            point: period,
+            point: point,
             period: period,
             pointStatuses: challengePointStatuses.map { $0.toEntity() }
         )

@@ -31,8 +31,7 @@ extension ChallengeInfo {
         .init(
             period: period,
             goalTime: goalTime,
-            apps: apps.map {$0.toDTO()
-            }
+            apps: apps.map { $0.toDTO() }
         )
     }
 }

@@ -22,13 +22,11 @@ public struct APIHeaders {
     static let iOS = "iOS"
     
     static var accessToken: String {
-//        return "Bearer " + (UserManager.shared.accessToken)
-        return UserManager.shared.accessToken
+        return "Bearer " + (UserManager.shared.accessToken)
     }
     
     static var refreshToken: String {
-//        return "Bearer " + (UserManager.shared.refreshToken)
-        return UserManager.shared.refreshToken
+        return "Bearer " + (UserManager.shared.refreshToken)
     }
     
     static var appleAccessToken: String {
