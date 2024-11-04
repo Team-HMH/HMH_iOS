@@ -27,6 +27,5 @@ final class StubOAuthService: OAuthServiceType {
             .setFailureType(to: HMHNetworkError.AuthError.self)
             .eraseToAnyPublisher()
     }
-    
-    
+
 }
