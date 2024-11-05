@@ -12,7 +12,7 @@ public enum ChallengeError: DomainError {
     case invalidChallengePeriod
     case goalTimeIsNil
     case invalidGoalTime
-    case unknown
+    case networkError
     
     public static func error(with message: String) -> ChallengeError {
         switch message {
@@ -27,7 +27,7 @@ public enum ChallengeError: DomainError {
         case "유효한 숫자의 목표 시간을 입력해주세요.":
             return .invalidGoalTime
         default:
-            return .unknown
+            return .networkError
         }
     }
 }

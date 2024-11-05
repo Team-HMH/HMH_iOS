@@ -12,60 +12,60 @@ import Combine
 import Domain
 import Networks
 
-struct ChallengeRepository: ChallengeRepositoryType {
+public struct ChallengeRepository: ChallengeRepositoryType {
     
     private let service: ChallengeServiceType
     
-    init(service: ChallengeServiceType) {
+    public init(service: ChallengeServiceType) {
         self.service = service
     }
     
-    func getdailyChallenge() -> AnyPublisher<ChallengeDetail, ChallengeError> {
-        service.getdailyChallenge()
+    public func getdailyChallenge() -> AnyPublisher<DailyChallengeInfo, ChallengeError> {
+        service.getDailyChallenge()
             .map { $0.toEntity() }
             .mapToDomainError(to: ChallengeError.self)
     }
     
-    func getSuccesChallenge() -> AnyPublisher<[String], ChallengeError> {
+    public func getSuccesChallenge() -> AnyPublisher<[String], ChallengeError> {
         service.getSuccesChallenge()
             .map { $0.statuses }
             .mapToDomainError(to: ChallengeError.self)
     }
     
-    func createChallenge(period: Int, goalTime: Int) -> AnyPublisher<Void, ChallengeError> {
+    public func createChallenge(period: Int, goalTime: Int) -> AnyPublisher<Void, ChallengeError> {
         let request = CreateChallengeRequest(period: period, goalTime: goalTime)
         return service.createChallenge(request: request)
             .map { _ in () }
             .mapToDomainError(to: ChallengeError.self)
     }
     
-    func getLockChallenge() -> AnyPublisher<Bool, ChallengeError> {
+    public func getLockChallenge() -> AnyPublisher<Bool, ChallengeError> {
         return service.getLockChallenge()
             .map { $0.isLockToday }
             .mapToDomainError(to: ChallengeError.self)
     }
     
-    func postLockChallenge() -> AnyPublisher<Void, ChallengeError> {
+    public func postLockChallenge() -> AnyPublisher<Void, ChallengeError> {
         return service.postLockChallenge()
             .map { _ in () }
             .mapToDomainError(to: ChallengeError.self)
     }
     
-    func deleteApp(appCode: String) -> AnyPublisher<Void, ChallengeError> {
+    public func deleteApp(appCode: String) -> AnyPublisher<Void, ChallengeError> {
         let request = DeleteAppRequest(appCode: appCode)
         return service.deleteApp(request: request)
             .map { _ in () }
             .mapToDomainError(to: ChallengeError.self)
     }
     
-    func addApp(apps: [AppInfo]) -> AnyPublisher<Void, ChallengeError> {
+    public func addApp(apps: [AppInfo]) -> AnyPublisher<Void, ChallengeError> {
         let request = AddAppRequest(apps: apps.map { $0.toDTO() })
         return service.addApp(request: request)
             .map { _ in () }
             .mapToDomainError(to: ChallengeError.self)
     }
     
-    func getChallenge() -> AnyPublisher<ChallengeDetail, ChallengeError> {
+    public func getChallenge() -> AnyPublisher<ChallengeDetail, ChallengeError> {
         service.getChallenge()
             .map { $0.toEntity() }
             .mapToDomainError(to: ChallengeError.self)

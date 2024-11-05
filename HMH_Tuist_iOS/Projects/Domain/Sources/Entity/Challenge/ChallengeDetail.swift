@@ -8,7 +8,13 @@
 
 import Foundation
 
-public struct ChallengeDetail {
+@frozen public enum ChallengeStatus: String {
+    case EARNED
+    case FAILURE
+    case UNEARNED
+}
+
+public struct ChallengeDetail: Equatable {
     let statuses: [String]
     let todayIndex: Int
     let startDate: String
@@ -22,7 +28,7 @@ public struct ChallengeDetail {
     }
 }
 
-public struct ChallengeInfo {
+public struct ChallengeInfo: Equatable {
     public let period: Int
     public let goalTime: Int
     public let apps: [AppInfo]

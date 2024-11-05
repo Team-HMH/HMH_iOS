@@ -6,7 +6,7 @@
 //  Copyright © 2024 HMH-iOS. All rights reserved.
 //
 
-public struct DailyChallengeInfo {
+public struct ChallengeSuccessInfo {
     let challengeDate: String
     let isSuccess: Bool
     

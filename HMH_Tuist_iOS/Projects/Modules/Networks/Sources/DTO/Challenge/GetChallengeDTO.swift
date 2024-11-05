@@ -8,6 +8,14 @@
 import Foundation
 
 public struct GetChallengeResult: Decodable {
+    public init(period: Int, statuses: [String], todayIndex: Int, startDate: String, goalTime: Int, apps: [AppInfoDTO]) {
+        self.period = period
+        self.statuses = statuses
+        self.todayIndex = todayIndex
+        self.startDate = startDate
+        self.goalTime = goalTime
+        self.apps = apps
+    }
     public let period: Int
     public let statuses: [String]
     public let todayIndex: Int

@@ -37,7 +37,7 @@ final class ChallengeServiceTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         
-        sut.getdailyChallenge()
+        sut.getDailyChallenge()
             .sink { completion in
                 if case let .failure(err) = completion { XCTFail(err.localizedDescription)}
             } receiveValue: { roomDetails in
