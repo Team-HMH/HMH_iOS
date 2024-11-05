@@ -10,6 +10,10 @@ import Foundation
 
 public struct PointResult: Decodable {
     public let point: Int
+    
+    public init(point: Int) {
+        self.point = point
+    }
 }
 
 extension PointResult {

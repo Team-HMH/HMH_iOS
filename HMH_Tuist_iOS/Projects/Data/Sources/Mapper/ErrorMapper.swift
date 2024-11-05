@@ -19,7 +19,7 @@ extension Publisher where Failure == HMHNetworkError {
                let errorMessage = responseError.invalidStatusCodeMessage() {
                 return T.error(with: errorMessage)
             } else {
-                return T.error(with: "알 수 없는 오류")
+                return T.error(with: "네트워크 오류입니다")
             }
         }
         .eraseToAnyPublisher()
