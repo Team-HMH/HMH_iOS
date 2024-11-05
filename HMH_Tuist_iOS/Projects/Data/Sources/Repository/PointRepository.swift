@@ -15,7 +15,7 @@ import Networks
 public struct PointRepository: PointRepositoryType {
     private let service: PointServiceType
     
-    init(service: PointServiceType) {
+    public init(service: PointServiceType) {
         self.service = service
     }
     

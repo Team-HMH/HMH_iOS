@@ -19,3 +19,12 @@ extension UsePointResult {
         )
     }
 }
+
+extension UserPointInfo {
+    func toDTO() -> UsePointResult {
+        return .init(
+            usagePoint: usagePoint,
+            userPoint: remainPoint
+        )
+    }
+}
