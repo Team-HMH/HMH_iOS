@@ -15,7 +15,6 @@ import Foundation
     case oautheticationError(AuthrizationError)
     case timeOutError
     case unknown(Error)
-    case testErr
     
     var description: String {
         switch self {
@@ -31,8 +30,6 @@ import Foundation
             return "시간 초과되었습니다!"
         case .unknown(let error):
             return "알 수 없는 오류 \(error)가 발생하였습니다!"
-        case .testErr:
-            return "테스트를 위해 사용하는 에러입니다!"
         }
     }
 }

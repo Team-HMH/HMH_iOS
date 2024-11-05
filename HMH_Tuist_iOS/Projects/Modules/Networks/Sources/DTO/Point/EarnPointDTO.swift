@@ -10,6 +10,10 @@ import Foundation
 
 public struct EarnPointResult: Decodable {
     public let earnPoint: Int
+    
+    public init(earnPoint: Int) {
+        self.earnPoint = earnPoint
+    }
 }
 
 public extension EarnPointResult {

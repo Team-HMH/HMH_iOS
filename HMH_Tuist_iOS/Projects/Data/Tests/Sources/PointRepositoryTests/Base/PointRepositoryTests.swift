@@ -34,22 +34,20 @@ final class PointRepositoryTest: XCTestCase {
 }
 
 extension PointRepositoryTest {
-    public func handleCompletion<T: Error & Equatable>(expectedError: T, expectation: XCTestExpectation) -> (Subscribers.Completion<T>) -> Void {
+    public func handleCompletion<T: Error & Equatable>(expectedError: T? = nil, expectation: XCTestExpectation) -> (Subscribers.Completion<T>) -> Void {
         return { completion in
             if case .failure(let error) = completion {
-                XCTAssertEqual(error, expectedError, "Expected error \(expectedError), but got \(error)")
+                XCTAssertEqual(error, expectedError, "Expected error \(String(describing: expectedError)), but got \(error)")
                 expectation.fulfill()
             } else {
-                XCTFail("Expected failure with error \(expectedError), but received success")
+                XCTFail("Expected failure with error \(String(describing: expectedError)), but received success")
             }
         }
     }
     
-    
-    // 헬퍼 메서드: receiveValue 처리
     public func valueHandler<T: Equatable>(expectation: XCTestExpectation, expectedValue: T) -> (T) -> Void {
         return { receivedValue in
-            XCTAssertEqual(receivedValue, expectedValue)
+            XCTAssertEqual(receivedValue, expectedValue, "Received value \(receivedValue) does not match expected data \(expectedValue)")
             expectation.fulfill()
         }
     }
@@ -58,3 +56,4 @@ extension PointRepositoryTest {
         return { _ in XCTFail("Expected failure, but got success") }
     }
 }
+

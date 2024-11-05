@@ -18,6 +18,10 @@ public struct UserPointRequest: Encodable {
 
 public struct UserPointResult: Decodable {
     public let userPoint: Int
+    
+    public init(userPoint: Int) {
+        self.userPoint = userPoint
+    }
 }
 
 public extension UserPointResult {
