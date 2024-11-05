@@ -14,7 +14,7 @@ public enum PointError: DomainError {
     case challengeNotFound
     case alreadyEarnedPoints
     case challengeNotSuccessful
-    case unknown
+    case networkError
     
     public static func error(with message: String) -> PointError {
         switch message {
@@ -29,7 +29,7 @@ public enum PointError: DomainError {
         case "성공하지 않은 챌린지":
             return .challengeNotSuccessful
         default:
-            return .unknown
+            return .networkError
         }
     }
 }
