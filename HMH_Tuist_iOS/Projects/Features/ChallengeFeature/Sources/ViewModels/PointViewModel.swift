@@ -5,101 +5,74 @@
 //  Created by 이지희 on 5/12/24.
 //
 
-import SwiftUI
+import Foundation
 
+import Core
 import Domain
-import DSKit
-
-// 추후 이동
-struct DailyPoint: Hashable {
-    var challengeDate: String
-    let status: String
-}
 
 final class PointViewModel: ObservableObject {
-    @Published var challengeDay = 1
-    @Published var currentPoint = 0
-    @Published public var pointList: [DailyPoint] = []
-    @Published var statusList: [String] = []
+    @Published var pointStatues: [PointStatuse] = []
     @Published var isPresented = false
     @Published var earnPoint = 0
+    @Published var totalPoint = 0
     
-    init() {
-        self.getPointList()
-        self.getUsagePoint()
+    private var cancelBag = CancelBag()
+    
+    // MARK: Usecase 주입
+    private let fetchPointInfoUseCase: FetchPointInfoUseCase
+    private let fetchUsagePointUseCase: FetchUsagePointUseCase
+    private let fetchTotalPointUseCase: FetchTotalPointUseCase
+    private let usePointUseCase: UsePointUseCase
+    private let earnPointUseCase: EarnPointUseCase
+    
+    init(
+        fetchPointInfoUseCase: FetchPointInfoUseCase,
+        fetchUsagePointUseCase: FetchUsagePointUseCase,
+        fetchTotalPointUseCase: FetchTotalPointUseCase,
+        usePointUseCase: UsePointUseCase,
+        earnPointUseCase: EarnPointUseCase
+    ) {
+        self.fetchPointInfoUseCase = fetchPointInfoUseCase
+        self.fetchUsagePointUseCase = fetchUsagePointUseCase
+        self.fetchTotalPointUseCase = fetchTotalPointUseCase
+        self.usePointUseCase = usePointUseCase
+        self.earnPointUseCase = earnPointUseCase
     }
-  
-  func configureButton(status: String) -> (Color, Color) {
-    switch status {
-    case "UNEARNED":
-        return (DSKitAsset.bluePurpleButton.swiftUIColor,DSKitAsset.whiteBtn.swiftUIColor)
-    case "EARNED":
-        return (DSKitAsset.bluePurpleOpacity22.swiftUIColor, DSKitAsset.bluePurpleOpacity70.swiftUIColor)
-    case "FAILURE":
-        return (DSKitAsset.gray6.swiftUIColor, DSKitAsset.gray2.swiftUIColor)
-    case "NONE":
-        return (DSKitAsset.gray7.swiftUIColor, DSKitAsset.gray3.swiftUIColor)
-    default:
-        return (DSKitAsset.gray7.swiftUIColor, DSKitAsset.gray3.swiftUIColor)
-    }
-  }
-  
+    
+    
     func getEarnPoint() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        Providers.pointProvider.request(target: .getEarnPoint,
-//                                        instance: BaseResponse<GetEarnPointResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.earnPoint = data.earnPoint
-//        }
+        fetchUsagePointUseCase.execute()
+            .sink { _ in } receiveValue: { [weak self] point in
+                self?.earnPoint = point
+            }
+            .store(in: cancelBag)
     }
     
-    
-    func getUsagePoint() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        Providers.pointProvider.request(target: .getUsagePoint,
-//                                        instance: BaseResponse<UsagePointResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//        }
+    func patchEarnPoint(index: Int) {
+        let point = pointStatues[index]
+        
+        earnPointUseCase.execute(point: point)
+            .sink(receiveCompletion: { _ in }) { point in
+                print("point \(point)")
+            }
+            .store(in: cancelBag)
     }
-    // 앱 잠금해제시에 사용될 포인트를 조회하는 api입니다.
-    
-    func patchEarnPoint(day: Int) {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        let date = pointList[day].challengeDate
-//        let request = PointRequestDTO(challengeDate: date)
-//        Providers.pointProvider.request(target: .patchEarnPoint(data: request),
-//                                        instance: BaseResponse<PatchEarnPointResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.isPresented = true
-//            self.statusList[day] = "EARNED"
-//            self.getPointList()
-//        }
-    }
-    // 하루하루 챌린지를 성공하고, 포인트를 받는 버튼을 눌렀을 때, 포인트를 받는 API
     
     func getPointList() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        Providers.pointProvider.request(target: .getPointList,
-//                                        instance: BaseResponse<PointListResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.challengeDay = data.period
-//            self.currentPoint = data.point
-//            self.pointList = data.challengePointStatuses
-//            self.pointList.forEach { point in
-//                self.statusList.append(point.status)
-//            }
-//        }
+        fetchPointInfoUseCase.execute()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }) { [weak self] statues in
+                self?.pointStatues = statues
+            }
+            .store(in: cancelBag)
     }
-    // 챌린지 보상 수령 여부를 리스트로 조회하는 api입니다.
-    
     
     func getCurrentPoint() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        Providers.pointProvider.request(target: .getCurrentPoint,
-//                                        instance: BaseResponse<UserPointResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.currentPoint = data.point
-//        }
+        fetchTotalPointUseCase.execute()
+            .sink(receiveCompletion: {_ in }) { [weak self] totalPoint in
+                self?.totalPoint = totalPoint
+                UserDefaults.standard.set(totalPoint, forKey: "totalPoint")
+            }
+            .store(in: cancelBag)
     }
-    // 현재 유저 포인트 불러오기
 }
