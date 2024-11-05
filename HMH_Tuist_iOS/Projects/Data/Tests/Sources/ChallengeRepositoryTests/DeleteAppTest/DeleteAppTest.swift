@@ -19,6 +19,10 @@ extension ChallegeRepositoryTests {
         
         let expectation = XCTestExpectation(description: "스크린타임 설정한 앱 삭제 API 관련 레포지토리 변환이 정상적으로 성공했습니다!")
         
+        mockService.deleteAppResult = Just(())
+            .setFailureType(to: HMHNetworkError.self)
+            .eraseToAnyPublisher()
+        
         sut.deleteApp(appCode: "10000")
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
@@ -52,6 +56,6 @@ extension ChallegeRepositoryTests {
                 .store(in: cancelBag)
             
         }
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 1.0 * Double(testCases.count))
     }
 }

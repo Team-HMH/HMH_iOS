@@ -57,6 +57,6 @@ extension ChallegeRepositoryTests {
             
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 1.0 * Double(testCases.count))
     }
 }

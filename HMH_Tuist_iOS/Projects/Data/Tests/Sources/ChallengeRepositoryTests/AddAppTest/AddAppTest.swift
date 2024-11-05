@@ -19,6 +19,10 @@ extension ChallegeRepositoryTests {
         
         let expectation = XCTestExpectation(description: "스크린타임 설정할 앱 추가 API 관련 레포지토리 변환이 정상적으로 성공했습니다!")
         
+        mockService.addAppResult = Just(())
+            .setFailureType(to: HMHNetworkError.self)
+            .eraseToAnyPublisher()
+        
         sut.addApp(apps: [.stub])
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
@@ -53,6 +57,6 @@ extension ChallegeRepositoryTests {
             
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 1.0 * Double(testCases.count))
     }
 }

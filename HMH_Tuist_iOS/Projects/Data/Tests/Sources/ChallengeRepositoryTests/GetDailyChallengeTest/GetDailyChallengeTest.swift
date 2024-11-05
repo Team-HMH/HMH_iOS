@@ -57,6 +57,32 @@ extension ChallegeRepositoryTests {
             
         }
         
+        wait(for: [expectation], timeout: 1.0 * Double(testCases.count))
+    }
+    
+    func test_홈이용시간통계불러오기_챌린지를찾을수없는경우_에러반환() {
+        // Given
+        let message = "챌린지를 찾을 수 없습니다."
+        let networkError = HMHNetworkError.invalidResponse(.invalidStatusCode(code: 404, message: message))
+        
+        mockService.getDailyChallengeResult = Fail(error: networkError)
+            .eraseToAnyPublisher()
+        
+        // When
+        let expectedError = ChallengeError.challengeNotFound
+        let expectation = XCTestExpectation(description: "챌린지를 찾을 수 없습니다.")
+        
+        sut.getdailyChallenge()
+            .sink(
+                receiveCompletion: handleCompletion(
+                    expectedError: expectedError,
+                    expectation: expectation
+                ),receiveValue: failureExpectedValueHandler()
+            )
+            .store(in: cancelBag)
+        
         wait(for: [expectation], timeout: 1.0)
     }
 }
+
+

@@ -18,7 +18,6 @@ extension ChallengeSuccessResult {
             ["","","","",""],
             ["asdfasdfasdfasdf","asdfasdfasdfasdf","asdfasdfasdfasdf"]
         ]
-        
     }
 }
 
@@ -29,9 +28,6 @@ extension ChallengeSuccessResult {
             .init(statuses: ["","","","",""]),
             .init(statuses: ["asdfasdfasdfasdf","asdfasdfasdfasdf","asdfasdfasdfasdf"])
         ]
-            
-            
-            
     }
 }
 
