@@ -70,30 +70,23 @@ extension ChallengeView {
         .resizable()
         .aspectRatio(contentMode: .fit)
       VStack(alignment: .leading) {
-        Text("\(viewModel.challenge.startDate) 시작부터")
+          Text("\(viewModel.challenge.getStartDate()) 시작부터")
           .font(.text5_medium_16)
           .foregroundColor(DSKitAsset.gray1.swiftUIColor)
           .padding(.top, 14)
-        Text("\((viewModel.challenge.todayIndex) + 1)일차")
+          Text("\((viewModel.challenge.getTodayIndex()) + 1)일차")
           .font(.title1_semibold_32)
           .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
           .padding(.top, 2)
           .padding(.bottom, 32)
-        HMHCalendar(days: viewModel.challenge.days,
-                    missionStatus: [],
-                    todayIndex: viewModel.challenge.todayIndex)
+        HMHCalendar(
+            days: viewModel.challenge.getChallengeInfo(.period),
+            missionStatus: [],
+            todayIndex: viewModel.challenge.getTodayIndex()
+        )
           .frame(width: UIScreen.main.bounds.width * 0.9)
           .padding(.bottom, 20)
       }
     }
   }
 }
-
-
-
-
-#Preview {
-  ChallengeView(viewModel: .init())
-}
-
-
