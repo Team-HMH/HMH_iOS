@@ -15,13 +15,13 @@ public final class OAuthAppleService: OAuthServiceType {
     
     private let appleLoginManager = AppleLoginManager()
     
-    public func authorize() -> AnyPublisher<String, HMHNetworkError.AuthrizationError> {
+    public func authorize() -> AnyPublisher<String, HMHNetworkError> {
         return login()
             .map { $0 }
             .eraseToAnyPublisher()
     }
     
-    private func login() -> AnyPublisher<String, HMHNetworkError.AuthrizationError> {
+    private func login() -> AnyPublisher<String, HMHNetworkError> {
         return self.appleLoginManager.handleAuthorizationAppleIDButtonPress()
             .tryMap { result -> String in
                 guard
@@ -33,7 +33,7 @@ public final class OAuthAppleService: OAuthServiceType {
                 }
                 return idTokenString
             }
-            .mapError { _ in HMHNetworkError.AuthrizationError.appleLoginError }
+            .mapError { _ in HMHNetworkError.oautheticationError(.appleLoginError) }
             .eraseToAnyPublisher()
     }
 }

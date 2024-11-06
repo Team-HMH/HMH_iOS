@@ -17,16 +17,16 @@ public struct AuthRepository: AuthRepositoryType {
     private let authService: AuthServiceType
     private let oauthServiceFactory: OAuthServiceFactoryType
     
-    init(authService: AuthServiceType, oauthServiceFactory: OAuthServiceFactoryType) {
+    public init(authService: AuthServiceType, oauthServiceFactory: OAuthServiceFactoryType) {
         self.authService = authService
         self.oauthServiceFactory = oauthServiceFactory
     }
     
-    public func authorize(_ serviceType: OAuthProviderType) -> AnyPublisher<String, Error> {
+    public func authorize(_ serviceType: OAuthProviderType) -> AnyPublisher<String, AuthError> {
         let oauthService = oauthServiceFactory.makeOAuthService(for: serviceType)
         return oauthService.authorize()
             .map { $0 }
-            .mapToGeneralError()
+            .mapToDomainError(to: AuthError.self)
     }
     
     public func signUp(socialPlatform: String, name: String, averageUseTime: String, problem: [String], challengeInfo: ChallengeInfo) -> AnyPublisher<Auth, AuthError> {

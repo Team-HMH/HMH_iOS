@@ -9,6 +9,12 @@
 import Foundation
 
 public struct AuthResult: Decodable {
+    
+    public init(userId: Int, token: TokenResult) {
+        self.userId = userId
+        self.token = token
+    }
+    
     public let userId: Int
     public let token: TokenResult
 }
