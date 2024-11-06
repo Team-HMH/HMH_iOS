@@ -11,6 +11,7 @@ import Core
 import Domain
 
 final class PointViewModel: ObservableObject {
+    @Published var period = 0
     @Published var pointStatues: [PointStatuse] = []
     @Published var isPresented = false
     @Published var earnPoint = 0
@@ -63,6 +64,7 @@ final class PointViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }) { [weak self] statues in
                 self?.pointStatues = statues
+                self?.period = statues.count
             }
             .store(in: cancelBag)
     }
@@ -74,5 +76,9 @@ final class PointViewModel: ObservableObject {
                 UserDefaults.standard.set(totalPoint, forKey: "totalPoint")
             }
             .store(in: cancelBag)
+    }
+    
+    func pointStatus(index: Int) -> PointStatusEnum {
+        return pointStatues[index].getStatus()
     }
 }
