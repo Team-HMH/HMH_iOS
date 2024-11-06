@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PointDetail {
+public struct PointDetail: Equatable {
     let point: Int
     let period: Int
     let pointStatuses: [PointStatuse]
@@ -20,12 +20,18 @@ public struct PointDetail {
     }
 }
 
-public struct PointStatuse {
+public struct PointStatuse: Equatable {
     let date: String
     let status: String
     
     public init(date: String, status: String) {
         self.date = date
         self.status = status
+    }
+}
+
+public extension PointStatuse {
+    static var stub: Self {
+        return .init(date: "Asdfasdfasdfas", status: "ASdfasdfasdfas")
     }
 }

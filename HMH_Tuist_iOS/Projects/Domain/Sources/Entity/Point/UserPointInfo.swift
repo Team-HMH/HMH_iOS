@@ -8,9 +8,9 @@
 
 import Foundation
 
-public struct UserPointInfo {
-    let usagePoint: Int
-    let remainPoint: Int
+public struct UserPointInfo: Equatable {
+    public let usagePoint: Int
+    public let remainPoint: Int
     
     public init(usagePoint: Int, remainPoint: Int) {
         self.usagePoint = usagePoint

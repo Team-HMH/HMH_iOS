@@ -10,8 +10,8 @@ import Foundation
 import Combine
 
 public protocol UserRepositoryType {
-    func logout() -> AnyPublisher<Void, Error>
-    func deleteAccount() -> AnyPublisher<Void, Error>
-    func getUserData() -> AnyPublisher<User, Error>
-    func getCurrentPoint() -> AnyPublisher<Int, Error>
+    func logout() -> AnyPublisher<Void, UserError>
+    func deleteAccount() -> AnyPublisher<Void, UserError>
+    func getUserData() -> AnyPublisher<User, UserError>
+    func getCurrentPoint() -> AnyPublisher<Int, UserError>
 }

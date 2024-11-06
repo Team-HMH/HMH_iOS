@@ -11,6 +11,11 @@ import Foundation
 public struct UserResult: Decodable {
     public let name: String
     public let point: Int
+    
+    public init(name: String, point: Int) {
+        self.name = name
+        self.point = point
+    }
 }
 
 extension UserResult {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct User {
+public struct User: Equatable {
     let name: String
     let point: Int
     

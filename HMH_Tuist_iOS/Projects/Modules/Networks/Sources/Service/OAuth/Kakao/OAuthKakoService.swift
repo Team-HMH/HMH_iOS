@@ -17,27 +17,27 @@ public final class OAuthKakaoService: OAuthServiceType {
     public init() {} 
     let cancelBag = CancelBag()
     
-    public func authorize() -> AnyPublisher<String, HMHNetworkError.AuthrizationError> {
+    public func authorize() -> AnyPublisher<String, HMHNetworkError> {
         return login()
             .map { $0.accessToken }
             .eraseToAnyPublisher()
     }
     
-    private func login() -> Future<OAuthToken, HMHNetworkError.AuthrizationError> {
+    private func login() -> Future<OAuthToken, HMHNetworkError> {
         return Future { promise in
             let userApi = UserApi.shared
             
             if UserApi.isKakaoTalkLoginAvailable() {
                 userApi.loginWithKakaoTalk { (token, error) in
                     guard let token else {
-                        return promise(.failure(.kakaoLoginError))
+                        return promise(.failure(.oautheticationError(.kakaoLoginError)))
                     }
                     promise(.success(token))
                 }
             } else {
                 userApi.loginWithKakaoAccount { (token, error) in
                     guard let token else {
-                        return promise(.failure(.kakaoLoginError))
+                        return promise(.failure(.oautheticationError(.kakaoLoginError)))
                     }
                     promise(.success(token))
                 }

@@ -6,7 +6,7 @@
 //  Copyright © 2024 HMH-iOS. All rights reserved.
 //
 
-public struct AppInfo {
+public struct AppInfo: Equatable {
     public let appCode: String
     public let goalTime: Int
     
@@ -16,4 +16,12 @@ public struct AppInfo {
     }
 }
 
+public extension AppInfo {
+    static var stub: Self {
+        .init(
+            appCode: "100000",
+            goalTime: 10000
+        )
+    }
+}
 

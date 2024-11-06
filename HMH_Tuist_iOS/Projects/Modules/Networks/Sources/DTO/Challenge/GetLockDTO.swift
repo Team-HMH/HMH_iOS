@@ -10,6 +10,10 @@ import Foundation
 
 public struct GetLockResult: Decodable {
     public let isLockToday: Bool
+    
+    public init(isLockToday: Bool) {
+        self.isLockToday = isLockToday
+    }
 }
 
 public extension GetLockResult {

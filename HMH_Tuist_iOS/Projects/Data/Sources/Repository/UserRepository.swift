@@ -15,30 +15,32 @@ import Networks
 public struct UserRepository: UserRepositoryType {
     private let service: UserServiceType
     
-    init(service: UserServiceType) {
+    public init(service: UserServiceType) {
         self.service = service
     }
     
-    public func logout() -> AnyPublisher<Void, Error> {
+    public func logout() -> AnyPublisher<Void, UserError> {
         service.logout()
-            .asVoidWithGeneralError()
+            .map { _ in () }
+            .mapToDomainError(to: UserError.self)
     }
     
-    public func deleteAccount() -> AnyPublisher<Void, Error> {
+    public func deleteAccount() -> AnyPublisher<Void, UserError> {
         service.deleteAccount()
-            .asVoidWithGeneralError()
+            .map { _ in () }
+            .mapToDomainError(to: UserError.self)
     }
     
-    public func getUserData() -> AnyPublisher<User, Error> {
+    public func getUserData() -> AnyPublisher<User, UserError> {
         service.getUserData()
             .map { $0.toEntity() }
-            .mapToGeneralError()
+            .mapToDomainError(to: UserError.self)
     }
     
-    public func getCurrentPoint() -> AnyPublisher<Int, Error> {
+    public func getCurrentPoint() -> AnyPublisher<Int, UserError> {
         service.getCurrentPoint()
             .map {$0.point}
-            .mapToGeneralError()
+            .mapToDomainError(to: UserError.self)
     }
 }
 

@@ -12,7 +12,7 @@ import Combine
 public typealias ChallengeService = BaseService<ChallengeAPI>
 
 public protocol ChallengeServiceType {
-    func getdailyChallenge()  -> AnyPublisher<GetChallengeResult, HMHNetworkError>
+    func getDailyChallenge()  -> AnyPublisher<DailyChallengeResult, HMHNetworkError>
     func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError>
     func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError>
     func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError>
@@ -23,7 +23,7 @@ public protocol ChallengeServiceType {
 }
 
 extension ChallengeService: ChallengeServiceType {
-    public func getdailyChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
+    public func getDailyChallenge() -> AnyPublisher<DailyChallengeResult, HMHNetworkError> {
         return requestWithResult(.getdailyChallenge)
     }
     
@@ -57,7 +57,7 @@ extension ChallengeService: ChallengeServiceType {
 }
 
 struct StubChallengeService: ChallengeServiceType {
-    func getdailyChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
+    func getDailyChallenge() -> AnyPublisher<DailyChallengeResult, HMHNetworkError> {
         return Just(.stub1)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()

@@ -11,6 +11,12 @@ public struct PointListResult: Decodable {
     public let point: Int
     public let period: Int
     public let challengePointStatuses: [ChallengePointStatuses]
+    
+    public init(point: Int, period: Int, challengePointStatuses: [ChallengePointStatuses]) {
+        self.point = point
+        self.period = period
+        self.challengePointStatuses = challengePointStatuses
+    }
 }
 
 public struct ChallengePointStatuses: Decodable {

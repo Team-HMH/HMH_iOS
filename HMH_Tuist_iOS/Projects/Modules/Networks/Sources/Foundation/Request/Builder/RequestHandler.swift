@@ -30,7 +30,7 @@ public class RequestHandler: RequestHandling {
 
         return target.asURLRequest()
             .map { $0 }
-            .mapError { ErrorHandler.handleError(target, error: .invalidRequest($0)) }
+            .mapError { ErrorHandler.handleRequestError(target, error: $0) }
             .flatMap { urlRequest in
                 if target.isWithInterceptor {
                     return TokenInterceptor.shared.adapt(urlRequest)

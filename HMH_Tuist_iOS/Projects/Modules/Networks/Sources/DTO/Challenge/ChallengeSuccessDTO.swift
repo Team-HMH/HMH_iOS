@@ -18,6 +18,10 @@ public struct FinishedDailyChallenge: Encodable {
 
 public struct ChallengeSuccessResult: Decodable {
     public let statuses: [String]
+    
+    public init(statuses: [String]) {
+        self.statuses = statuses
+    }
 }
 
 public extension ChallengeSuccessResult {

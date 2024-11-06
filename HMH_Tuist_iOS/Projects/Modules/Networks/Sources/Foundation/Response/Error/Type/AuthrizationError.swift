@@ -23,3 +23,9 @@ extension HMHNetworkError {
         }
     }
 }
+
+extension HMHNetworkError.AuthrizationError {
+    public func authrizationErrorMessage() -> String {
+        return description
+    }
+}

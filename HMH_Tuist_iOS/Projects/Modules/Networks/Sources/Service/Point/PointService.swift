@@ -41,38 +41,39 @@ extension PointService: PointServiceType {
     }
 }
 
-struct StubPointServicee: PointServiceType {
-    func patchPointUse() -> AnyPublisher<UsePointResult, HMHNetworkError> {
+public struct StubPointService: PointServiceType {
+    
+    public init() {}
+    
+    public func patchPointUse() -> AnyPublisher<UsePointResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func getEarnPoint() -> AnyPublisher<EarnPointResult, HMHNetworkError> {
+    public func getEarnPoint() -> AnyPublisher<EarnPointResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func getUsagePoint() -> AnyPublisher<UsagePointResult, HMHNetworkError> {
+    public func getUsagePoint() -> AnyPublisher<UsagePointResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func getPointList() -> AnyPublisher<PointListResult, HMHNetworkError> {
+    public func getPointList() -> AnyPublisher<PointListResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func patchEarnPoint(request: UserPointRequest) -> AnyPublisher<UserPointResult, HMHNetworkError> {
+    public func patchEarnPoint(request: UserPointRequest) -> AnyPublisher<UserPointResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
-    
-    
 }
 
  
