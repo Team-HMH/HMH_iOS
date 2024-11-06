@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 public protocol EarnPointUseCaseType {
-    func execute(point: PointStatuse) -> AnyPublisher<Int, Error>
+    func execute(point: PointStatuse) -> AnyPublisher<Int, PointError>
 }
 
 /// 포인트 얻기
@@ -22,7 +22,7 @@ public final class EarnPointUseCase: EarnPointUseCaseType {
     }
     
     /// 포인트 얻기 후 총 포인트
-    public func execute(point: PointStatuse) -> AnyPublisher<Int, Error> {
+    public func execute(point: PointStatuse) -> AnyPublisher<Int, PointError> {
         return repository.patchEarnPoint(date: point.date)
             .eraseToAnyPublisher()
     }

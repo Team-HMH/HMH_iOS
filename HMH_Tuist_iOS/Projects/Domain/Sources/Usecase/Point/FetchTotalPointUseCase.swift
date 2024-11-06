@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 public protocol FetchTotalPointUseCaseType {
-    func execute() -> AnyPublisher<Int, Error>
+    func execute() -> AnyPublisher<Int, PointError>
 }
 
 /// 유저 포인트
@@ -21,7 +21,7 @@ public final class FetchTotalPointUseCase: FetchTotalPointUseCaseType {
         self.repository = repository
     }
     
-    public func execute() -> AnyPublisher<Int, Error> {
+    public func execute() -> AnyPublisher<Int, PointError> {
         return repository.getEarnPoint()
             .eraseToAnyPublisher()
     }

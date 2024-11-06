@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 public protocol FetchUsagePointUseCaseType {
-    func execute() -> AnyPublisher<Int, Error>
+    func execute() -> AnyPublisher<Int, PointError>
 }
 
 /// 사용할 포인트 조회
@@ -21,7 +21,7 @@ public final class FetchUsagePointUseCase: FetchUsagePointUseCaseType {
         self.repository = repository
     }
     
-    public func execute() -> AnyPublisher<Int, Error> {
+    public func execute() -> AnyPublisher<Int, PointError> {
         return repository.getUsagePoint()
             .eraseToAnyPublisher()
     }

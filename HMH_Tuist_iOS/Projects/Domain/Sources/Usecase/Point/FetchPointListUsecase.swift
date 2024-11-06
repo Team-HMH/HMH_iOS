@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 public protocol FetchPointListUseCaseType {
-    func execute() -> AnyPublisher<[PointStatuse], Error>
+    func execute() -> AnyPublisher<[PointStatuse], PointError>
 }
 
 /// 유저 포인트
@@ -21,7 +21,7 @@ public final class FetchPointInfoUseCase: FetchPointListUseCaseType {
         self.repository = repository
     }
     
-    public func execute() -> AnyPublisher<[PointStatuse], Error> {
+    public func execute() -> AnyPublisher<[PointStatuse], PointError> {
         return repository.getPointList()
             .map { $0.pointStatuses }
             .eraseToAnyPublisher()
