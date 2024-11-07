@@ -33,9 +33,9 @@ public final class BaseService<Target: URLRequestTargetType> {
                     .map { _ in response.data! }
                     .mapError { ErrorHandler.handleError(target, error: $0) }
             }
-            .flatMap {
-                self.decode(data: $0)
-                    .mapError { ErrorHandler.handleDecodingError(error: $0) }
+            .flatMap { data in
+                self.decode(data: data)
+                    .mapError { ErrorHandler.handleDecodingError(data: data, decodingType: T.self, error: $0) }
             }
             .eraseToAnyPublisher()
     }
@@ -43,13 +43,13 @@ public final class BaseService<Target: URLRequestTargetType> {
     func requestWithNoResult(_ target: API) -> AnyPublisher<Void, HMHNetworkError> {
         return fetchResponse(with: target)
             .flatMap { response in
-                self.validate(response: response, target: target) // validate 연결
-                    .map { _ in response.data! } // 성공 시 data 반환
+                self.validate(response: response, target: target)
+                    .map { _ in response.data! }
                     .mapError { ErrorHandler.handleError(target, error: $0) }
             }
             .flatMap { data -> AnyPublisher<VoidResult, HMHNetworkError> in
                 self.decode(data: data)
-                    .mapError { ErrorHandler.handleDecodingError(error: $0) }
+                    .mapError { ErrorHandler.handleDecodingError(data: data, decodingType: VoidResult.self, error: $0) }
                     .eraseToAnyPublisher()
             }
             .map { _ in () }

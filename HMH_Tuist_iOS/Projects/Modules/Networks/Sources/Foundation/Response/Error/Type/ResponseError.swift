@@ -22,7 +22,7 @@ extension HMHNetworkError {
             case .unhandled:
                 return "응답이 올바르지 않습니다"
             case .invalidStatusCode(let code, let errMessage):
-                return "\(StatusCodeError.from(code).description)/n\(errMessage ?? "추가적인 에러 메세지는 없습니다")"
+                return "\(StatusCodeError.from(code).description)\n\(errMessage ?? "추가적인 에러 메세지는 없습니다")"
             case .unknown:
                 return "알 수 없는 응답에러입니다"
             }

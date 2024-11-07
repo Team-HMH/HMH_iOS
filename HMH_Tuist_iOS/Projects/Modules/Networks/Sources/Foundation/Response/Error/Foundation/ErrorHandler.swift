@@ -28,11 +28,11 @@ public struct ErrorHandler {
         return responseError
     }
     
-    static public func handleDecodingError(error: HMHNetworkError.DecodeError) -> HMHNetworkError {
+    static public func handleDecodingError<T: Decodable>(data:Data, decodingType: T.Type, error: HMHNetworkError.DecodeError) -> HMHNetworkError {
         
-        let requestError: HMHNetworkError = .decodingFailed(error)
-//        NetworkLogHandler.responseError(target, result: requestError)
-        return requestError
+        let decodingError: HMHNetworkError = .decodingFailed(error)
+        NetworkLogHandler.responseDecodingError(data: data, decodingType: T.self, error: error)
+        return decodingError
     }
     
     
