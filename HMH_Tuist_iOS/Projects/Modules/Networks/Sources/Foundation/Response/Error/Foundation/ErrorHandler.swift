@@ -21,6 +21,13 @@ public struct ErrorHandler {
         return requestError
     }
     
+    static public func handleResponseError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError.ResponseError) -> HMHNetworkError {
+        
+        let responseError: HMHNetworkError = .invalidResponse(error)
+        NetworkLogHandler.responseError(target, result: responseError)
+        return responseError
+    }
+    
     static public func handleDecodingError(error: HMHNetworkError.DecodeError) -> HMHNetworkError {
         
         let requestError: HMHNetworkError = .decodingFailed(error)
