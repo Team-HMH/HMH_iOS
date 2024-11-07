@@ -20,30 +20,34 @@ public final class BaseService<Target: URLRequestTargetType> {
     }
     
     func requestWithResult<T: Decodable>(_ target: API) -> AnyPublisher<T, HMHNetworkError> {
-          return fetchResponse(with: target)
-              .flatMap { response in
-                  self.validate(response: response, target: target)
-                      .map { _ in response.data! }
-                      .mapError { ErrorHandler.handleError(target, error: $0) }
-              }
-              .flatMap { self.decode(data: $0, target: target) }
-              .eraseToAnyPublisher()
-      }
-
-      func requestWithNoResult(_ target: API) -> AnyPublisher<Void, HMHNetworkError> {
-          return fetchResponse(with: target)
-              .flatMap { response -> AnyPublisher<Data, HMHNetworkError> in
-                  self.validate(response: response, target: target) // validate 연결
-                      .map { _ in response.data! } // 성공 시 data 반환
-                      .eraseToAnyPublisher()
-              }
-              .mapError { ErrorHandler.handleError(target, error: $0) }
-              .flatMap { data -> AnyPublisher<VoidResult, HMHNetworkError> in
-                  self.decode(data: data, target: target)
-              }
-              .map { _ in () }
-              .eraseToAnyPublisher()
-      }
+        return fetchResponse(with: target)
+            .flatMap { response in
+                self.validate(response: response, target: target)
+                    .map { _ in response.data! }
+                    .mapError { ErrorHandler.handleError(target, error: $0) }
+            }
+            .flatMap {
+                self.decode(data: $0)
+                    .mapError { ErrorHandler.handleDecodingError(error: $0) }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func requestWithNoResult(_ target: API) -> AnyPublisher<Void, HMHNetworkError> {
+        return fetchResponse(with: target)
+            .flatMap { response in
+                self.validate(response: response, target: target) // validate 연결
+                    .map { _ in response.data! } // 성공 시 data 반환
+                    .mapError { ErrorHandler.handleError(target, error: $0) }
+            }
+            .flatMap { data -> AnyPublisher<VoidResult, HMHNetworkError> in
+                self.decode(data: data)
+                    .mapError { ErrorHandler.handleDecodingError(error: $0) }
+                    .eraseToAnyPublisher()
+            }
+            .map { _ in () }
+            .eraseToAnyPublisher()
+    }
 }
 extension BaseService {
     /// 네트워크 응답 처리 메소드
@@ -82,10 +86,10 @@ extension BaseService {
     
     
     /// 디코딩 메소드
-    private func decode<T: Decodable>(data: Data, target: API) -> AnyPublisher<T, HMHNetworkError> {
+    private func decode<T: Decodable>(data: Data) -> AnyPublisher<T, HMHNetworkError.DecodeError> {
         return Just(data)
             .decode(type: GenericResponse<T>.self, decoder: JSONDecoder())
-            .mapError { _ in ErrorHandler.handleError(target, error: .decodingFailed(.failed)) }
+            .mapError { _ in .failed }
             .map { $0.data! }
             .eraseToAnyPublisher()
     }
