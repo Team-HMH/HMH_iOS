@@ -65,7 +65,8 @@ class MyPageViewModel: ObservableObject {
             guard let url = URL(string: StringLiteral.MyPageURL.info) else {return}
             UIApplication.shared.open(url)
         case .market:
-            navigateToPrepare = true
+            guard let url = URL(string: StringLiteral.MyPageURL.openChat) else {return}
+            UIApplication.shared.open(url)
             Amplitude.instance().logEvent("view_shop", withEventProperties: ["view_type": "mypage"] )
         default:
             return

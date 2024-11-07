@@ -27,7 +27,7 @@ struct AppGoalTimeView: View {
                     .foregroundColor(.gray2)
             }
         }
-        .padding(.bottom, 150)
+        .padding(.bottom, 100)
     }
 }
 

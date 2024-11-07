@@ -40,6 +40,7 @@ final class ChallengeViewModel: ObservableObject {
     
     init() {
         getChallengeInfo()
+        judgeRemainPoint()
     }
     
     func getChallengeType() {
@@ -75,6 +76,14 @@ final class ChallengeViewModel: ObservableObject {
             Amplitude.instance().logEvent("click_newchallenge_button")
         } else {
             isToastPresented = true
+        }
+    }
+    
+    func judgeRemainPoint() {
+        if statuses.contains("UNEARNED") {
+            remainEarnPoint = 1
+        } else {
+            remainEarnPoint = 0
         }
     }
     

@@ -137,12 +137,17 @@ extension OnboardingContentView {
                 .font(.title3_semibold_22)
                 .lineSpacing(1.5)
                 .foregroundStyle(.whiteText)
+                .fixedSize(horizontal: false, vertical: true)
             Text(onboardingViewModel.getOnboardigSub())
                 .font(.detail1_regular_14)
                 .lineSpacing(1.5)
                 .foregroundStyle(.gray2)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
+
     
     private func SurveyContainerView() -> some View {
         VStack {

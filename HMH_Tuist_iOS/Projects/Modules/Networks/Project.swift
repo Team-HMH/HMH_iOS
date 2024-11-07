@@ -11,9 +11,8 @@ import DependencyPlugin
 
 let project = Project.makeModule(
     name: "Networks",
-    targets: [.staticFramework],
+    targets: [.staticFramework, .unitTest],
     internalDependencies: [
         .domain
-//        .core
     ]
 )
