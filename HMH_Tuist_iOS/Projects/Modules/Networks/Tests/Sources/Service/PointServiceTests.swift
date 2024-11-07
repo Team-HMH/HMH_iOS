@@ -15,21 +15,18 @@ import Core
 final class PointServiceTests: XCTestCase {
     
     var sut: PointServiceType!
-    var mockRequestHandler: RequestHandling!
     var cancelBag: CancelBag!
     
     override func setUp() {
         cancelBag = CancelBag()
-        mockRequestHandler = RequestHandler()
-        sut = PointService(requestHandler: mockRequestHandler)
+        sut = PointService()
         
-        UserManager.shared.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NSIsImlhdCI6MTczMDU1Mjk0OSwiZXhwIjoxNzMwNzI1NzQ5fQ.FdkQxEz_aNOGRt1dIIIf5FyrDQN9IdSJghBb-fXofPtpsno2X54V0PVCYHF2Kt7FgFXZirsKKOgpEoNqdt14Fw"
-        UserManager.shared.refreshToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NSIsImlhdCI6MTczMDU1Mjk0OSwiZXhwIjoxNzMxNzYyNTQ5fQ.uBfqSwIl7ypuM0ZWTUiOASEM6__D2heKPc2NkgIFDmg9lcNBi2PoKxvq8L9NRhTbsEFdYDMKVOgRNWOOZc4RxQ"
+        UserManager.shared.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NSIsImlhdCI6MTczMDk2MTY2MiwiZXhwIjoxNzMxMTM0NDYyfQ.IUslL_OzE-NshP1cPeyLQpU2w3fsQAQhfhQIJzlmjdkw4EipmDhdHCXtY8F8IyTi2fig8IoMyY0n4XwWvioLtw"
+        UserManager.shared.refreshToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NSIsImlhdCI6MTczMDk2MTY2MiwiZXhwIjoxNzMyMTcxMjYyfQ.QwsXx96ig2BMpXsobji-ZkseXO4aHrzXLxKmKeNMVABjpb6rfaLQDJ1Rh4ZgKWff003d3XJqN9582ZbsxJPjeA"
     }
     
     override func tearDown() {
         cancelBag = nil
-        mockRequestHandler = nil
         sut = nil
     }
     
