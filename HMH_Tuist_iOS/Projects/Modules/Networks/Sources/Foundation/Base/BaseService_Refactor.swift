@@ -8,10 +8,13 @@
 
 import Foundation
 import Combine
+import Core
 
 public final class BaseService_Refactor<Target: URLRequestTargetType> {
     
     public typealias API = Target
+    
+    private var retryCnt = 0
     
     private let requestHandler = RequestHandler_Refactor.shared
     
@@ -54,25 +57,20 @@ public final class BaseService_Refactor<Target: URLRequestTargetType> {
     }
 }
 extension BaseService_Refactor {
+    
     // dataTask 네트워크 요청 수행
     private func performDataTask(with urlRequest: URLRequest) -> AnyPublisher<NetworkResponse, HMHNetworkError.ResponseError> {
-        return self.session.dataTaskPublisher(for: urlRequest)
-            .tryMap { data, response -> NetworkResponse in
+        return session.dataTaskPublisher(for: urlRequest)
+            .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse else {
                     throw HMHNetworkError.ResponseError.unhandled
                 }
                 return NetworkResponse(data: data, response: httpResponse, error: nil)
             }
-            .mapError { error -> HMHNetworkError.ResponseError in
-                if let requestErr = error as? HMHNetworkError.ResponseError {
-                    return requestErr
-                } else {
-                    return .unknown
-                }
-            }
+            .mapError { ($0 as? HMHNetworkError.ResponseError) ?? .unknown }
             .eraseToAnyPublisher()
     }
-
+    
     
     /// 네트워크 응답 처리 메소드
     private func fetchResponse(with target: API) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
@@ -89,18 +87,15 @@ extension BaseService_Refactor {
             })
             .eraseToAnyPublisher()
     }
-
+    
     
     /// 응답 유효성 검사 메서드
     private func validate(response: NetworkResponse, target: API) -> AnyPublisher<Void, HMHNetworkError> {
         guard response.response.isValidateStatus() else {
             // 401 인증 오류 발생 시 토큰 갱신 후 재요청
             if response.response.unAuthorized() {
-//                return requestHandler.tokenRequest(for: target)
-//                    .flatMap { _ in
-//                        self.validate(response: response, target: target)
-//                    }
-//                    .eraseToAnyPublisher()
+                return refreshTokenAndRetry(for: target)
+                
             }
             // 기타 오류 발생 시 에러 반환
             let error = ErrorHandler.handleInvalidResponse(response: response)
@@ -112,8 +107,6 @@ extension BaseService_Refactor {
             .eraseToAnyPublisher()
     }
     
-    
-    
     /// 디코딩 메소드
     private func decode<T: Decodable>(data: Data) -> AnyPublisher<T, HMHNetworkError.DecodeError> {
         return Just(data)
@@ -123,17 +116,36 @@ extension BaseService_Refactor {
             .eraseToAnyPublisher()
     }
     
+    private func refreshTokenAndRetry(for target: API) -> AnyPublisher<Void, HMHNetworkError> {
+        return TokenInterceptor.shared.retry(for: session, retryCnt: retryCnt)
+            .flatMap { tokenResult -> AnyPublisher<Void, HMHNetworkError> in
+                UserManager.shared.accessToken = tokenResult.accessToken
+                UserManager.shared.refreshToken = tokenResult.refreshToken
+                return self.fetchResponse(with: target)
+                    .flatMap { newResponse in
+                        self.validate(response: newResponse, target: target)
+                    }
+                    .eraseToAnyPublisher()
+            }
+            .catch { error -> AnyPublisher<Void, HMHNetworkError> in
+                UserManager.shared.accessToken = ""
+                UserManager.shared.refreshToken = ""
+                return Fail(error: error).eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+    }
+
 }
 
 // HTTP 상태코드 유효성 검사
-extension HTTPURLResponse {
-    func isValidateStatus() -> Bool {
-        return (200...299).contains(self.statusCode)
-    }
-    
-    func unAuthorized() -> Bool {
-        return self.statusCode == 401
-    }
-}
+//extension HTTPURLResponse {
+//    func isValidateStatus() -> Bool {
+//        return (200...299).contains(self.statusCode)
+//    }
+//
+//    func unAuthorized() -> Bool {
+//        return self.statusCode == 401
+//    }
+//}
 
 
