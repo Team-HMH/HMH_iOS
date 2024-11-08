@@ -1,106 +1,32 @@
-import SwiftUI
-import AuthenticationServices
+//
+//  LoginViewModel.swift
+//  LoginFeature
+//
+//  Created by Seonwoo Kim on 11/8/24.
+//  Copyright © 2024 HMH-iOS. All rights reserved.
+//
 
-import KakaoSDKUser
+import Foundation
 
 import Core
-import DSKit
+import Domain
 
-public class LoginViewModel: NSObject, ObservableObject {
+final class LoginViewModel: ObservableObject {
+    @Published var loginStatus: LoginResponseType = .loginFailure
     
-    @Published public var isLoading: Bool = true
-    @Published var isPresented: Bool = false
-    @Published var alertType: CustomAlertType = .unlock
+    private var cancelBag = CancelBag()
     
-    public func handleSplashScreen() {
-        self.isLoading = false
+    private let loginUseCase: LoginUseCaseType
+    
+    init(loginUseCase: LoginUseCaseType) {
+        self.loginUseCase = loginUseCase
     }
     
-    func handleAppleLogin() {
-        let request = ASAuthorizationAppleIDProvider().createRequest()
-        request.requestedScopes = [.fullName, .email]
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.performRequests()
-    }
-    
-    func handleKakaoLogin() {
-        if (UserApi.isKakaoTalkLoginAvailable()) {
-            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                if let error = error {
-                    print(error)
-                }
-                if let oauthToken = oauthToken{
-                    let idToken = oauthToken.accessToken
-                    UserManager.shared.socialPlatform = "KAKAO"
-                    UserManager.shared.socialToken = "Bearer " + idToken
-                    self.postSocialLoginData()
-                }
+    func handleLoginButton(provider: OAuthProviderType) {
+        loginUseCase.login(provider: provider)
+            .sink(receiveCompletion: { _ in }) { [weak self] response in
+                self?.loginStatus = response
             }
-        } else {
-            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                if let error = error {
-                    print("🍀",error)
-                }
-                if let oauthToken = oauthToken{
-                    print("kakao success")
-                    UserManager.shared.socialPlatform = "KAKAO"
-                    let idToken = oauthToken.accessToken
-                    UserManager.shared.socialToken = "Bearer " + idToken
-                    self.postSocialLoginData()
-                }
-            }
-        }
-    }
-    
-    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-    func postSocialLoginData() {
-//        let provider = Providers.AuthProvider
-//        let request = SocialLoginRequestDTO(socialPlatform: UserManager.shared.socialPlatform ?? "")
-//        
-//        provider.request(target: .socialLogin(data: request), instance: BaseResponse<SocialLogineResponseDTO>.self) { data in
-//            if data.status == 403 {
-//                UserManager.shared.appStateString = "onboarding"
-//            } else if data.status == 200 {
-//                guard let data = data.data else { return }
-//                UserManager.shared.refreshToken = data.token.refreshToken
-//                UserManager.shared.accessToken = data.token.accessToken
-//                UserManager.shared.appStateString = "home"
-//            }
-//        }
-    }
-}
-
-extension LoginViewModel: ASAuthorizationControllerDelegate {
-    
-    public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        switch authorization.credential {
-        case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            
-            if let identityToken = appleIDCredential.identityToken,
-               let identifyTokenString = String(data: identityToken, encoding: .utf8) {
-                UserManager.shared.socialToken = identifyTokenString
-                UserManager.shared.socialPlatform = "APPLE"
-                self.postSocialLoginData()
-            } else {
-                print("Identity token is nil or failed to convert to string.")
-            }
-        default:
-            break
-        }
-    }
-    
-    func handleAppleIDCredential(_ credential: ASAuthorizationAppleIDCredential) {
-        let fullName = credential.fullName
-        let name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
-        UserManager.shared.userName = name
-        guard let idToken = String(data: credential.identityToken ?? Data(), encoding: .utf8) else { return print("no idToken!!") }
-    }
-    
-    public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print(error.localizedDescription)
+            .store(in: cancelBag)
     }
 }
