@@ -1,0 +1,62 @@
+//
+//  LoginUseCase.swift
+//  LoginFeature
+//
+//  Created by Seonwoo Kim on 11/8/24.
+//  Copyright © 2024 HMH-iOS. All rights reserved.
+//
+
+import Foundation
+import Combine
+
+import Domain
+import Core
+
+public enum LoginResponseType {
+    case loginSuccess
+    case loginFailure
+    case onboardingNeeded
+}
+
+public protocol LoginUseCaseType {
+    func login(provider: OAuthProviderType) -> AnyPublisher<LoginResponseType, AuthError>
+}
+
+public final class LoginUseCase: LoginUseCaseType {
+    
+    private let repository: AuthRepositoryType
+    
+    public init(repository: AuthRepositoryType) {
+        self.repository = repository
+    }
+    
+    public func login(provider: Domain.OAuthProviderType) -> AnyPublisher<LoginResponseType, Domain.AuthError> {
+        repository.authorize(provider)
+            .handleEvents(receiveOutput: { socialToken in
+                UserManager.shared.socialToken = socialToken
+            })
+            .flatMap { [weak self] _ -> AnyPublisher<LoginResponseType, Domain.AuthError> in
+                guard let self = self else {
+                    return Fail(error: Domain.AuthError.appleAuthrizeError).eraseToAnyPublisher()
+                }
+                
+                return self.repository.socialLogin(socialPlatform: provider.rawValue)
+                    .map { _ in LoginResponseType.loginSuccess }
+                    .catch { error -> AnyPublisher<LoginResponseType, Domain.AuthError> in
+                        switch error {
+                        case .alreadyRegisteredUser:
+                            return Just(.onboardingNeeded)
+                                .setFailureType(to: Domain.AuthError.self)
+                                .eraseToAnyPublisher()
+                        default:
+                            return Just(.loginFailure)
+                                .setFailureType(to: Domain.AuthError.self)
+                                .eraseToAnyPublisher()
+                        }
+                    }
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
