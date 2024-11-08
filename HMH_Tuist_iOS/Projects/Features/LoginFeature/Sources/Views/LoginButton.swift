@@ -6,42 +6,25 @@
 //
 
 import SwiftUI
-import AuthenticationServices
 
 import DSKit
-
-enum SignInProvider {
-    case apple
-    case kakao
-    
-    var signInLogoImage: String {
-        switch self {
-        case .apple:
-            return "appleLogo"
-        case .kakao:
-            return "kakaoLogo"
-        }
-    }
-}
+import Domain
 
 struct LoginButton: View {
-    let loginProvider: SignInProvider
+    var loginProvider: OAuthProviderType = .apple
     @ObservedObject var viewModel: LoginViewModel
+    var signInLogoImage = DSKitAsset.appleLogo.swiftUIImage
     
     var body: some View {
         Button(action: {
-            if loginProvider == .apple {
-                viewModel.handleAppleLogin()
-            } else if loginProvider == .kakao {
-                viewModel.handleKakaoLogin()
-            }
+            viewModel.handleLoginButton(provider: loginProvider)
         }) {
             RoundedRectangle(cornerRadius: 6.3)
                 .frame(width:336, height: 51)
                 .foregroundColor(loginProvider == .apple ? DSKitAsset.whiteBtn.swiftUIColor : DSKitAsset.yelloBtn.swiftUIColor)
                 .overlay(
                     HStack {
-                        Image(loginProvider.signInLogoImage)
+                        Image(uiImage: loginProvider == .apple ? DSKitAsset.appleLogo.image : DSKitAsset.kakaoLogo.image)
                             .resizable()
                             .frame(width: 24, height: 24)
                             .padding(.leading, 14)
