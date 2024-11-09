@@ -10,24 +10,29 @@ import Foundation
 import Combine
 
 public struct RequestDataValidator {
-    static func validateWithParameters(
+    static public func validateWithParameters(
         _ parameters: Parameters?,
         _ url: URL?
     ) -> AnyPublisher<(Parameters, URL), HMHNetworkError.ParameterEncoding> {
-        guard let parameters else { return Fail(error: .emptyParameters).eraseToAnyPublisher() }
         guard let url else { return Fail(error: .missingURL).eraseToAnyPublisher() }
+        
+        guard let parameters = parameters, !parameters.isEmpty else {
+                return Fail(error: .emptyParameters).eraseToAnyPublisher()
+            }
         
         return Just((parameters, url))
             .setFailureType(to: HMHNetworkError.ParameterEncoding.self)
             .eraseToAnyPublisher()
     }
     
-    static func validateWithEncodable(
+    static public func validateWithEncodable(
         _ parameters: Encodable?,
         _ url: URL?
     ) -> AnyPublisher<(Encodable, URL), HMHNetworkError.ParameterEncoding> {
-        guard let parameters else { return Fail(error: .emptyParameters).eraseToAnyPublisher() }
         guard let url else { return Fail(error: .missingURL).eraseToAnyPublisher() }
+        
+        guard let parameters else { return Fail(error: .emptyParameters).eraseToAnyPublisher() }
+        
         
         return Just((parameters, url))
             .setFailureType(to: HMHNetworkError.ParameterEncoding.self)
