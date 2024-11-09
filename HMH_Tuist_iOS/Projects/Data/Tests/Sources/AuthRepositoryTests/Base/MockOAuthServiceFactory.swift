@@ -11,6 +11,7 @@ import Combine
 
 import Domain
 import Networks
+import Data
 
 public class MockOAuthServiceFactory: OAuthServiceFactoryType {
     public var service: OAuthServiceType!

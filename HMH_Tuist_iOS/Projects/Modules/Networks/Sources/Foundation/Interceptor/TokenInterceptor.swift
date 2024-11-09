@@ -16,9 +16,7 @@ struct TokenInterceptor {
     let cancelBag = CancelBag()
     
     static let shared = TokenInterceptor(
-        service: ReissueAPIService(
-            requestHandler: RequestHandler()
-        )
+        service: ReissueAPIService()
     )
     
     private let service: ReissueAPIService
@@ -38,7 +36,7 @@ struct TokenInterceptor {
     func retry(for session: URLSession, retryCnt: Int) -> AnyPublisher<TokenResult, HMHNetworkError> {
         print(retryCnt)
         if retryCnt > retryLimit {
-            return Fail(error: .timeOutError).eraseToAnyPublisher()
+            return Fail(error: .retryLimitExceeded).eraseToAnyPublisher()
         } else {
             return service.tokenRefresh()
         }

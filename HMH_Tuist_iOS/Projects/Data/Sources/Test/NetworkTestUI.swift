@@ -60,7 +60,7 @@ struct NetworkTestUI: View {
 #Preview {
     return NetworkTestUI(
         repository: AuthRepository(
-            authService: AuthService(requestHandler: RequestHandler()),
+            authService: AuthService(),
             oauthServiceFactory: OAuthServiceFactory()
         )
     )

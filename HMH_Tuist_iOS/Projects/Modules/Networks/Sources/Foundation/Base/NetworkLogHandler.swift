@@ -54,9 +54,27 @@ struct NetworkLogHandler {
             ❗️ Error Type: \(error.description)
             ❗️ URL: \(url)
             ❗️ Header: \(headers)
-            ❗️ Error Data: \(error.localizedDescription)
+            ❗️ Error Data: \(error)
             ==============================================================
             """)
     }
+    
+    // 디코딩 로깅 함수
+    static func responseDecodingError<T: Decodable>(
+            data: Data,
+            decodingType: T.Type,
+            error: HMHNetworkError.DecodeError
+        ) {
+            let jsonString = String(data: data, encoding: .utf8) ?? "Invalid Data"
+            
+            print("""
+            ======================== 📥 Response <========================
+            ========================= ❌ Decoding Error ==========================
+            ❗️ Error Type: \(error)
+            ❗️ Expected Decoding Type: \(decodingType)
+            ❗️ Error Data: \(jsonString)
+            ==============================================================
+            """)
+        }
 }
 

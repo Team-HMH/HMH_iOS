@@ -21,6 +21,20 @@ public struct ErrorHandler {
         return requestError
     }
     
+    static public func handleResponseError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError.ResponseError) -> HMHNetworkError {
+        
+        let responseError: HMHNetworkError = .invalidResponse(error)
+        NetworkLogHandler.responseError(target, result: responseError)
+        return responseError
+    }
+    
+    static public func handleDecodingError<T: Decodable>(data:Data, decodingType: T.Type, error: HMHNetworkError.DecodeError) -> HMHNetworkError {
+        
+        let decodingError: HMHNetworkError = .decodingFailed(error)
+        NetworkLogHandler.responseDecodingError(data: data, decodingType: T.self, error: error)
+        return decodingError
+    }
+    
     
     // 유효하지 않은 응답인 경우 에러 처리
     static public func handleInvalidResponse(response: NetworkResponse) -> HMHNetworkError {

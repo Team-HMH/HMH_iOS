@@ -15,13 +15,11 @@ import Core
 final class AuthServiceTests: XCTestCase {
     
     var sut: AuthServiceType!
-    var mockRequestHandler: RequestHandling!
     var cancelBag: CancelBag!
     
     override func setUp() {
         cancelBag = CancelBag()
-        mockRequestHandler = RequestHandler()
-        sut = AuthService(requestHandler: mockRequestHandler)
+        sut = AuthService()
         
         UserManager.shared.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NSIsImlhdCI6MTczMDU1Mjk0OSwiZXhwIjoxNzMwNzI1NzQ5fQ.FdkQxEz_aNOGRt1dIIIf5FyrDQN9IdSJghBb-fXofPtpsno2X54V0PVCYHF2Kt7FgFXZirsKKOgpEoNqdt14Fw"
         UserManager.shared.refreshToken = "lNZIf_66imXVXmfWFwKz3QYRRUb-BdOUAAAAAgopyWAAAAGS7OcbNd0Jz_1t7hqp"
@@ -29,7 +27,6 @@ final class AuthServiceTests: XCTestCase {
     
     override func tearDown() {
         cancelBag = nil
-        mockRequestHandler = nil
         sut = nil
     }
     
