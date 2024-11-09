@@ -9,10 +9,8 @@
 import Foundation
 import Combine
 
-protocol ParameterEncodable {}
-
-extension ParameterEncodable {
-    func checkValidURLData(
+public struct RequestDataValidator {
+    static func validateWithParameters(
         _ parameters: Parameters?,
         _ url: URL?
     ) -> AnyPublisher<(Parameters, URL), HMHNetworkError.ParameterEncoding> {
@@ -24,7 +22,7 @@ extension ParameterEncodable {
             .eraseToAnyPublisher()
     }
     
-    func checkValidURLData(
+    static func validateWithEncodable(
         _ parameters: Encodable?,
         _ url: URL?
     ) -> AnyPublisher<(Encodable, URL), HMHNetworkError.ParameterEncoding> {

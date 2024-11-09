@@ -9,10 +9,17 @@
 import Foundation
 import Combine
 
-public struct JSONEncoding: ParameterEncodable {
-    func encode(_ request: URLRequest, with parameters: Encodable?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
+public struct JSONEncoding: ParameterEncoding {
+    func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
+        
         var request = request
-        return checkValidURLData(parameters, request.url)
+        
+        guard let encodable = parameters as? Encodable else {
+            return Fail(error: .invalidJSON).eraseToAnyPublisher()
+        }
+        
+        
+        return RequestDataValidator.validateWithEncodable(encodable, request.url)
             .tryMap { parameters, _ -> URLRequest in
                 do {
                     let data = try JSONEncoder().encode(parameters)

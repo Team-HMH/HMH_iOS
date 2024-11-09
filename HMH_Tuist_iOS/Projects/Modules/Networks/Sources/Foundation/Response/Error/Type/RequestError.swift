@@ -28,6 +28,7 @@ extension HMHNetworkError {
         case emptyParameters // 파라미터가 비어있을 때
         case missingURL // url이 없을때
         case invalidJSON // json 형식에 맞지 않을때
+        case invalidParametersType // Parameters 형식에 맞지 않을때
         case jsonEncodingFailed // json으로 인코딩 할 시
         
         var description: String {
@@ -38,6 +39,8 @@ extension HMHNetworkError {
                 return "url이 없습니다"
             case .invalidJSON:
                 return "json 형식에 맞지 않습니다."
+            case .invalidParametersType:
+                return "Parameters 형식에 맞지 않습니다"
             case .jsonEncodingFailed:
                 return "json 인코딩 시 발생한 에러입니다."
             }

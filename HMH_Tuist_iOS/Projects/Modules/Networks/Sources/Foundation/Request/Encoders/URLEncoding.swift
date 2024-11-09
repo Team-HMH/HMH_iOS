@@ -9,11 +9,15 @@
 import Foundation
 import Combine
 
-public struct URLEncoding: ParameterEncodable {
-    func encode(_ request: URLRequest, with parameters: Parameters?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
+public struct URLEncoding: ParameterEncoding {
+    func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
         var request = request
         
-        return checkValidURLData(parameters, request.url)
+        guard let parameters = parameters as? Parameters else {
+            return Fail(error: .invalidParametersType).eraseToAnyPublisher()
+        }
+        
+        return RequestDataValidator.validateWithParameters(parameters, request.url)
             .map { parameters, url -> URLRequest in
                 if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) {
                     urlComponents.queryItems = parameters.compactMap { key, value in
