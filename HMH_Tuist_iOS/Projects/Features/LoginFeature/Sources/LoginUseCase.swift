@@ -35,16 +35,16 @@ public final class LoginUseCase: LoginUseCaseType {
             .handleEvents(receiveOutput: { socialToken in
                 UserManager.shared.socialToken = socialToken
             })
-            .flatMap { [weak self] _ -> AnyPublisher<LoginResponseType, Domain.AuthError> in
+            .flatMap { [weak self] _ -> AnyPublisher<LoginResponseType, AuthError> in
                 guard let self = self else {
-                    return Fail(error: Domain.AuthError.appleAuthrizeError).eraseToAnyPublisher()
+                    return Fail(error: AuthError.appleAuthrizeError).eraseToAnyPublisher()
                 }
                 
                 return self.repository.socialLogin(socialPlatform: provider.rawValue)
                     .map { _ in LoginResponseType.loginSuccess }
-                    .catch { error -> AnyPublisher<LoginResponseType, Domain.AuthError> in
+                    .catch { error -> AnyPublisher<LoginResponseType, AuthError> in
                         switch error {
-                        case .alreadyRegisteredUser:
+                        case .unregisteredUser:
                             return Just(.onboardingNeeded)
                                 .setFailureType(to: Domain.AuthError.self)
                                 .eraseToAnyPublisher()
