@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 public struct JSONEncoding: ParameterEncoding {
-    func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
+    public func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
         
         var request = request
         

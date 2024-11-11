@@ -16,6 +16,7 @@ import Networks
 class RequestDataValidatorTests: XCTestCase {
     
     var cancelBag: CancelBag!
+    var mockURL = URL(string: "https://example.com")!
     
     override func setUpWithError() throws {
         cancelBag = CancelBag()
@@ -29,11 +30,11 @@ class RequestDataValidatorTests: XCTestCase {
 /// validateWithParameters
 extension RequestDataValidatorTests {
     func test_validateWithParameters_정상적인파라미터와URL일때_정상적인변환() {
-        let requestData = ParameterValidatorMockData.validRequestData
+        let requestParameter = ParameterValidatorMockData.validParameter
         
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
         
-        RequestDataValidator.validateWithParameters(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithParameters(requestParameter, mockURL)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTFail("Expected success, but got error: \(error)")
@@ -49,11 +50,11 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithParameters_파라미터가Nil일때_emptyParameters_에러반환() {
-        let requestData = ParameterValidatorMockData.nilParameters
+        let requestParameter = ParameterValidatorMockData.nilParameters
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
         
-        RequestDataValidator.validateWithParameters(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithParameters(requestParameter, mockURL)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTAssertEqual(error, .emptyParameters)
@@ -68,11 +69,11 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithParameters_URL이Nil일때_missingURL_에러반환() {
-        let requestData = ParameterValidatorMockData.nilRequestURL
+        let requestParameter = ParameterValidatorMockData.validParameter
         
         let expectation = XCTestExpectation(description: "Nil URL should fail")
         
-        RequestDataValidator.validateWithParameters(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithParameters(requestParameter, nil)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTAssertEqual(error, .missingURL)
@@ -87,11 +88,11 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithParameters_파라미터와URL둘다Nil일때_emptyParameters_에러반환() {
-        let requestData = ParameterValidatorMockData.nilRequestData
+        let requestParameter = ParameterValidatorMockData.nilParameters
         
         let expectation = XCTestExpectation(description: "Nil URL should fail")
         
-        RequestDataValidator.validateWithParameters(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithParameters(requestParameter, nil)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTAssertEqual(error, .missingURL) //URL 체크가 먼저기때문
@@ -106,11 +107,11 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithParameters_파라미터가비어있을경우_emptyParameters_에러반환() {
-        let requestData = ParameterValidatorMockData.emptyRequestData
+        let requestParameter = ParameterValidatorMockData.emptyParameters
         
         let expectation = XCTestExpectation(description: "Empty parameters should fail")
         
-        RequestDataValidator.validateWithParameters(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithParameters(requestParameter, mockURL)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTAssertEqual(error, .emptyParameters)
@@ -128,7 +129,7 @@ extension RequestDataValidatorTests {
 /// validateWithParameters
 extension RequestDataValidatorTests {
     func test_validateWithEncodable_정상적인파라미터와URL일때_정상적인변환() {
-        let requestData = EncodableValidatorMockData.validEncodableData
+        let requestData = EncodableParameterMockData.validEncodableData
         
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
         
@@ -151,7 +152,7 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithEncodable_파라미터가Nil일때_emptyParameters_에러반환() {
-        let requestData = EncodableValidatorMockData.nilParameters
+        let requestData = EncodableParameterMockData.nilParameters
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
         
@@ -170,7 +171,7 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithEncodable_URL이Nil일때_missingURL_에러반환() {
-        let requestData = EncodableValidatorMockData.nilRequestURL
+        let requestData = EncodableParameterMockData.nilRequestURL
         
         let expectation = XCTestExpectation(description: "Nil URL should fail")
         
@@ -189,7 +190,7 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithEncodable_파라미터와URL둘다Nil일때_emptyParameters_에러반환() {
-        let requestData = EncodableValidatorMockData.nilRequestData
+        let requestData = EncodableParameterMockData.nilRequestData
         
         let expectation = XCTestExpectation(description: "Nil URL should fail")
         

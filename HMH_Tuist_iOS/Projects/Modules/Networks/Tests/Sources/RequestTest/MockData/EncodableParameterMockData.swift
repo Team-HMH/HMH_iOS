@@ -9,42 +9,7 @@
 import Foundation
 import Networks
 
-public struct ParameterValidatorMockData {
-    static let mockURL = URL(string: "https://example.com")!
-
-    static public let validRequestData: (parameters: Parameters, url: URL) = (
-        parameters: [
-            "username": "류희재",
-            "age": 25
-        ],
-        url: mockURL
-    )
-    
-    static public let nilRequestData: (parameters: Parameters?, url: URL?) = (
-        parameters: nil,
-        url: nil
-    )
-    
-    static public let nilParameters: (parameters: Parameters?, url: URL) = (
-        parameters: nil,
-        url: mockURL
-    )
-    
-    static public let nilRequestURL: (parameters: Parameters?, url: URL?) = (
-        parameters: [
-            "username": "john_doe",
-            "age": 30
-        ],
-        url: nil
-    )
-    
-    static public let emptyRequestData: (parameters: Parameters, url: URL) = (
-        parameters: [:],
-        url: mockURL
-    )
-}
-
-struct EncodableValidatorMockData {
+struct EncodableParameterMockData {
     static let mockURL = URL(string: "https://example.com")!
     
     static public let validEncodableData: (parameters: Encodable, url: URL) =

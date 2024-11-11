@@ -10,7 +10,10 @@ import Foundation
 import Combine
 
 public struct URLEncoding: ParameterEncoding {
-    func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
+    
+    public init() {}
+    
+    public func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
         var request = request
         
         guard let parameters = parameters as? Parameters else {

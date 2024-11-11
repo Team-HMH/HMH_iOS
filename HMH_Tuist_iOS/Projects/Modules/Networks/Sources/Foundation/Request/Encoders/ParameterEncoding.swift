@@ -9,6 +9,6 @@
 import Foundation
 import Combine
 
-protocol ParameterEncoding {
+public protocol ParameterEncoding {
     func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding>
 }
