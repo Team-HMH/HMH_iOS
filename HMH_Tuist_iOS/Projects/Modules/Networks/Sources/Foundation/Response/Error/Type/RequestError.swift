@@ -7,7 +7,7 @@
 //
 
 extension HMHNetworkError {
-    public enum RequestError: Error {
+    public enum RequestError: Error, Equatable {
         case parameterEncodingFailed(ParameterEncoding) // 인코딩시 생기는 에러
         case invalidURL(String) // url이 유효하지 않을때
         case unknownErr // 그 외 예기치 못한 에러
@@ -30,6 +30,7 @@ extension HMHNetworkError {
         case invalidJSON // json 형식에 맞지 않을때
         case invalidParametersType // Parameters 형식에 맞지 않을때
         case jsonEncodingFailed // json으로 인코딩 할 시
+        case unknownErr // 그 외 예기치 못한 에러
         
         var description: String {
             switch self {
@@ -43,6 +44,8 @@ extension HMHNetworkError {
                 return "Parameters 형식에 맞지 않습니다"
             case .jsonEncodingFailed:
                 return "json 인코딩 시 발생한 에러입니다."
+            case .unknownErr:
+                return "파라미터 인코딩 시 알 수 없는 에러입니다"
             }
         }
     }

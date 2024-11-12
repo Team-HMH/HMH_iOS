@@ -117,34 +117,34 @@ extension URLEncodingTest {
         wait(for: [expectation], timeout: 1.0)
     }
     
-//    func test_특수문자가포함된파라미터가_정상적으로인코딩되는지() {
-//        let requestData = URLEncodingMockData.validRequestData
-//        let requestParameters = ParameterValidatorMockData.specialCharacters
-//        
-//        let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
-//        
-//        sut.encode(requestData, with: requestParameters)
-//            .sink(receiveCompletion: { completion in
-//                if case .failure(let error) = completion {
-//                    XCTFail("Expected success, but got error: \(error)")
-//                }
-//            }, receiveValue: { resultRequest in
-//                XCTAssertNotNil(resultRequest.url)
-//                
-//                if let url = resultRequest.url?.absoluteString {
-//                    XCTAssertTrue(url.contains("query=name%3Dhello%26value%3Dworld"))
-//                    XCTAssertTrue(url.contains("symbol=%21%40%23%24%255E%26%2A%28%29%5F%2B%7C"), "\(url)")
-//                    XCTAssertEqual(resultRequest.url?.host, "example.com")
-//                } else {
-//                    XCTFail("Expected valid URL but found nil")
-//                }
-//                
-//                expectation.fulfill()
-//            })
-//            .store(in: cancelBag)
-//        
-//        wait(for: [expectation], timeout: 1.0)
-//    }
+    //    func test_특수문자가포함된파라미터가_정상적으로인코딩되는지() {
+    //        let requestData = URLEncodingMockData.validRequestData
+    //        let requestParameters = ParameterValidatorMockData.specialCharacters
+    //        
+    //        let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
+    //        
+    //        sut.encode(requestData, with: requestParameters)
+    //            .sink(receiveCompletion: { completion in
+    //                if case .failure(let error) = completion {
+    //                    XCTFail("Expected success, but got error: \(error)")
+    //                }
+    //            }, receiveValue: { resultRequest in
+    //                XCTAssertNotNil(resultRequest.url)
+    //                
+    //                if let url = resultRequest.url?.absoluteString {
+    //                    XCTAssertTrue(url.contains("query=name%3Dhello%26value%3Dworld"))
+    //                    XCTAssertTrue(url.contains("symbol=%21%40%23%24%255E%26%2A%28%29%5F%2B%7C"), "\(url)")
+    //                    XCTAssertEqual(resultRequest.url?.host, "example.com")
+    //                } else {
+    //                    XCTFail("Expected valid URL but found nil")
+    //                }
+    //                
+    //                expectation.fulfill()
+    //            })
+    //            .store(in: cancelBag)
+    //        
+    //        wait(for: [expectation], timeout: 1.0)
+    //    }
     
     func test_큰수를포함된파라미터가_정상적으로인코딩되는지() {
         let requestData = URLRequestMockData.validRequestData

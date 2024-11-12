@@ -16,7 +16,7 @@ public enum Task {
 }
 
 extension Task {
-    func buildRequest(baseURL: URL, method: HTTPMethod, headers: [String: String]?) -> AnyPublisher<URLRequest, HMHNetworkError.RequestError> {
+    public func buildRequest(baseURL: URL, method: HTTPMethod, headers: [String: String]?) -> AnyPublisher<URLRequest, HMHNetworkError.RequestError> {
         var request = URLRequest(url: baseURL)
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = headers

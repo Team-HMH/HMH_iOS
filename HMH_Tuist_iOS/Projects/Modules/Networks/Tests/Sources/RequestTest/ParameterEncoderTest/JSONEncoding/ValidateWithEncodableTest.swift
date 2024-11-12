@@ -24,11 +24,10 @@ extension RequestDataValidatorTests {
                     XCTFail("Expected success, but got error: \(error)")
                 }
             }, receiveValue: { resultParameters, resultURL in
-                // 정상적인 값이 반환되는지 체크
                 if let simpleData = resultParameters as? SimpleData {
-                    XCTAssertEqual(simpleData.name, "John") // "John"이 반환되는지 확인
+                    XCTAssertEqual(simpleData.name, "John")
                 }
-                XCTAssertEqual(resultURL.absoluteString, "https://example.com") // URL이 맞는지 확인
+                XCTAssertEqual(resultURL.absoluteString, "https://example.com")
                 expectation.fulfill() // 테스트 완료 시점 알림
             })
             .store(in: cancelBag)
