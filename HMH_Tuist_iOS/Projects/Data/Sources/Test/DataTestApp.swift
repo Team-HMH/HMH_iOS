@@ -16,7 +16,7 @@ import KakaoSDKAuth
 
 @main
 struct DataTestApp: App {
-    let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
+    let kakaoAPIKey = "36f13382883fc31f22b7d34148a1be2b"
     init() {
         KakaoSDK.initSDK(appKey: kakaoAPIKey)
     }
@@ -25,7 +25,7 @@ struct DataTestApp: App {
         WindowGroup {
             NetworkTestUI(
                 repository: AuthRepository(
-                    authService: AuthService(requestHandler: RequestHandler()),
+                    authService: AuthService(),
                     oauthServiceFactory: OAuthServiceFactory()
                 )
             )

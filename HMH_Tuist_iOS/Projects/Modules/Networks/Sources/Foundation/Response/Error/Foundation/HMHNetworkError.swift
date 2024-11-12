@@ -13,7 +13,7 @@ import Foundation
     case invalidResponse(ResponseError)
     case decodingFailed(DecodeError)
     case oautheticationError(AuthrizationError)
-    case timeOutError
+    case retryLimitExceeded
     case unknown(Error)
     
     var description: String {
@@ -26,8 +26,8 @@ import Foundation
             return decodeError.description
         case .oautheticationError(let authError):
             return authError.description
-        case .timeOutError:
-            return "시간 초과되었습니다!"
+        case .retryLimitExceeded:
+            return "네트워크 요청 횟수를 초과하였습니다!"
         case .unknown(let error):
             return "알 수 없는 오류 \(error)가 발생하였습니다!"
         }
