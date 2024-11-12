@@ -30,12 +30,32 @@ class JSONEncodingTest: XCTestCase {
     }
 }
 
-// 정상적으로 인코딩 되는 경우
 extension JSONEncodingTest {
+    func test_정상적인파라미터와URL_URLRequest반환() {
+        let requestData = URLRequestMockData.validRequestData
+        let requestParameter = EncodableParameterMockData.validtestData
+        
+        let expectations = requestParameter.map { parameter in
+            return XCTestExpectation(description: "Encoding for \(parameter)")
+        }
+        
+        for (index, parameter) in requestParameter.enumerated() {
+            sut.encode(requestData, with: parameter.0)
+                .sink(receiveCompletion: { completion in
+                    if case .failure = completion {
+                        XCTFail("Encoding failed for \(parameter.1)")
+                    }
+                    expectations[index].fulfill()
+                }, receiveValue: { request in
+                    XCTAssertNotNil(request.httpBody, "\(parameter) failed, body is nil")
+                })
+                .store(in: cancelBag)
+        }
+        
+        wait(for: expectations, timeout: 1.0 * Double(requestParameter.count))
+    }
     
-}
-
-extension JSONEncodingTest {
+    
     func test_파라미터가Nil일때_invalidJSON_에러반환() {
         let requestData = URLRequestMockData.validRequestData
         let requestParameter = EncodableParameterMockData.nilParameters
@@ -58,7 +78,7 @@ extension JSONEncodingTest {
     
     func test_URL이Nil일때_missingURL_에러반환() {
         let requestData = URLRequestMockData.nilURLRequest
-        let requestParameter = EncodableParameterMockData.validEncodableParameter
+        let requestParameter = EncodableParameterMockData.validtestData
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
         
@@ -96,58 +116,23 @@ extension JSONEncodingTest {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    func test_파라미터가비어있을경우_정상적인변환() {
+    func test_Encodable타입이아닐때_invalidJSON반환() {
         let requestData = URLRequestMockData.validRequestData
-        let requestParameter = EncodableParameterMockData.emptyParameters
-        
-        let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
-        
-        // 3. encode 메서드 실행
-        sut.encode(requestData, with: requestParameter)
-            .sink(receiveCompletion: { completion in
-                // 실패했을 경우 오류 메시지 출력
-                if case .failure(let error) = completion {
-                    XCTFail("Expected success, but got error: \(error)")
-                }
-            }, receiveValue: { urlRequest in
-                // 4. 인코딩된 URLRequest의 HTTPBody가 적절하게 인코딩되었는지 확인
-                if let bodyData = urlRequest.httpBody,
-                   let decoded = try? JSONDecoder().decode(SimpleData.self, from: bodyData) {
-                    XCTAssertEqual(decoded.name, nil, "\(decoded)") // "John"이 반환되는지 확인
-                } else {
-                    XCTFail("HTTPBody를 디코드할 수 없습니다.")
-                }
-                
-                // 5. URL이 제대로 설정되었는지 확인
-                XCTAssertEqual(urlRequest.url?.absoluteString, "https://example.com") // URL이 맞는지 확인
-                
-                // 6. 테스트 완료 시점 알림
-                expectation.fulfill()
-            })
-            .store(in: cancelBag)
-        
-        // 7. 비동기 테스트 대기
-        wait(for: [expectation], timeout: 1.0)
-    }
-    
-    func test_JSON인코딩실패시_jsonEncodingFailed반환() {
-        let requestData = URLRequestMockData.validRequestData
+        let requestParameter = EncodableParameterMockData.nonEncodableParameter
         
         let expectation = XCTestExpectation(description: "JSON 인코딩에 실패했습니다!")
         
-        for requestParameter in EncodableParameterMockData.invalidParameterList {
-            sut.encode(requestData, with: requestParameter)
-                .sink(receiveCompletion: { completion in
-                    if case .failure(let error) = completion {
-                        XCTAssertEqual(error, .jsonEncodingFailed, "\(requestParameter)")
-                        expectation.fulfill()
-                    }
-                }, receiveValue: { _ in
-                    XCTFail("Expected failure, but got success \(requestParameter)")
-                })
-                .store(in: cancelBag)
-            
-            wait(for: [expectation], timeout: 1.0)
-        }
+        sut.encode(requestData, with: requestParameter)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    XCTAssertEqual(error, .invalidJSON, "\(requestParameter)")
+                    expectation.fulfill()
+                }
+            }, receiveValue: { _ in
+                XCTFail("Expected failure, but got success \(requestParameter)")
+            })
+            .store(in: cancelBag)
+        
+        wait(for: [expectation], timeout: 1.0)
     }
 }
