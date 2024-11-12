@@ -14,8 +14,6 @@ extension HMHNetworkError {
         case invalidProtocol
         case invalidPort
         case invalidPath
-        case invalidCharacters
-        case invalidSlash
         case invalidQueryParameter
         
         var description: String {
@@ -28,10 +26,6 @@ extension HMHNetworkError {
                 return "URL에서 포트 번호가 잘못되었습니다"
             case .invalidPath:
                 return "URL 경로가 잘못되었습니다"
-            case .invalidCharacters:
-                return "URL에 사용될 수 없는 문자(공백이나 일부 특수 문자)가 포함되었습니다"
-            case .invalidSlash:
-                return "경로 끝에 슬래시(/)가 없거나 슬래시만 포함되어 있습니다"
             case .invalidQueryParameter:
                 return "유효하지 않은 쿼리파라미터입니다.(쿼리 구분자/쿼리 파라미터 확인)"
             }
