@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Networks
 
 public struct ParameterValidatorMockData {
     static public let validParameter: Parameters = [

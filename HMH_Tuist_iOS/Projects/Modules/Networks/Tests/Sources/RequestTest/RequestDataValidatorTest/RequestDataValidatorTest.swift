@@ -40,7 +40,7 @@ extension RequestDataValidatorTests {
                     XCTFail("Expected success, but got error: \(error)")
                 }
             }, receiveValue: { resultParameters, resultURL in
-                XCTAssertEqual(resultParameters["username"] as? String, "류희재")
+                XCTAssertEqual(resultParameters["username"] as? String, "hellohidi")
                 XCTAssertEqual(resultURL.absoluteString, "https://example.com")
                 expectation.fulfill()
             })
@@ -129,11 +129,11 @@ extension RequestDataValidatorTests {
 /// validateWithParameters
 extension RequestDataValidatorTests {
     func test_validateWithEncodable_정상적인파라미터와URL일때_정상적인변환() {
-        let requestData = EncodableParameterMockData.validEncodableData
+        let requestParameter = EncodableParameterMockData.validEncodableParameter
         
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
         
-        RequestDataValidator.validateWithEncodable(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithEncodable(requestParameter, mockURL)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTFail("Expected success, but got error: \(error)")
@@ -152,11 +152,11 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithEncodable_파라미터가Nil일때_emptyParameters_에러반환() {
-        let requestData = EncodableParameterMockData.nilParameters
+        let requestParameter = EncodableParameterMockData.nilParameters
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
         
-        RequestDataValidator.validateWithEncodable(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithEncodable(requestParameter, mockURL)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTAssertEqual(error, .emptyParameters)
@@ -171,11 +171,11 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithEncodable_URL이Nil일때_missingURL_에러반환() {
-        let requestData = EncodableParameterMockData.nilRequestURL
+        let requestParameter = EncodableParameterMockData.validEncodableParameter
         
         let expectation = XCTestExpectation(description: "Nil URL should fail")
         
-        RequestDataValidator.validateWithEncodable(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithEncodable(requestParameter, nil)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTAssertEqual(error, .missingURL)
@@ -190,11 +190,11 @@ extension RequestDataValidatorTests {
     }
     
     func test_validateWithEncodable_파라미터와URL둘다Nil일때_emptyParameters_에러반환() {
-        let requestData = EncodableParameterMockData.nilRequestData
+        let requestParameter = EncodableParameterMockData.nilParameters
         
         let expectation = XCTestExpectation(description: "Nil URL should fail")
         
-        RequestDataValidator.validateWithEncodable(requestData.parameters, requestData.url)
+        RequestDataValidator.validateWithEncodable(requestParameter, nil)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     XCTAssertEqual(error, .missingURL) //URL 체크가 먼저기때문

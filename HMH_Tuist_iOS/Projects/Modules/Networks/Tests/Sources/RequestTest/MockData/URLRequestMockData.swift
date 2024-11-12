@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct URLEncodingMockData {
+public struct URLRequestMockData {
     static let mockURL = URL(string: "https://example.com")!
 
     // 1. Valid URLRequest with valid parameters

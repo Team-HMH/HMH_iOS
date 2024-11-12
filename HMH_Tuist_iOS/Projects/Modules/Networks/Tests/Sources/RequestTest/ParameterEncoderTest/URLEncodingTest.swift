@@ -33,7 +33,7 @@ class URLEncodingTest: XCTestCase {
 // 정상적으로 인코딩 되는 경우
 extension URLEncodingTest {
     func test_정상적인파라미터와URL이_정상적으로인코딩되는지() {
-        let requestData = URLEncodingMockData.validRequestData
+        let requestData = URLRequestMockData.validRequestData
         let requestParameters = ParameterValidatorMockData.validParameter
         
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
@@ -61,7 +61,7 @@ extension URLEncodingTest {
     }
     
     func test_한글과이모지가포함된파라미터가_정상적으로인코딩되는지() {
-        let requestData = URLEncodingMockData.validRequestData
+        let requestData = URLRequestMockData.validRequestData
         let requestParameters = ParameterValidatorMockData.unicodeCharacters
         
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
@@ -90,7 +90,7 @@ extension URLEncodingTest {
     }
     
     func test_bool타입파라미터가_정상적으로인코딩되는지() {
-        let requestData = URLEncodingMockData.validRequestData
+        let requestData = URLRequestMockData.validRequestData
         let requestParameters = ParameterValidatorMockData.booleanValues
         
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
@@ -147,7 +147,7 @@ extension URLEncodingTest {
 //    }
     
     func test_큰수를포함된파라미터가_정상적으로인코딩되는지() {
-        let requestData = URLEncodingMockData.validRequestData
+        let requestData = URLRequestMockData.validRequestData
         let requestParameters = ParameterValidatorMockData.largeNumbers
         
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
@@ -177,7 +177,7 @@ extension URLEncodingTest {
     }
     
     func test_벨류값이비어있을때_정상적으로인코딩되는지() {
-        let requestData = URLEncodingMockData.validRequestData
+        let requestData = URLRequestMockData.validRequestData
         let requestParameters = ParameterValidatorMockData.emptyStrings
         
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다")
@@ -207,7 +207,7 @@ extension URLEncodingTest {
 
 extension URLEncodingTest {
     func test_파라미터가Nil일때_invalidParametersType_에러반환() {
-        let requestData = URLEncodingMockData.validRequestData
+        let requestData = URLRequestMockData.validRequestData
         let requestParameter = ParameterValidatorMockData.nilParameters
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
@@ -227,7 +227,7 @@ extension URLEncodingTest {
     }
     
     func test_URL이Nil일때_missingURL_에러반환() {
-        let requestData = URLEncodingMockData.nilURLRequest
+        let requestData = URLRequestMockData.nilURLRequest
         let requestParameter = ParameterValidatorMockData.validParameter
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
@@ -247,7 +247,7 @@ extension URLEncodingTest {
     }
     
     func test_파라미터와URL둘다Nil일때_invalidParametersType_에러반환() {
-        let requestData = URLEncodingMockData.nilURLRequest
+        let requestData = URLRequestMockData.nilURLRequest
         let requestParameter = ParameterValidatorMockData.nilParameters
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
@@ -267,7 +267,7 @@ extension URLEncodingTest {
     }
     
     func test_파라미터가비어있을경우_emptyParameters_에러반환() {
-        let requestData = URLEncodingMockData.validRequestData
+        let requestData = URLRequestMockData.validRequestData
         let requestParameter = ParameterValidatorMockData.emptyParameters
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
