@@ -12,7 +12,6 @@ import Combine
 import Core
 import Networks
 
-
 class TaskTest: XCTestCase {
     
     var cancelBag: CancelBag!

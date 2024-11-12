@@ -13,7 +13,7 @@ public struct URLEncoding: ParameterEncoding {
     
     public init() {}
     
-    public func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
+    public func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError> {
         var request = request
         
         guard let parameters = parameters as? Parameters else {

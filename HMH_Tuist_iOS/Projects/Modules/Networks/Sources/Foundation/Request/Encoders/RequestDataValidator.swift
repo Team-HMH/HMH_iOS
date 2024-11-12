@@ -13,7 +13,7 @@ public struct RequestDataValidator {
     static public func validateWithParameters(
         _ parameters: Parameters?,
         _ url: URL?
-    ) -> AnyPublisher<(Parameters, URL), HMHNetworkError.ParameterEncoding> {
+    ) -> AnyPublisher<(Parameters, URL), HMHNetworkError.ParameterEncodingError> {
         guard let url else { return Fail(error: .missingURL).eraseToAnyPublisher() }
         
         guard let parameters = parameters, !parameters.isEmpty else {
@@ -21,21 +21,21 @@ public struct RequestDataValidator {
             }
         
         return Just((parameters, url))
-            .setFailureType(to: HMHNetworkError.ParameterEncoding.self)
+            .setFailureType(to: HMHNetworkError.ParameterEncodingError.self)
             .eraseToAnyPublisher()
     }
     
     static public func validateWithEncodable(
         _ parameters: Encodable?,
         _ url: URL?
-    ) -> AnyPublisher<(Encodable, URL), HMHNetworkError.ParameterEncoding> {
+    ) -> AnyPublisher<(Encodable, URL), HMHNetworkError.ParameterEncodingError> {
         guard let url else { return Fail(error: .missingURL).eraseToAnyPublisher() }
         
         guard let parameters else { return Fail(error: .emptyParameters).eraseToAnyPublisher() }
         
         
         return Just((parameters, url))
-            .setFailureType(to: HMHNetworkError.ParameterEncoding.self)
+            .setFailureType(to: HMHNetworkError.ParameterEncodingError.self)
             .eraseToAnyPublisher()
     }
 }

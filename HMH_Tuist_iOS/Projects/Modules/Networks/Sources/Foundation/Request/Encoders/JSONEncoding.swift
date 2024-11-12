@@ -12,7 +12,7 @@ import Combine
 public struct JSONEncoding: ParameterEncoding {
     public init() {}
     
-    public func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
+    public func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError> {
         
         var request = request
         
@@ -31,7 +31,7 @@ public struct JSONEncoding: ParameterEncoding {
                     throw HMHNetworkError.invalidRequest(.parameterEncodingFailed(.jsonEncodingFailed))
                 }
             }
-            .mapError { $0 as! HMHNetworkError.ParameterEncoding } //TODO: 예외 상황이 없는거 같아서..
+            .mapError { $0 as! HMHNetworkError.ParameterEncodingError } //TODO: 예외 상황이 없는거 같아서..
             .eraseToAnyPublisher()
     }
 }
