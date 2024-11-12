@@ -13,8 +13,6 @@ import Core
 
 public struct RequestHandler {
     
-//    public init() {}
-    
     // URLRequest 생성
     static public func createURLRequest<T: URLRequestTargetType>(for target: T) -> AnyPublisher<URLRequest, HMHNetworkError> {
         return target.asURLRequest()
