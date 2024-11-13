@@ -19,22 +19,6 @@ struct MockRequest: URLRequestTargetType {
     var headers: [String : String]?
     var task: Task
     var isWithInterceptor: Bool
-    
-    public func asURLRequest() -> AnyPublisher<URLRequest, HMHNetworkError.RequestError> {
-        var finalURL = self.url
-        
-        //        if let path = self.path {
-        //            finalURL = finalURL.trimmingCharacters(in: .whitespacesAndNewlines) + "/" + path.trimmingCharacters(in: .whitespacesAndNewlines)
-        //        }
-        
-        switch URLValidator.validateURL(finalURL) {
-        case .failure(let validationError):
-            return Fail(error: .invalidURL(finalURL, validationError)).eraseToAnyPublisher()
-            
-        case .success(let validURL):
-            return task.buildRequest(baseURL: validURL, method: self.method, headers: self.headers)
-        }
-    }
 }
 
 class URLRequestTargetTypeTest: XCTestCase {
@@ -42,7 +26,7 @@ class URLRequestTargetTypeTest: XCTestCase {
     var cancelBag: CancelBag!
     let baseURL = "https://example.com"
     let method: HTTPMethod = .get
-    let path = "/test"
+    let path = "test"
     let headers = ["Authorization": "Bearer token"]
     
     override func setUpWithError() throws {
@@ -54,196 +38,228 @@ class URLRequestTargetTypeTest: XCTestCase {
         cancelBag = nil
     }
     
-    func test_asURLRequest_정상적인속성일때_정상적인URLRequest반환() {
-        let target: URLRequestTargetType = MockRequest(
-            url: baseURL,
-            path: path,
-            method: method,
-            headers: headers,
-            task: .requestPlain,
-            isWithInterceptor: true
-        )
-        let expectation = XCTestExpectation(description: "정상적인 바디일때 성공")
-        
-        target.asURLRequest()
-            .sink(receiveCompletion: { completion in
-                if case .failure = completion {
-                    XCTFail("Expected success but got failure \(completion)")
-                }
-            }, receiveValue: { request in
-                XCTAssertEqual(request.url?.absoluteString, "\(self.baseURL)")
-                XCTAssertEqual(request.httpMethod, self.method.rawValue)
-                XCTAssertEqual(request.allHTTPHeaderFields, self.headers)
-                expectation.fulfill()
-            })
-            .store(in: cancelBag)
-    }
-    
-    func test_asURLRequest_url이비어있을때_invalidURL에러반환() {
-        let target: URLRequestTargetType = MockRequest(
-            url: "",
-            path: path,
-            method: method,
-            headers: headers,
-            task: .requestPlain,
-            isWithInterceptor: true
-        )
-        let expectation = XCTestExpectation(description: "fail")
-        
-        
-        target.asURLRequest()
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTAssertEqual(error, .invalidURL("" , .emptyurlString))
-                    expectation.fulfill()
-                }
-            }, receiveValue: { request in
-                XCTFail("Expected failure, but got success")
-            })
-            .store(in: cancelBag)
-    }
-    
-    func test_asURLRequest_잘못된프로토콜일때_invalidProtocol에러반환() {
-        let invalidProtocolURL: [String] = [
-            "www.example.com",
-            "htp://example.com"
+    func test_asURLRequest_유효한URL이주어질때_정상적인변환() {
+        let successCases: [(url: String, path: String?, expectedURL: String)] = [
+            (url: "http://example.com", path: "validPath", expectedURL: "http://example.com/validPath"),
+            (url: "https://example.com", path: "api/v1", expectedURL: "https://example.com/api/v1")
         ]
-        
-        for url in invalidProtocolURL {
+        for caseData in successCases {
             let target: URLRequestTargetType = MockRequest(
-                url: url,
-                path: path,
+                url: caseData.url,
+                path: caseData.path,
                 method: method,
                 headers: headers,
                 task: .requestPlain,
                 isWithInterceptor: true
             )
-            let expectation = XCTestExpectation(description: "fail")
+            
+            let expectation = XCTestExpectation(description: "Success case for \(caseData.expectedURL)")
             
             target.asURLRequest()
                 .sink(receiveCompletion: { completion in
-                    if case .failure(let error) = completion {
-                        XCTAssertEqual(error, .invalidURL(url, .invalidProtocol))
-                        expectation.fulfill()
+                    if case .failure = completion {
+                        XCTFail("Expected success but got failure \(completion)")
                     }
                 }, receiveValue: { request in
-                    XCTFail("Expected failure, but got success")
+                    XCTAssertEqual(request.url?.absoluteString, caseData.expectedURL)
+                    XCTAssertEqual(request.httpMethod, self.method.rawValue)
+                    XCTAssertEqual(request.allHTTPHeaderFields, self.headers)
+                    expectation.fulfill()
                 })
                 .store(in: cancelBag)
         }
     }
     
-    func test_asURLRequest_잘못된포트번호일때_invalidPort에러반환() {
-        
-        let target: URLRequestTargetType = MockRequest(
-            url: "https://example.com:99999",
-            path: path,
-            method: method,
-            headers: headers,
-            task: .requestPlain,
-            isWithInterceptor: true
-        )
-        let expectation = XCTestExpectation(description: "fail")
-        
-        target.asURLRequest()
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTAssertEqual(error, .invalidURL("https://example.com:99999", .invalidPort))
-                    expectation.fulfill()
-                }
-            }, receiveValue: { request in
-                XCTFail("Expected failure, but got success")
-            })
-            .store(in: cancelBag)
-    }
-    
-    func test_asURLRequest_경로에공백이포함되어있을때_invalidPath에러반환() {
-        let invalidPathURL: [String] = [
-            "http://example.com/path|with|pipes",     // 유효하지 않은 특수 문자 포함 (|)
-            "http://example.com/path with spaces",    // 유효하지 않은 공백 포함
-            "http://example.com//double/slash",       // 중복 슬래시 포함
-            "http://example.com/path#section",        // 유효하지 않은 특수 문자 (#)
+    func test_asURLRequest_유효하지않은URL이주어질때_에러변환() {
+        let failureCases: [(url: String, path: String?, error: HMHNetworkError.RequestError)] = [
+            (url: "", path: nil, error: .invalidURL("", .emptyurlString)),
+            (url: "www.example.com", path: nil, error: .invalidURL("www.example.com", .invalidProtocol)),
+            (url: "htp://example.com", path: nil, error: .invalidURL("htp://example.com", .invalidProtocol)),
+            (url: "https://example.com:99999", path: nil, error: .invalidURL("https://example.com:99999", .invalidPort)),
+            (url: "http://example.com", path: "path|with|pipes", error: .invalidURL("http://example.com/path|with|pipes", .invalidPath)),
+            (url: "http://example.com", path: "path with spaces", error: .invalidURL("http://example.com/path with spaces", .invalidPath)),
+            (url: "http://example.com", path: "/double/slash", error: .invalidURL("http://example.com//double/slash", .invalidPath)),
+            (url: "http://example.com", path: "path#section", error: .invalidURL("http://example.com/path#section", .invalidPath)),
+            (url: "http://example.com", path: "api?keyvalue", error: .invalidURL("http://example.com/api?keyvalue", .invalidQueryParameter)),
+            (url: "http://example.com", path: "api?key=value&&another=value", error: .invalidURL("http://example.com/api?key=value&&another=value", .invalidQueryParameter))
         ]
         
-        for url in invalidPathURL {
+        for caseData in failureCases {
             let target: URLRequestTargetType = MockRequest(
-                url: url,
-                path: path,
+                url: caseData.url,
+                path: caseData.path,
                 method: method,
                 headers: headers,
                 task: .requestPlain,
                 isWithInterceptor: true
             )
-            let expectation = XCTestExpectation(description: "fail")
+            
+            let expectation = XCTestExpectation(description: "Failure case for \(caseData.url)")
             
             target.asURLRequest()
                 .sink(receiveCompletion: { completion in
                     if case .failure(let error) = completion {
-                        XCTAssertEqual(error, .invalidURL(url, .invalidPath))
+                        XCTAssertEqual(error, caseData.error)
                         expectation.fulfill()
                     }
                 }, receiveValue: { request in
-                    XCTFail("Expected failure, but got success")
+                    XCTFail("Expected failure, but got success for URL: \(caseData.url)")
                 })
                 .store(in: cancelBag)
         }
     }
     
-//    func test_asURLRequest_경로에사용될수없는문자가포함되어있을때_invalidCharacters에러반환() {
-//        let invalidCharactersURL: [String] = [
-//            "https://example.com/first|second",
-//            "https://example.com/{first|second}",
-//        ]
-//        
-//        for url in invalidCharactersURL {
-//            let target: URLRequestTargetType = MockRequest(
-//                url: url,
-//                path: path,
-//                method: method,
-//                headers: headers,
-//                task: .requestPlain,
-//                isWithInterceptor: true
-//            )
-//            let expectation = XCTestExpectation(description: "fail")
-//            
-//            target.asURLRequest()
-//                .sink(receiveCompletion: { completion in
-//                    if case .failure(let error) = completion {
-//                        XCTAssertEqual(error, .invalidURL(url, .invalidCharacters))
-//                        expectation.fulfill()
-//                    }
-//                }, receiveValue: { request in
-//                    XCTFail("Expected failure, but got success \(url)")
-//                })
-//                .store(in: cancelBag)
-//        }
-//    }
-    
-    func test_asURLRequest_유효하지않은쿼리파라미터가주어질때_invalidQueryParameter에러반환() {
-        let invalidQueryParameterURL: [String] = [
-            "https://example.com/api?keyvalue", // '='가 빠진 쿼리 파라미터
-            "https://example.com/api?key=value&&another=value" // 쿼리 구분자 '&&'가 잘못됨
+    func test_asURLRequest_다양한QueryParameters_정렬된파라미터비교() {
+        let parameterCases: [(parameters: [String: Any], expectedQueryItems: [URLQueryItem])] = [
+            // 단순 키-값 쌍
+            (parameters: ["key1": "value1", "key2": "value2"],
+             expectedQueryItems: [URLQueryItem(name: "key1", value: "value1"),
+                                  URLQueryItem(name: "key2", value: "value2")]),
+            
+            // 특수 문자 포함
+            (parameters: ["specialChars": "!@#$%^&*()"],
+             expectedQueryItems: [URLQueryItem(name: "specialChars", value: "!@#$%^&*()")]),
+            
+            // 공백 포함
+            (parameters: ["space": "a value with spaces"],
+             expectedQueryItems: [URLQueryItem(name: "space", value: "a value with spaces")]),
+            
+            // 다국어 (한국어)
+            (parameters: ["korean": "한글"],
+             expectedQueryItems: [URLQueryItem(name: "korean", value: "한글")]),
+            
+            // 숫자 포함
+            (parameters: ["integer": 123, "float": 45.67],
+             expectedQueryItems: [URLQueryItem(name: "integer", value: "123"),
+                                  URLQueryItem(name: "float", value: "45.67")]),
+            
+            // Boolean 값 포함
+            (parameters: ["isTrue": true, "isFalse": false],
+             expectedQueryItems: [URLQueryItem(name: "isTrue", value: "true"),
+                                  URLQueryItem(name: "isFalse", value: "false")]),
+            
+            // 빈 값
+            (parameters: ["empty": ""],
+             expectedQueryItems: [URLQueryItem(name: "empty", value: "")]),
+            
+            // 대소문자 구별 키
+            (parameters: ["Key": "UpperCase", "key": "LowerCase"],
+             expectedQueryItems: [URLQueryItem(name: "Key", value: "UpperCase"),
+                                  URLQueryItem(name: "key", value: "LowerCase")]),
+            
+            // JSON-like 객체 (기대되는 형식으로 변환 시)
+            (parameters: ["json": "{\"name\":\"test\",\"age\":30}"],
+             expectedQueryItems: [URLQueryItem(name: "json", value: "{\"name\":\"test\",\"age\":30}")])
         ]
         
-        for url in invalidQueryParameterURL {
+        for caseData in parameterCases {
             let target: URLRequestTargetType = MockRequest(
-                url: url,
-                path: path,
-                method: method,
-                headers: headers,
-                task: .requestPlain,
+                url: self.baseURL,
+                path: self.path,
+                method: .get,
+                headers: nil,
+                task: .requestParameters(caseData.parameters),
                 isWithInterceptor: true
             )
-            let expectation = XCTestExpectation(description: "fail")
+            
+            let expectation = XCTestExpectation(description: "Query parameters encoded correctly for \(caseData.parameters)")
             
             target.asURLRequest()
                 .sink(receiveCompletion: { completion in
-                    if case .failure(let error) = completion {
-                        XCTAssertEqual(error, .invalidURL(url, .invalidQueryParameter))
-                        expectation.fulfill()
+                    if case .failure = completion {
+                        XCTFail("Expected success but got failure \(completion)")
                     }
                 }, receiveValue: { request in
-                    XCTFail("Expected failure, but got success \(url)")
+                    // URLComponents로 쿼리 파라미터 분석
+                    guard let url = request.url,
+                          let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                          let queryItems = components.queryItems else {
+                        XCTFail("Invalid URL or missing query parameters")
+                        return
+                    }
+                    
+                    let sortedQueryItems = queryItems.sorted(by: { $0.name < $1.name })
+                    let sortedExpectedQueryItems = caseData.expectedQueryItems.sorted(by: { $0.name < $1.name })
+                    
+                    XCTAssertEqual(sortedQueryItems, sortedExpectedQueryItems)
+                    expectation.fulfill()
+                })
+                .store(in: cancelBag)
+        }
+    }
+    
+    func test_asURLRequest_다양한JSONEncodingParameters_바디비교() {
+        let parameterCases: [(parameters: Encodable, expectedJSON: [String: Any])] = [
+            // 단순 키-값 쌍
+            (parameters: ["key1": "value1", "key2": "value2"],
+             expectedJSON: ["key1": "value1", "key2": "value2"]),
+            
+            // 특수 문자 포함
+            (parameters: ["specialChars": "!@#$%^&*()"],
+             expectedJSON: ["specialChars": "!@#$%^&*()"]),
+            
+            // 공백 포함
+            (parameters: ["space": "a value with spaces"],
+             expectedJSON: ["space": "a value with spaces"]),
+            
+            // 다국어 (한국어)
+            (parameters: ["korean": "한글"],
+             expectedJSON: ["korean": "한글"]),
+            
+            // 숫자 포함
+            (parameters: ["integer": 123, "float": 45.67],
+             expectedJSON: ["integer": 123, "float": 45.67]),
+            
+            // Boolean 값 포함
+            (parameters: ["isTrue": true, "isFalse": false],
+             expectedJSON: ["isTrue": true, "isFalse": false]),
+            
+            // 빈 값
+            (parameters: ["empty": ""],
+             expectedJSON: ["empty": ""]),
+            
+            // 대소문자 구별 키
+            (parameters: ["Key": "UpperCase", "key": "LowerCase"],
+             expectedJSON: ["Key": "UpperCase", "key": "LowerCase"]),
+            
+            // JSON-like 객체
+//            (parameters: ["json": ["name": "test", "age": 30]],
+//             expectedJSON: ["json": ["name": "test", "age": 30]])
+        ]
+        
+        for caseData in parameterCases {
+            let target: URLRequestTargetType = MockRequest(
+                url: self.baseURL,
+                path: self.path,
+                method: .post,
+                headers: ["Content-Type": "application/json"],
+                task: .requestJSONEncodable(caseData.parameters),
+                isWithInterceptor: true
+            )
+            
+            let expectation = XCTestExpectation(description: "JSON body encoded correctly for \(caseData.parameters)")
+            
+            target.asURLRequest()
+                .sink(receiveCompletion: { completion in
+                    if case .failure = completion {
+                        XCTFail("Expected success but got failure \(completion)")
+                    }
+                }, receiveValue: { request in
+                    // HTTP 바디가 nil이 아닌지 확인
+                    guard let httpBody = request.httpBody else {
+                        XCTFail("HTTP body is nil")
+                        return
+                    }
+                    
+                    // JSON 바디를 Dictionary로 변환하여 비교
+                    do {
+                        let httpBodyJSON = try JSONSerialization.jsonObject(with: httpBody, options: []) as? [String: Any]
+                        XCTAssertEqual(httpBodyJSON as NSDictionary?, caseData.expectedJSON as NSDictionary)
+                    } catch {
+                        XCTFail("Failed to decode HTTP body to JSON: \(error)")
+                    }
+                    
+                    expectation.fulfill()
                 })
                 .store(in: cancelBag)
         }
