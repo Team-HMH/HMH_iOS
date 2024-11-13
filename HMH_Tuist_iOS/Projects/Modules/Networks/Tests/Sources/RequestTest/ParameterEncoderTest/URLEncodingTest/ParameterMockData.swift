@@ -10,6 +10,18 @@ import Foundation
 import Networks
 
 public struct ParameterValidatorMockData {
+    static public let validParameters: [Parameters] = [
+        validParameter,
+        specialCharacters,
+        largeNumbers,
+        unicodeCharacters,
+        booleanValues,
+        arrayData,
+        nestedData,
+        emptyStrings,
+        nestedEmptyData
+    ]
+    
     static public let validParameter: Parameters = [
             "username": "hellohidi",
             "age": 25

@@ -28,7 +28,7 @@ extension RequestDataValidatorTests {
                     XCTAssertEqual(simpleData.name, "John")
                 }
                 XCTAssertEqual(resultURL.absoluteString, "https://example.com")
-                expectation.fulfill() // 테스트 완료 시점 알림
+                expectation.fulfill()
             })
             .store(in: cancelBag)
         
