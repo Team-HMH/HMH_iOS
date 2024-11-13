@@ -50,14 +50,14 @@ class RequestDataValidatorTests: XCTestCase {
     public func validateWithEncodableParameters(
         parameters: Encodable?,
         url: URL?,
-        expectedError: HMHNetworkError.ParameterEncodingError? = nil,
+        expectationError: HMHNetworkError.ParameterEncodingError? = nil,
         expectation: XCTestExpectation,
         validationBlock: @escaping ((Encodable, URL) -> Void) = {_, _ in}) {
             
             RequestDataValidator.validateWithEncodable(parameters, url)
                 .sink(receiveCompletion: { completion in
                     if case .failure(let error) = completion {
-                        XCTAssertEqual(error, expectedError)
+                        XCTAssertEqual(error, expectationError)
                         expectation.fulfill()
                     } else {
                         if case .failure(let error) = completion {
@@ -74,13 +74,13 @@ extension RequestDataValidatorTests {
     func test_validateWithParameters_정상적인파라미터와URL일때_정상적인변환() {
         let requestParameter = ParameterValidatorMockData.validParameters
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .emptyParameters
+        let expectationError: HMHNetworkError.ParameterEncodingError = .emptyParameters
         
         for parameter in requestParameter {
             validateWithParameters(
                 parameters: parameter.parameters,
                 url: mockURL,
-                expectedError: expectedError,
+                expectedError: expectationError,
                 expectation: expectation
             ) { validParameters, validURL in
                 for (key, expectedValue) in parameter.parameters {
@@ -97,12 +97,12 @@ extension RequestDataValidatorTests {
     func test_validateWithParameters_파라미터가Nil일때_emptyParameters_에러반환() {
         let requestParameter = ParameterValidatorMockData.nilParameters
         let expectation = XCTestExpectation(description: "파라미터가 Nil이어서 실패했습니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .emptyParameters
+        let expectationError: HMHNetworkError.ParameterEncodingError = .emptyParameters
         
         validateWithParameters(
             parameters: requestParameter,
             url: mockURL,
-            expectedError: expectedError,
+            expectedError: expectationError,
             expectation: expectation
         )
     }
@@ -110,12 +110,12 @@ extension RequestDataValidatorTests {
     func test_validateWithParameters_URL이Nil일때_missingURL_에러반환() {
         let requestParameter = ParameterValidatorMockData.validParameter
         let expectation = XCTestExpectation(description: "URL이 Nil이어서 실패했습니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .missingURL
+        let expectationError: HMHNetworkError.ParameterEncodingError = .missingURL
         
         validateWithParameters(
             parameters: requestParameter,
             url: nil,
-            expectedError: expectedError,
+            expectedError: expectationError,
             expectation: expectation
         )
         
@@ -126,12 +126,12 @@ extension RequestDataValidatorTests {
     func test_validateWithParameters_파라미터와URL둘다Nil일때_missingURL_에러반환() {
         let requestParameter = ParameterValidatorMockData.nilParameters
         let expectation = XCTestExpectation(description: "URL과 파라미터가 둘다 Nil이어서 (url 먼저 처리) 실패했습니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .missingURL
+        let expectationError: HMHNetworkError.ParameterEncodingError = .missingURL
         
         validateWithParameters(
             parameters: requestParameter,
             url: nil,
-            expectedError: expectedError,
+            expectedError: expectationError,
             expectation: expectation
         )
         
@@ -141,12 +141,12 @@ extension RequestDataValidatorTests {
     func test_validateWithParameters_파라미터가비어있을경우_emptyParameters_에러반환() {
         let requestParameter = ParameterValidatorMockData.emptyParameters
         let expectation = XCTestExpectation(description: "파라미터가 비어있어서 실패했습니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .emptyParameters
+        let expectationError: HMHNetworkError.ParameterEncodingError = .emptyParameters
         
         validateWithParameters(
             parameters: requestParameter,
             url: mockURL,
-            expectedError: expectedError,
+            expectedError: expectationError,
             expectation: expectation
         )
         
@@ -156,15 +156,15 @@ extension RequestDataValidatorTests {
 
 extension RequestDataValidatorTests {
     func test_validateWithEncodable_정상적인파라미터와URL일때_정상적인변환() {
-        let requestParameter = EncodableParameterMockData.validtestDatas
+        let requestParameter = EncodableParameterMockData.validParameters
         let expectation = XCTestExpectation(description: "유효한 파라미터와 URL입니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .emptyParameters
+        let expectationError: HMHNetworkError.ParameterEncodingError = .emptyParameters
         
         for parameter in requestParameter {
             validateWithEncodableParameters(
                 parameters: parameter,
                 url: mockURL,
-                expectedError: expectedError,
+                expectationError: expectationError,
                 expectation: expectation
             ) { validParameters, validURL in
                 do {
@@ -185,12 +185,12 @@ extension RequestDataValidatorTests {
     func test_validateWithEncodable_파라미터가Nil일때_emptyParameters_에러반환() {
         let requestParameter = EncodableParameterMockData.nilParameters
         let expectation = XCTestExpectation(description: "파라미터가 Nil이어서 실패했습니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .emptyParameters
+        let expectationError: HMHNetworkError.ParameterEncodingError = .emptyParameters
         
         validateWithEncodableParameters(
             parameters: requestParameter,
             url: mockURL,
-            expectedError: expectedError,
+            expectationError: expectationError,
             expectation: expectation
         )
         
@@ -200,12 +200,12 @@ extension RequestDataValidatorTests {
     func test_validateWithEncodable_URL이Nil일때_missingURL_에러반환() {
         let requestParameter = EncodableParameterMockData.validEncodableParameter
         let expectation = XCTestExpectation(description: "URL이 Nil이어서 실패했습니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .missingURL
+        let expectationError: HMHNetworkError.ParameterEncodingError = .missingURL
         
         validateWithEncodableParameters(
             parameters: requestParameter,
             url: nil,
-            expectedError: expectedError,
+            expectationError: expectationError,
             expectation: expectation
         )
         
@@ -215,12 +215,12 @@ extension RequestDataValidatorTests {
     func test_validateWithEncodable_파라미터와URL둘다Nil일때_missingURL_에러반환() {
         let requestParameter = EncodableParameterMockData.nilParameters
         let expectation = XCTestExpectation(description: "URL과 파라미터가 둘다 Nil이어서 (url 먼저 처리) 실패했습니다!")
-        let expectedError: HMHNetworkError.ParameterEncodingError = .missingURL
+        let expectationError: HMHNetworkError.ParameterEncodingError = .missingURL
         
         validateWithEncodableParameters(
             parameters: requestParameter,
             url: nil,
-            expectedError: expectedError,
+            expectationError: expectationError,
             expectation: expectation
         )
         

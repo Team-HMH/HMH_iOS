@@ -37,7 +37,7 @@ extension EncodableParameterMockData {
 }
 
 extension EncodableParameterMockData {
-    static let validtestDatas: [Encodable] = [
+    static let validParameters: [Encodable] = [
         ["key1": "value1", "key2": "value2"],
         ["specialChars": "!@#$%^&*()"],
         ["space": "a value with spaces"],

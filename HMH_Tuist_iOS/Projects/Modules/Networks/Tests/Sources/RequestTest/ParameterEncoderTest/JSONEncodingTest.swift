@@ -16,7 +16,7 @@ import Networks
 extension ParameterEncodingTest {
     func test_JSONEncoding_정상적인파라미터와URL_URLRequest반환() {
         let requestData = URLRequestMockData.validRequestData
-        let requestParameter = EncodableParameterMockData.validtestDatas
+        let requestParameter = EncodableParameterMockData.validParameters
         
         let expectation = XCTestExpectation(description: "정상적으로 JSON 인코딩에 성공했습니다!")
         
@@ -28,14 +28,11 @@ extension ParameterEncodingTest {
                 expectation: expectation
             ) { validRequest in
                 do {
-                    // 실제 HTTP 바디를 JSON 객체로 디코딩
                     let validJSON = try JSONSerialization.jsonObject(with: validRequest.httpBody!, options: []) as? [String: Any]
                     
-                    // 기대되는 파라미터를 JSON 데이터로 인코딩 후 디코딩
                     let expectedData = try JSONEncoder().encode(parameter)
                     let expectedJSON = try JSONSerialization.jsonObject(with: expectedData, options: []) as? [String: Any]
                     
-                    // NSDictionary로 변환하여 순서에 상관없이 비교
                     XCTAssertEqual(validJSON as NSDictionary?, expectedJSON as NSDictionary?, "파라미터가 예상 결과와 일치하지 않습니다.")
                     expectation.fulfill()
                 } catch {

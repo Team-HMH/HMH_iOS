@@ -29,7 +29,7 @@ struct NetworkLogHandler {
     
     // 성공적인 응답 로깅 함수
     static func responseSuccess(_ endpoint: any URLRequestTargetType, result response: NetworkResponse) {
-        let url = endpoint.url + (endpoint.path ?? "")
+        let url = endpoint.url + "/" + (endpoint.path ?? "")
         let headers = endpoint.headers ?? [:]
         let responseData = String(data: response.data ?? Data(), encoding: .utf8) ?? "No data"
         
