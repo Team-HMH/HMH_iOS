@@ -10,18 +10,29 @@ import Foundation
 import Combine
 
 public struct RequestDataValidator {
+    static private func validateURL(_ url: URL?) -> AnyPublisher<URL, HMHNetworkError.ParameterEncodingError> {
+        guard let url else {
+            return Fail(error: .missingURL).eraseToAnyPublisher()
+        }
+        return Just(url)
+            .setFailureType(to: HMHNetworkError.ParameterEncodingError.self)
+            .eraseToAnyPublisher()
+    }
+    
     static public func validateWithParameters(
         _ parameters: Parameters?,
         _ url: URL?
     ) -> AnyPublisher<(Parameters, URL), HMHNetworkError.ParameterEncodingError> {
-        guard let url else { return Fail(error: .missingURL).eraseToAnyPublisher() }
         
-        guard let parameters = parameters, !parameters.isEmpty else {
-                return Fail(error: .emptyParameters).eraseToAnyPublisher()
+        return validateURL(url)
+            .flatMap { validatedURL -> AnyPublisher<(Parameters, URL), HMHNetworkError.ParameterEncodingError> in
+                guard let parameters = parameters, !parameters.isEmpty else {
+                    return Fail(error: .emptyParameters).eraseToAnyPublisher()
+                }
+                return Just((parameters, validatedURL))
+                    .setFailureType(to: HMHNetworkError.ParameterEncodingError.self)
+                    .eraseToAnyPublisher()
             }
-        
-        return Just((parameters, url))
-            .setFailureType(to: HMHNetworkError.ParameterEncodingError.self)
             .eraseToAnyPublisher()
     }
     
@@ -29,13 +40,16 @@ public struct RequestDataValidator {
         _ parameters: Encodable?,
         _ url: URL?
     ) -> AnyPublisher<(Encodable, URL), HMHNetworkError.ParameterEncodingError> {
-        guard let url else { return Fail(error: .missingURL).eraseToAnyPublisher() }
         
-        guard let parameters else { return Fail(error: .emptyParameters).eraseToAnyPublisher() }
-        
-        
-        return Just((parameters, url))
-            .setFailureType(to: HMHNetworkError.ParameterEncodingError.self)
+        return validateURL(url)
+            .flatMap { validatedURL -> AnyPublisher<(Encodable, URL), HMHNetworkError.ParameterEncodingError> in
+                guard let parameters else {
+                    return Fail(error: .emptyParameters).eraseToAnyPublisher()
+                }
+                return Just((parameters, validatedURL))
+                    .setFailureType(to: HMHNetworkError.ParameterEncodingError.self)
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
 }

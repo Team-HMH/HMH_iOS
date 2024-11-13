@@ -78,12 +78,12 @@ extension RequestDataValidatorTests {
         
         for parameter in requestParameter {
             validateWithParameters(
-                parameters: parameter,
+                parameters: parameter.parameters,
                 url: mockURL,
                 expectedError: expectedError,
                 expectation: expectation
             ) { validParameters, validURL in
-                for (key, expectedValue) in parameter {
+                for (key, expectedValue) in parameter.parameters {
                     XCTAssertEqual(validParameters[key] as? String, expectedValue as? String, "키: \(key) 값이 일치하지 않습니다.")
                 }
                 XCTAssertEqual(validURL, self.mockURL)

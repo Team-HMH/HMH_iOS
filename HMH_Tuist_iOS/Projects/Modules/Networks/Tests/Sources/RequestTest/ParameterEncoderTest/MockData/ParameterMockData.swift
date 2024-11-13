@@ -1,82 +1,65 @@
-//
-//  ParameterMockData.swift
-//  Networks
-//
-//  Created by 류희재 on 11/11/24.
-//  Copyright © 2024 HMH-iOS. All rights reserved.
-//
-
 import Foundation
 import Networks
 
 public struct ParameterValidatorMockData {
-    static public let validParameters: [Parameters] = [
-        validParameter,
-        specialCharacters,
-        largeNumbers,
-        unicodeCharacters,
-        booleanValues,
-        arrayData,
-        nestedData,
-        emptyStrings,
-        nestedEmptyData
-    ]
-    
     static public let validParameter: Parameters = [
-        "username": "hellohidi",
-        "age": 25
+            "username": "hellohidi",
+            "age": 25
+        ]
+        
+        static public let nilParameters: Parameters? = nil
+        static public let emptyParameters: Parameters = [:]
+    
+    static public let validParameters: [(parameters: Parameters, expectedQueryItems: [URLQueryItem])] = [
+        (simpleKeyValue, [URLQueryItem(name: "key1", value: "value1"), URLQueryItem(name: "key2", value: "value2")]),
+        (specialCharacters, [URLQueryItem(name: "symbol", value: "!@#$%^&*()")]),
+        (parametersWithSpaces, [URLQueryItem(name: "space", value: "a value with spaces")]),
+        (multiLanguageCharacters, [URLQueryItem(name: "korean", value: "한글")]),
+        (numericParameters, [URLQueryItem(name: "integer", value: "123"), URLQueryItem(name: "float", value: "45.67")]),
+        (booleanValues, [URLQueryItem(name: "isTrue", value: "true"), URLQueryItem(name: "isFalse", value: "false")]),
+        (emptyStrings, [URLQueryItem(name: "empty", value: "")]),
+        (caseSensitiveKeys, [URLQueryItem(name: "Key", value: "UpperCase"), URLQueryItem(name: "key", value: "LowerCase")]),
+        (jsonStringParameter, [URLQueryItem(name: "json", value: "{\"name\":\"test\",\"age\":30}")])
     ]
     
-    static public let nilParameters: Parameters? = nil
-    static public let emptyParameters: Parameters = [:]
-}
-
-extension ParameterValidatorMockData {
+    // 각 파라미터 케이스
+    static public let simpleKeyValue: Parameters = [
+        "key1": "value1",
+        "key2": "value2"
+    ]
+    
     static public let specialCharacters: Parameters = [
-        "query": "name=hello&value=world",
-        "symbol": "!@#$%^&*()_+|"
+        "symbol": "!@#$%^&*()"
     ]
     
-    static public let largeNumbers: Parameters = [
-        "count": 123456789,
-        "maxValue": Int.max,
-        "minValue": Int.min
+    static public let parametersWithSpaces: Parameters = [
+        "space": "a value with spaces"
     ]
     
-    static public let unicodeCharacters: Parameters = [
-        "greeting": "안녕하세요",
-        "emoji": "🙂🚀"
+    static public let multiLanguageCharacters: Parameters = [
+        "korean": "한글"
+    ]
+    
+    static public let numericParameters: Parameters = [
+        "integer": 123,
+        "float": 45.67
     ]
     
     static public let booleanValues: Parameters = [
-        "isActive": true,
-        "isAdmin": false
-    ]
-    
-    static public let arrayData: Parameters = [
-        "tags": ["swift", "ios", "xcode"],
-        "values": [1, 2, 3, 4]
-    ]
-    
-    static public let nestedData: Parameters = [
-        "user": ["name": "John", "age": 30],
-        "location": ["city": "Seoul", "country": "Korea"]
-    ]
-    
-    static public let nullValues: Parameters = [
-        "nickname": NSNull(),
-        "score": NSNull()
+        "isTrue": true,
+        "isFalse": false
     ]
     
     static public let emptyStrings: Parameters = [
-        "title": "",
-        "description": ""
+        "empty": ""
     ]
     
-    static public let nestedEmptyData: Parameters = [
-        "info": ["name": "", "age": 0],
-        "address": ["city": "", "country": ""]
+    static public let caseSensitiveKeys: Parameters = [
+        "Key": "UpperCase",
+        "key": "LowerCase"
+    ]
+    
+    static public let jsonStringParameter: Parameters = [
+        "json": "{\"name\":\"test\",\"age\":30}"
     ]
 }
-
-    

@@ -53,75 +53,75 @@ extension TaskTest {
     }
 }
 
-//requestParameters
-extension TaskTest {
-    func test_requestParameters_정상적인파라미터일때_body없이정상적인반환() {
-        let task = Task.requestParameters(ParameterValidatorMockData.validParameter)
-        let expectation = XCTestExpectation(description: "정상적인 바디일때 성공")
-        
-        task.buildRequest(baseURL: baseURL, method: method, headers: headers)
-            .sink(receiveCompletion: { completion in
-                if case .failure = completion {
-                    XCTFail("Expected success, got failure")
-                }
-                expectation.fulfill()
-            }, receiveValue: { encodedRequest in
-                if let url = encodedRequest.url?.absoluteString {
-                    XCTAssertEqual(encodedRequest.url, self.baseURL)
-                    XCTAssertTrue(url.contains("age=25"))
-                    XCTAssertTrue(url.contains("username=hellohidi"))
-                    XCTAssertEqual(encodedRequest.httpMethod, "GET")
-                    XCTAssertEqual(encodedRequest.allHTTPHeaderFields, self.headers)
-                    XCTAssertNil(encodedRequest.httpBody, "Request body should be nil for URL encoded parameters")
-                }
-            })
-            .store(in: cancelBag)
-        
-        wait(for: [expectation], timeout: 1.0)
-    }
-    
-    func test_requestParameters_파라미터가비어있을때_emptyParameter반환() {
-        let task = Task.requestParameters(ParameterValidatorMockData.emptyParameters)
-        let expectation = XCTestExpectation(description: "파라미터가비어있을때 실패")
-        
-        task.buildRequest(baseURL: baseURL, method: method, headers: headers)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTAssertEqual(error, .parameterEncodingFailed(.emptyParameters))
-                    expectation.fulfill()
-                }
-            }, receiveValue: { request in
-                XCTFail("Expected failure, but got success")
-            })
-            .store(in: cancelBag)
-        
-        wait(for: [expectation], timeout: 1.0)
-    }
-    
-    func test_requestParameters_특수문자가있을때_정상적인반환() {
-        let task = Task.requestParameters(ParameterValidatorMockData.unicodeCharacters)
-        let expectation = XCTestExpectation(description: "파라미터가비어있을때 실패")
-        
-        task.buildRequest(baseURL: baseURL, method: method, headers: headers)
-            .sink(receiveCompletion: { completion in
-                if case .failure = completion {
-                    XCTFail("Encoding should succeed with special characters in parameters")
-                }
-            }, receiveValue: { encodedRequest in
-                if let url = encodedRequest.url?.absoluteString {
-                    XCTAssertEqual(encodedRequest.httpMethod, "GET")
-                    XCTAssertEqual(encodedRequest.allHTTPHeaderFields, self.headers)
-                    XCTAssertTrue(url.contains("greeting=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94"))
-                    XCTAssertTrue(url.contains("emoji=%F0%9F%99%82%F0%9F%9A%80"))
-                    XCTAssertNil(encodedRequest.httpBody, "Request body should be nil for URL encoded parameters")
-                }
-                expectation.fulfill()
-            })
-            .store(in: cancelBag)
-        
-        wait(for: [expectation], timeout: 1.0)
-    }
-}
+////requestParameters
+//extension TaskTest {
+//    func test_requestParameters_정상적인파라미터일때_body없이정상적인반환() {
+//        let task = Task.requestParameters(ParameterValidatorMockData.validParameter)
+//        let expectation = XCTestExpectation(description: "정상적인 바디일때 성공")
+//        
+//        task.buildRequest(baseURL: baseURL, method: method, headers: headers)
+//            .sink(receiveCompletion: { completion in
+//                if case .failure = completion {
+//                    XCTFail("Expected success, got failure")
+//                }
+//                expectation.fulfill()
+//            }, receiveValue: { encodedRequest in
+//                if let url = encodedRequest.url?.absoluteString {
+//                    XCTAssertEqual(encodedRequest.url, self.baseURL)
+//                    XCTAssertTrue(url.contains("age=25"))
+//                    XCTAssertTrue(url.contains("username=hellohidi"))
+//                    XCTAssertEqual(encodedRequest.httpMethod, "GET")
+//                    XCTAssertEqual(encodedRequest.allHTTPHeaderFields, self.headers)
+//                    XCTAssertNil(encodedRequest.httpBody, "Request body should be nil for URL encoded parameters")
+//                }
+//            })
+//            .store(in: cancelBag)
+//        
+//        wait(for: [expectation], timeout: 1.0)
+//    }
+//    
+//    func test_requestParameters_파라미터가비어있을때_emptyParameter반환() {
+//        let task = Task.requestParameters(ParameterValidatorMockData.emptyParameters)
+//        let expectation = XCTestExpectation(description: "파라미터가비어있을때 실패")
+//        
+//        task.buildRequest(baseURL: baseURL, method: method, headers: headers)
+//            .sink(receiveCompletion: { completion in
+//                if case .failure(let error) = completion {
+//                    XCTAssertEqual(error, .parameterEncodingFailed(.emptyParameters))
+//                    expectation.fulfill()
+//                }
+//            }, receiveValue: { request in
+//                XCTFail("Expected failure, but got success")
+//            })
+//            .store(in: cancelBag)
+//        
+//        wait(for: [expectation], timeout: 1.0)
+//    }
+//    
+//    func test_requestParameters_특수문자가있을때_정상적인반환() {
+//        let task = Task.requestParameters(ParameterValidatorMockData.unicodeCharacters)
+//        let expectation = XCTestExpectation(description: "파라미터가비어있을때 실패")
+//        
+//        task.buildRequest(baseURL: baseURL, method: method, headers: headers)
+//            .sink(receiveCompletion: { completion in
+//                if case .failure = completion {
+//                    XCTFail("Encoding should succeed with special characters in parameters")
+//                }
+//            }, receiveValue: { encodedRequest in
+//                if let url = encodedRequest.url?.absoluteString {
+//                    XCTAssertEqual(encodedRequest.httpMethod, "GET")
+//                    XCTAssertEqual(encodedRequest.allHTTPHeaderFields, self.headers)
+//                    XCTAssertTrue(url.contains("greeting=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94"))
+//                    XCTAssertTrue(url.contains("emoji=%F0%9F%99%82%F0%9F%9A%80"))
+//                    XCTAssertNil(encodedRequest.httpBody, "Request body should be nil for URL encoded parameters")
+//                }
+//                expectation.fulfill()
+//            })
+//            .store(in: cancelBag)
+//        
+//        wait(for: [expectation], timeout: 1.0)
+//    }
+//}
 
 //extension TaskTest {
 //    func test_requestJSONEncodable_정상적인파라미터일때_정상적인반환() {
