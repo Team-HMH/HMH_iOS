@@ -52,6 +52,22 @@ extension EncodableParameterMockData {
         (SimpleStructureData(title: "Title", description: "Description"), "SimpleStructureData"),
         (ParentData(name: "Parent", child: ChildData(name: "Child")), "ParentData")
     ]
+    
+    static let validtestDatas: [Encodable] = [
+        SimpleData(name: "John", age: 30),
+        OptionalStringData(name: "John"),
+        ArrayData(items: ["Item1", "Item2", "Item3"]),
+        ObjectArrayData(items: [
+            Item(id: 1, description: "Item 1"),
+            Item(id: 2, description: "Item 2")
+        ]),
+        EnumData(status: .active),
+        DateData(date: Date()),
+        EmptyDictionaryData(),
+        DataData(data: Data()),
+        SimpleStructureData(title: "Title", description: "Description"),
+        ParentData(name: "Parent", child: ChildData(name: "Child")),
+    ]
 }
 
 
