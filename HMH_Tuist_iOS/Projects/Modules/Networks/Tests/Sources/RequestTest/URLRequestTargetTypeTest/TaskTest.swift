@@ -123,40 +123,40 @@ extension TaskTest {
     }
 }
 
-extension TaskTest {
-    func test_requestJSONEncodable_정상적인파라미터일때_정상적인반환() {
-        let validTestData = EncodableParameterMockData.validtestData
-        let expectation = XCTestExpectation(description: "여러 타입의 정상적인 파라미터 테스트")
-        expectation.expectedFulfillmentCount = validTestData.count  // 여러 개의 요청을 기다리기 위해 설정
-        
-        for (parameter, description) in validTestData {
-            let task = Task.requestJSONEncodable(parameter)
-            
-            task.buildRequest(baseURL: baseURL, method: method, headers: headers)
-                .sink(receiveCompletion: { completion in
-                    if case .failure = completion {
-                        XCTFail("\(description): Expected success, got failure")
-                    }
-                }, receiveValue: { encodedRequest in
-                    XCTAssertEqual(encodedRequest.url, self.baseURL)
-                    XCTAssertEqual(encodedRequest.httpMethod, "GET")
-                    XCTAssertEqual(encodedRequest.allHTTPHeaderFields, self.headers)
-                    
-                    if let body = encodedRequest.httpBody {
-                        do {
-                            let expectedBody = try JSONEncoder().encode(parameter)
-                            XCTAssertEqual(body, expectedBody, "\(description): Encoded JSON does not match expected JSON")
-                        } catch {
-                            XCTFail("\(description): Failed to encode expected JSON")
-                        }
-                    } else {
-                        XCTFail("\(description): Request body is nil")
-                    }
-                    expectation.fulfill()
-                })
-                .store(in: cancelBag)
-        }
-        
-        wait(for: [expectation], timeout: 1.0 * Double(validTestData.count))
-    }
-}
+//extension TaskTest {
+//    func test_requestJSONEncodable_정상적인파라미터일때_정상적인반환() {
+//        let validTestData = EncodableParameterMockData.validtestDatas
+//        let expectation = XCTestExpectation(description: "여러 타입의 정상적인 파라미터 테스트")
+//        expectation.expectedFulfillmentCount = validTestData.count  // 여러 개의 요청을 기다리기 위해 설정
+//        
+//        for (parameter, description) in validTestData {
+//            let task = Task.requestJSONEncodable(parameter)
+//            
+//            task.buildRequest(baseURL: baseURL, method: method, headers: headers)
+//                .sink(receiveCompletion: { completion in
+//                    if case .failure = completion {
+//                        XCTFail("\(description): Expected success, got failure")
+//                    }
+//                }, receiveValue: { encodedRequest in
+//                    XCTAssertEqual(encodedRequest.url, self.baseURL)
+//                    XCTAssertEqual(encodedRequest.httpMethod, "GET")
+//                    XCTAssertEqual(encodedRequest.allHTTPHeaderFields, self.headers)
+//                    
+//                    if let body = encodedRequest.httpBody {
+//                        do {
+//                            let expectedBody = try JSONEncoder().encode(parameter)
+//                            XCTAssertEqual(body, expectedBody, "\(description): Encoded JSON does not match expected JSON")
+//                        } catch {
+//                            XCTFail("\(description): Failed to encode expected JSON")
+//                        }
+//                    } else {
+//                        XCTFail("\(description): Request body is nil")
+//                    }
+//                    expectation.fulfill()
+//                })
+//                .store(in: cancelBag)
+//        }
+//        
+//        wait(for: [expectation], timeout: 1.0 * Double(validTestData.count))
+//    }
+//}

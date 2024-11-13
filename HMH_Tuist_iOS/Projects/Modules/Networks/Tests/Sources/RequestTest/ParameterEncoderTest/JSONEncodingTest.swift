@@ -33,17 +33,17 @@ class JSONEncodingTest: XCTestCase {
 extension JSONEncodingTest {
     func test_정상적인파라미터와URL_URLRequest반환() {
         let requestData = URLRequestMockData.validRequestData
-        let requestParameter = EncodableParameterMockData.validtestData
+        let requestParameter = EncodableParameterMockData.validtestDatas
         
         let expectations = requestParameter.map { parameter in
             return XCTestExpectation(description: "Encoding for \(parameter)")
         }
         
         for (index, parameter) in requestParameter.enumerated() {
-            sut.encode(requestData, with: parameter.0)
+            sut.encode(requestData, with: parameter)
                 .sink(receiveCompletion: { completion in
                     if case .failure = completion {
-                        XCTFail("Encoding failed for \(parameter.1)")
+                        XCTFail("Encoding failed for ")
                     }
                     expectations[index].fulfill()
                 }, receiveValue: { request in
@@ -78,7 +78,7 @@ extension JSONEncodingTest {
     
     func test_URL이Nil일때_missingURL_에러반환() {
         let requestData = URLRequestMockData.nilURLRequest
-        let requestParameter = EncodableParameterMockData.validtestData
+        let requestParameter = EncodableParameterMockData.validtestDatas
         
         let expectation = XCTestExpectation(description: "Nil parameters should fail")
         

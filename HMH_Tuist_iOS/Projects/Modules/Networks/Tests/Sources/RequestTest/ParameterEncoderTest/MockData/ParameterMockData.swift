@@ -23,13 +23,15 @@ public struct ParameterValidatorMockData {
     ]
     
     static public let validParameter: Parameters = [
-            "username": "hellohidi",
-            "age": 25
-        ]
+        "username": "hellohidi",
+        "age": 25
+    ]
     
     static public let nilParameters: Parameters? = nil
     static public let emptyParameters: Parameters = [:]
-    
+}
+
+extension ParameterValidatorMockData {
     static public let specialCharacters: Parameters = [
         "query": "name=hello&value=world",
         "symbol": "!@#$%^&*()_+|"
@@ -77,3 +79,4 @@ public struct ParameterValidatorMockData {
     ]
 }
 
+    
