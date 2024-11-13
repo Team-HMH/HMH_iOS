@@ -28,6 +28,28 @@ class JSONEncodingTest: XCTestCase {
         sut = nil
         cancelBag = nil
     }
+    
+    func validateJSONEncoding(
+        encoder: ParameterEncoding,
+        requestData: URLRequest,
+        requestParameter: Any?,
+        expectation: XCTestExpectation,
+        expectationError: HMHNetworkError.ParameterEncodingError? = nil,
+        validationBlock: @escaping ((URLRequest) -> Void) = { _  in})
+    {
+        encoder.encode(requestData, with: requestParameter)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    XCTAssertEqual(error, expectationError)
+                    expectation.fulfill()
+                } else {
+                    if case .failure(let error) = completion {
+                        XCTFail("Expected success, but got error: \(error)")
+                    }
+                }
+            }, receiveValue: validationBlock)
+            .store(in: self.cancelBag)
+    }
 }
 
 extension JSONEncodingTest {
@@ -35,63 +57,61 @@ extension JSONEncodingTest {
         let requestData = URLRequestMockData.validRequestData
         let requestParameter = EncodableParameterMockData.validtestDatas
         
-        let expectations = requestParameter.map { parameter in
-            return XCTestExpectation(description: "Encoding for \(parameter)")
+        let expectation = XCTestExpectation(description: "정상적으로 JSON 인코딩에 성공했습니다!")
+        
+        for parameter in requestParameter {
+            validateJSONEncoding(
+                encoder: sut,
+                requestData: requestData,
+                requestParameter: parameter,
+                expectation: expectation
+            ) { validRequest in
+                do {
+                    let expectedData = try JSONEncoder().encode(parameter)
+                    XCTAssertEqual(validRequest.httpBody, expectedData, "파라미터가 예상 결과와 일치하지 않습니다.")
+                    expectation.fulfill()
+                } catch {
+                    XCTFail("파라미터를 JSON으로 인코딩하지 못했습니다: \(error)")
+                    expectation.fulfill()
+                }
+            }
         }
         
-        for (index, parameter) in requestParameter.enumerated() {
-            sut.encode(requestData, with: parameter)
-                .sink(receiveCompletion: { completion in
-                    if case .failure = completion {
-                        XCTFail("Encoding failed for ")
-                    }
-                    expectations[index].fulfill()
-                }, receiveValue: { request in
-                    XCTAssertNotNil(request.httpBody, "\(parameter) failed, body is nil")
-                })
-                .store(in: cancelBag)
-        }
-        
-        wait(for: expectations, timeout: 1.0 * Double(requestParameter.count))
+        wait(for: [expectation], timeout: 1.0 * Double(requestParameter.count))
     }
-    
     
     func test_파라미터가Nil일때_invalidJSON_에러반환() {
         let requestData = URLRequestMockData.validRequestData
         let requestParameter = EncodableParameterMockData.nilParameters
         
-        let expectation = XCTestExpectation(description: "Nil parameters should fail")
+        let expectation = XCTestExpectation(description: "파라미터가 Nil이어서 실패했습니다!")
+        let expectationError: HMHNetworkError.ParameterEncodingError = .invalidJSON
         
-        sut.encode(requestData, with: requestParameter)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTAssertEqual(error, .invalidJSON)
-                    expectation.fulfill()
-                }
-            }, receiveValue: { _ in
-                XCTFail("Expected failure, but got success")
-            })
-            .store(in: cancelBag)
+        validateJSONEncoding(
+            encoder: sut,
+            requestData: requestData,
+            requestParameter: requestParameter,
+            expectation: expectation,
+            expectationError: expectationError
+        )
         
         wait(for: [expectation], timeout: 1.0)
     }
     
     func test_URL이Nil일때_missingURL_에러반환() {
         let requestData = URLRequestMockData.nilURLRequest
-        let requestParameter = EncodableParameterMockData.validtestDatas
+        let requestParameter = EncodableParameterMockData.validEncodableParameter
         
-        let expectation = XCTestExpectation(description: "Nil parameters should fail")
+        let expectation = XCTestExpectation(description: "URL이 Nil이어서 실패했습니다!")
+        let expectationError: HMHNetworkError.ParameterEncodingError = .missingURL
         
-        sut.encode(requestData, with: requestParameter)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTAssertEqual(error, .missingURL)
-                    expectation.fulfill()
-                }
-            }, receiveValue: { _ in
-                XCTFail("Expected failure, but got success")
-            })
-            .store(in: cancelBag)
+        validateJSONEncoding(
+            encoder: sut,
+            requestData: requestData,
+            requestParameter: requestParameter,
+            expectation: expectation,
+            expectationError: expectationError
+        )
         
         wait(for: [expectation], timeout: 1.0)
     }
@@ -100,18 +120,16 @@ extension JSONEncodingTest {
         let requestData = URLRequestMockData.nilURLRequest
         let requestParameter = EncodableParameterMockData.nilParameters
         
-        let expectation = XCTestExpectation(description: "Nil parameters should fail")
+        let expectation = XCTestExpectation(description: "URL과 파라미터가 둘다 Nil이어서 (파라미터 먼저 처리) 실패했습니다!")
+        let expectationError: HMHNetworkError.ParameterEncodingError = .invalidJSON
         
-        sut.encode(requestData, with: requestParameter)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTAssertEqual(error, .invalidJSON)
-                    expectation.fulfill()
-                }
-            }, receiveValue: { _ in
-                XCTFail("Expected failure, but got success")
-            })
-            .store(in: cancelBag)
+        validateJSONEncoding(
+            encoder: sut,
+            requestData: requestData,
+            requestParameter: requestParameter,
+            expectation: expectation,
+            expectationError: expectationError
+        )
         
         wait(for: [expectation], timeout: 1.0)
     }
@@ -120,18 +138,16 @@ extension JSONEncodingTest {
         let requestData = URLRequestMockData.validRequestData
         let requestParameter = EncodableParameterMockData.nonEncodableParameter
         
-        let expectation = XCTestExpectation(description: "JSON 인코딩에 실패했습니다!")
+        let expectation = XCTestExpectation(description: "Encodable타입의 객체가 아니어서 실패했습니다!")
+        let expectationError: HMHNetworkError.ParameterEncodingError = .invalidJSON
         
-        sut.encode(requestData, with: requestParameter)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTAssertEqual(error, .invalidJSON, "\(requestParameter)")
-                    expectation.fulfill()
-                }
-            }, receiveValue: { _ in
-                XCTFail("Expected failure, but got success \(requestParameter)")
-            })
-            .store(in: cancelBag)
+        validateJSONEncoding(
+            encoder: sut,
+            requestData: requestData,
+            requestParameter: requestParameter,
+            expectation: expectation,
+            expectationError: expectationError
+        )
         
         wait(for: [expectation], timeout: 1.0)
     }
