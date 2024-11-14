@@ -8,13 +8,13 @@
 
 import Foundation
 
-@frozen public enum HMHNetworkError: Error {
+@frozen public enum HMHNetworkError: Error, Equatable {
     case invalidRequest(RequestError)
     case invalidResponse(ResponseError)
     case decodingFailed(DecodeError)
     case oautheticationError(AuthrizationError)
     case retryLimitExceeded
-    case unknown(Error)
+    case unknownError
     
     var description: String {
         switch self {
@@ -28,8 +28,8 @@ import Foundation
             return authError.description
         case .retryLimitExceeded:
             return "네트워크 요청 횟수를 초과하였습니다!"
-        case .unknown(let error):
-            return "알 수 없는 오류 \(error)가 발생하였습니다!"
+        case .unknownError:
+            return "알 수 없는 오류가 발생하였습니다!"
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 extension HMHNetworkError {
-    public enum ParameterEncodingError: Error {
+    public enum ParameterEncodingError: Error, Equatable {
         case emptyParameters // 파라미터가 비어있을 때
         case missingURL // url이 없을때
         case invalidJSON // json 형식에 맞지 않을때

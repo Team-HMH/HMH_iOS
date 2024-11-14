@@ -9,7 +9,7 @@
 import Foundation
 
 extension HMHNetworkError {
-    public enum AuthrizationError: Error {
+    public enum AuthrizationError: Error, Equatable {
         case kakaoLoginError
         case appleLoginError
         

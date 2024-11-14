@@ -27,7 +27,7 @@ extension ParameterEncodingTest {
                 requestParameter: parameter,
                 expectation: expectation
             ) { validRequest in
-                EncodingValidationHandler.checkValidHTTPBody(
+                RequestTestHandler.checkValidHTTPBody(
                     expectation: expectation,
                     validRequest: validRequest,
                     expectedParameter: parameter

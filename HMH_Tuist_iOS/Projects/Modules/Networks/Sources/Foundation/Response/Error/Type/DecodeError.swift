@@ -9,7 +9,7 @@
 import Foundation
 
 extension HMHNetworkError {
-    public enum DecodeError: Error {
+    public enum DecodeError: Error, Equatable {
         case failed
         case dataIsNil
         

@@ -9,7 +9,7 @@
 import Foundation
 
 extension HMHNetworkError {
-    public enum ResponseError: Error {
+    public enum ResponseError: Error, Equatable {
         case cancelled
         case unhandled
         case invalidStatusCode(code: Int, message: String? = nil)

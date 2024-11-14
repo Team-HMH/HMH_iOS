@@ -12,15 +12,14 @@ import Combine
 import Core
 
 public struct RequestHandler {
-    
-    // URLRequest 생성
+    /// URLRequest 생성
     static public func createURLRequest<T: URLRequestTargetType>(for target: T) -> AnyPublisher<URLRequest, HMHNetworkError> {
         return target.asURLRequest()
             .mapError { ErrorHandler.handleRequestError(target, error: $0) }
             .eraseToAnyPublisher()
     }
     
-    // 인터셉터 적용
+    /// 인터셉터 적용
     static public func applyInterceptorIfNeeded(_ urlRequest: URLRequest, for target: URLRequestTargetType) -> AnyPublisher<URLRequest, HMHNetworkError> {
         if target.isWithInterceptor {
             return TokenInterceptor.shared.adapt(urlRequest)

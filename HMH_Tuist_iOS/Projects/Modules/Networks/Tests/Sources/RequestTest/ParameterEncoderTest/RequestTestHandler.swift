@@ -9,7 +9,9 @@
 import Foundation
 import XCTest
 
-struct EncodingValidationHandler {
+import Networks
+
+struct RequestTestHandler {
     static func checkValidHTTPBody(expectation: XCTestExpectation, validRequest: URLRequest, expectedParameter: Encodable) {
         do {
             let validJSON = try JSONSerialization.jsonObject(with: validRequest.httpBody!, options: []) as? [String: Any]
@@ -35,5 +37,22 @@ struct EncodingValidationHandler {
         let sortedExpectedQueryItems = expectedQueryItems.sorted(by: { $0.name < $1.name })
         
         XCTAssertEqual(sortedQueryItems, sortedExpectedQueryItems)
+    }
+    
+    static func makeMockRequest(
+        url: String = "https://example.com",
+        path: String? = nil,
+        method: HTTPMethod = .get,
+        task: Task = .requestPlain,
+        headers: [String:String]? = ["Authorization": "Bearer token"]
+    ) -> MockRequest {
+        return MockRequest(
+            url: url,
+            path: path,
+            method: method,
+            headers: headers,
+            task: task,
+            isWithInterceptor: true
+        )
     }
 }

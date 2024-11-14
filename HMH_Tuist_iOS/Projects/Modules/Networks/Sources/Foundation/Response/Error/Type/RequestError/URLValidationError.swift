@@ -9,7 +9,7 @@
 import Foundation
 
 extension HMHNetworkError {
-    public enum URLValidationError: Error {
+    public enum URLValidationError: Error, Equatable {
         case emptyurlString
         case invalidProtocol
         case invalidPort

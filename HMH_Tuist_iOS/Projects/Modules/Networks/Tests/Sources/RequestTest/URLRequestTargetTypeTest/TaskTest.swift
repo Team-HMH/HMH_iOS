@@ -77,7 +77,7 @@ extension TaskTest {
                 XCTAssertEqual(validRequest.httpMethod, self.method.rawValue)
                 XCTAssertEqual(validRequest.allHTTPHeaderFields, self.headers)
                 
-                EncodingValidationHandler.checkValidQuaryItem(
+                RequestTestHandler.checkValidQuaryItem(
                     expectation: expectation,
                     validRequest: validRequest,
                     expectedQueryItems: parameter.expectedQueryItems
@@ -126,7 +126,7 @@ extension TaskTest {
                 XCTAssertEqual(validRequest.url, self.baseURL)
                 XCTAssertEqual(validRequest.httpMethod, self.method.rawValue)
                 XCTAssertEqual(validRequest.allHTTPHeaderFields, self.headers)
-                EncodingValidationHandler.checkValidHTTPBody(
+                RequestTestHandler.checkValidHTTPBody(
                     expectation: expectation,
                     validRequest: validRequest,
                     expectedParameter: parameter

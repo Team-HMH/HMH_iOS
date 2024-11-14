@@ -26,7 +26,7 @@ extension ParameterEncodingTest {
                 requestParameter: parameter.parameters,
                 expectation: expectation
             ) { validRequest in
-                EncodingValidationHandler.checkValidQuaryItem(
+                RequestTestHandler.checkValidQuaryItem(
                     expectation: expectation,
                     validRequest: validRequest,
                     expectedQueryItems: parameter.expectedQueryItems
