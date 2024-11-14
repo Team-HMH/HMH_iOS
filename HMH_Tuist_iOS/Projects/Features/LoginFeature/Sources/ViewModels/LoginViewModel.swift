@@ -7,26 +7,43 @@
 //
 
 import Foundation
+import Combine
 
 import Core
 import Domain
 
-final class LoginViewModel: ObservableObject {
-    @Published var loginStatus: LoginResponseType = .loginFailure
-    
-    private var cancelBag = CancelBag()
+public final class LoginViewModel: ObservableObject {
     
     private let loginUseCase: LoginUseCaseType
+    private var cancelBag = CancelBag()
     
-    init(loginUseCase: LoginUseCaseType) {
+    // 화면 이동 로직에 적용 필요
+    @Published private(set) var state = State(loginStatus: .loginFailure)
+    
+    public init(loginUseCase: LoginUseCaseType) {
         self.loginUseCase = loginUseCase
     }
     
-    func handleLoginButton(provider: OAuthProviderType) {
-        loginUseCase.login(provider: provider)
-            .sink(receiveCompletion: { _ in }) { [weak self] response in
-                self?.loginStatus = response
-            }
-            .store(in: cancelBag)
+    // MARK: Action
+    
+    enum Action {
+        case loginButtonDidTap(provider: OAuthProviderType)
+    }
+    
+    // MARK: State
+    
+    struct State {
+        var loginStatus: LoginResponseType
+    }
+    
+    func send(action: Action) {
+        switch action {
+        case .loginButtonDidTap(let provider):
+            loginUseCase.login(provider: provider)
+                .sink(receiveCompletion: { _ in }) { [weak self] response in
+                    self?.state.loginStatus = response
+                }
+                .store(in: cancelBag)
+        }
     }
 }
