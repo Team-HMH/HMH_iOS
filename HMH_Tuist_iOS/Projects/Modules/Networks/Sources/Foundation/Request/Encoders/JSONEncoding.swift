@@ -9,29 +9,28 @@
 import Foundation
 import Combine
 
-public struct JSONEncoding: ParameterEncoding {
+public protocol JSONEncodingType {
+    func encode(_ request: URLRequest, with parameters: Encodable) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError>
+}
+
+public struct JSONEncoding: JSONEncodingType {
     public init() {}
     
-    public func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError> {
+    public func encode(_ request: URLRequest, with parameters: Encodable) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError> {
         
-        var request = request
-        
-        guard let encodable = parameters as? Encodable else {
-            return Fail(error: .invalidJSON).eraseToAnyPublisher()
-        }
-        
-        
-        return RequestDataValidator.validateWithEncodable(encodable, request.url)
-            .tryMap { parameters, _ -> URLRequest in
+        return Just(request)
+            .tryMap { request in
+                var modifiedRequest = request
+                
                 do {
                     let data = try JSONEncoder().encode(parameters)
-                    request.httpBody = data
-                    return request
+                    modifiedRequest.httpBody = data
+                    return modifiedRequest
                 } catch {
-                    throw HMHNetworkError.invalidRequest(.parameterEncodingFailed(.jsonEncodingFailed))
+                    throw HMHNetworkError.ParameterEncodingError.jsonEncodingFailed
                 }
             }
-            .mapError { $0 as! HMHNetworkError.ParameterEncodingError } //TODO: 예외 상황이 없는거 같아서..
+            .mapError { _ in HMHNetworkError.ParameterEncodingError.unknownErr }
             .eraseToAnyPublisher()
     }
 }

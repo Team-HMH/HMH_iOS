@@ -11,8 +11,8 @@ import Combine
 
 public enum Task {
     case requestPlain
-    case requestParameters(Parameters, encoder: ParameterEncoding = URLEncoding())
-    case requestJSONEncodable(Encodable, encoder: ParameterEncoding = JSONEncoding())
+    case requestParameters(Parameters, urlencoder: URLEncodingType = URLEncoding())
+    case requestJSONEncodable(Encodable, jsonencoder: JSONEncodingType = JSONEncoding())
 }
 
 extension Task {
