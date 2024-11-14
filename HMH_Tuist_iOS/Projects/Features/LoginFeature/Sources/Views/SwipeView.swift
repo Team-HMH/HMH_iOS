@@ -17,7 +17,7 @@ struct SwipeView: View {
             TabView(selection: Binding(
                 get: { viewModel.state.swipeImageIndex },
                 set: { index in
-                    viewModel.send(action: .setSwipeIndex(index: index))
+                    viewModel.send(action: .swipeButtonDidTap(index: index))
                 }
             )) {
                 ForEach(0..<swipeImages.count, id: \.self) { index in
@@ -36,7 +36,7 @@ struct SwipeView: View {
                     Rectangle()
                         .fill(viewModel.state.swipeImageIndex == index ? Color(.white) : Color(DSKitAsset.gray2.swiftUIColor))
                         .frame(width: 8, height: 8)
-                        .onTapGesture {                                viewModel.send(action: .setSwipeIndex(index: index))
+                        .onTapGesture {                                viewModel.send(action: .swipeButtonDidTap(index: index))
                         }
                 }
             }
