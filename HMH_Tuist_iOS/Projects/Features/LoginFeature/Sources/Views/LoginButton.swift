@@ -17,7 +17,7 @@ struct LoginButton: View {
     
     var body: some View {
         Button(action: {
-            viewModel.handleLoginButton(provider: loginProvider)
+            viewModel.send(action: .loginButtonDidTap(provider: loginProvider))
         }) {
             RoundedRectangle(cornerRadius: 6.3)
                 .frame(width:336, height: 51)
