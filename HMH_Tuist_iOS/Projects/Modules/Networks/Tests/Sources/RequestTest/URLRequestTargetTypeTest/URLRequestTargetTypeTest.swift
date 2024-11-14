@@ -110,54 +110,14 @@ class URLRequestTargetTypeTest: XCTestCase {
     }
     
     func test_asURLRequest_다양한QueryParameters_정렬된파라미터비교() {
-        let parameterCases: [(parameters: [String: Any], expectedQueryItems: [URLQueryItem])] = [
-            // 단순 키-값 쌍
-            (parameters: ["key1": "value1", "key2": "value2"],
-             expectedQueryItems: [URLQueryItem(name: "key1", value: "value1"),
-                                  URLQueryItem(name: "key2", value: "value2")]),
-            
-            // 특수 문자 포함
-            (parameters: ["specialChars": "!@#$%^&*()"],
-             expectedQueryItems: [URLQueryItem(name: "specialChars", value: "!@#$%^&*()")]),
-            
-            // 공백 포함
-            (parameters: ["space": "a value with spaces"],
-             expectedQueryItems: [URLQueryItem(name: "space", value: "a value with spaces")]),
-            
-            // 다국어 (한국어)
-            (parameters: ["korean": "한글"],
-             expectedQueryItems: [URLQueryItem(name: "korean", value: "한글")]),
-            
-            // 숫자 포함
-            (parameters: ["integer": 123, "float": 45.67],
-             expectedQueryItems: [URLQueryItem(name: "integer", value: "123"),
-                                  URLQueryItem(name: "float", value: "45.67")]),
-            
-            // Boolean 값 포함
-            (parameters: ["isTrue": true, "isFalse": false],
-             expectedQueryItems: [URLQueryItem(name: "isTrue", value: "true"),
-                                  URLQueryItem(name: "isFalse", value: "false")]),
-            
-            // 빈 값
-            (parameters: ["empty": ""],
-             expectedQueryItems: [URLQueryItem(name: "empty", value: "")]),
-            
-            // 대소문자 구별 키
-            (parameters: ["Key": "UpperCase", "key": "LowerCase"],
-             expectedQueryItems: [URLQueryItem(name: "Key", value: "UpperCase"),
-                                  URLQueryItem(name: "key", value: "LowerCase")]),
-            
-            // JSON-like 객체 (기대되는 형식으로 변환 시)
-            (parameters: ["json": "{\"name\":\"test\",\"age\":30}"],
-             expectedQueryItems: [URLQueryItem(name: "json", value: "{\"name\":\"test\",\"age\":30}")])
-        ]
+        let parameterCases = ParameterValidatorMockData.validParameters
         
         for caseData in parameterCases {
             let target: URLRequestTargetType = MockRequest(
                 url: self.baseURL,
                 path: self.path,
-                method: .get,
-                headers: nil,
+                method: method,
+                headers: headers,
                 task: .requestParameters(caseData.parameters),
                 isWithInterceptor: true
             )
@@ -169,19 +129,12 @@ class URLRequestTargetTypeTest: XCTestCase {
                     if case .failure = completion {
                         XCTFail("Expected success but got failure \(completion)")
                     }
-                }, receiveValue: { request in
-                    // URLComponents로 쿼리 파라미터 분석
-                    guard let url = request.url,
-                          let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                          let queryItems = components.queryItems else {
-                        XCTFail("Invalid URL or missing query parameters")
-                        return
-                    }
-                    
-                    let sortedQueryItems = queryItems.sorted(by: { $0.name < $1.name })
-                    let sortedExpectedQueryItems = caseData.expectedQueryItems.sorted(by: { $0.name < $1.name })
-                    
-                    XCTAssertEqual(sortedQueryItems, sortedExpectedQueryItems)
+                }, receiveValue: { validRequest in
+                    EncodingValidationHandler.checkValidQuaryItem(
+                        expectation: expectation,
+                        validRequest: validRequest,
+                        expectedQueryItems: caseData.expectedQueryItems
+                    )
                     expectation.fulfill()
                 })
                 .store(in: cancelBag)
@@ -189,75 +142,31 @@ class URLRequestTargetTypeTest: XCTestCase {
     }
     
     func test_asURLRequest_다양한JSONEncodingParameters_바디비교() {
-        let parameterCases: [(parameters: Encodable, expectedJSON: [String: Any])] = [
-            // 단순 키-값 쌍
-            (parameters: ["key1": "value1", "key2": "value2"],
-             expectedJSON: ["key1": "value1", "key2": "value2"]),
-            
-            // 특수 문자 포함
-            (parameters: ["specialChars": "!@#$%^&*()"],
-             expectedJSON: ["specialChars": "!@#$%^&*()"]),
-            
-            // 공백 포함
-            (parameters: ["space": "a value with spaces"],
-             expectedJSON: ["space": "a value with spaces"]),
-            
-            // 다국어 (한국어)
-            (parameters: ["korean": "한글"],
-             expectedJSON: ["korean": "한글"]),
-            
-            // 숫자 포함
-            (parameters: ["integer": 123, "float": 45.67],
-             expectedJSON: ["integer": 123, "float": 45.67]),
-            
-            // Boolean 값 포함
-            (parameters: ["isTrue": true, "isFalse": false],
-             expectedJSON: ["isTrue": true, "isFalse": false]),
-            
-            // 빈 값
-            (parameters: ["empty": ""],
-             expectedJSON: ["empty": ""]),
-            
-            // 대소문자 구별 키
-            (parameters: ["Key": "UpperCase", "key": "LowerCase"],
-             expectedJSON: ["Key": "UpperCase", "key": "LowerCase"]),
-            
-            // JSON-like 객체
-//            (parameters: ["json": ["name": "test", "age": 30]],
-//             expectedJSON: ["json": ["name": "test", "age": 30]])
-        ]
+        let parameterCases = EncodableParameterMockData.validParameters
         
         for caseData in parameterCases {
             let target: URLRequestTargetType = MockRequest(
                 url: self.baseURL,
                 path: self.path,
                 method: .post,
-                headers: ["Content-Type": "application/json"],
-                task: .requestJSONEncodable(caseData.parameters),
+                headers: headers,
+                task: .requestJSONEncodable(caseData),
                 isWithInterceptor: true
             )
             
-            let expectation = XCTestExpectation(description: "JSON body encoded correctly for \(caseData.parameters)")
+            let expectation = XCTestExpectation(description: "JSON body encoded correctly for \(caseData)")
             
             target.asURLRequest()
                 .sink(receiveCompletion: { completion in
                     if case .failure = completion {
                         XCTFail("Expected success but got failure \(completion)")
                     }
-                }, receiveValue: { request in
-                    // HTTP 바디가 nil이 아닌지 확인
-                    guard let httpBody = request.httpBody else {
-                        XCTFail("HTTP body is nil")
-                        return
-                    }
-                    
-                    // JSON 바디를 Dictionary로 변환하여 비교
-                    do {
-                        let httpBodyJSON = try JSONSerialization.jsonObject(with: httpBody, options: []) as? [String: Any]
-                        XCTAssertEqual(httpBodyJSON as NSDictionary?, caseData.expectedJSON as NSDictionary)
-                    } catch {
-                        XCTFail("Failed to decode HTTP body to JSON: \(error)")
-                    }
+                }, receiveValue: { validRequest in
+                    EncodingValidationHandler.checkValidHTTPBody(
+                        expectation: expectation,
+                        validRequest: validRequest,
+                        expectedParameter: caseData
+                    )
                     
                     expectation.fulfill()
                 })
