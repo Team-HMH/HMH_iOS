@@ -74,19 +74,15 @@ extension TaskTest {
             let expectation = XCTestExpectation(description: "requestParameter일때 \(parameter)에 대한 유효한 urlRequest를 반환합니다!")
             
             validTaskBuildRequest(task: task, expectation: expectation) { validRequest in
-                guard let url = validRequest.url,
-                      let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                      let queryItems = components.queryItems else {
-                    XCTFail("Invalid URL or missing query parameters")
-                    return
-                }
-                
-                let sortedQueryItems = queryItems.sorted(by: { $0.name < $1.name })
-                let sortedExpectedQueryItems = parameter.expectedQueryItems.sorted(by: { $0.name < $1.name })
-                
-                XCTAssertEqual(sortedQueryItems, sortedExpectedQueryItems)
                 XCTAssertEqual(validRequest.httpMethod, self.method.rawValue)
                 XCTAssertEqual(validRequest.allHTTPHeaderFields, self.headers)
+                
+                EncodingValidationHandler.checkValidQuaryItem(
+                    expectation: expectation,
+                    validRequest: validRequest,
+                    expectedQueryItems: parameter.expectedQueryItems
+                )
+                
                 expectation.fulfill()
             }
             
@@ -127,21 +123,15 @@ extension TaskTest {
             let expectation = XCTestExpectation(description: "requestJSONEncodable일때 \(parameter)에 대한 유효한 urlRequest를 반환합니다!")
             
             validTaskBuildRequest(task: task, expectation: expectation) { validRequest in
-                do {
-                    let validJSON = try JSONSerialization.jsonObject(with: validRequest.httpBody!, options: []) as? [String: Any]
-                    
-                    let expectedData = try JSONEncoder().encode(parameter)
-                    let expectedJSON = try JSONSerialization.jsonObject(with: expectedData, options: []) as? [String: Any]
-                    
-                    XCTAssertEqual(validJSON as NSDictionary?, expectedJSON as NSDictionary?, "파라미터가 예상 결과와 일치하지 않습니다.")
-                    XCTAssertEqual(validRequest.url, self.baseURL)
-                    XCTAssertEqual(validRequest.httpMethod, self.method.rawValue)
-                    XCTAssertEqual(validRequest.allHTTPHeaderFields, self.headers)
-                    expectation.fulfill()
-                } catch {
-                    XCTFail("JSON 처리 중 오류 발생: \(error)")
-                    expectation.fulfill()
-                }
+                XCTAssertEqual(validRequest.url, self.baseURL)
+                XCTAssertEqual(validRequest.httpMethod, self.method.rawValue)
+                XCTAssertEqual(validRequest.allHTTPHeaderFields, self.headers)
+                EncodingValidationHandler.checkValidHTTPBody(
+                    expectation: expectation,
+                    validRequest: validRequest,
+                    expectedParameter: parameter
+                )
+                expectation.fulfill()
             }
             wait(for: [expectation], timeout: 1.0 * Double(requestEncodableParameter.count))
         }

@@ -26,18 +26,11 @@ extension ParameterEncodingTest {
                 requestParameter: parameter.parameters,
                 expectation: expectation
             ) { validRequest in
-                guard let url = validRequest.url,
-                      let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                      let queryItems = components.queryItems else {
-                    XCTFail("Invalid URL or missing query parameters")
-                    return
-                }
-                
-                let sortedQueryItems = queryItems.sorted(by: { $0.name < $1.name })
-                let sortedExpectedQueryItems = parameter.expectedQueryItems.sorted(by: { $0.name < $1.name })
-                
-                XCTAssertEqual(sortedQueryItems, sortedExpectedQueryItems)
-                expectation.fulfill()
+                EncodingValidationHandler.checkValidQuaryItem(
+                    expectation: expectation,
+                    validRequest: validRequest,
+                    expectedQueryItems: parameter.expectedQueryItems
+                )
             }
         }
         

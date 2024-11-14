@@ -27,18 +27,12 @@ extension ParameterEncodingTest {
                 requestParameter: parameter,
                 expectation: expectation
             ) { validRequest in
-                do {
-                    let validJSON = try JSONSerialization.jsonObject(with: validRequest.httpBody!, options: []) as? [String: Any]
-                    
-                    let expectedData = try JSONEncoder().encode(parameter)
-                    let expectedJSON = try JSONSerialization.jsonObject(with: expectedData, options: []) as? [String: Any]
-                    
-                    XCTAssertEqual(validJSON as NSDictionary?, expectedJSON as NSDictionary?, "파라미터가 예상 결과와 일치하지 않습니다.")
-                    expectation.fulfill()
-                } catch {
-                    XCTFail("JSON 처리 중 오류 발생: \(error)")
-                    expectation.fulfill()
-                }
+                EncodingValidationHandler.checkValidHTTPBody(
+                    expectation: expectation,
+                    validRequest: validRequest,
+                    expectedParameter: parameter
+                )
+                expectation.fulfill()
             }
         }
         

@@ -9,8 +9,7 @@
 import Foundation
 import Combine
 
-import Foundation
-import Combine
+import Networks
 
 public struct MockParameterEncoding: ParameterEncoding {
     private let error: HMHNetworkError.ParameterEncodingError
