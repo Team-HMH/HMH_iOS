@@ -7,12 +7,28 @@
 //
 
 import Foundation
+import Networks
 
 struct URLValidatorMockData {
     let validURLData: [String] = [
     ]
     
     static let invalidURLData: [String] = invalidProtocolURL + invalidPortURL + invalidPathURL + invalidQueryURL
+    
+    static let urlTargetTypeMockData: [(url: String, path: String?, expectedURL: String?, error: HMHNetworkError.RequestError?)] = [
+            (url: "http://example.com", path: "validPath", expectedURL: "http://example.com/validPath", error: nil),
+            (url: "https://example.com", path: "api/v1", expectedURL: "https://example.com/api/v1", error: nil),
+            (url: "", path: nil, expectedURL: nil, error: .invalidURL("", .emptyurlString)),
+            (url: "www.example.com", path: nil, expectedURL: nil, error: .invalidURL("www.example.com", .invalidProtocol)),
+            (url: "htp://example.com", path: nil, expectedURL: nil, error: .invalidURL("htp://example.com", .invalidProtocol)),
+            (url: "https://example.com:99999", path: nil, expectedURL: nil, error: .invalidURL("https://example.com:99999", .invalidPort)),
+            (url: "http://example.com", path: "path|with|pipes", expectedURL: nil, error: .invalidURL("http://example.com/path|with|pipes", .invalidPath)),
+            (url: "http://example.com", path: "path with spaces", expectedURL: nil, error: .invalidURL("http://example.com/path with spaces", .invalidPath)),
+            (url: "http://example.com", path: "/double/slash", expectedURL: nil, error: .invalidURL("http://example.com//double/slash", .invalidPath)),
+            (url: "http://example.com", path: "path#section", expectedURL: nil, error: .invalidURL("http://example.com/path#section", .invalidPath)),
+            (url: "http://example.com", path: "api?keyvalue", expectedURL: nil, error: .invalidURL("http://example.com/api?keyvalue", .invalidQueryParameter)),
+            (url: "http://example.com", path: "api?key=value&&another=value", expectedURL: nil, error: .invalidURL("http://example.com/api?key=value&&another=value", .invalidQueryParameter))
+        ]
 }
 
 extension URLValidatorMockData {

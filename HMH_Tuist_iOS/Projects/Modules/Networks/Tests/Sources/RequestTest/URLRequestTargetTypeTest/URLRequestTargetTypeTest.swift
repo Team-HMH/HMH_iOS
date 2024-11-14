@@ -24,9 +24,7 @@ struct MockRequest: URLRequestTargetType {
 class URLRequestTargetTypeTest: XCTestCase {
     
     var cancelBag: CancelBag!
-    let baseURL = "https://example.com"
     let method: HTTPMethod = .get
-    let path = "test"
     let headers = ["Authorization": "Bearer token"]
     
     override func setUpWithError() throws {
@@ -37,28 +35,41 @@ class URLRequestTargetTypeTest: XCTestCase {
     override func tearDown() {
         cancelBag = nil
     }
+}
     
-    func test_asURLRequest_유효한URL이주어질때_정상적인변환() {
-        let successCases: [(url: String, path: String?, expectedURL: String)] = [
-            (url: "http://example.com", path: "validPath", expectedURL: "http://example.com/validPath"),
-            (url: "https://example.com", path: "api/v1", expectedURL: "https://example.com/api/v1")
-        ]
-        for caseData in successCases {
-            let target: URLRequestTargetType = MockRequest(
-                url: caseData.url,
-                path: caseData.path,
-                method: method,
-                headers: headers,
-                task: .requestPlain,
-                isWithInterceptor: true
-            )
-            
-            let expectation = XCTestExpectation(description: "Success case for \(caseData.expectedURL)")
+extension URLRequestTargetTypeTest {
+    private func makeMockRequest(
+        url: String = "https://example.com",
+        path: String? = nil,
+        method: HTTPMethod = .get,
+        task: Task = .requestPlain
+    ) -> MockRequest {
+        return MockRequest(
+            url: url,
+            path: path,
+            method: method,
+            headers: headers,
+            task: task,
+            isWithInterceptor: true
+        )
+    }
+
+    func test_asURLRequest_다양한케이스URL이주어질때_적절히변환() {
+        let urlCases = URLValidatorMockData.urlTargetTypeMockData
+        for caseData in urlCases {
+            let target = makeMockRequest(url: caseData.url, path: caseData.path)
+            let expectation = XCTestExpectation(description: "해당 URL에 대한 결과를 적절히 변환하였습니다!")
             
             target.asURLRequest()
                 .sink(receiveCompletion: { completion in
-                    if case .failure = completion {
-                        XCTFail("Expected success but got failure \(completion)")
+                    if case .failure(let error) = completion {
+                        XCTAssertEqual(error, caseData.error)
+                        expectation.fulfill()
+                    } else {
+                        if case .failure(let error) = completion {
+                            XCTFail("Expected success, but got error: \(error)")
+                            expectation.fulfill()
+                        }
                     }
                 }, receiveValue: { request in
                     XCTAssertEqual(request.url?.absoluteString, caseData.expectedURL)
@@ -70,57 +81,11 @@ class URLRequestTargetTypeTest: XCTestCase {
         }
     }
     
-    func test_asURLRequest_유효하지않은URL이주어질때_에러변환() {
-        let failureCases: [(url: String, path: String?, error: HMHNetworkError.RequestError)] = [
-            (url: "", path: nil, error: .invalidURL("", .emptyurlString)),
-            (url: "www.example.com", path: nil, error: .invalidURL("www.example.com", .invalidProtocol)),
-            (url: "htp://example.com", path: nil, error: .invalidURL("htp://example.com", .invalidProtocol)),
-            (url: "https://example.com:99999", path: nil, error: .invalidURL("https://example.com:99999", .invalidPort)),
-            (url: "http://example.com", path: "path|with|pipes", error: .invalidURL("http://example.com/path|with|pipes", .invalidPath)),
-            (url: "http://example.com", path: "path with spaces", error: .invalidURL("http://example.com/path with spaces", .invalidPath)),
-            (url: "http://example.com", path: "/double/slash", error: .invalidURL("http://example.com//double/slash", .invalidPath)),
-            (url: "http://example.com", path: "path#section", error: .invalidURL("http://example.com/path#section", .invalidPath)),
-            (url: "http://example.com", path: "api?keyvalue", error: .invalidURL("http://example.com/api?keyvalue", .invalidQueryParameter)),
-            (url: "http://example.com", path: "api?key=value&&another=value", error: .invalidURL("http://example.com/api?key=value&&another=value", .invalidQueryParameter))
-        ]
-        
-        for caseData in failureCases {
-            let target: URLRequestTargetType = MockRequest(
-                url: caseData.url,
-                path: caseData.path,
-                method: method,
-                headers: headers,
-                task: .requestPlain,
-                isWithInterceptor: true
-            )
-            
-            let expectation = XCTestExpectation(description: "Failure case for \(caseData.url)")
-            
-            target.asURLRequest()
-                .sink(receiveCompletion: { completion in
-                    if case .failure(let error) = completion {
-                        XCTAssertEqual(error, caseData.error)
-                        expectation.fulfill()
-                    }
-                }, receiveValue: { request in
-                    XCTFail("Expected failure, but got success for URL: \(caseData.url)")
-                })
-                .store(in: cancelBag)
-        }
-    }
-    
     func test_asURLRequest_다양한QueryParameters_정렬된파라미터비교() {
         let parameterCases = ParameterValidatorMockData.validParameters
         
         for caseData in parameterCases {
-            let target: URLRequestTargetType = MockRequest(
-                url: self.baseURL,
-                path: self.path,
-                method: method,
-                headers: headers,
-                task: .requestParameters(caseData.parameters),
-                isWithInterceptor: true
-            )
+            let target = makeMockRequest(task: .requestParameters(caseData.parameters))
             
             let expectation = XCTestExpectation(description: "Query parameters encoded correctly for \(caseData.parameters)")
             
@@ -145,14 +110,7 @@ class URLRequestTargetTypeTest: XCTestCase {
         let parameterCases = EncodableParameterMockData.validParameters
         
         for caseData in parameterCases {
-            let target: URLRequestTargetType = MockRequest(
-                url: self.baseURL,
-                path: self.path,
-                method: .post,
-                headers: headers,
-                task: .requestJSONEncodable(caseData),
-                isWithInterceptor: true
-            )
+            let target = makeMockRequest(task: .requestJSONEncodable(caseData))
             
             let expectation = XCTestExpectation(description: "JSON body encoded correctly for \(caseData)")
             
@@ -174,3 +132,5 @@ class URLRequestTargetTypeTest: XCTestCase {
         }
     }
 }
+
+    
