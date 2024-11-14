@@ -30,7 +30,7 @@ public final class LoginUseCase: LoginUseCaseType {
         self.repository = repository
     }
     
-    public func login(provider: Domain.OAuthProviderType) -> AnyPublisher<LoginResponseType, Domain.AuthError> {
+    public func login(provider: OAuthProviderType) -> AnyPublisher<LoginResponseType, Domain.AuthError> {
         repository.authorize(provider)
             .handleEvents(receiveOutput: { socialToken in
                 UserManager.shared.socialToken = socialToken
@@ -46,11 +46,11 @@ public final class LoginUseCase: LoginUseCaseType {
                         switch error {
                         case .unregisteredUser:
                             return Just(.onboardingNeeded)
-                                .setFailureType(to: Domain.AuthError.self)
+                                .setFailureType(to: AuthError.self)
                                 .eraseToAnyPublisher()
                         default:
                             return Just(.loginFailure)
-                                .setFailureType(to: Domain.AuthError.self)
+                                .setFailureType(to: AuthError.self)
                                 .eraseToAnyPublisher()
                         }
                     }
