@@ -16,11 +16,15 @@ public struct URLEncoding: ParameterEncoding {
     public func encode(_ request: URLRequest, with parameters: Any?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError> {
         var request = request
         
+        guard let url = request.url else {
+            return Fail(error: .missingURL).eraseToAnyPublisher()
+        }
+        
         guard let parameters = parameters as? Parameters else {
             return Fail(error: .invalidParametersType).eraseToAnyPublisher()
         }
         
-        return RequestDataValidator.validateWithParameters(parameters, request.url)
+        return RequestDataValidator.validateWithParameters(parameters, url)
             .map { parameters, url -> URLRequest in
                 if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) {
                     urlComponents.queryItems = parameters.compactMap { key, value in

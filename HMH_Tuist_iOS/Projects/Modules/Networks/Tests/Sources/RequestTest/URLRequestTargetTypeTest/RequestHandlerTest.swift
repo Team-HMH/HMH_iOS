@@ -69,7 +69,7 @@ extension RequestHandlerTests {
             RequestHandler.createURLRequest(for: target)
                 .sink(receiveCompletion: { completion in
                     if case .failure = completion {
-                        XCTFail("Expected success but got failure \(completion)")
+                        XCTFail("Expected failed: \(completion)")
                     }
                 }, receiveValue: { validRequest in
                     XCTAssertEqual(validRequest.httpMethod, self.method.rawValue)
@@ -96,7 +96,7 @@ extension RequestHandlerTests {
             RequestHandler.createURLRequest(for: target)
                 .sink(receiveCompletion: { completion in
                     if case .failure = completion {
-                        XCTFail("Expected success but got failure \(completion)")
+                        XCTFail("Expected failed: \(completion)")
                     }
                 }, receiveValue: { validRequest in
                     XCTAssertEqual(validRequest.url?.absoluteString, self.url)

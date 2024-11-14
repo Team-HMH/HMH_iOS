@@ -71,12 +71,12 @@ extension URLRequestTargetTypeTest {
         for caseData in parameterCases {
             let target = RequestTestHandler.makeMockRequest(task: .requestParameters(caseData.parameters))
             
-            let expectation = XCTestExpectation(description: "Query parameters encoded correctly for \(caseData.parameters)")
+            let expectation = XCTestExpectation(description: "쿼리파라미터가 성공적으로 인코딩되었습니다! \(caseData.parameters)")
             
             target.asURLRequest()
                 .sink(receiveCompletion: { completion in
                     if case .failure = completion {
-                        XCTFail("Expected success but got failure \(completion)")
+                        XCTFail("Expected failed: \(completion)")
                     }
                 }, receiveValue: { validRequest in
                     RequestTestHandler.checkValidQuaryItem(
@@ -96,12 +96,12 @@ extension URLRequestTargetTypeTest {
         for caseData in parameterCases {
             let target = RequestTestHandler.makeMockRequest(task: .requestJSONEncodable(caseData))
             
-            let expectation = XCTestExpectation(description: "JSON body encoded correctly for \(caseData)")
+            let expectation = XCTestExpectation(description: "JSON body가 성공적으로 인코딩되었습니다! \(caseData)")
             
             target.asURLRequest()
                 .sink(receiveCompletion: { completion in
                     if case .failure = completion {
-                        XCTFail("Expected success but got failure \(completion)")
+                        XCTFail("Expected failed: \(completion)")
                     }
                 }, receiveValue: { validRequest in
                     RequestTestHandler.checkValidHTTPBody(
