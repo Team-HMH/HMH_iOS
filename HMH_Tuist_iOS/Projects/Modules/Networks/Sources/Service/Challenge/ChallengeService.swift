@@ -13,7 +13,7 @@ public typealias ChallengeService = BaseService<ChallengeAPI>
 
 public protocol ChallengeServiceType {
     func getDailyChallenge()  -> AnyPublisher<DailyChallengeResult, HMHNetworkError>
-    func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError>
+    func postSuccesChallenge(request: ChallengeSuccessRequest) -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError>
     func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError>
     func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError>
     func postLockChallenge() -> AnyPublisher<Void, HMHNetworkError>
@@ -27,8 +27,8 @@ extension ChallengeService: ChallengeServiceType {
         return requestWithResult(.getdailyChallenge)
     }
     
-    public func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
-        return requestWithResult(.getSuccesChallenge)
+    public func postSuccesChallenge(request: ChallengeSuccessRequest) -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
+        return requestWithResult(.postSucessChallenge(request: request))
     }
     
     public func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
@@ -63,7 +63,7 @@ struct StubChallengeService: ChallengeServiceType {
             .eraseToAnyPublisher()
     }
     
-    func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
+    func postSuccesChallenge(request: ChallengeSuccessRequest)  -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
