@@ -11,7 +11,7 @@ import Combine
 
 public protocol ChallengeRepositoryType {
     func getdailyChallenge()  -> AnyPublisher<DailyChallengeInfo, ChallengeError>
-    func getSuccesChallenge() -> AnyPublisher<[String], ChallengeError>
+    func postSuccesChallenge(sucessInfo: [ChallengeSuccessInfo]) -> AnyPublisher<[String], ChallengeError>
     func createChallenge(period: Int, goalTime: Int) -> AnyPublisher<Void, ChallengeError>
     func getLockChallenge() -> AnyPublisher<Bool, ChallengeError>
     func postLockChallenge() -> AnyPublisher<Void, ChallengeError>
