@@ -20,29 +20,14 @@ final class PointViewModel: ObservableObject {
     private var cancelBag = CancelBag()
     
     // MARK: Usecase 주입
-    private let fetchPointInfoUseCase: FetchPointInfoUseCase
-    private let fetchUsagePointUseCase: FetchUsagePointUseCase
-    private let fetchTotalPointUseCase: FetchTotalPointUseCase
-    private let usePointUseCase: UsePointUseCase
-    private let earnPointUseCase: EarnPointUseCase
+    private let pointUseCase: PointUseCaseType
     
-    init(
-        fetchPointInfoUseCase: FetchPointInfoUseCase,
-        fetchUsagePointUseCase: FetchUsagePointUseCase,
-        fetchTotalPointUseCase: FetchTotalPointUseCase,
-        usePointUseCase: UsePointUseCase,
-        earnPointUseCase: EarnPointUseCase
-    ) {
-        self.fetchPointInfoUseCase = fetchPointInfoUseCase
-        self.fetchUsagePointUseCase = fetchUsagePointUseCase
-        self.fetchTotalPointUseCase = fetchTotalPointUseCase
-        self.usePointUseCase = usePointUseCase
-        self.earnPointUseCase = earnPointUseCase
+    init(pointUseCase: PointUseCaseType) {
+        self.pointUseCase = pointUseCase
     }
     
-    
     func getEarnPoint() {
-        fetchUsagePointUseCase.execute()
+        pointUseCase.getEarnPoint()
             .sink { _ in } receiveValue: { [weak self] point in
                 self?.earnPoint = point
             }
@@ -52,7 +37,7 @@ final class PointViewModel: ObservableObject {
     func patchEarnPoint(index: Int) {
         let point = pointStatues[index]
         
-        earnPointUseCase.execute(point: point)
+        pointUseCase.earnPoint(point: point)
             .sink(receiveCompletion: { _ in }) { point in
                 print("point \(point)")
             }
@@ -60,7 +45,7 @@ final class PointViewModel: ObservableObject {
     }
     
     func getPointList() {
-        fetchPointInfoUseCase.execute()
+        pointUseCase.getPointStatues()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }) { [weak self] statues in
                 self?.pointStatues = statues
@@ -70,7 +55,7 @@ final class PointViewModel: ObservableObject {
     }
     
     func getCurrentPoint() {
-        fetchTotalPointUseCase.execute()
+        pointUseCase.getUsagePoint()
             .sink(receiveCompletion: {_ in }) { [weak self] totalPoint in
                 self?.totalPoint = totalPoint
                 UserDefaults.standard.set(totalPoint, forKey: "totalPoint")
