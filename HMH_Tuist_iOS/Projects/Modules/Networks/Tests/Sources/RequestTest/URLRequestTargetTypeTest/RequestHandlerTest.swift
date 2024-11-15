@@ -37,16 +37,21 @@ extension RequestHandlerTests {
         for caseData in testCases {
             let target = RequestTestHandler.makeMockRequest(url: caseData.url, path: caseData.path)
             
+            let expectationError: HMHNetworkError? = caseData.error != nil ?
+                .invalidRequest(.invalidURL(caseData.error!)) : nil
+            
             RequestHandler.createURLRequest(for: target)
                 .sink(receiveCompletion: { completion in
-                    if case .failure(let error) = completion {
-                        XCTAssertEqual(error, .invalidRequest(caseData.error!))
+                    switch completion {
+                    case .failure(let error):
+                        XCTAssertEqual(error, expectationError, "Expected success, but got error: \(error)")
                         expectation.fulfill()
-                    } else {
-                        if case .failure(let error) = completion {
-                            XCTFail("Expected success, but got error: \(error)")
-                            expectation.fulfill()
+                        
+                    case .finished:
+                        if expectationError != nil {
+                            XCTFail("Expected error \(String(describing: expectationError)), but received success.")
                         }
+                        expectation.fulfill()
                     }
                 }, receiveValue: { validRequest in
                     XCTAssertEqual(validRequest.url?.absoluteString, caseData.expectedURL)

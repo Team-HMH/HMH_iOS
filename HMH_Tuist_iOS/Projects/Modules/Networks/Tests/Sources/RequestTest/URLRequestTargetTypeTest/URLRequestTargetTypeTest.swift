@@ -12,6 +12,8 @@ import Combine
 import Core
 import Networks
 
+// 그냥 다양한 케이스(성공+실패)가 주어질때 URLRequest를 잘 반환하는지 확인
+
 struct MockRequest: URLRequestTargetType {
     var url: String
     var path: String?
@@ -44,16 +46,20 @@ extension URLRequestTargetTypeTest {
             let target = RequestTestHandler.makeMockRequest(url: caseData.url, path: caseData.path)
             let expectation = XCTestExpectation(description: "해당 URL에 대한 결과를 적절히 변환하였습니다!")
             
+            let expectationError: HMHNetworkError.RequestError? = caseData.error != nil ?
+                .invalidURL(caseData.error!) : nil
+            
             target.asURLRequest()
                 .sink(receiveCompletion: { completion in
-                    if case .failure(let error) = completion {
-                        XCTAssertEqual(error, caseData.error)
+                    switch completion {
+                    case .failure(let error):
+                        XCTAssertEqual(error, expectationError, "Expected success, but got error: \(error)")
                         expectation.fulfill()
-                    } else {
-                        if case .failure(let error) = completion {
-                            XCTFail("Expected success, but got error: \(error)")
-                            expectation.fulfill()
+                    case .finished:
+                        if caseData.error != nil {
+                            XCTFail("Expected error \(String(describing: caseData.error)), but received success.")
                         }
+                        expectation.fulfill()
                     }
                 }, receiveValue: { request in
                     XCTAssertEqual(request.url?.absoluteString, caseData.expectedURL)

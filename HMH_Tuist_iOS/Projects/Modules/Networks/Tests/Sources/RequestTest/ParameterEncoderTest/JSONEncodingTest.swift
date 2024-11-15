@@ -17,9 +17,9 @@ import Networks
 
 struct MockJSONEncoding: JSONEncodingType {
     public init() {}
-    public var jsonEncodeResult: AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError>!
+    public var jsonEncodeResult: AnyPublisher<URLRequest, HMHNetworkError.RequestError.ParameterEncodingError>!
     
-    func encode(_ request: URLRequest, with parameters: Encodable) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError> {
+    func encode(_ request: URLRequest, with parameters: Encodable) -> AnyPublisher<URLRequest, HMHNetworkError.RequestError.ParameterEncodingError> {
         return jsonEncodeResult
     }
 }
@@ -45,7 +45,7 @@ class JsonEncodingTest: XCTestCase {
         requestData: URLRequest,
         requestParameter: Encodable,
         expectation: XCTestExpectation,
-        expectationError: HMHNetworkError.ParameterEncodingError? = nil,
+        expectationError: HMHNetworkError.RequestError.ParameterEncodingError? = nil,
         validationBlock: @escaping ((URLRequest) -> Void) = { _  in})
     {
         encoder.encode(requestData, with: requestParameter)

@@ -102,10 +102,9 @@ extension TaskTest {
         }
     }
     
-    //TODO: 핸들러 붙이고 테스트코드 수정
     func test_requestParameters_파라미터인코딩에러시_에러반환() {
         let requestParameter = ParameterValidatorMockData.validParameter
-        let expectationURLErrorList: [HMHNetworkError.ParameterEncodingError] = [
+        let expectationURLErrorList: [HMHNetworkError.RequestError.ParameterEncodingError] = [
             .emptyParameters,
             .urlEncodingFailed
         ]
@@ -149,10 +148,9 @@ extension TaskTest {
         }
     }
     
-    //TODO: 핸들러 붙이고 테스트코드 수정
     func test_requestJSONEncodable_파라미터인코딩에러시_에러반환() {
         let requestParameter = ParameterValidatorMockData.validParameter
-        let expectationJSONError = HMHNetworkError.ParameterEncodingError.jsonEncodingFailed
+        let expectationJSONError = HMHNetworkError.RequestError.ParameterEncodingError.jsonEncodingFailed
         
         mockURLEncoding.urlEncodeResult = Fail(error: expectationJSONError).eraseToAnyPublisher()
         let task = Task.requestParameters(requestParameter, urlencoder: mockURLEncoding)

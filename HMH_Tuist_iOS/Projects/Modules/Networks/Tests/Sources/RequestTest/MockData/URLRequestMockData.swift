@@ -11,7 +11,6 @@ import Foundation
 public struct URLRequestMockData {
     static let mockURL = URL(string: "https://example.com")!
 
-    // 1. Valid URLRequest with valid parameters
     static public let validRequestData: URLRequest = {
         var request = URLRequest(url: mockURL)
         request.httpMethod = "GET"
@@ -21,7 +20,6 @@ public struct URLRequestMockData {
         return request
     }()
     
-    // 2. URLRequest with nil URL
     static public let nilURLRequest: URLRequest = {
         var request = URLRequest(url: mockURL)
         request.url = nil
@@ -29,9 +27,15 @@ public struct URLRequestMockData {
         return request
     }()
 
-    // 10. URLRequest with valid URL but no parameters
     static public let validURLNoParametersRequest: URLRequest = {
         var request = URLRequest(url: mockURL)
+        request.httpMethod = "GET"
+        return request
+    }()
+    
+    static public let invalidURLRequest: URLRequest = {
+        let url =  URL(string: "https://example.com/path?existingParam=123")!
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         return request
     }()

@@ -18,9 +18,9 @@ import Networks
 
 class MockURLEncoding: URLEncodingType {
     public init() {}
-    public var urlEncodeResult: AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError>!
+    public var urlEncodeResult: AnyPublisher<URLRequest, HMHNetworkError.RequestError.ParameterEncodingError>!
     
-    func encode(_ request: URLRequest, with parameters: Networks.Parameters) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError> {
+    func encode(_ request: URLRequest, with parameters: Networks.Parameters) -> AnyPublisher<URLRequest, HMHNetworkError.RequestError.ParameterEncodingError> {
         return urlEncodeResult
     }
 }
@@ -46,7 +46,7 @@ class URLEncodingTest: XCTestCase {
         requestData: URLRequest,
         requestParameter: Parameters,
         expectation: XCTestExpectation,
-        expectationError: HMHNetworkError.ParameterEncodingError? = nil,
+        expectationError: HMHNetworkError.RequestError.ParameterEncodingError? = nil,
         validationBlock: @escaping ((URLRequest) -> Void) = { _  in})
     {
         encoder.encode(requestData, with: requestParameter)
@@ -99,7 +99,7 @@ extension URLEncodingTest {
         let requestParameter = ParameterValidatorMockData.validParameter
         
         let expectation = XCTestExpectation(description: "URL이 Nil이어서 실패했습니다!")
-        let expectationError: HMHNetworkError.ParameterEncodingError = .missingURL
+        let expectationError: HMHNetworkError.RequestError.ParameterEncodingError = .missingURL
         
         validateEncoding(
             encoder: URLEncoding(),
@@ -117,7 +117,26 @@ extension URLEncodingTest {
         let requestParameter = ParameterValidatorMockData.emptyParameters
         
         let expectation = XCTestExpectation(description: "파라미터가 비어있어서 실패했습니다!")
-        let expectationError: HMHNetworkError.ParameterEncodingError = .emptyParameters
+        let expectationError: HMHNetworkError.RequestError.ParameterEncodingError = .emptyParameters
+        
+        validateEncoding(
+            encoder: URLEncoding(),
+            requestData: requestData,
+            requestParameter: requestParameter,
+            expectation: expectation,
+            expectationError: expectationError
+        )
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    // 적절한 테스트 케이스가 없어서 테스트가 어려움
+    func test_비정상적인URLRequeset가주어질때_urlEncodingError에러반환() {
+        let requestData = URLRequestMockData.invalidURLRequest
+        let requestParameter = ParameterValidatorMockData.validParameter
+        
+        let expectation = XCTestExpectation(description: "urlEncodingError")
+        let expectationError: HMHNetworkError.RequestError.ParameterEncodingError = .urlEncodingFailed
         
         validateEncoding(
             encoder: URLEncoding(),
