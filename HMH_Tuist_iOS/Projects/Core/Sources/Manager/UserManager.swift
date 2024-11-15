@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+public enum AppState: String {
+    case login
+    case onboarding
+    case onboardingComplete
+    case home
+    case servicePrepare
+}
+
 public class UserManager: ObservableObject {
     @KeychainStorage("accessToken") public var accessToken
     @KeychainStorage("refreshToken") public var refreshToken
