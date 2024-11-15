@@ -16,3 +16,9 @@ extension FinishedDailyChallenge {
         return .init(challengeDate: challengeDate, isSuccess: isSuccess)
     }
 }
+
+extension ChallengeSuccessInfo {
+    func toDTO() -> FinishedDailyChallenge {
+        return .init(challengeDate: challengeDate, isSuccess: isSuccess)
+    }
+}
