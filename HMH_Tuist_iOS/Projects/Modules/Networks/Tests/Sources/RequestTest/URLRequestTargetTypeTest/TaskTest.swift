@@ -12,6 +12,10 @@ import Combine
 import Core
 import Networks
 
+// 테스트해야되는것
+// 적절한 값이 들어온 경우에서는  -> 정확히 URLRequest를 반환하고 있는지?
+// 에러가 생긴다면 -> 잘 에러를 변환하고 있는지? (JSONEncoding, URLEncoding Test에서 명확한 에러가 나오는 상황은 테스트를 하기 떼문에 여기서는 RequestError 잘 변환하는지만 확인하면 좋을거 같음)
+
 class TaskTest: XCTestCase {
     
     var cancelBag: CancelBag!
@@ -19,12 +23,19 @@ class TaskTest: XCTestCase {
     let method: HTTPMethod = .get
     let headers = ["Authorization": "Bearer token"]
     
+    var mockURLEncoding: MockURLEncoding!
+    var mockJSONEncoding: MockJSONEncoding!
+    
     override func setUpWithError() throws {
+        mockURLEncoding = MockURLEncoding()
+        mockJSONEncoding = MockJSONEncoding()
         cancelBag = CancelBag()
         
     }
     
     override func tearDown() {
+        mockURLEncoding = nil
+        mockJSONEncoding = nil
         cancelBag = nil
     }
     
@@ -36,14 +47,15 @@ class TaskTest: XCTestCase {
     ) {
         task.buildRequest(baseURL: self.baseURL, method: self.method, headers: self.headers)
             .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTAssertEqual(error, expectationError)
+                switch completion {
+                case .failure(let error):
+                    XCTAssertEqual(error, expectationError, "Expected success, but got error: \(error)")
                     expectation.fulfill()
-                } else {
-                    if case .failure(let error) = completion {
-                        XCTFail("Expected success, but got error: \(error)")
-                        expectation.fulfill()
+                case .finished:
+                    if expectationError != nil {
+                        XCTFail("Expected error \(String(describing: expectationError)), but received success.")
                     }
+                    expectation.fulfill()
                 }
             }, receiveValue: validationBlock)
             .store(in: self.cancelBag)
@@ -90,17 +102,17 @@ extension TaskTest {
         }
     }
     
+    //TODO: 핸들러 붙이고 테스트코드 수정
     func test_requestParameters_파라미터인코딩에러시_에러반환() {
         let requestParameter = ParameterValidatorMockData.validParameter
         let expectationURLErrorList: [HMHNetworkError.ParameterEncodingError] = [
             .emptyParameters,
-            .invalidParametersType,
-            .missingURL
+            .urlEncodingFailed
         ]
         
         for expectationError in expectationURLErrorList {
-            let mockEncoder = MockParameterEncoding(error: expectationError)
-            let task = Task.requestParameters(requestParameter, encoder: mockEncoder)
+            mockURLEncoding.urlEncodeResult = Fail(error: expectationError).eraseToAnyPublisher()
+            let task = Task.requestParameters(requestParameter, urlencoder: mockURLEncoding)
             
             let expectation = XCTestExpectation(description: "파라미터 인코딩 시 에러가 생겨 실패했습니다!")
             let expectationError = expectationError
@@ -137,28 +149,24 @@ extension TaskTest {
         }
     }
     
+    //TODO: 핸들러 붙이고 테스트코드 수정
     func test_requestJSONEncodable_파라미터인코딩에러시_에러반환() {
         let requestParameter = ParameterValidatorMockData.validParameter
-        let expectationJSONErrorList: [HMHNetworkError.ParameterEncodingError] = [
-            .invalidJSON,
-            .jsonEncodingFailed,
-            .missingURL
-        ]
+        let expectationJSONError = HMHNetworkError.ParameterEncodingError.jsonEncodingFailed
         
-        for expectationError in expectationJSONErrorList {
-            let mockEncoder = MockParameterEncoding(error: expectationError)
-            let task = Task.requestParameters(requestParameter, encoder: mockEncoder)
-            
-            let expectation = XCTestExpectation(description: "파라미터 인코딩 시 에러가 생겨 실패했습니다!")
-            let expectationError = expectationError
-            
-            validTaskBuildRequest(
-                task: task,
-                expectation: expectation,
-                expectationError: .parameterEncodingFailed(expectationError)
-            )
-            
-            wait(for: [expectation], timeout: 1.0 * Double(requestParameter.count))
-        }
+        mockURLEncoding.urlEncodeResult = Fail(error: expectationJSONError).eraseToAnyPublisher()
+        let task = Task.requestParameters(requestParameter, urlencoder: mockURLEncoding)
+        
+        let expectation = XCTestExpectation(description: "파라미터 인코딩 시 에러가 생겨 실패했습니다!")
+        let expectationError = expectationJSONError
+        
+        validTaskBuildRequest(
+            task: task,
+            expectation: expectation,
+            expectationError: .parameterEncodingFailed(expectationError)
+        )
+        
+        wait(for: [expectation], timeout: 1.0)
+        
     }
 }

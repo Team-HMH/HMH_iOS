@@ -11,8 +11,8 @@ extension HMHNetworkError {
     public enum ParameterEncodingError: Error, Equatable {
         case emptyParameters // 파라미터가 비어있을 때
         case missingURL // url이 없을때
-        case invalidJSON // json 형식에 맞지 않을때
-        case invalidParametersType // Parameters 형식에 맞지 않을때
+//        case invalidJSON // json 형식에 맞지 않을때
+//        case invalidParametersType // Parameters 형식에 맞지 않을때
         case urlEncodingFailed // url로 인코딩 실패시
         case jsonEncodingFailed // json으로 인코딩 실패시
         case unknownErr // 그 외 예기치 못한 에러
@@ -23,10 +23,10 @@ extension HMHNetworkError {
                 return "파라미터가 비어있는 에러입니다."
             case .missingURL:
                 return "url이 없습니다"
-            case .invalidJSON:
-                return "json 형식에 맞지 않습니다."
-            case .invalidParametersType:
-                return "Parameters 형식에 맞지 않습니다"
+//            case .invalidJSON:
+//                return "json 형식에 맞지 않습니다."
+//            case .invalidParametersType:
+//                return "Parameters 형식에 맞지 않습니다"
             case .urlEncodingFailed:
                 return "url 인코딩 시 발생한 에러입니다."
             case .jsonEncodingFailed:

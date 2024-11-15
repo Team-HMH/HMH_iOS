@@ -12,7 +12,63 @@ import Combine
 import Core
 import Networks
 
-extension ParameterEncodingTest {
+// 성공했을때 명확한 URLQuaryItem을 반환하는지
+// 빈값이 주어졌을때 emptyParamter가 나오는지
+// urlEncoding의 실패했을때 urlEncodingFailed 에러를 반환하는지
+
+class MockURLEncoding: URLEncodingType {
+    public init() {}
+    public var urlEncodeResult: AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError>!
+    
+    func encode(_ request: URLRequest, with parameters: Networks.Parameters) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncodingError> {
+        return urlEncodeResult
+    }
+}
+
+
+class URLEncodingTest: XCTestCase {
+    var cancelBag: CancelBag!
+    var sut: URLEncodingType!
+    
+    override func setUpWithError() throws {
+        sut = URLEncoding()
+        cancelBag = CancelBag()
+        
+    }
+    
+    override func tearDown() {
+        sut = nil
+        cancelBag = nil
+    }
+    
+    func validateEncoding(
+        encoder: URLEncodingType,
+        requestData: URLRequest,
+        requestParameter: Parameters,
+        expectation: XCTestExpectation,
+        expectationError: HMHNetworkError.ParameterEncodingError? = nil,
+        validationBlock: @escaping ((URLRequest) -> Void) = { _  in})
+    {
+        encoder.encode(requestData, with: requestParameter)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    XCTAssertEqual(error, expectationError, "Expected success, but got error: \(error)")
+                    expectation.fulfill()
+                case .finished:
+                    if expectationError != nil {
+                        XCTFail("Expected error \(String(describing: expectationError)), but received success.")
+                        expectation.fulfill()
+                    }
+                }
+            }, receiveValue: validationBlock)
+            .store(in: self.cancelBag)
+    }
+}
+
+
+
+extension URLEncodingTest {
     func test_URLEncoding_정상적인파라미터와URL_URLRequest반환() {
         let requestData = URLRequestMockData.validRequestData
         let requestParameter = ParameterValidatorMockData.validParameters
@@ -31,28 +87,11 @@ extension ParameterEncodingTest {
                     validRequest: validRequest,
                     expectedQueryItems: parameter.expectedQueryItems
                 )
+                expectation.fulfill()
             }
         }
         
         wait(for: [expectation], timeout: 1.0 * Double(requestParameter.count))
-    }
-    
-    func test_URLEncoding_파라미터가Nil일때_invalidParametersType_에러반환() {
-        let requestData = URLRequestMockData.validRequestData
-        let requestParameter = ParameterValidatorMockData.nilParameters
-        
-        let expectation = XCTestExpectation(description: "파라미터가 Nil이어서 실패했습니다!")
-        let expectationError: HMHNetworkError.ParameterEncodingError = .invalidParametersType
-        
-        validateEncoding(
-            encoder: URLEncoding(),
-            requestData: requestData,
-            requestParameter: requestParameter,
-            expectation: expectation,
-            expectationError: expectationError
-        )
-        
-        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_URLEncoding_URL이Nil일때_missingURL_에러반환() {
@@ -61,24 +100,6 @@ extension ParameterEncodingTest {
         
         let expectation = XCTestExpectation(description: "URL이 Nil이어서 실패했습니다!")
         let expectationError: HMHNetworkError.ParameterEncodingError = .missingURL
-        
-        validateEncoding(
-            encoder: URLEncoding(),
-            requestData: requestData,
-            requestParameter: requestParameter,
-            expectation: expectation,
-            expectationError: expectationError
-        )
-        
-        wait(for: [expectation], timeout: 1.0)
-    }
-    
-    func test_URLEncoding_파라미터와URL둘다Nil일때_invalidParametersType_에러반환() {
-        let requestData = URLRequestMockData.nilURLRequest
-        let requestParameter = ParameterValidatorMockData.nilParameters
-        
-        let expectation = XCTestExpectation(description: "URL과 파라미터가 둘다 Nil이어서 (파라미터 먼저 처리) 실패했습니다!")
-        let expectationError: HMHNetworkError.ParameterEncodingError = .invalidParametersType
         
         validateEncoding(
             encoder: URLEncoding(),

@@ -41,7 +41,7 @@ public struct URLEncoding: URLEncodingType {
                     throw HMHNetworkError.ParameterEncodingError.urlEncodingFailed
                 }
             }
-            .mapError { _ in HMHNetworkError.ParameterEncodingError.unknownErr }
+            .mapError { $0 as! HMHNetworkError.ParameterEncodingError }
             .eraseToAnyPublisher()
         
     }

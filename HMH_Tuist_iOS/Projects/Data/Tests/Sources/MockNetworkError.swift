@@ -12,9 +12,9 @@ import Networks
 extension HMHNetworkError {
     static public var mockNetworkError: [HMHNetworkError] {
         return [
-            .invalidRequest(.invalidURL("Bad URL")),
+//            .invalidRequest(.invalidURL("Bad URL", <#HMHNetworkError.URLValidationError#>)),
             .invalidRequest(.parameterEncodingFailed(.emptyParameters)),
-            .invalidRequest(.parameterEncodingFailed(.invalidJSON)),
+//            .invalidRequest(.parameterEncodingFailed(.invalidJSON)),
             .invalidRequest(.parameterEncodingFailed(.jsonEncodingFailed)),
             .invalidRequest(.parameterEncodingFailed(.missingURL)),
             .invalidRequest(.unknownErr),
