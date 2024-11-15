@@ -34,17 +34,17 @@ public final class ChallengeViewModel: ObservableObject {
     
     private let cancelBag: CancelBag = .init()
     
-    private let fetchChallengeUseCase: FetchChallengeUseCaseType
+    private let challengeUseCase: ChallngeUseCaseType
     
     
     public init(
-        fetchChallengeUseCase: FetchChallengeUseCaseType
+        challengeUseCase: ChallngeUseCaseType
     ) {
-        self.fetchChallengeUseCase = fetchChallengeUseCase
+        self.challengeUseCase = challengeUseCase
     }
     
     func getChallengeInfo() {
-        fetchChallengeUseCase.execute()
+        challengeUseCase.getChallenge()
             .sink { _ in } receiveValue: { [weak self] challenge in
                 self?.challenge = challenge
                 self?.checkChallengeExistence(todayIndex: challenge.getTodayIndex())
