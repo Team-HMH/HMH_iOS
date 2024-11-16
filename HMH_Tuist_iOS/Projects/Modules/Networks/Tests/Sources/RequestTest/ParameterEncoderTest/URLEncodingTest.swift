@@ -12,10 +12,6 @@ import Combine
 import Core
 import Networks
 
-// 성공했을때 명확한 URLQuaryItem을 반환하는지
-// 빈값이 주어졌을때 emptyParamter가 나오는지
-// urlEncoding의 실패했을때 urlEncodingFailed 에러를 반환하는지
-
 class MockURLEncoding: URLEncodingType {
     public init() {}
     public var urlEncodeResult: AnyPublisher<URLRequest, HMHNetworkError.RequestError.ParameterEncodingError>!

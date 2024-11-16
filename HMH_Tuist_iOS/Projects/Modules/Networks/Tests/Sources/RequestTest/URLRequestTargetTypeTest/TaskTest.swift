@@ -12,10 +12,6 @@ import Combine
 import Core
 import Networks
 
-// 테스트해야되는것
-// 적절한 값이 들어온 경우에서는  -> 정확히 URLRequest를 반환하고 있는지?
-// 에러가 생긴다면 -> 잘 에러를 변환하고 있는지? (JSONEncoding, URLEncoding Test에서 명확한 에러가 나오는 상황은 테스트를 하기 떼문에 여기서는 RequestError 잘 변환하는지만 확인하면 좋을거 같음)
-
 class TaskTest: XCTestCase {
     
     var cancelBag: CancelBag!

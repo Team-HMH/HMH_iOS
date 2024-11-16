@@ -12,8 +12,6 @@ import Combine
 import Core
 import Networks
 
-// 그냥 다양한 케이스(성공+실패)가 주어질때 URLRequest를 잘 반환하는지 확인
-
 struct MockRequest: URLRequestTargetType {
     var url: String
     var path: String?
