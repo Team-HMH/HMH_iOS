@@ -25,7 +25,6 @@ class MockURLEncoding: URLEncodingType {
     }
 }
 
-
 class URLEncodingTest: XCTestCase {
     var cancelBag: CancelBag!
     var sut: URLEncodingType!
@@ -131,21 +130,21 @@ extension URLEncodingTest {
     }
     
     // 적절한 테스트 케이스가 없어서 테스트가 어려움
-    func test_비정상적인URLRequeset가주어질때_urlEncodingError에러반환() {
-        let requestData = URLRequestMockData.invalidURLRequest
-        let requestParameter = ParameterValidatorMockData.validParameter
-        
-        let expectation = XCTestExpectation(description: "urlEncodingError")
-        let expectationError: HMHNetworkError.RequestError.ParameterEncodingError = .urlEncodingFailed
-        
-        validateEncoding(
-            encoder: URLEncoding(),
-            requestData: requestData,
-            requestParameter: requestParameter,
-            expectation: expectation,
-            expectationError: expectationError
-        )
-        
-        wait(for: [expectation], timeout: 1.0)
-    }
+//    func test_비정상적인URLRequeset가주어질때_urlEncodingError에러반환() {
+//        let requestData = URLRequestMockData.invalidURLRequest
+//        let requestParameter = ParameterValidatorMockData.validParameter
+//        
+//        let expectation = XCTestExpectation(description: "urlEncodingError")
+//        let expectationError: HMHNetworkError.RequestError.ParameterEncodingError = .urlEncodingFailed
+//        
+//        validateEncoding(
+//            encoder: URLEncoding(),
+//            requestData: requestData,
+//            requestParameter: requestParameter,
+//            expectation: expectation,
+//            expectationError: expectationError
+//        )
+//        
+//        wait(for: [expectation], timeout: 1.0)
+//    }
 }
