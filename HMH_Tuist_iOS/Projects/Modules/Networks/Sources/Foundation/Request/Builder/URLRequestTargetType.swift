@@ -22,14 +22,19 @@ public protocol URLRequestTargetType {
 
 extension URLRequestTargetType {
     public func asURLRequest() -> AnyPublisher<URLRequest, HMHNetworkError.RequestError> {
-        guard let url = URL(string: self.url) else {
-            return Fail(error: .invalidURL(self.url)).eraseToAnyPublisher()
+        var finalURL = self.url
+
+        if let path = self.path {
+            finalURL = finalURL.trimmingCharacters(in: .whitespacesAndNewlines) + "/" + path.trimmingCharacters(in: .whitespacesAndNewlines)
         }
-
-        var baseURL = url
-        if let path = self.path { baseURL.appendPathComponent(path) }
-
-        return task.buildRequest(baseURL: baseURL, method: self.method, headers: self.headers)
+        
+        switch URLValidator.validateURL(finalURL) {
+        case .failure(let validationError):
+            return Fail(error: .invalidURL(validationError)).eraseToAnyPublisher()
+            
+        case .success(let validURL):
+            return task.buildRequest(baseURL: validURL, method: self.method, headers: self.headers)
+        }
     }
 }
 

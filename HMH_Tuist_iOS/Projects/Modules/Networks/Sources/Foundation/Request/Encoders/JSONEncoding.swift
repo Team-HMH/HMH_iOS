@@ -9,20 +9,28 @@
 import Foundation
 import Combine
 
-public struct JSONEncoding: ParameterEncodable {
-    func encode(_ request: URLRequest, with parameters: Encodable?) -> AnyPublisher<URLRequest, HMHNetworkError.ParameterEncoding> {
-        var request = request
-        return checkValidURLData(parameters, request.url)
-            .tryMap { parameters, _ -> URLRequest in
+public protocol JSONEncodingType {
+    func encode(_ request: URLRequest, with parameters: Encodable) -> AnyPublisher<URLRequest, HMHNetworkError.RequestError.ParameterEncodingError>
+}
+
+public struct JSONEncoding: JSONEncodingType {
+    public init() {}
+    
+    public func encode(_ request: URLRequest, with parameters: Encodable) -> AnyPublisher<URLRequest, HMHNetworkError.RequestError.ParameterEncodingError> {
+        
+        return Just(request)
+            .tryMap { request in
+                var modifiedRequest = request
+                
                 do {
                     let data = try JSONEncoder().encode(parameters)
-                    request.httpBody = data
-                    return request
+                    modifiedRequest.httpBody = data
+                    return modifiedRequest
                 } catch {
-                    throw HMHNetworkError.invalidRequest(.parameterEncodingFailed(.jsonEncodingFailed))
+                    throw HMHNetworkError.RequestError.ParameterEncodingError.jsonEncodingFailed
                 }
             }
-            .mapError { $0 as! HMHNetworkError.ParameterEncoding } //TODO: 예외 상황이 없는거 같아서..
+            .mapError { _ in HMHNetworkError.RequestError.ParameterEncodingError.unknownErr }
             .eraseToAnyPublisher()
     }
 }

@@ -11,12 +11,12 @@ import Combine
 
 public enum Task {
     case requestPlain
-    case requestParameters(Parameters)
-    case requestJSONEncodable(Encodable)
+    case requestParameters(Parameters, urlencoder: URLEncodingType = URLEncoding())
+    case requestJSONEncodable(Encodable, jsonencoder: JSONEncodingType = JSONEncoding())
 }
 
 extension Task {
-    func buildRequest(baseURL: URL, method: HTTPMethod, headers: [String: String]?) -> AnyPublisher<URLRequest, HMHNetworkError.RequestError> {
+    public func buildRequest(baseURL: URL, method: HTTPMethod, headers: [String: String]?) -> AnyPublisher<URLRequest, HMHNetworkError.RequestError> {
         var request = URLRequest(url: baseURL)
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = headers
@@ -27,13 +27,13 @@ extension Task {
                 .setFailureType(to: HMHNetworkError.RequestError.self)
                 .eraseToAnyPublisher()
                 
-        case .requestParameters(let parameters):
-            return URLEncoding().encode(request, with: parameters)
+        case .requestParameters(let parameters, let urlEncoder):
+            return urlEncoder.encode(request, with: parameters)
                 .mapError { .parameterEncodingFailed($0) }
                 .eraseToAnyPublisher()
                 
-        case .requestJSONEncodable(let encodable):
-            return JSONEncoding().encode(request, with: encodable)
+        case .requestJSONEncodable(let encodable, let jsonEncoder):
+            return jsonEncoder.encode(request, with: encodable)
                 .mapError { .parameterEncodingFailed($0) }
                 .eraseToAnyPublisher()
         }
