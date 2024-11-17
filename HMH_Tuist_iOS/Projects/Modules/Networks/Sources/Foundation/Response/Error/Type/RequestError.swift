@@ -23,7 +23,7 @@ extension HMHNetworkError {
             }
         }
         
-        public enum ParameterEncodingError: Error, Equatable {
+        @frozen public enum ParameterEncodingError: Error, Equatable {
             case emptyParameters // 파라미터가 비어있을 때
             case missingURL // url이 없을때
             case urlEncodingFailed // url로 인코딩 실패시

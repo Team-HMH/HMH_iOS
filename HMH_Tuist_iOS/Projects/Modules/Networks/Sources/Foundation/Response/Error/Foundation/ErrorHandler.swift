@@ -14,19 +14,10 @@ public struct ErrorHandler {
         return error
     }
     
-    static public func handleRequestError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError.RequestError) -> HMHNetworkError {
-        
-        let requestError: HMHNetworkError = .invalidRequest(error)
-        NetworkLogHandler.responseError(target, result: requestError)
-        return requestError
-    }
     
-    static public func handleResponseError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError.ResponseError) -> HMHNetworkError {
-        
-        let responseError: HMHNetworkError = .invalidResponse(error)
-        NetworkLogHandler.responseError(target, result: responseError)
-        return responseError
-    }
+    
+    
+    
     
     static public func handleDecodingError<T: Decodable>(data:Data, decodingType: T.Type, error: HMHNetworkError.DecodeError) -> HMHNetworkError {
         
@@ -34,7 +25,41 @@ public struct ErrorHandler {
         NetworkLogHandler.responseDecodingError(data: data, decodingType: T.self, error: error)
         return decodingError
     }
+}
+
+extension ErrorHandler {
+    static public func handleRequestError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError.RequestError) -> HMHNetworkError {
+        
+        let requestError: HMHNetworkError = .invalidRequest(error)
+        NetworkLogHandler.responseError(target, result: requestError)
+        return requestError
+    }
     
+    static public func handleParameterEncodingError(
+        _ request: URLRequest,
+        parameter: Any? = nil,
+        error: HMHNetworkError.RequestError.ParameterEncodingError
+    ) -> HMHNetworkError.RequestError {
+        NetworkLogHandler.requestParameterEncodingError(request, parameter, result: error)
+        return .parameterEncodingFailed(error)
+    }
+    
+    static public func handleInvalidURLError<T: URLRequestTargetType>(
+        _ target: T, 
+        error: HMHNetworkError.RequestError.URLValidationError
+    ) -> HMHNetworkError.RequestError {
+        NetworkLogHandler.requestInvalidURLError(target, result: error)
+        return .invalidURL(error)
+    }
+}
+
+extension ErrorHandler {
+    static public func handleResponseError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError.ResponseError) -> HMHNetworkError {
+        
+        let responseError: HMHNetworkError = .invalidResponse(error)
+        NetworkLogHandler.responseError(target, result: responseError)
+        return responseError
+    }
     
     // 유효하지 않은 응답인 경우 에러 처리
     static public func handleInvalidResponse(response: NetworkResponse) -> HMHNetworkError {
@@ -51,4 +76,3 @@ public struct ErrorHandler {
         }
     }
 }
-

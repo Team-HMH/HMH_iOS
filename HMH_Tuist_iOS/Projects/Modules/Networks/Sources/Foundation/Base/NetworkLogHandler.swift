@@ -76,5 +76,50 @@ struct NetworkLogHandler {
             ==============================================================
             """)
         }
+    
+    
 }
 
+
+
+extension NetworkLogHandler {
+    static func requestParameterEncodingError(
+        _ request: URLRequest,
+        _ parameter: Any? = nil,
+        result error: HMHNetworkError.RequestError.ParameterEncodingError
+    ) {
+        let url = request.url?.absoluteString ?? "없음"
+        let method = request.httpMethod ?? "없음"
+        let headers = request.allHTTPHeaderFields ?? [:] // 빈 딕셔너리로 대체
+        let parameterDescription = parameter.map { String(describing: $0) } ?? "없음"
+        
+        print("""
+            ======================== 📤 네트워크 요청 📤 ========================
+            ========================= ❌ ParameterEncoding Error ❌ ==========================
+            ❗️ Error Type: \(error.description)
+            ❗️ URL: \(url)
+            ❗️ Method: \(method)
+            ❗️ Header: \(headers)
+            ❗️ 🚨 Parameter: \(parameterDescription) 🚨
+            ==============================================================
+        """)
+    }
+    
+    static func requestInvalidURLError(
+        _ endpoint: any URLRequestTargetType,
+        result error: HMHNetworkError.RequestError.URLValidationError
+    ) {
+        let url = endpoint.url + (endpoint.path ?? "")
+        let headers = endpoint.headers ?? [:]
+        
+        print("""
+            ======================== 📤 네트워크 요청 📤========================
+            ========================= ❌ InvalidURL Error ❌ ==========================
+            ❗️ Error Type: \(error.description)
+            ❗️ URL: \(url)
+            ❗️ Header: \(headers)
+            ==============================================================
+            """)
+    }
+
+}
