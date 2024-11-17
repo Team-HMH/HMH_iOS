@@ -61,13 +61,13 @@ struct NetworkLogHandler {
     
     // 디코딩 로깅 함수
     static func responseDecodingError<T: Decodable>(
-            data: Data,
-            decodingType: T.Type,
-            error: HMHNetworkError.DecodeError
-        ) {
-            let jsonString = String(data: data, encoding: .utf8) ?? "Invalid Data"
-            
-            print("""
+        data: Data,
+        decodingType: T.Type,
+        error: HMHNetworkError.DecodeError
+    ) {
+        let jsonString = String(data: data, encoding: .utf8) ?? "Invalid Data"
+        
+        print("""
             ======================== 📥 Response <========================
             ========================= ❌ Decoding Error ==========================
             ❗️ Error Type: \(error)
@@ -75,14 +75,34 @@ struct NetworkLogHandler {
             ❗️ Error Data: \(jsonString)
             ==============================================================
             """)
-        }
-    
+    }
     
 }
 
 
 
 extension NetworkLogHandler {
+    static func requestInvalidURLError(
+        _ endpoint: any URLRequestTargetType,
+        result error: HMHNetworkError.RequestError.URLValidationError
+    ) {
+        let url = endpoint.url + (endpoint.path ?? "")
+        let method = endpoint.method
+        let headers = endpoint.headers ?? [:]
+        let task = endpoint.task
+        
+        print("""
+            ======================== 📤 네트워크 요청 📤========================
+            ========================= ❌ InvalidURL Error ❌ ==========================
+            ❗️ Error Type: \(error.description)
+            ❗️ 🚨 URL: \(url) 🚨
+            ❗️ Method: \(method)
+            ❗️ Header: \(headers)
+            ❗️ Task: \(task)
+            ==============================================================
+            """)
+    }
+    
     static func requestParameterEncodingError(
         _ request: URLRequest,
         _ parameter: Any? = nil,
@@ -94,6 +114,7 @@ extension NetworkLogHandler {
         let parameterDescription = parameter.map { String(describing: $0) } ?? "없음"
         
         print("""
+            ✅ URL 유효성 체크
             ======================== 📤 네트워크 요청 📤 ========================
             ========================= ❌ ParameterEncoding Error ❌ ==========================
             ❗️ Error Type: \(error.description)
@@ -104,22 +125,4 @@ extension NetworkLogHandler {
             ==============================================================
         """)
     }
-    
-    static func requestInvalidURLError(
-        _ endpoint: any URLRequestTargetType,
-        result error: HMHNetworkError.RequestError.URLValidationError
-    ) {
-        let url = endpoint.url + (endpoint.path ?? "")
-        let headers = endpoint.headers ?? [:]
-        
-        print("""
-            ======================== 📤 네트워크 요청 📤========================
-            ========================= ❌ InvalidURL Error ❌ ==========================
-            ❗️ Error Type: \(error.description)
-            ❗️ URL: \(url)
-            ❗️ Header: \(headers)
-            ==============================================================
-            """)
-    }
-
 }
