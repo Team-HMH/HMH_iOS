@@ -9,22 +9,6 @@
 import Foundation
 
 struct NetworkLogHandler {
-    // 성공적인 응답 로깅 함수
-    static func responseSuccess(_ endpoint: any URLRequestTargetType, result response: NetworkResponse) {
-        let url = endpoint.url + "/" + (endpoint.path ?? "")
-        let headers = endpoint.headers ?? [:]
-        let responseData = String(data: response.data ?? Data(), encoding: .utf8) ?? "No data"
-        
-        print("""
-            ======================== 📥 Response <========================
-            ========================= ✅ Success =========================
-            ✌🏻 URL: \(url)
-            ✌🏻 Header: \(headers)
-            ✌🏻 Success Data: \(responseData)
-            ==============================================================
-            """)
-    }
-    
     // 디코딩 로깅 함수
     static func responseDecodingError<T: Decodable>(
         data: Data,
@@ -36,58 +20,86 @@ struct NetworkLogHandler {
         print("""
             ======================== 📥 Response <========================
             ========================= ❌ Decoding Error ==========================
-            ❗️ Error Type: \(error)
+            ❗️ Error Type: \(error.description)
             ❗️ Expected Decoding Type: \(decodingType)
             ❗️ Error Data: \(jsonString)
             ==============================================================
             """)
     }
     
+    static func tokenIntercepterRetryLogging(retryCnt: Int) {
+        print("""
+            ======================== 🪄 retry <========================
+            🪄 토큰이 만료되어서 retry 작업을 실행합니다
+            🪄 실행 횟수 \(retryCnt) -> \(3-retryCnt)이후 🚨요청횟수 초과🚨 에러가 발생합니다!
+            ==============================================================
+            """)
+        
+    }
+    
+    static func tokenIntercepterRetryError(error: HMHNetworkError) {
+        print("""
+            ========================= ❌ Retry Error ==========================
+            ❗️ Error Type: \(error.description)
+            ==============================================================
+            """)
+        
+    }
 }
 
 // 네트워크 응답 로깅 함수
 extension NetworkLogHandler {
+    static func responseLogging(
+        _ endpoint: URLRequestTargetType,
+        result response: NetworkResponse
+    ) {
+        print("""
+            ======================== 📥 Response <========================
+            [EndPoint Information]
+            1️⃣ URL: \(endpoint.url)
+            2️⃣ Path: \(endpoint.path ?? "없음")
+            3️⃣ Method: \(endpoint.method)
+            4️⃣ headers: \(endpoint.headers ?? [:])
+            5️⃣ task: \(endpoint.task)
+            ========================= ✌🏻 응답이 도착했습니다 =========================
+            ✌🏻 StatusCode: \(response.response.statusCode)
+            ✌🏻 responseData: \(String(data: response.data ?? Data(), encoding: .utf8) ?? "No data")
+            ==============================================================
+            """
+        )
+    }
     
     static func NoResponseError(
         _ endpoint: URLRequestTargetType,
         error: HMHNetworkError.ResponseError
     ) {
-        let url = endpoint.url + (endpoint.path ?? "")
-        let method = endpoint.method
-        let headers = endpoint.headers ?? [:]
-        let task = endpoint.task
-        
         print("""
-            ✅ URL 유효성 체크
-            ✅ Encode 체크
-            ✅ 요청 성공
-            ======================== 📤 네트워크 요청 📤========================
-            ========================= ❌ NoResponseError ❌ ==========================
+            ======================== 📤 네트워크 응답시 발생한 에러입니다 📤========================
+            ========================= ❌ NoResponse Error ❌ ==========================
             ❗️ Error Type: \(error.description)
-            ❗️ 🚨 URL: \(url) 🚨
-            ❗️ Method: \(method)
-            ❗️ Header: \(headers)
-            ❗️ Task: \(task)
-            ==============================================================
             """)
     }
     
-    
-    
-    // 에러 응답 로깅 함수
-    static func responseError(
-        _ target: URLRequestTargetType,
-        _ request: URLRequest,
-        _ parameter: Any? = nil,
+    static func invalidReponseError(
+        response: NetworkResponse,
         error: HMHNetworkError.ResponseError
     ) {
-        
-        let url = target.url
-        let method = target.method
-        let headers = target.headers ?? [:]
-        let task = target.task
-        
-        
+        print("""
+            ======================== 📤 네트워크 응답시 발생한 에러입니다 📤========================
+            ========================= ❌ invalidResponse Error ❌ ==========================
+            ❗️ Error Type: \(error.description)
+            ❗️ responseData: \(String(data: response.data ?? Data(), encoding: .utf8) ?? "No data")
+            ❗️ StatusCode: \(response.response.statusCode)
+            ==============================================================
+            """
+        )
+    }
+}
+
+
+// 네트워크 요청 로깅 함수
+extension NetworkLogHandler {
+    static func requestLogging(_ request: URLRequest) {
         let requestURL = request.url?.absoluteString ?? "없음"
         let requestHTTPmethod = request.httpMethod ?? "없음"
         let requestHeaders = request.allHTTPHeaderFields ?? [:]
@@ -112,48 +124,11 @@ extension NetworkLogHandler {
         }
         
         print("""
-            ======================== 📥 네트워크 응답 <========================
-            ========================= ❌ Error ==========================
-            ❗️ Error Type: \(error.description)
-            
-            1️⃣ URL
-            - 요청: \(url)
-            - 응답: \(requestURL)
-            
-            2️⃣ Method
-            - 요청: \(method)
-            - 응답: \(requestHTTPmethod)
-            
-            3️⃣ Headers
-            - 요청: \(headers)
-            - 응답: \(requestHeaders)
-            
-            4️⃣ Task
-            - 요청: \(task)
-            - 응답: \(parameters ?? "파라미터가 없습니다")
-            
-            ==============================================================
-            """)
-    }
-}
-
-
-// 네트워크 요청 로깅 함수
-extension NetworkLogHandler {
-    static func requestLogging(_ endpoint: URLRequestTargetType) {
-        let url = endpoint.url + (endpoint.path ?? "")
-        let method = endpoint.method.rawValue
-        let headers = endpoint.headers ?? [:]
-        let parameters = endpoint.task
-        
-        print("""
-            ✅ URL 유효성 체크
-            ✅ Encode 체크
             ================== 📤 Request ===================>
-            📝 URL: \(url)
-            📝 HTTP Method: \(method)
-            📝 Header: \(headers)
-            📝 Parameters: \(parameters)
+            📝 URL: \(requestURL)
+            📝 HTTP Method: \(requestHTTPmethod)
+            📝 Header: \(requestHeaders)
+            📝 Parameters: \(parameters ?? "없음")
             ================================
             """)
     }
@@ -190,7 +165,6 @@ extension NetworkLogHandler {
         let parameterDescription = parameter.map { String(describing: $0) } ?? "없음"
         
         print("""
-            ✅ URL 유효성 체크
             ======================== 📤 네트워크 요청 📤 ========================
             ========================= ❌ ParameterEncoding Error ❌ ==========================
             ❗️ Error Type: \(error.description)

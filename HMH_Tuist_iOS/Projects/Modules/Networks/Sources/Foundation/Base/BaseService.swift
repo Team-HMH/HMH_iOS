@@ -76,15 +76,12 @@ extension BaseService {
     private func fetchResponse(with target: API) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
         return RequestHandler.createURLRequest(for: target)
             .map { $0 }
+            .handleEvents(receiveOutput: { NetworkLogHandler.requestLogging($0) })
             .flatMap { urlRequest in
                 self.performDataTask(with: urlRequest)
                     .mapError { ErrorHandler.handleNoResponseError(target, error: $0) }
             }
-            .handleEvents(receiveSubscription:  {  _ in
-                NetworkLogHandler.requestLogging(target)
-            }, receiveOutput:  {  response in
-                NetworkLogHandler.responseSuccess(target, result: response)
-            })
+            .handleEvents(receiveOutput: { NetworkLogHandler.responseLogging(target, result: $0) })
             .eraseToAnyPublisher()
     }
     
@@ -99,7 +96,6 @@ extension BaseService {
             }
             // 기타 오류 발생 시 에러 반환
             let error = ErrorHandler.handleInvalidResponse(response: response)
-            // 네트워크로깅
             return Fail(error: error).eraseToAnyPublisher()
         }
         
@@ -119,6 +115,7 @@ extension BaseService {
     
     private func refreshTokenAndRetry(for target: API) -> AnyPublisher<Void, HMHNetworkError> {
         retryCnt += 1
+        NetworkLogHandler.tokenIntercepterRetryLogging(retryCnt: retryCnt)
         return TokenInterceptor.shared.retry(for: session, retryCnt: retryCnt)
             .flatMap { tokenResult -> AnyPublisher<Void, HMHNetworkError> in
                 UserManager.shared.accessToken = tokenResult.accessToken
