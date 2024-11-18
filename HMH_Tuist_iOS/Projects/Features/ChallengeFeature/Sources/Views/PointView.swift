@@ -21,13 +21,13 @@ struct PointView: View {
                 .padding(.vertical, 16)
                 .padding(.horizontal, 20)
         }
-        .showToast(toastType: .earnPoint, isPresented: $viewModel.isPresented)
+        .showToast(toastType: .earnPoint, isPresented: $viewModel.state.isPresented)
         .customNavigationBar(
             title: StringLiteral.NavigationBar.point,
             showBackButton: true,
             showPointButton: true,
             isPointView: true,
-            point: viewModel.totalPoint
+            point: viewModel.state.totalPoint
         )
         .background(DSKitAsset.blackground.swiftUIColor)
         .navigationBarHidden(true)
@@ -36,14 +36,14 @@ struct PointView: View {
 
 extension PointView {
     private var listView: some View {
-        ForEach(viewModel.pointStatues.indices, id: \.self) { index in
+        ForEach(viewModel.state.pointStatues.indices, id: \.self) { index in
             HStack {
                 VStack(alignment: .leading) {
                     Text("\(index + 1)" + StringLiteral.Challenge.pointTitle)
                         .font(.text4_semibold_16)
                         .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
                         .padding(.bottom, 2)
-                    Text("\(viewModel.period)" + StringLiteral.Challenge.pointSubTitle)
+                    Text("\(viewModel.state.period)" + StringLiteral.Challenge.pointSubTitle)
                         .font(.detail4_medium_12)
                         .foregroundColor(DSKitAsset.gray2.swiftUIColor)
                 }
@@ -57,7 +57,6 @@ extension PointView {
             .frame(height: 80)
         }
     }
-
 }
 
 
@@ -70,7 +69,7 @@ struct EarnPointButton: View {
         Button(action: {
             viewModel.patchEarnPoint(index: day)
         }, label: {
-            Text(StringLiteral.Challenge.pointButton + " \(viewModel.earnPoint)P")
+            Text(StringLiteral.Challenge.pointButton + " \(viewModel.state.earnPoint)P")
                 .font(.text4_semibold_16)
                 .foregroundColor(status.titleColor) // 컬러값 설정
                 .frame(width: 73, height: 40)
