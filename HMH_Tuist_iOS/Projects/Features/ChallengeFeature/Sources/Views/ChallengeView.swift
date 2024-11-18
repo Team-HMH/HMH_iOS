@@ -19,7 +19,7 @@ public struct ChallengeView: View {
   public var body: some View {
     NavigationView {
       ScrollView {
-        if viewModel.isChallengeExisted {
+        if viewModel.state.isChallengeExisted {
           challengeCalendarView
         } else {
           emptyChallengeHeaderView
@@ -27,7 +27,7 @@ public struct ChallengeView: View {
       }
       .navigationBarTitle(Text(StringLiteral.NavigationBar.challenge))
       .background(DSKitAsset.blackground.swiftUIColor)
-      .showToast(toastType: .pointWarn, isPresented: $viewModel.isToastPresented)
+      .showToast(toastType: .pointWarn, isPresented:  $viewModel.state.isToastPresented)
     }
   }
 }
@@ -55,7 +55,7 @@ extension ChallengeView {
   
   private var createChallengeButton: some View {
     Button(action: {
-      viewModel.challengeButtonTapped()
+        viewModel.send(.navigateToCreate(true))
     }) {
       Text(StringLiteral.Challenge.createButton)
         .modifier(CustomButtonStyle())
@@ -70,19 +70,19 @@ extension ChallengeView {
         .resizable()
         .aspectRatio(contentMode: .fit)
       VStack(alignment: .leading) {
-          Text("\(viewModel.challenge.getStartDate()) 시작부터")
+          Text("\(viewModel.state.challenge.getStartDate()) 시작부터")
           .font(.text5_medium_16)
           .foregroundColor(DSKitAsset.gray1.swiftUIColor)
           .padding(.top, 14)
-          Text("\((viewModel.challenge.getTodayIndex()) + 1)일차")
+          Text("\((viewModel.state.challenge.getTodayIndex()) + 1)일차")
           .font(.title1_semibold_32)
           .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
           .padding(.top, 2)
           .padding(.bottom, 32)
         HMHCalendar(
-            days: viewModel.challenge.getChallengeInfo(.period),
+            days: viewModel.state.challenge.getChallengeInfo(.period),
             missionStatus: [],
-            todayIndex: viewModel.challenge.getTodayIndex()
+            todayIndex: viewModel.state.challenge.getTodayIndex()
         )
           .frame(width: UIScreen.main.bounds.width * 0.9)
           .padding(.bottom, 20)
