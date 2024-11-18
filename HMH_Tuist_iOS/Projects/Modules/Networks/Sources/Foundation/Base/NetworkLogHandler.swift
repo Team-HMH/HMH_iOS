@@ -9,24 +9,6 @@
 import Foundation
 
 struct NetworkLogHandler {
-    
-    // 네트워크 요청 로깅 함수
-    static func requestLogging(_ endpoint: URLRequestTargetType) {
-        let url = endpoint.url + (endpoint.path ?? "")
-        let method = endpoint.method.rawValue
-        let headers = endpoint.headers ?? [:]
-        let parameters = endpoint.task
-        
-        print("""
-            ================== 📤 Request ===================>
-            📝 URL: \(url)
-            📝 HTTP Method: \(method)
-            📝 Header: \(headers)
-            📝 Parameters: \(parameters)
-            ================================
-            """)
-    }
-    
     // 성공적인 응답 로깅 함수
     static func responseSuccess(_ endpoint: any URLRequestTargetType, result response: NetworkResponse) {
         let url = endpoint.url + "/" + (endpoint.path ?? "")
@@ -39,22 +21,6 @@ struct NetworkLogHandler {
             ✌🏻 URL: \(url)
             ✌🏻 Header: \(headers)
             ✌🏻 Success Data: \(responseData)
-            ==============================================================
-            """)
-    }
-    
-    // 에러 응답 로깅 함수
-    static func responseError(_ endpoint: any URLRequestTargetType, result error: HMHNetworkError) {
-        let url = endpoint.url + (endpoint.path ?? "")
-        let headers = endpoint.headers ?? [:]
-        
-        print("""
-            ======================== 📥 Response <========================
-            ========================= ❌ Error ==========================
-            ❗️ Error Type: \(error.description)
-            ❗️ URL: \(url)
-            ❗️ Header: \(headers)
-            ❗️ Error Data: \(error)
             ==============================================================
             """)
     }
@@ -79,9 +45,119 @@ struct NetworkLogHandler {
     
 }
 
-
-
+// 네트워크 응답 로깅 함수
 extension NetworkLogHandler {
+    
+    static func NoResponseError(
+        _ endpoint: URLRequestTargetType,
+        error: HMHNetworkError.ResponseError
+    ) {
+        let url = endpoint.url + (endpoint.path ?? "")
+        let method = endpoint.method
+        let headers = endpoint.headers ?? [:]
+        let task = endpoint.task
+        
+        print("""
+            ✅ URL 유효성 체크
+            ✅ Encode 체크
+            ✅ 요청 성공
+            ======================== 📤 네트워크 요청 📤========================
+            ========================= ❌ NoResponseError ❌ ==========================
+            ❗️ Error Type: \(error.description)
+            ❗️ 🚨 URL: \(url) 🚨
+            ❗️ Method: \(method)
+            ❗️ Header: \(headers)
+            ❗️ Task: \(task)
+            ==============================================================
+            """)
+    }
+    
+    
+    
+    // 에러 응답 로깅 함수
+    static func responseError(
+        _ target: URLRequestTargetType,
+        _ request: URLRequest,
+        _ parameter: Any? = nil,
+        error: HMHNetworkError.ResponseError
+    ) {
+        
+        let url = target.url
+        let method = target.method
+        let headers = target.headers ?? [:]
+        let task = target.task
+        
+        
+        let requestURL = request.url?.absoluteString ?? "없음"
+        let requestHTTPmethod = request.httpMethod ?? "없음"
+        let requestHeaders = request.allHTTPHeaderFields ?? [:]
+        var parameters: Any?
+        
+        if let httpBody = request.httpBody {
+            if let jsonObject = try? JSONSerialization.jsonObject(with: httpBody, options: []),
+               let encodableParameter = jsonObject as? [String: Any] {
+                parameters = encodableParameter
+            } else { return }
+        }
+        
+        // HTTPBody가 없으면 URLQueryItem에서 추출
+        if let url = request.url, let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+            var queryParameters: [String: Any] = [:]
+            components.queryItems?.forEach { queryItem in
+                if let value = queryItem.value {
+                    queryParameters[queryItem.name] = value
+                }
+            }
+            parameters = queryParameters
+        }
+        
+        print("""
+            ======================== 📥 네트워크 응답 <========================
+            ========================= ❌ Error ==========================
+            ❗️ Error Type: \(error.description)
+            
+            1️⃣ URL
+            - 요청: \(url)
+            - 응답: \(requestURL)
+            
+            2️⃣ Method
+            - 요청: \(method)
+            - 응답: \(requestHTTPmethod)
+            
+            3️⃣ Headers
+            - 요청: \(headers)
+            - 응답: \(requestHeaders)
+            
+            4️⃣ Task
+            - 요청: \(task)
+            - 응답: \(parameters ?? "파라미터가 없습니다")
+            
+            ==============================================================
+            """)
+    }
+}
+
+
+// 네트워크 요청 로깅 함수
+extension NetworkLogHandler {
+    static func requestLogging(_ endpoint: URLRequestTargetType) {
+        let url = endpoint.url + (endpoint.path ?? "")
+        let method = endpoint.method.rawValue
+        let headers = endpoint.headers ?? [:]
+        let parameters = endpoint.task
+        
+        print("""
+            ✅ URL 유효성 체크
+            ✅ Encode 체크
+            ================== 📤 Request ===================>
+            📝 URL: \(url)
+            📝 HTTP Method: \(method)
+            📝 Header: \(headers)
+            📝 Parameters: \(parameters)
+            ================================
+            """)
+    }
+    
     static func requestInvalidURLError(
         _ endpoint: any URLRequestTargetType,
         result error: HMHNetworkError.RequestError.URLValidationError
@@ -106,11 +182,11 @@ extension NetworkLogHandler {
     static func requestParameterEncodingError(
         _ request: URLRequest,
         _ parameter: Any? = nil,
-        result error: HMHNetworkError.RequestError.ParameterEncodingError
+        error: HMHNetworkError.RequestError.ParameterEncodingError
     ) {
         let url = request.url?.absoluteString ?? "없음"
         let method = request.httpMethod ?? "없음"
-        let headers = request.allHTTPHeaderFields ?? [:] // 빈 딕셔너리로 대체
+        let headers = request.allHTTPHeaderFields ?? [:]
         let parameterDescription = parameter.map { String(describing: $0) } ?? "없음"
         
         print("""

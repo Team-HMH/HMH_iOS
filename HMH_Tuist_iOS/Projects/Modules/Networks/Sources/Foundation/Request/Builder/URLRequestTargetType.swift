@@ -30,8 +30,7 @@ extension URLRequestTargetType {
         
         switch URLValidator.validateURL(finalURL) {
         case .failure(let error):
-            let error = ErrorHandler.handleInvalidURLError(self, error: error)
-            return Fail(error: error).eraseToAnyPublisher()
+            return ErrorHandler.handleInvalidURLError(self, error: error)
             
         case .success(let validURL):
             return task.buildRequest(baseURL: validURL, method: self.method, headers: self.headers)

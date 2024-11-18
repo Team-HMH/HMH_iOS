@@ -31,7 +31,7 @@ public final class BaseService<Target: URLRequestTargetType> {
             .flatMap { response in
                 self.validate(response: response, target: target)
                     .map { _ in response.data! }
-                    .mapError { ErrorHandler.handleError(target, error: $0) }
+                    .mapError { $0 }
             }
             .flatMap { data in
                 self.decode(data: data)
@@ -45,7 +45,7 @@ public final class BaseService<Target: URLRequestTargetType> {
             .flatMap { response in
                 self.validate(response: response, target: target)
                     .map { _ in response.data! }
-                    .mapError { ErrorHandler.handleError(target, error: $0) }
+                    .mapError { $0 }
             }
             .flatMap { data -> AnyPublisher<VoidResult, HMHNetworkError> in
                 self.decode(data: data)
@@ -67,7 +67,7 @@ extension BaseService {
                 }
                 return NetworkResponse(data: data, response: httpResponse, error: nil)
             }
-            .mapError { ($0 as? HMHNetworkError.ResponseError) ?? .unknown }
+            .mapError { $0 as! HMHNetworkError.ResponseError }
             .eraseToAnyPublisher()
     }
     
@@ -78,7 +78,7 @@ extension BaseService {
             .map { $0 }
             .flatMap { urlRequest in
                 self.performDataTask(with: urlRequest)
-                    .mapError { error in ErrorHandler.handleResponseError(target, error: error)}
+                    .mapError { ErrorHandler.handleNoResponseError(target, error: $0) }
             }
             .handleEvents(receiveSubscription:  {  _ in
                 NetworkLogHandler.requestLogging(target)
@@ -99,6 +99,7 @@ extension BaseService {
             }
             // 기타 오류 발생 시 에러 반환
             let error = ErrorHandler.handleInvalidResponse(response: response)
+            // 네트워크로깅
             return Fail(error: error).eraseToAnyPublisher()
         }
         
@@ -135,7 +136,7 @@ extension BaseService {
             }
             .eraseToAnyPublisher()
     }
-
+    
 }
 
 // HTTP 상태코드 유효성 검사
@@ -143,7 +144,7 @@ extension HTTPURLResponse {
     func isValidateStatus() -> Bool {
         return (200...299).contains(self.statusCode)
     }
-
+    
     func unAuthorized() -> Bool {
         return self.statusCode == 401
     }
