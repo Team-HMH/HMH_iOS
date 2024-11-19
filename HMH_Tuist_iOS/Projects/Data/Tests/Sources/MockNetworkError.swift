@@ -19,7 +19,7 @@ extension HMHNetworkError {
             .invalidRequest(.parameterEncodingFailed(.missingURL)),
             .invalidRequest(.unknownErr),
             .decodingFailed(.dataIsNil),
-            .decodingFailed(.failed)
+            .decodingFailed(.decodingFailed)
         ]
     }
 }

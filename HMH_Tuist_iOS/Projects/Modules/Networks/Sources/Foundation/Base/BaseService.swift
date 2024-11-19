@@ -108,7 +108,7 @@ extension BaseService {
     private func decode<T: Decodable>(data: Data) -> AnyPublisher<T, HMHNetworkError.DecodeError> {
         return Just(data)
             .decode(type: GenericResponse<T>.self, decoder: JSONDecoder())
-            .mapError { _ in .failed }
+            .mapError { _ in .decodingFailed }
             .map { $0.data! }
             .eraseToAnyPublisher()
     }
