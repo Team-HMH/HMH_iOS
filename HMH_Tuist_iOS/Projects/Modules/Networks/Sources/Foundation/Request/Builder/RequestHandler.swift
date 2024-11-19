@@ -15,7 +15,7 @@ public struct RequestHandler {
     /// URLRequest 생성
     static public func createURLRequest<T: URLRequestTargetType>(for target: T) -> AnyPublisher<URLRequest, HMHNetworkError> {
         return target.asURLRequest()
-            .mapError { ErrorHandler.handleRequestError(target, error: $0) }
+            .mapError { ErrorHandler.handleRequestError($0) }
             .eraseToAnyPublisher()
     }
     

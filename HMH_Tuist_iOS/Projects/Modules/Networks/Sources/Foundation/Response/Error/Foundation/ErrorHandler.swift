@@ -18,7 +18,6 @@ public struct ErrorHandler {
     }
     
     static public func handleRetryLimitExceeded() -> HMHNetworkError {
-        
         let error: HMHNetworkError = .retryLimitExceeded
         NetworkLogHandler.tokenIntercepterRetryError(error: error)
         return error
@@ -26,7 +25,7 @@ public struct ErrorHandler {
 }
 
 extension ErrorHandler {
-    static public func handleRequestError<T: URLRequestTargetType>(_ target: T, error: HMHNetworkError.RequestError) -> HMHNetworkError {
+    static public func handleRequestError(_ error: HMHNetworkError.RequestError) -> HMHNetworkError {
         let requestError: HMHNetworkError = .invalidRequest(error)
         return requestError
     }
@@ -58,7 +57,6 @@ extension ErrorHandler {
         return .invalidResponse(error)
     }
     
-    // 유효하지 않은 응답인 경우 에러 처리
     static public func handleInvalidResponse(response: NetworkResponse) -> HMHNetworkError {
         let error: HMHNetworkError.ResponseError
         if let data = response.data {
