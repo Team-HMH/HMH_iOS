@@ -28,49 +28,16 @@ public extension Project {
         hasResources: Bool = false
     ) -> Project {
         let configurationName: ConfigurationName = "Development"
+        var dependencies: [TargetDependency] = internalDependencies + externalDependencies + interfaceDependencies
         
-        var projectTargets: [Target] = []
+        var projectTargets: [Target] = TargetHandler.makeProjectTargets(
+            name: name,
+            hasResources: hasResources,
+            with: dependencies,
+            targets: targets
+        )
         var schemes: [Scheme] = []
-        
-        targets.forEach { targetType in
-            var target: Target
-            switch targetType {
-            case .app:
-                target = TargetHandler.makeAppTarget(
-                    name: name,
-                    dependencies: internalDependencies + externalDependencies
-                )
-            case .interface:
-                target = TargetHandler.makeInterfaceTarget(
-                    name: name,
-                    interfaceDependencies: interfaceDependencies
-                )
-            case .staticFramework:
-                let deps: [TargetDependency] = targets.contains(.interface) 
-                ? [.target(name: "\(name)Interface")]
-                : []
-                target = TargetHandler.makeStaticFrameworkTarget(
-                    name: name,
-                    hasResources: hasResources,
-                    dependencies: deps + internalDependencies + externalDependencies
-                )
-            case .dynamicFramework:
-                let deps: [TargetDependency] = targets.contains(.interface) 
-                ? [.target(name: "\(name)Interface")]
-                : []
-                target = TargetHandler.makeDynamicFrameworkTarget(
-                    name: name,
-                    hasResources: hasResources,
-                    dependencies: deps + internalDependencies + externalDependencies
-                )
-            case .unitTest:
-                target = TargetHandler.makeUnitTestTarget(name: name)
-            case .demo:
-                target = TargetHandler.makeDemoTarget(name: name)
-            }
-            
-            projectTargets.append(target)
-        }
+
         
         let additionalSchemes = targets.contains(.demo) ?
         [

@@ -35,6 +35,45 @@ struct TargetHandler {
             dependencies: dependencies
         )
     }
+    
+    static func makeProjectTargets(
+        name: String,
+        hasResources: Bool,
+        with dependencies: [TargetDependency],
+        targets: Set<FeatureTarget>
+    ) -> [Target] {
+        var projectTargets: [Target] = []
+        targets.forEach { targetType in
+            let target = {
+                switch targetType {
+                case .app:
+                    return TargetHandler.makeAppTarget(
+                        name: name,
+                        dependencies: dependencies
+                    )
+                case .interface:
+                    return TargetHandler.makeInterfaceTarget(
+                        name: name,
+                        dependencies: dependencies
+                    )
+                case .staticFramework, .dynamicFramework:
+                    return TargetHandler.makeFrameworkTarget(
+                        targetType: targetType,
+                        name: name,
+                        hasResources: hasResources,
+                        dependencies: dependencies
+                    )
+                case .unitTest:
+                    return TargetHandler.makeUnitTestTarget(name: name)
+                case .demo:
+                    return TargetHandler.makeDemoTarget(name: name)
+                }
+            }()
+            
+            projectTargets.append(target)
+        }
+        return projectTargets
+    }
 }
 
 extension TargetHandler {
@@ -55,13 +94,13 @@ extension TargetHandler {
     
     static func makeInterfaceTarget(
         name: String,
-        interfaceDependencies: [TargetDependency]
+        dependencies: [TargetDependency]
     ) -> Target {
         return TargetHandler.makeTarget(
             targetType: .interface,
             name: "\(name)Interface",
             bundleID: "\(env.bundlePrefix).\(name)Interface",
-            dependencies: interfaceDependencies
+            dependencies: dependencies
         )
     }
     
@@ -85,27 +124,14 @@ extension TargetHandler {
         )
     }
     
-    static func makeStaticFrameworkTarget(
+    static func makeFrameworkTarget(
+        targetType: FeatureTarget,
         name: String,
         hasResources: Bool,
         dependencies: [TargetDependency]
     ) -> Target {
         return TargetHandler.makeTarget(
-            targetType: .staticFramework,
-            name: name,
-            bundleID: "\(env.bundlePrefix).\(name)",
-            resources: hasResources ? [.glob(pattern: "Resources/**", excluding: [])] : [],
-            dependencies: dependencies
-        )
-    }
-    
-    static func makeDynamicFrameworkTarget(
-        name: String,
-        hasResources: Bool,
-        dependencies: [TargetDependency]
-    ) -> Target {
-        return TargetHandler.makeTarget(
-            targetType: .dynamicFramework,
+            targetType: targetType,
             name: name,
             bundleID: "\(env.bundlePrefix).\(name)",
             resources: hasResources ? [.glob(pattern: "Resources/**", excluding: [])] : [],
