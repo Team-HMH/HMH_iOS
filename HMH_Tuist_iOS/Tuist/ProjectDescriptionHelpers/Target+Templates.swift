@@ -31,8 +31,8 @@ struct TargetHandler {
             deploymentTarget: deploymentTarget,
             infoPlist: infoPlist,
             sources: .sources,
-            resources: [.glob(pattern: "Resources/**", excluding: [])],
-            entitlements: "\(name).entitlements",
+            resources: resources,
+            entitlements: entitlements,
             dependencies: dependencies
         )
     }

@@ -37,7 +37,7 @@ public extension Configuration {
         switch target {
         case .dev:
             return .debug(
-                name: "DEV",
+                name: "Development",
                 xcconfig: XCConfig.path(for: .dev)
             )
         case .prod:

@@ -16,7 +16,7 @@ let spm = SwiftPackageManagerDependencies([
     .remote(url: "https://github.com/kishikawakatsumi/KeychainAccess", requirement: .upToNextMajor(from: "4.2.2"))
     
 ], baseSettings: Settings.settings(
-    configurations: XCConfig.framework
+    configurations: XCConfig.configurations
 ))
 
 let dependencies = Dependencies(
