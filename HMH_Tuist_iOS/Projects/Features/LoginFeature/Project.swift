@@ -11,8 +11,8 @@ import DependencyPlugin
 
 let project = Project.makeModule(
     name: "LoginFeature",
-    targets: [.staticFramework, .demo, .interface],
-    interfaceDependencies: [
+    targets: [.staticFramework, .demo],
+    internalDependencies: [
         .Features.BaseFeatureDependency
     ]
 )

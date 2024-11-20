@@ -28,8 +28,6 @@ public extension Project {
         hasResources: Bool = false
     ) -> Project {
         let configurationName: ConfigurationName = "Development"
-        let hasDynamicFramework = targets.contains(.dynamicFramework)
-        let baseSetting  = SettingsDictionary.baseSettings
         
         var projectTargets: [Target] = []
         var schemes: [Scheme] = []
@@ -38,36 +36,33 @@ public extension Project {
             var target: Target
             switch targetType {
             case .app:
-                let bundleSuffix = name.contains("Demo") ? "test" : "release"
-                var infoPlist = name.contains("Demo") ? Project.demoInfoPlist : Project.appInfoPlist
-                
-                switch name {
-                case "DeviceActivityMonitor":
-                    infoPlist = Project.deviceActivityMonitorInfoPlist
-                case "HMHDeviceActivityReport":
-                    infoPlist = Project.hmhDeviceActivityReportInfoPlist
-                case "ShieldActionExtension":
-                    infoPlist = Project.shieldActionExtensionInfoPlist
-                case "ShieldConfigureExtension":
-                    infoPlist = Project.shieldConfigureExtensionInfoPlist
-                default:
-                    break
-                }
                 target = TargetHandler.makeAppTarget(
                     name: name,
-                    bundleSuffix: bundleSuffix,
-                    infoPlist: infoPlist,
                     dependencies: internalDependencies + externalDependencies
                 )
             case .interface:
-                target = TargetHandler.makeInterfaceTarget(name: name, interfaceDependencies: interfaceDependencies)
-            case .dynamicFramework, .staticFramework:
-                let deps: [TargetDependency] = targets.contains(.interface) ? [.target(name: "\(name)Interface")] : []
-                target = TargetHandler.makeFrameworkTarget(
-                    name: name, 
-                    hasDynamicFramework: hasDynamicFramework,
+                target = TargetHandler.makeInterfaceTarget(
+                    name: name,
+                    interfaceDependencies: interfaceDependencies
+                )
+            case .staticFramework:
+                let deps: [TargetDependency] = targets.contains(.interface) 
+                ? [.target(name: "\(name)Interface")]
+                : []
+                target = TargetHandler.makeStaticFrameworkTarget(
+                    name: name,
                     hasResources: hasResources,
-                    dependencies: deps + internalDependencies + externalDependencies)
+                    dependencies: deps + internalDependencies + externalDependencies
+                )
+            case .dynamicFramework:
+                let deps: [TargetDependency] = targets.contains(.interface) 
+                ? [.target(name: "\(name)Interface")]
+                : []
+                target = TargetHandler.makeDynamicFrameworkTarget(
+                    name: name,
+                    hasResources: hasResources,
+                    dependencies: deps + internalDependencies + externalDependencies
+                )
             case .unitTest:
                 target = TargetHandler.makeUnitTestTarget(name: name)
             case .demo:
