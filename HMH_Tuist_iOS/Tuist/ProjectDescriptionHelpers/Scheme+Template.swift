@@ -37,6 +37,15 @@ extension Scheme {
             analyzeAction: .analyzeAction(configuration: "Development")
         ),
         .init(
+            name: "\(env.workspaceName)-QA",
+            shared: true,
+            buildAction: .buildAction(targets: ["\(env.workspaceName)"]),
+            runAction: .runAction(configuration: "QA"),
+            archiveAction: .archiveAction(configuration: "QA"),
+            profileAction: .profileAction(configuration: "QA"),
+            analyzeAction: .analyzeAction(configuration: "QA")
+        ),
+        .init(
             name: "\(env.workspaceName)-PROD",
             shared: true,
             buildAction: .buildAction(targets: ["\(env.workspaceName)"]),
@@ -47,25 +56,25 @@ extension Scheme {
         ),
     ]
     
-    // makeDemoScheme은 실제 앱이 아니기 때문에 그냥 Dev상황만 반영한다.
+    // makeDemoScheme은 개발환경에서 release로 (demo앱이기때문에!)
     static func makeDemoScheme(name: String) -> Scheme { // 데모앱
-            return Scheme(
-                name: "\(name)Demo",
-                shared: true,
-                buildAction: .buildAction(targets: ["\(name)Demo"]),
-                testAction: .targets(
-                    ["\(name)Tests"],
-                    configuration: "Development",
-                    options: .options(coverage: true, codeCoverageTargets: ["\(name)Demo"])
-                ),
-                runAction: .runAction(configuration: "Development"),
-                archiveAction: .archiveAction(configuration: "Development"),
-                profileAction: .profileAction(configuration: "Development"),
-                analyzeAction: .analyzeAction(configuration: "Development")
-            )
-        }
-
-    // makeScheme은 실제 앱이 아니기 때문에 그냥 Dev상황만 반영한다.
+        return Scheme(
+            name: "\(name)Demo",
+            shared: true,
+            buildAction: .buildAction(targets: ["\(name)Demo"]),
+            testAction: .targets(
+                ["\(name)Tests"],
+                configuration: "QA",
+                options: .options(coverage: true, codeCoverageTargets: ["\(name)Demo"])
+            ),
+            runAction: .runAction(configuration: "QA"),
+            archiveAction: .archiveAction(configuration: "QA"),
+            profileAction: .profileAction(configuration: "QA"),
+            analyzeAction: .analyzeAction(configuration: "QA")
+        )
+    }
+    
+    // makeScheme은 개발환경에서 debug (그냥 개발 빌드이기 때문에)
     static func makeScheme(name: String) -> Scheme { // 일반앱
         return Scheme(
             name: name,
