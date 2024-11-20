@@ -70,20 +70,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2538C1AD7CF9D7896689AB84"
-               BuildableName = "ChallengeFeatureInterface.framework"
-               BlueprintName = "ChallengeFeatureInterface"
-               ReferencedContainer = "container:Projects/Features/ChallengeFeature/ChallengeFeature.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B90FCF66245CD7327BEE2CBF"
                BuildableName = "Core.framework"
                BlueprintName = "Core"
@@ -255,20 +241,6 @@
                BlueprintIdentifier = "549A602B2BC1A28903EEFC0D"
                BuildableName = "HomeFeatureDemo.app"
                BlueprintName = "HomeFeatureDemo"
-               ReferencedContainer = "container:Projects/Features/HomeFeature/HomeFeature.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "854D3E4EFF471C42EE44119B"
-               BuildableName = "HomeFeatureInterface.framework"
-               BlueprintName = "HomeFeatureInterface"
                ReferencedContainer = "container:Projects/Features/HomeFeature/HomeFeature.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -462,20 +434,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CF6F649789711DC92E8F827C"
-               BuildableName = "LoginFeatureInterface.framework"
-               BlueprintName = "LoginFeatureInterface"
-               ReferencedContainer = "container:Projects/Features/LoginFeature/LoginFeature.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "11789D24A0490E463CDA3C81"
                BuildableName = "Lottie.framework"
                BlueprintName = "Lottie"
@@ -532,20 +490,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "309D06068DD1002D94B61781"
-               BuildableName = "MyPageFeatureInterface.framework"
-               BlueprintName = "MyPageFeatureInterface"
-               ReferencedContainer = "container:Projects/Features/MyPageFeature/MyPageFeature.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "2EE557D34B930B760FD4A735"
                BuildableName = "Networks.framework"
                BlueprintName = "Networks"
@@ -591,20 +535,6 @@
                BlueprintIdentifier = "EBE393D9E165918A935BC155"
                BuildableName = "OnboardingFeatureDemo.app"
                BlueprintName = "OnboardingFeatureDemo"
-               ReferencedContainer = "container:Projects/Features/OnboardingFeature/OnboardingFeature.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "192C7ACBD5A03867D013EBF3"
-               BuildableName = "OnboardingFeatureInterface.framework"
-               BlueprintName = "OnboardingFeatureInterface"
                ReferencedContainer = "container:Projects/Features/OnboardingFeature/OnboardingFeature.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -709,7 +639,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "DEV"
+      buildConfiguration = "Development"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -745,7 +675,7 @@
       </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "DEV">
+      buildConfiguration = "Development">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "PROD"

@@ -10,6 +10,7 @@ import ProjectDescription
 
 import EnvPlugin
 
+/// 빌드할 파일들의 집합을 만들어줌
 struct TargetHandler {
     static func makeTarget(
         targetType: FeatureTarget,

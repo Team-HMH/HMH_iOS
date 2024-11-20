@@ -23,12 +23,14 @@ public struct XCConfig {
 
     public static let configurations: [Configuration] = [
         .build(.dev),
+        .build(.qa),
         .build(.prod)
     ]
 }
 
 public enum BuildTarget: String {
     case dev = "DEV"
+    case qa = "QA"
     case prod = "PROD"
 }
 
@@ -39,6 +41,11 @@ public extension Configuration {
             return .debug(
                 name: "Development",
                 xcconfig: XCConfig.path(for: .dev)
+            )
+        case .qa:
+            return .release(
+                name: "QA",
+                xcconfig: XCConfig.path(for: .qa)
             )
         case .prod:
             return .release(

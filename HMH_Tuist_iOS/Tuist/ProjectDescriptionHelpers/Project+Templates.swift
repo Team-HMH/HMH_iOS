@@ -36,27 +36,7 @@ public extension Project {
             with: dependencies,
             targets: targets
         )
-        var schemes: [Scheme] = []
-
-        
-        let additionalSchemes = targets.contains(.demo) ?
-        [
-            Scheme.makeScheme(configs: configurationName, name: name),
-            Scheme.makeDemoScheme(configs: configurationName, name: name)
-        ]
-        : [
-            Scheme.makeScheme(configs: configurationName, name: name)
-        ]
-        
-        schemes += additionalSchemes
-        
-        
-        var scheme = targets.contains(.app) ? Scheme.appSchemes : schemes
-        
-        if name.contains("Demo") {
-            let testAppScheme = Scheme.makeScheme(configs: "QA", name: name)
-            scheme.append(testAppScheme)
-        }
+        var projcetScheme: [Scheme] = SchemeProvider.makeProjectScheme(targets: targets, name: name)
         
         return Project(
             name: name,
@@ -64,7 +44,7 @@ public extension Project {
             packages: packages,
             settings: .settings(configurations: XCConfig.configurations),
             targets: projectTargets,
-            schemes: schemes
+            schemes: projcetScheme
         )
     }
 }
