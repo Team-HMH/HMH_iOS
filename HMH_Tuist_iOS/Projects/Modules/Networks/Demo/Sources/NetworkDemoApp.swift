@@ -22,7 +22,7 @@ struct NetworkTestApp: App {
     
     var body: some Scene {
         WindowGroup {
-            PoinstServiceTestView(service: PointService())
+            ServiceTestView()
         }
     }
 }

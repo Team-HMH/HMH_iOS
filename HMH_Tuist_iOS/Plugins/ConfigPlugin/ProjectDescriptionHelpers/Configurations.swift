@@ -43,7 +43,7 @@ public extension Configuration {
                 xcconfig: XCConfig.path(for: .dev)
             )
         case .qa:
-            return .release(
+            return .debug(
                 name: "QA",
                 xcconfig: XCConfig.path(for: .qa)
             )

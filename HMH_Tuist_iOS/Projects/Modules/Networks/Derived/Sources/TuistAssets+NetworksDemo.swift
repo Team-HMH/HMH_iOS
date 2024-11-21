@@ -21,6 +21,13 @@
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum NetworksDemoAsset {
   public static let accentColor = NetworksDemoColors(name: "AccentColor")
+  public static let auth = NetworksDemoImages(name: "Auth")
+  public static let challenge = NetworksDemoImages(name: "Challenge")
+  public static let point = NetworksDemoImages(name: "Point")
+  public static let user = NetworksDemoImages(name: "User")
+  public static let blackground = NetworksDemoColors(name: "blackground")
+  public static let bluePurpleButton = NetworksDemoColors(name: "blue purple_button")
+  public static let main = NetworksDemoImages(name: "main")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
@@ -85,6 +92,73 @@ public extension SwiftUI.Color {
   init(asset: NetworksDemoColors) {
     let bundle = NetworksDemoResources.bundle
     self.init(asset.name, bundle: bundle)
+  }
+}
+#endif
+
+public struct NetworksDemoImages {
+  public fileprivate(set) var name: String
+
+  #if os(macOS)
+  public typealias Image = NSImage
+  #elseif os(iOS) || os(tvOS) || os(watchOS)
+  public typealias Image = UIImage
+  #endif
+
+  public var image: Image {
+    let bundle = NetworksDemoResources.bundle
+    #if os(iOS) || os(tvOS)
+    let image = Image(named: name, in: bundle, compatibleWith: nil)
+    #elseif os(macOS)
+    let image = bundle.image(forResource: NSImage.Name(name))
+    #elseif os(watchOS)
+    let image = Image(named: name)
+    #endif
+    guard let result = image else {
+      fatalError("Unable to load image asset named \(name).")
+    }
+    return result
+  }
+
+  #if canImport(SwiftUI)
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  public var swiftUIImage: SwiftUI.Image {
+    SwiftUI.Image(asset: self)
+  }
+  #endif
+}
+
+public extension NetworksDemoImages.Image {
+  @available(macOS, deprecated,
+    message: "This initializer is unsafe on macOS, please use the NetworksDemoImages.image property")
+  convenience init?(asset: NetworksDemoImages) {
+    #if os(iOS) || os(tvOS)
+    let bundle = NetworksDemoResources.bundle
+    self.init(named: asset.name, in: bundle, compatibleWith: nil)
+    #elseif os(macOS)
+    self.init(named: NSImage.Name(asset.name))
+    #elseif os(watchOS)
+    self.init(named: asset.name)
+    #endif
+  }
+}
+
+#if canImport(SwiftUI)
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+public extension SwiftUI.Image {
+  init(asset: NetworksDemoImages) {
+    let bundle = NetworksDemoResources.bundle
+    self.init(asset.name, bundle: bundle)
+  }
+
+  init(asset: NetworksDemoImages, label: Text) {
+    let bundle = NetworksDemoResources.bundle
+    self.init(asset.name, bundle: bundle, label: label)
+  }
+
+  init(decorative asset: NetworksDemoImages) {
+    let bundle = NetworksDemoResources.bundle
+    self.init(decorative: asset.name, bundle: bundle)
   }
 }
 #endif
