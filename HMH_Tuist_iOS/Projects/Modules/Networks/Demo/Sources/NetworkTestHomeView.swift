@@ -15,87 +15,96 @@ import Core
 struct NetworkTestHomeView: View {
     
     var body: some View {
-        VStack(alignment: .center) {
-            Spacer()
-                .frame(height: 25)
-            
-            Image(.main)
-                .resizable()
-                .frame(width: 86, height: 86)
-            
-            Spacer()
-                .frame(height: 20)
-            
-            Text("HMH-iOS\nNetwork Demo App")
-                .foregroundStyle(.white)
-                .frame(alignment: .center)
-                .font(.title)
-                .bold()
-                .multilineTextAlignment(.center)
-            
-            Spacer()
-                .frame(height: 20)
-            
-            Text("테스트하고자하는 Service를 클릭해주세요!")
-                .foregroundStyle(.gray)
-                .frame(alignment: .center)
-                .font(.body)
-                .bold()
-                .multilineTextAlignment(.center)
-            
-            Spacer()
-                .frame(height: 60)
-            
-            HStack {
+        NavigationView {
+            VStack(alignment: .center) {
                 Spacer()
-                ServiceButton(
-                    imageResource: .auth,
-                    title: "Point") {
-                        print("포인트 서비스 테스트로 이동")
-                    }
+                    .frame(height: 25)
+                
+                Image(.main)
+                    .resizable()
+                    .frame(width: 86, height: 86)
                 
                 Spacer()
-                    .frame(width: 25)
+                    .frame(height: 20)
                 
-                ServiceButton(
-                    imageResource: .challenge,
-                    title: "Challenge") {
-                        print("포인트 서비스 테스트로 이동")
-                    }
+                Text("HMH-iOS\nNetwork Demo App")
+                    .foregroundStyle(.white)
+                    .frame(alignment: .center)
+                    .font(.title)
+                    .bold()
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                Text("테스트하고자하는 Service를 클릭해주세요!")
+                    .foregroundStyle(.gray)
+                    .frame(alignment: .center)
+                    .font(.body)
+                    .bold()
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+                    .frame(height: 60)
+                
+                HStack {
+                    Spacer()
+                    ServiceButton(
+                        imageResource: .auth,
+                        title: "Point") {
+                            print("포인트 서비스 테스트로 이동")
+                        }
+                    
+                    Spacer()
+                        .frame(width: 25)
+                    
+                    ServiceButton(
+                        imageResource: .challenge,
+                        title: "Challenge") {
+                            print("포인트 서비스 테스트로 이동")
+                        }
+                    
+                    Spacer()
+                }
+                
+                Spacer()
+                    .frame(height: 25)
+                
+                HStack {
+                    
+                    Spacer()
+                    
+                    ServiceButton(
+                        imageResource: .point,
+                        title: "Point") {
+//                            NavigationLink(<#LocalizedStringKey#>, destination: PointServiceView(
+//                                viewModel: PointServiceViewModel(
+//                                    service: PointService()
+//                                )
+//                            )
+//                            )
+//                                
+                        }
+                    
+                    Spacer()
+                        .frame(width: 25)
+                    
+                    ServiceButton(
+                        imageResource: .user,
+                        title: "User") {
+                            print("포인트 서비스 테스트로 이동")
+                        }
+                    
+                    Spacer()
+                }
                 
                 Spacer()
             }
-            
-            Spacer()
-                .frame(height: 25)
-            
-            HStack {
-                
-                Spacer()
-                
-                ServiceButton(
-                    imageResource: .point,
-                    title: "Point") {
-                        print("포인트 서비스 테스트로 이동")
-                    }
-                
-                Spacer()
-                    .frame(width: 25)
-                
-                ServiceButton(
-                    imageResource: .user,
-                    title: "User") {
-                        print("포인트 서비스 테스트로 이동")
-                    }
-                
-                Spacer()
-            }
-            
-            Spacer()
+            .padding(.horizontal, 30)
+            .background(Color(asset: NetworksDemoAsset.blackground))
         }
-        .padding(.horizontal, 30)
-        .background(Color(asset: NetworksDemoAsset.blackground))
-    }
+        }
+        
 }
 
 fileprivate struct ServiceButton : View {
