@@ -96,10 +96,10 @@ struct NetworkTestHomeView: View {
                 Spacer()
             }
             .padding(.horizontal, 30)
+            .setHMHNavigation()
             .background(Color(asset: NetworksDemoAsset.blackground))
         }
-        }
-        
+    }
 }
 
 fileprivate struct ServiceButton : View {
@@ -139,6 +139,6 @@ fileprivate struct ServiceButton : View {
 
 #Preview {
     return NetworkTestHomeView()
-        .environmentObject(DIContainer.default)
+        .environmentObject(DIContainer.stub)
 }
 

@@ -63,6 +63,8 @@ struct ChallengeServiceView: View {
             
             Spacer()
         }
+        .navigationBarBackButtonHidden()
+        .setHMHNavigation()
         .background(Color(asset: NetworksDemoAsset.blackground))
     }
 }
