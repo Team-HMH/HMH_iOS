@@ -10,10 +10,23 @@ import Foundation
 import Networks
 
 enum ServiceType {
-    case auth
-    case point
-    case challenge
-    case user
+    case auth(AuthService)
+    case point(PointService)
+    case challenge(ChallengeService)
+    case user(UserService)
+    
+    var title: String {
+        switch self {
+        case .auth:
+            return "AuthService"
+        case .point:
+            return "PointService"
+        case .challenge:
+            return "ChallengeService"
+        case .user:
+            return "UserService"
+        }
+    }
     
     var apiList: [String] {
         switch self {
@@ -31,9 +44,22 @@ enum ServiceType {
                 "PatchEarnPoint"
             ]
         case .challenge:
-            <#code#>
+            return [
+                "GetDailyChallenge",
+                "GetSuccesChallenge",
+                "CreateChallenge",
+                "PostLockChallenge",
+                "DeleteApp",
+                "AddApp",
+                "GetChallenge"
+            ]
         case .user:
-            <#code#>
+            return [
+                "Logout",
+                "DeleteAccount",
+                "GetUserData",
+                "GetCurrentPoint"
+            ]
         }
     }
 }

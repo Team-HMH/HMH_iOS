@@ -24,6 +24,12 @@ public struct UserPointResult: Decodable {
     }
 }
 
+public extension UserPointRequest {
+    static var stub: Self {
+        return .init(challengeDate: "2024/12/1")
+    }
+}
+
 public extension UserPointResult {
     static var stub: Self {
         return .init(userPoint: 100)
