@@ -137,7 +137,7 @@ fileprivate struct ServiceCellView: View {
             
             Button {
                 viewModel.send(action: .serviceButtonDidTap(index))
-            } label:
+            } label: {
                 Text("Test")
                     .foregroundColor(.white)
                     .font(.title)
