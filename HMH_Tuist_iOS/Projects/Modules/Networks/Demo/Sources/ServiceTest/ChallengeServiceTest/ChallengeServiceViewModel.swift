@@ -26,11 +26,17 @@ class ChallengeServiceViewModel: ObservableObject {
     
     //MARK: Dependency
     
-    let service: ChallengeServiceType
+    private let service: ChallengeServiceType
+    private var navigationRouter: NavigationRoutableType
     
     // MARK: - Init
-    init(service: ChallengeServiceType) {
+    
+    init(
+        service: ChallengeServiceType,
+        navigationRouter: NavigationRoutableType
+    ) {
         self.service = service
+        self.navigationRouter = navigationRouter
         self.state = State()
     }
     

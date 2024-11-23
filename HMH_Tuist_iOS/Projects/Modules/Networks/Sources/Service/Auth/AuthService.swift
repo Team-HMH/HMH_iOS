@@ -26,13 +26,14 @@ extension AuthService: AuthServiceType {
     }
 }
 
-struct StubAuthService: AuthServiceType {
-    func signUp(request: SignUpRequest) -> AnyPublisher<AuthResult, HMHNetworkError> {
+public struct StubAuthService: AuthServiceType {
+    public init() {} 
+    public func signUp(request: SignUpRequest) -> AnyPublisher<AuthResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
-    func socialLogin(request: SocialLoginRequest) -> AnyPublisher<AuthResult, HMHNetworkError> {
+    public func socialLogin(request: SocialLoginRequest) -> AnyPublisher<AuthResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()

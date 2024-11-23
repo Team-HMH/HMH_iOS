@@ -26,15 +26,17 @@ class PointServiceViewModel: ObservableObject {
     
     //MARK: Dependency
     
-    let service: PointServiceType
+    private let service: PointServiceType
+    private var navigationRouter: NavigationRoutableType
     
     //MARK: Init
     
-    
-    
-    // MARK: - Init
-    init(service: PointServiceType) {
+    init(
+        service: PointServiceType,
+        navigationRouter: NavigationRoutableType
+    ) {
         self.service = service
+        self.navigationRouter = navigationRouter
         self.state = State()
     }
     

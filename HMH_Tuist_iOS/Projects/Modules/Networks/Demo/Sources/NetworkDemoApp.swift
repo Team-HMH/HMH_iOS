@@ -20,9 +20,12 @@ struct NetworkTestApp: App {
 //        print(Networks.Config.baseURL)
     }
     
+    @StateObject var container = DIContainer.default
+    
     var body: some Scene {
         WindowGroup {
             NetworkTestHomeView()
+                .environmentObject(container)
         }
     }
 }

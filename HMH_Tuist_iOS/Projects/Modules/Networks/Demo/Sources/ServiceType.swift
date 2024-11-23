@@ -10,10 +10,10 @@ import Foundation
 import Networks
 
 enum ServiceType {
-    case auth(AuthService)
-    case point(PointService)
-    case challenge(ChallengeService)
-    case user(UserService)
+    case auth
+    case point
+    case challenge
+    case user
     
     var title: String {
         switch self {

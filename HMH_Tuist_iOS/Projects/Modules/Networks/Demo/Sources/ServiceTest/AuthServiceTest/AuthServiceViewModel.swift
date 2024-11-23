@@ -26,11 +26,14 @@ class AuthServiceViewModel: ObservableObject {
     
     //MARK: Dependency
     
-    let service: AuthServiceType
+    private let service: AuthServiceType
+    private var navigationRouter: NavigationRoutableType
     
     // MARK: - Init
-    init(service: AuthServiceType) {
+    
+    init(service: AuthServiceType, navigationRouter: NavigationRoutableType) {
         self.service = service
+        self.navigationRouter = navigationRouter
         self.state = State()
     }
     

@@ -12,7 +12,7 @@ import Core
 import Combine
 
 struct UserServiceView: View {
-    
+    @EnvironmentObject var container: DIContainer
     @StateObject var viewModel: UserServiceViewModel
     
     var body: some View {
@@ -154,9 +154,12 @@ fileprivate struct ServiceCellView: View {
 }
 
 #Preview {
+    let container = DIContainer.stub
     return UserServiceView(
         viewModel: UserServiceViewModel(
-            service: UserService()
+            service: container.service.userService,
+            navigationRouter: container.navigationRouter
         )
     )
+    .environmentObject(container)
 }

@@ -9,11 +9,10 @@
 import Foundation
 
 enum NavigationDestination: Hashable {
-    
     case auth
     case challenge
     case point
     case user
-    
+    case home
 }
 

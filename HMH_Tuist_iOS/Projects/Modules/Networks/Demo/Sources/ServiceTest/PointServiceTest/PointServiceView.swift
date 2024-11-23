@@ -12,7 +12,7 @@ import Core
 import Combine
 
 struct PointServiceView: View {
-    
+    @EnvironmentObject var container: DIContainer
     @StateObject var viewModel: PointServiceViewModel
     
     var body: some View {
@@ -156,11 +156,14 @@ fileprivate struct ServiceCellView: View {
 }
 
 #Preview {
+    let container = DIContainer.stub
     return PointServiceView(
         viewModel: PointServiceViewModel(
-            service: PointService()
+            service: container.service.pointService,
+            navigationRouter: container.navigationRouter
         )
     )
+    .environmentObject(container)
 }
 
 

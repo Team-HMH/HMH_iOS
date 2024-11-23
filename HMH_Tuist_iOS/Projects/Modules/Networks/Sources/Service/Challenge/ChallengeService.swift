@@ -56,50 +56,52 @@ extension ChallengeService: ChallengeServiceType {
     }
 }
 
-struct StubChallengeService: ChallengeServiceType {
-    func getDailyChallenge() -> AnyPublisher<DailyChallengeResult, HMHNetworkError> {
+public struct StubChallengeService: ChallengeServiceType {
+    public init() {}
+    
+    public func getDailyChallenge() -> AnyPublisher<DailyChallengeResult, HMHNetworkError> {
         return Just(.stub1)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
+    public func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    public func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError> {
+    public func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func postLockChallenge() -> AnyPublisher<Void, HMHNetworkError> {
+    public func postLockChallenge() -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func deleteApp(request: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    public func deleteApp(request: DeleteAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func addApp(request: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
+    public func addApp(request: AddAppRequest) -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func getChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
+    public func getChallenge() -> AnyPublisher<GetChallengeResult, HMHNetworkError> {
         return Just(.stub1)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()

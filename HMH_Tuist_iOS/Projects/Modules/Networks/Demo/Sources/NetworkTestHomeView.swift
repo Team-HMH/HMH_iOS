@@ -13,9 +13,10 @@ import Core
 //디버그(Debug) 모드와 릴리즈(Release) 모드에서 Xcode의 프리뷰(Preview) 활성화 여부 다름 So QA를 다시 debug로 변경
 
 struct NetworkTestHomeView: View {
+    @EnvironmentObject var container: DIContainer
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $container.navigationRouter.destinations) {
             VStack(alignment: .center) {
                 Spacer()
                     .frame(height: 25)
@@ -51,8 +52,8 @@ struct NetworkTestHomeView: View {
                     Spacer()
                     ServiceButton(
                         imageResource: .auth,
-                        title: "Point") {
-                            print("포인트 서비스 테스트로 이동")
+                        title: "Auth") {
+                            container.navigationRouter.push(to: .auth)
                         }
                     
                     Spacer()
@@ -61,7 +62,7 @@ struct NetworkTestHomeView: View {
                     ServiceButton(
                         imageResource: .challenge,
                         title: "Challenge") {
-                            print("포인트 서비스 테스트로 이동")
+                            container.navigationRouter.push(to: .challenge)
                         }
                     
                     Spacer()
@@ -77,13 +78,7 @@ struct NetworkTestHomeView: View {
                     ServiceButton(
                         imageResource: .point,
                         title: "Point") {
-//                            NavigationLink(<#LocalizedStringKey#>, destination: PointServiceView(
-//                                viewModel: PointServiceViewModel(
-//                                    service: PointService()
-//                                )
-//                            )
-//                            )
-//                                
+                            container.navigationRouter.push(to: .point)
                         }
                     
                     Spacer()
@@ -92,7 +87,7 @@ struct NetworkTestHomeView: View {
                     ServiceButton(
                         imageResource: .user,
                         title: "User") {
-                            print("포인트 서비스 테스트로 이동")
+                            container.navigationRouter.push(to: .user)
                         }
                     
                     Spacer()
@@ -144,5 +139,6 @@ fileprivate struct ServiceButton : View {
 
 #Preview {
     return NetworkTestHomeView()
+        .environmentObject(DIContainer.default)
 }
 

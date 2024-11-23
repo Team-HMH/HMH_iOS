@@ -26,11 +26,14 @@ class UserServiceViewModel: ObservableObject {
     
     //MARK: Dependency
     
-    let service: UserServiceType
+    private let service: UserServiceType
+    private var navigationRouter: NavigationRoutableType
     
     // MARK: - Init
-    init(service: UserServiceType) {
+    
+    init(service: UserServiceType, navigationRouter: NavigationRoutableType) {
         self.service = service
+        self.navigationRouter = navigationRouter
         self.state = State()
     }
     
