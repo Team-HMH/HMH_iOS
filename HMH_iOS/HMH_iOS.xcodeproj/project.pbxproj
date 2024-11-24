@@ -168,6 +168,7 @@
 		368C5DA02BCC41990035A1AC /* HMHDeviceActivityReport.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 368C5D942BCC41990035A1AC /* HMHDeviceActivityReport.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		368CAADF2BB9975C00FA83B3 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */; };
 		368CAAE22BB9B26000FA83B3 /* CustomNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */; };
+		3692E0602CF33A3F0079D2B8 /* BannerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692E05F2CF33A3F0079D2B8 /* BannerRouter.swift */; };
 		3692E0652CF33E870079D2B8 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692E0642CF33E870079D2B8 /* Color+.swift */; };
 		369D7EE52C04AE2000295791 /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
 		369D7EEB2C04AF3900295791 /* ScreenTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367243B52BED3830007A5A7B /* ScreenTimeViewModel.swift */; };
@@ -410,6 +411,7 @@
 		368CAADE2BB9975C00FA83B3 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		368CAAE12BB9B26000FA83B3 /* CustomNavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarModifier.swift; sourceTree = "<group>"; };
 		368E36B32C4AC641003FA911 /* Config_dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config_dev.xcconfig; sourceTree = "<group>"; };
+		3692E05F2CF33A3F0079D2B8 /* BannerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerRouter.swift; sourceTree = "<group>"; };
 		3692E0642CF33E870079D2B8 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		36B833BE2C5A3107009C2C3E /* ChallengeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeHeaderView.swift; sourceTree = "<group>"; };
 		36B833C02C5A3117009C2C3E /* EmptyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyHeaderView.swift; sourceTree = "<group>"; };
@@ -826,6 +828,7 @@
 		365CD6E82B7E501000245CDD /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				3692E0612CF33AE70079D2B8 /* Banner */,
 				0B6A835D2C0861930095060C /* Point */,
 				367243D82BEDEAC9007A5A7B /* Auth */,
 				367243D92BEDEAD2007A5A7B /* Challenge */,
@@ -854,6 +857,7 @@
 				367244032BEDEC4A007A5A7B /* ChallengeRouter.swift */,
 				367244042BEDEC4A007A5A7B /* MyPageRouter.swift */,
 				0B6A835B2C085EFD0095060C /* PointRouter.swift */,
+				3692E05F2CF33A3F0079D2B8 /* BannerRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -1323,6 +1327,7 @@
 				0B5140542BE3A2D600C78B9F /* LoginView.swift in Sources */,
 				0BC0E5B32BB04BC600FB0330 /* GoalPeriodView.swift in Sources */,
 				0B86937D2BE727E5000D7CE1 /* LoginViewModel.swift in Sources */,
+				3692E0602CF33A3F0079D2B8 /* BannerRouter.swift in Sources */,
 				0B6A836B2C0864640095060C /* UserPointResponseDTO.swift in Sources */,
 				0B86937F2BE87A5F000D7CE1 /* LoginButton.swift in Sources */,
 				367243E22BEDEAF8007A5A7B /* SocialLoginRequestDTO.swift in Sources */,
