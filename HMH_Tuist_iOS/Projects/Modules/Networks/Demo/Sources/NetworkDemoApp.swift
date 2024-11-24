@@ -16,15 +16,16 @@ import KakaoSDKAuth
 
 @main
 struct NetworkTestApp: App {
+    let kakaoAPIKey = Config.appKey
     init() {
-//        print(Networks.Config.baseURL)
+        KakaoSDK.initSDK(appKey: kakaoAPIKey)
     }
     
     @StateObject var container = DIContainer.default
     
     var body: some Scene {
         WindowGroup {
-            NetworkTestHomeView()
+            TokenTestHomeView()
                 .environmentObject(container)
         }
     }

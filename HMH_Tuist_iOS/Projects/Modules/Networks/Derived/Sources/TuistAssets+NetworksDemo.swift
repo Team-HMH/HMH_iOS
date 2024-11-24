@@ -25,8 +25,10 @@ public enum NetworksDemoAsset {
   public static let challenge = NetworksDemoImages(name: "Challenge")
   public static let point = NetworksDemoImages(name: "Point")
   public static let user = NetworksDemoImages(name: "User")
+  public static let appleLogo = NetworksDemoImages(name: "appleLogo")
   public static let blackground = NetworksDemoColors(name: "blackground")
   public static let bluePurpleButton = NetworksDemoColors(name: "blue purple_button")
+  public static let kakaoLogo = NetworksDemoImages(name: "kakaoLogo")
   public static let main = NetworksDemoImages(name: "main")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

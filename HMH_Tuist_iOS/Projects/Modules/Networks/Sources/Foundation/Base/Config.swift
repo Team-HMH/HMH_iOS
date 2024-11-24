@@ -22,18 +22,16 @@ public enum Config {
         return dict
     }()
     
-    static let baseURL: String = "http://3.36.221.133"
-    
-//    static public let baseURL: String = {
-//        guard let key = Config.infoDictionary[Keys.Plist.baseURL] as? String else {
-//            fatalError("Base URL is not set in plist for this configuration.")
-//        }
-//        return key
-//    }()
+    static public let baseURL: String = {
+        guard let key = Config.infoDictionary[Keys.Plist.baseURL] as? String else {
+            fatalError("Base URL is not set in plist for this configuration.")
+        }
+        return key
+    }()
     
     static public let appKey: String = {
         guard let key = Config.infoDictionary[Keys.Plist.appKey] as? String else {
-            fatalError("Base URL is not set in plist for this configuration.")
+            fatalError("AppKey is not set in plist for this configuration.")
         }
         return key
     }()

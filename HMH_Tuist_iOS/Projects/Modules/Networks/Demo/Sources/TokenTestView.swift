@@ -1,8 +1,8 @@
 //
-//  PoinstServiceTestView.swift
+//  TokenTestView.swift
 //  NetworksDemo
 //
-//  Created by 류희재 on 11/21/24.
+//  Created by 류희재 on 11/24/24.
 //  Copyright © 2024 HMH-iOS. All rights reserved.
 //
 
@@ -12,8 +12,9 @@ import Core
 
 //디버그(Debug) 모드와 릴리즈(Release) 모드에서 Xcode의 프리뷰(Preview) 활성화 여부 다름 So QA를 다시 debug로 변경
 
-struct NetworkTestHomeView: View {
+struct TokenTestHomeView: View {
     @EnvironmentObject var container: DIContainer
+    private let cancelBag = CancelBag()
     
     var body: some View {
         NavigationStack(path: $container.navigationRouter.destinations) {
@@ -38,7 +39,7 @@ struct NetworkTestHomeView: View {
                 Spacer()
                     .frame(height: 20)
                 
-                Text("테스트하고자하는 Service를 클릭해주세요!")
+                Text("테스트를 하기 전, idToken부터 받으세요!")
                     .foregroundStyle(.gray)
                     .frame(alignment: .center)
                     .font(.body)
@@ -51,65 +52,43 @@ struct NetworkTestHomeView: View {
                 HStack {
                     Spacer()
                     ServiceButton(
-                        imageResource: .auth,
-                        backgroundColor: .clear,
-                        title: "Auth") {
-                            container.navigationRouter.push(to: .auth)
+                        imageResource: .kakaoLogo,
+                        backgroundColor: .yellow,
+                        title: "KAKAO") {
+                            let oauthKakaoService = OAuthKakaoService()
+                            oauthKakaoService.authorize()
+                                .sink(receiveCompletion: { _ in
+                                    
+                                }, receiveValue: { token in
+                                    UserManager.shared.accessToken = token
+                                    container.navigationRouter.push(to: .home)
+                                })
+                                .store(in: cancelBag)
+
                         }
                     
                     Spacer()
                         .frame(width: 25)
                     
                     ServiceButton(
-                        imageResource: .challenge,
-                        backgroundColor: .clear,
-                        title: "Challenge") {
-                            container.navigationRouter.push(to: .challenge)
+                        imageResource: .appleLogo,
+                        backgroundColor: .white,
+                        title: "APPLE") {
+                            container.navigationRouter.push(to: .home)
                         }
                     
                     Spacer()
                 }
-                
-                Spacer()
-                    .frame(height: 25)
-                
-                HStack {
-                    
-                    Spacer()
-                    
-                    ServiceButton(
-                        imageResource: .point,
-                        backgroundColor: .clear,
-                        title: "Point") {
-                            container.navigationRouter.push(to: .point)
-                        }
-                    
-                    Spacer()
-                        .frame(width: 25)
-                    
-                    ServiceButton(
-                        imageResource: .user,
-                        backgroundColor: .clear,
-                        title: "User") {
-                            container.navigationRouter.push(to: .user)
-                        }
-                    
-                    Spacer()
-                }
-                
                 Spacer()
             }
             .padding(.horizontal, 30)
-            .navigationBarBackButtonHidden()
             .setHMHNavigation()
             .background(Color(asset: NetworksDemoAsset.blackground))
         }
     }
 }
 
-
 #Preview {
-    return NetworkTestHomeView()
+    return TokenTestHomeView()
         .environmentObject(DIContainer.stub)
 }
-

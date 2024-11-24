@@ -73,6 +73,8 @@ class AuthServiceViewModel: ObservableObject {
                             self?.state.resultText[index] = "❌ 실패"
                         }
                     }) { [weak self] result in
+                        UserManager.shared.accessToken = result.token.accessToken
+                        UserManager.shared.refreshToken = result.token.refreshToken
                         self?.state.networkLoggingText = "\(result)"
                         self?.state.resultText[index] = "✅ 성공"
                     }

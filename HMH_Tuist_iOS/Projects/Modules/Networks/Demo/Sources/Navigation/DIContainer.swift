@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Networks
 
 typealias NavigationRoutableType = NavigationRoutable & ObservableObjectSettable
 
@@ -28,5 +29,5 @@ final class DIContainer: ObservableObject {
 
 extension DIContainer {
     static let `default` = DIContainer(service: HMHService())
-    static let stub = DIContainer(service: StubHMHSerivce())
+    static let stub = DIContainer(service: StubHMHService())
 }

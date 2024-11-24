@@ -16,78 +16,78 @@ struct URLValidatorMockData {
     static let invalidURLData: [String] = invalidProtocolURL + invalidPortURL + invalidPathURL + invalidQueryURL
     
     static let urlTargetTypeMockData: [(url: String, path: String?, expectedURL: String?, error: HMHNetworkError.RequestError.URLValidationError?)] = [
-            (
-                url: "http://example.com",
-                path: "validPath",
-                expectedURL: "http://example.com/validPath",
-                error: nil
-            ),
-            (
-                url: "https://example.com",
-                path: "api/v1",
-                expectedURL: "https://example.com/api/v1",
-                error: nil
-            ),
-            (
-                url: "",
-                path: nil,
-                expectedURL: nil,
-                error: .emptyurlString
-            ),
-            (
-                url: "www.example.com",
-                path: nil,
-                expectedURL: nil,
-                error: .invalidProtocol
-            ),
-            (
-                url: "htp://example.com",
-                path: nil, expectedURL: nil,
-                error: .invalidProtocol
-            ),
-            (
-                url: "https://example.com:99999",
-                path: nil, 
-                expectedURL: nil,
-                error: .invalidPort
-            ),
-            (
-                url: "http://example.com",
-                path: "path|with|pipes",
-                expectedURL: nil,
-                error: .invalidPath
-            ),
-            (
-                url: "http://example.com",
-                path: "path with spaces",
-                expectedURL: nil,
-                error: .invalidPath
-            ),
-            (
-                url: "http://example.com",
-                path: "/double/slash",
-                expectedURL: nil,
-                error: .invalidPath
-            ),
-            (
-                url: "http://example.com",
-                path: "path#section",
-                expectedURL: nil,
-                error: .invalidPath
-            ),
-            (
-                url: "http://example.com",
-                path: "api?keyvalue",
-                expectedURL: nil,
-                error: .invalidQueryParameter
-            ),
-            (
-                url: "http://example.com",
-                path: "api?key=value&&another=value",
-                expectedURL: nil,
-                error: .invalidQueryParameter
-            )
-        ]
+        (
+            url: "http://example.com",
+            path: "validPath",
+            expectedURL: "http://example.com/validPath",
+            error: nil
+        ),
+        (
+            url: "https://example.com",
+            path: "api/v1",
+            expectedURL: "https://example.com/api/v1",
+            error: nil
+        ),
+        (
+            url: "",
+            path: nil,
+            expectedURL: nil,
+            error: .emptyurlString
+        ),
+        (
+            url: "www.example.com",
+            path: nil,
+            expectedURL: nil,
+            error: .invalidProtocol
+        ),
+        (
+            url: "htp://example.com",
+            path: nil, expectedURL: nil,
+            error: .invalidProtocol
+        ),
+        (
+            url: "https://example.com:99999",
+            path: nil,
+            expectedURL: nil,
+            error: .invalidPort
+        ),
+        (
+            url: "http://example.com",
+            path: "path|with|pipes",
+            expectedURL: nil,
+            error: .invalidPath
+        ),
+        (
+            url: "http://example.com",
+            path: "path with spaces",
+            expectedURL: nil,
+            error: .invalidPath
+        ),
+        (
+            url: "http://example.com",
+            path: "/double/slash",
+            expectedURL: nil,
+            error: .invalidPath
+        ),
+        (
+            url: "http://example.com",
+            path: "path#section",
+            expectedURL: nil,
+            error: .invalidPath
+        ),
+        (
+            url: "http://example.com",
+            path: "api?keyvalue",
+            expectedURL: nil,
+            error: .invalidQueryParameter
+        ),
+        (
+            url: "http://example.com",
+            path: "api?key=value&&another=value",
+            expectedURL: nil,
+            error: .invalidQueryParameter
+        )
+    ]
 }
 
 extension URLValidatorMockData {

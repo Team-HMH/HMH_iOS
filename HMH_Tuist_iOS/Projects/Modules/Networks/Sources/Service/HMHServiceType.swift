@@ -7,26 +7,26 @@
 //
 
 import Foundation
-import Networks
 
-
-protocol HMHServiceType {
+public protocol HMHServiceType {
     var authService: AuthServiceType { get }
     var challengeService: ChallengeServiceType { get }
     var pointService: PointServiceType { get }
     var userService: UserServiceType { get }
 }
 
-final class HMHService: HMHServiceType {
-    var authService: AuthServiceType = AuthService()
-    var challengeService: ChallengeServiceType = ChallengeService()
-    var pointService: PointServiceType = PointService()
-    var userService: UserServiceType = UserService()
+final public class HMHService: HMHServiceType {
+    public init() {}
+    public var authService: AuthServiceType = AuthService()
+    public var challengeService: ChallengeServiceType = ChallengeService()
+    public var pointService: PointServiceType = PointService()
+    public var userService: UserServiceType = UserService()
 }
 
-final class StubHMHSerivce: HMHServiceType {
-    var authService: AuthServiceType = StubAuthService()
-    var challengeService: ChallengeServiceType = StubChallengeService()
-    var pointService: PointServiceType = StubPointService()
-    var userService: UserServiceType = StubUserService()
+final public class StubHMHService: HMHServiceType {
+    public init() {}
+    public var authService: AuthServiceType = StubAuthService()
+    public var challengeService: ChallengeServiceType = StubChallengeService()
+    public var pointService: PointServiceType = StubPointService()
+    public var userService: UserServiceType = StubUserService()
 }
