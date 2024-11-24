@@ -4,6 +4,7 @@ import DeviceActivity
 
 import Amplitude
 import Lottie
+import Kingfisher
 
 struct HomeView: View {
     
@@ -84,15 +85,21 @@ extension HomeView {
                     .padding(.leading, 24)
                     Spacer()
                     AsyncImage(url: URL(string: homeViewModel.homeBanner.imageUrl)) { image in
-                            image.resizable()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 124, height: 64)
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 124, height: 64)
                 }
             }
             .frame(maxWidth: .infinity)
             .padding(.bottom, 16)
+            .contentShape(Rectangle()) // 전체 ZStack을 터치 영역으로 만듦
+            .onTapGesture {
+                if let url = URL(string: homeViewModel.homeBanner.linkUrl) {
+                    UIApplication.shared.open(url)
+                }
+            }
             HStack (alignment: .center) {
                 Text("잠금 앱")
                     .font(.text5_medium_16)
