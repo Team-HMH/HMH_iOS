@@ -16,6 +16,7 @@ class AuthServiceViewModel: ObservableObject {
     //MARK: Action, State
     
     enum Action {
+        case backButtonDidTap
         case serviceButtonDidTap(Int)
     }
     
@@ -50,6 +51,8 @@ class AuthServiceViewModel: ObservableObject {
             switch index {
             case 0:
                 service.signUp(request: .stub)
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -62,6 +65,8 @@ class AuthServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 1:
                 service.socialLogin(request: .init(socialPlatform: "KAKAO"))
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -75,6 +80,8 @@ class AuthServiceViewModel: ObservableObject {
             default:
                 break
             }
+        case .backButtonDidTap:
+            navigationRouter.pop()
         }
     }
 }

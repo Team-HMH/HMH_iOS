@@ -19,7 +19,7 @@ struct UserServiceView: View {
         VStack {
             HStack {
                 Button {
-                    print("뒤로 가기")
+                    viewModel.send(action: .backButtonDidTap)
                 } label: {
                     Image(systemName: "chevron.backward")
                         .resizable()

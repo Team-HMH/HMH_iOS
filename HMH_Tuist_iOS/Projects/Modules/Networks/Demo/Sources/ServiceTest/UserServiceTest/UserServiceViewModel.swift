@@ -16,6 +16,7 @@ class UserServiceViewModel: ObservableObject {
     //MARK: Action, State
     
     enum Action {
+        case backButtonDidTap
         case serviceButtonDidTap(Int)
     }
     
@@ -50,6 +51,8 @@ class UserServiceViewModel: ObservableObject {
             switch index {
             case 0:
                 service.logout()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -62,6 +65,8 @@ class UserServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 1:
                 service.deleteAccount()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -74,6 +79,8 @@ class UserServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 2:
                 service.getUserData()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -86,6 +93,8 @@ class UserServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 3:
                 service.getCurrentPoint()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -99,6 +108,8 @@ class UserServiceViewModel: ObservableObject {
             default:
                 break
             }
+        case .backButtonDidTap:
+            navigationRouter.pop()
         }
     }
 }

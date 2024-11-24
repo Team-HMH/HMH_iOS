@@ -24,7 +24,8 @@ public extension Project {
         "NSAppTransportSecurity": [
             "NSAllowsArbitraryLoads": true
         ],
-        "UIAppFonts": ["Pretendard-Regular.otf", "Pretendard-SemiBold.otf", "Pretendard-Medium.otf"]
+        "UIAppFonts": ["Pretendard-Regular.otf", "Pretendard-SemiBold.otf", "Pretendard-Medium.otf"],
+        "UILaunchStoryboardName": "LaunchScreen"
     ]
     
     
@@ -42,7 +43,8 @@ public extension Project {
         "NSAppTransportSecurity": [
             "NSAllowsArbitraryLoads": true
         ],
-        "UIAppFonts": ["Pretendard-Regular.otf", "Pretendard-SemiBold.otf", "Pretendard-Medium.otf"]
+        "UIAppFonts": ["Pretendard-Regular.otf", "Pretendard-SemiBold.otf", "Pretendard-Medium.otf"],
+        "UILaunchStoryboardName": "LaunchScreen"
     ]
     
     static let deviceActivityMonitorInfoPlist: [String: Plist.Value] = [

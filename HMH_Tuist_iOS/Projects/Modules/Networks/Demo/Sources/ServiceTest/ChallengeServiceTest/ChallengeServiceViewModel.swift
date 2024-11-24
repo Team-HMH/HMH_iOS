@@ -16,6 +16,7 @@ class ChallengeServiceViewModel: ObservableObject {
     //MARK: Action, State
     
     enum Action {
+        case backButtonDidTap
         case serviceButtonDidTap(Int)
     }
     
@@ -53,6 +54,8 @@ class ChallengeServiceViewModel: ObservableObject {
             switch index {
             case 0:
                 service.getDailyChallenge()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -65,6 +68,8 @@ class ChallengeServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 1:
                 service.getSuccesChallenge()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -77,6 +82,8 @@ class ChallengeServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 2:
                 service.createChallenge(request: .stub)
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -89,6 +96,8 @@ class ChallengeServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 3:
                 service.postLockChallenge()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -101,6 +110,8 @@ class ChallengeServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 4:
                 service.deleteApp(request: .stub)
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -114,6 +125,8 @@ class ChallengeServiceViewModel: ObservableObject {
                 
             case 5:
                 service.addApp(request: .stub)
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -127,6 +140,8 @@ class ChallengeServiceViewModel: ObservableObject {
                 
             case 6:
                 service.getChallenge()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -140,6 +155,8 @@ class ChallengeServiceViewModel: ObservableObject {
             default:
                 break
             }
+        case .backButtonDidTap:
+            navigationRouter.pop()
         }
     }
 }

@@ -16,6 +16,7 @@ class PointServiceViewModel: ObservableObject {
     //MARK: Action, State
     
     enum Action {
+        case backButtonDidTap
         case serviceButtonDidTap(Int)
     }
     
@@ -50,10 +51,11 @@ class PointServiceViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
         case .serviceButtonDidTap(let index):
-            let requestPublisher: AnyPublisher<Any, Error>
             switch index {
             case 0:
                 service.patchPointUse()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -66,6 +68,8 @@ class PointServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 1:
                 service.getEarnPoint()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -78,6 +82,8 @@ class PointServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 2:
                 service.getUsagePoint()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -90,6 +96,8 @@ class PointServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 3:
                 service.patchEarnPoint(request: .stub)
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -102,6 +110,8 @@ class PointServiceViewModel: ObservableObject {
                     .store(in: cancelBag)
             case 4:
                 service.getPointList()
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { [weak self] completion in
                         if case let .failure(error) = completion {
                             self?.state.networkLoggingText = error.description
@@ -115,6 +125,8 @@ class PointServiceViewModel: ObservableObject {
             default:
                 break
             }
+        case .backButtonDidTap:
+            navigationRouter.pop()
         }
     }
 }
