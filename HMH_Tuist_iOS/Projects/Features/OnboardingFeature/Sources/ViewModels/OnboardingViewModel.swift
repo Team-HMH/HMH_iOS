@@ -212,5 +212,4 @@ public final class OnboardingViewModel : ObservableObject {
             }
             .store(in: cancelBag)
     }
-    
 }
