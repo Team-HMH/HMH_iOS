@@ -73,7 +73,7 @@ class PickerCoordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource 
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedTime.wrappedValue = times[row]
-        viewModel.isCompleted = true
+//        viewModel.isCompleted = true
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {

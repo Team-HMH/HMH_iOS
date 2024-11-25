@@ -18,12 +18,15 @@ public protocol OnboardingUseCaseType {
         userName: String,
         averageUseTime: String,
         problems: [String],
-        period: Int
+        period: Int,
+        goalTime: Int
     ) -> AnyPublisher<Void, Error>
+    func calculateGoalTime(hour: String, minute: String) -> Int
+    func removeLastCharacterAndConvertToInt(from string: String) -> Int?
 }
 
 public final class OnboardingUseCase: OnboardingUseCaseType {
-
+    
     private let repository: AuthRepositoryType
 
     public init(repository: AuthRepositoryType) {
@@ -35,9 +38,10 @@ public final class OnboardingUseCase: OnboardingUseCaseType {
         userName: String,
         averageUseTime: String,
         problems: [String],
-        period: Int
+        period: Int,
+        goalTime: Int
     ) -> AnyPublisher<Void, Error> {
-        let challengeInfo = ChallengeInfo(period: period, goalTime: 0, apps: [])
+        let challengeInfo = ChallengeInfo(period: period, goalTime: goalTime, apps: [])
         
         return repository.signUp(
             socialPlatform: socialPlatform,
@@ -55,6 +59,25 @@ public final class OnboardingUseCase: OnboardingUseCaseType {
             return error
         }
         .eraseToAnyPublisher()
+    }
+    
+    public func calculateGoalTime(hour: String, minute: String) -> Int {
+        let hourInt = Int(hour) ?? 0
+        let minuteInt = Int(minute) ?? 0
+        
+        let totalMinutes = hourInt * 60 + minuteInt
+        let totalMilliseconds = totalMinutes * 60 * 1000
+        return totalMilliseconds
+    }
+    
+    public func removeLastCharacterAndConvertToInt(from string: String) -> Int? {
+        guard !string.isEmpty else {
+            return nil
+        }
+        
+        let modifiedString = String(string.dropLast())
+        
+        return Int(modifiedString)
     }
 }
 

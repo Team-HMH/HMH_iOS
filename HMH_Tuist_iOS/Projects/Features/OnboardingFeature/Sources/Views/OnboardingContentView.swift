@@ -17,20 +17,12 @@ public struct OnboardingContentView: View {
     
     //TODO: 말썽꾸러기 스크린뷰모델
     //    @StateObject var screenViewModel = ScreenTimeViewModel()
-    @StateObject
-    var onboardingViewModel = OnboardingViewModel(useCase: OnboardingUseCase(repository: AuthRepository(authService: AuthService(), oauthServiceFactory: OAuthServiceFactory())))
-    @State private var selection = FamilyActivitySelection()
+    @ObservedObject
+    var viewModel: OnboardingViewModel
+//    @State private var selection: FamilyActivitySelection
     
-    var isChallengeMode: Bool
-    @Environment(\.presentationMode) var presentationMode
-    
-    public init(isChallengeMode: Bool = false, onboardingState: Int = 0) {
-        //TODO: 말썽꾸러기 스크린뷰모델
-        //        let screenTimeViewModel = ScreenTimeViewModel()
-        //        _screenViewModel = StateObject(wrappedValue: screenTimeViewModel)
-        //        _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(viewModel: screenTimeViewModel, onboardingState: onboardingState, isChallengeMode: isChallengeMode))
-//        _onboardingViewModel = StateObject(wrappedValue: OnboardingViewModel(onboardingState: onboardingState, isChallengeMode: isChallengeMode))
-        self.isChallengeMode = isChallengeMode
+    public init(viewModel: OnboardingViewModel) {
+      self.viewModel = viewModel
     }
     
     public var body: some View {
@@ -41,9 +33,7 @@ public struct OnboardingContentView: View {
                 VStack {
                     OnboardingNavigationView()
                         .frame(height: 60)
-                    if !isChallengeMode {
-                        OnboardingProgressView()
-                    }
+                    OnboardingProgressView()
                 }
                 OnboardingTitleView()
                     .padding(.top, 31)
@@ -51,61 +41,13 @@ public struct OnboardingContentView: View {
                 SurveyContainerView()
                     .frame(maxWidth: .infinity)
                 Spacer()
-                NextButtonView(viewModel: onboardingViewModel)
+                NextButtonView(viewModel: viewModel)
             }
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)
         .background(DSKitAsset.blackground.swiftUIColor)
         .navigationBarHidden(true)
-//        .onChange(of: onboardingViewModel.onboardingState) { newState in
-//            if isChallengeMode && (newState == 1 || newState == 3 || newState == 7 ) {
-//                self.presentationMode.wrappedValue.dismiss()
-//                onboardingViewModel.resetOnboardingState()
-//            }
-//        }
-//        .familyActivityPicker(isPresented: $onboardingViewModel.isPickerPresented,
-//                              selection: $selection)
-        .onChange(of: selection) { newSelection in
-            //TODO: 말썽꾸러기 스크린뷰모델
-            //            screenViewModel.updateSelectedApp(newSelection: newSelection)
-//        }
-//        .onChange(of: onboardingViewModel.isPickerPresented) { isPresented in
-//            if !isPresented {
-//                onboardingViewModel.addOnboardingState()
-//                onboardingViewModel.offIsCompleted()
-//            }
-        }
-        .onAppear() {
-            //TODO: 말썽꾸러기 스크린뷰모델
-            //            selection = screenViewModel.selectedApp
-//            onboardingViewModel.handleOnAppear()
-        }
-//        .showToast(toastType: .onboardingWarn, isPresented: $onboardingViewModel.isOnboardingError)
-//        .customAlert(
-//            isPresented: $onboardingViewModel.isCompletePresented,
-//            customAlert: {
-//                CustomAlertView(
-//                    alertType: .challengeCreationComplete,
-//                    confirmBtn: CustomAlertButtonView(
-//                        buttonType: .Confirm,
-//                        alertType: .challengeCreationComplete,
-//                        isPresented: $onboardingViewModel.isCompletePresented,
-//                        action: {
-//                            onboardingViewModel.alertAction()
-//                        }
-//                    ),
-//                    cancelBtn: CustomAlertButtonView(
-//                        buttonType: .Cancel,
-//                        alertType: .challengeCreationComplete,
-//                        isPresented: $onboardingViewModel.isCompletePresented,
-//                        action: {
-//                            onboardingViewModel.alertAction()
-//                        }
-//                    ), currentPoint: 0, usagePoint: 0
-//                )
-//            }
-//        )
     }
 }
 
@@ -113,7 +55,7 @@ extension OnboardingContentView {
     private func OnboardingNavigationView() -> some View {
         HStack {
             Button(action: {
-                onboardingViewModel.send(action: .arrowButtonTap)
+                viewModel.send(action: .arrowButtonTap)
             }, label: {
                 Image(uiImage: DSKitAsset.chevronLeft.image)
                     .frame(width: 24, height: 24)
@@ -133,21 +75,21 @@ extension OnboardingContentView {
                     .cornerRadius(1.0)
                 Rectangle()
                     .foregroundColor(DSKitAsset.bluePurpleLine.swiftUIColor)
-                    .frame(width: CGFloat(onboardingViewModel.state.onboardingState.rawValue) / CGFloat(5) * 334, height: 4)
+                    .frame(width: CGFloat(viewModel.state.onboardingState.rawValue) / CGFloat(5) * 334, height: 4)
                     .cornerRadius(10.0)
-                    .animation(Animation.spring(duration: 0.5), value: onboardingViewModel.state.onboardingState)
+                    .animation(Animation.spring(duration: 0.5), value: viewModel.state.onboardingState)
             }
         }
     }
     
     private func OnboardingTitleView() -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(onboardingViewModel.state.onboardingState.mainTitle)
-                .font(.title3_semibold_22)
+            Text(viewModel.state.onboardingState.mainTitle)
+                .font(DSKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 22))
                 .lineSpacing(1.5)
                 .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
-            Text(onboardingViewModel.state.onboardingState.subTitle)
-                .font(.detail1_regular_14)
+            Text(viewModel.state.onboardingState.subTitle)
+                .font(DSKitFontFamily.Pretendard.regular.swiftUIFont(size: 14))
                 .lineSpacing(1.5)
                 .foregroundStyle(DSKitAsset.gray2.swiftUIColor)
         }
@@ -155,11 +97,11 @@ extension OnboardingContentView {
     
     private func SurveyContainerView() -> some View {
         VStack {
-            switch onboardingViewModel.state.onboardingState {
+            switch viewModel.state.onboardingState {
             case .timeSurveySelect, .problemSurveySelect, .challangePeriodSelect:
-                SurveyView(viewModel: onboardingViewModel)
+                SurveyView(viewModel: viewModel)
             case .goalTimeSelect:
-                AppGoalTimeView(viewModel: onboardingViewModel)
+                AppGoalTimeView(viewModel: viewModel)
             default:
                 EmptyView()
             }

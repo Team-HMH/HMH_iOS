@@ -21,7 +21,7 @@ struct SurveyButton: View {
 //            viewModel.onIsCompleted()
         } label: {
             Text(viewModel.state.surveyButtonItems[viewModel.state.surveyState][numberOfRow].buttonTitle)
-                .font(.text4_semibold_16)
+                .font(DSKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 16))
                 .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .center)
         }
         .frame(maxWidth: .infinity)
