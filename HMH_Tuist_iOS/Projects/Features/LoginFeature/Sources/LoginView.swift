@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-import AuthenticationServices
 
 import DSKit
+import Domain
 
 public struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel
@@ -23,15 +23,13 @@ public struct LoginView: View {
                 .ignoresSafeArea()
             VStack(spacing: 10) {
                 //TODO: 이미지 타입 문제거 같은데 지금 해결하기엔 싱싱미역
-//                SwipeView(imageNames: [.onboardingFirst, .onboardingSecond, .onboardingThird])
-//                    .padding(.bottom, 75)
-                LoginButton(loginProvider: .kakao, viewModel: viewModel)
-                LoginButton(loginProvider: .apple, viewModel: viewModel)
+                SwipeView(swipeImages: [DSKitAsset.onboardingFirst.swiftUIImage, DSKitAsset.onboardingSecond.swiftUIImage, DSKitAsset.onboardingThird.swiftUIImage], viewModel: viewModel)
+                    .padding(.bottom, 75)
+                LoginButton(loginProvider: OAuthProviderType.kakao, viewModel: viewModel)
+                LoginButton(loginProvider: OAuthProviderType.apple, viewModel: viewModel)
             }
         }
         .frame(maxHeight: .infinity)
         .padding(.vertical, 22)
     }
 }
-
-

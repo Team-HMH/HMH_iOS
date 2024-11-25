@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum OAuthProviderType {
-    case kakao
-    case apple
+public enum OAuthProviderType: String {
+    case kakao = "KAKAO"
+    case apple = "APPLE"
 }
