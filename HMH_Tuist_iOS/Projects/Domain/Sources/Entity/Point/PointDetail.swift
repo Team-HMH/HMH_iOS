@@ -18,15 +18,35 @@ public struct PointDetail: Equatable {
         self.period = period
         self.pointStatuses = pointStatuses
     }
+    
+    public func getPoint() -> Int {
+        return point
+    }
+    
+    public func getPeriod() -> Int {
+        return period
+    }
+    
+    public func getPointStatuses() -> [PointStatuse] {
+        return pointStatuses
+    }
 }
 
 public struct PointStatuse: Equatable {
     let date: String
-    let status: String
+    let status: PointStatusEnum
     
     public init(date: String, status: String) {
         self.date = date
-        self.status = status
+        self.status = PointStatusEnum(rawValue: status) ?? .none
+    }
+    
+    public func getDate() -> String {
+        return date
+    }
+    
+    public func getStatus() -> PointStatusEnum {
+        return status
     }
 }
 

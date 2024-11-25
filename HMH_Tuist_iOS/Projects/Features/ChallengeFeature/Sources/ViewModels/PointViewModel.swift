@@ -7,77 +7,103 @@
 
 import Foundation
 
+import Core
 import Domain
 
 final class PointViewModel: ObservableObject {
-    @Published var challengeDay = 1
-    @Published var currentPoint = 0
-    @Published public var pointList: [PointList] = []
-    @Published var statusList: [String] = []
-    @Published var isPresented = false
-    @Published var earnPoint = 0
     
-    init() {
-        self.getPointList()
-        self.getUsagePoint()
+    // MARK: - State
+    public struct State {
+        var period: Int = 0
+        var pointStatues: [PointStatuse] = []
+        var isPresented: Bool = false
+        var earnPoint: Int = 0
+        var totalPoint: Int = 0
     }
     
-    func getEarnPoint() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        Providers.pointProvider.request(target: .getEarnPoint,
-//                                        instance: BaseResponse<GetEarnPointResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.earnPoint = data.earnPoint
-//        }
+    // MARK: - Action
+    public enum Action {
+        case setEarnPoint(Int)
+        case setTotalPoint(Int)
+        case setPointStatues([PointStatuse])
+        case setPeriod(Int)
+        case setToastPresented(Bool)
     }
     
+    @Published var state = State()
     
-    func getUsagePoint() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        Providers.pointProvider.request(target: .getUsagePoint,
-//                                        instance: BaseResponse<UsagePointResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//        }
+    
+    private var cancelBag = CancelBag()
+    private let pointUseCase: PointUseCaseType
+    
+    init(pointUseCase: PointUseCaseType) {
+        self.pointUseCase = pointUseCase
+        loadInitialData()
     }
-    // 앱 잠금해제시에 사용될 포인트를 조회하는 api입니다.
     
-    func patchEarnPoint(day: Int) {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        let date = pointList[day].challengeDate
-//        let request = PointRequestDTO(challengeDate: date)
-//        Providers.pointProvider.request(target: .patchEarnPoint(data: request),
-//                                        instance: BaseResponse<PatchEarnPointResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.isPresented = true
-//            self.statusList[day] = "EARNED"
-//            self.getPointList()
-//        }
+    private func loadInitialData() {
+        getEarnPoint()
+        getPointList()
+        getCurrentPoint()
     }
-    // 하루하루 챌린지를 성공하고, 포인트를 받는 버튼을 눌렀을 때, 포인트를 받는 API
     
-    func getPointList() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        Providers.pointProvider.request(target: .getPointList,
-//                                        instance: BaseResponse<PointListResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.challengeDay = data.period
-//            self.currentPoint = data.point
-//            self.pointList = data.challengePointStatuses
-//            self.pointList.forEach { point in
-//                self.statusList.append(point.status)
-//            }
-//        }
+    // MARK: - Actions
+    func send(_ action: Action) {
+        switch action {
+        case .setEarnPoint(let point):
+            state.earnPoint = point
+        case .setTotalPoint(let totalPoint):
+            state.totalPoint = totalPoint
+            UserDefaults.standard.set(totalPoint, forKey: "totalPoint")
+        case .setPointStatues(let statues):
+            state.pointStatues = statues
+        case .setPeriod(let period):
+            state.period = period
+        case .setToastPresented(let isPresented):
+            state.isPresented = isPresented
+        }
     }
-    // 챌린지 보상 수령 여부를 리스트로 조회하는 api입니다.
     
+    // MARK: - UseCase Call
     
-    func getCurrentPoint() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        Providers.pointProvider.request(target: .getCurrentPoint,
-//                                        instance: BaseResponse<UserPointResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.currentPoint = data.point
-//        }
+     func patchEarnPoint(index: Int) {
+        let point = state.pointStatues[index]
+        
+        pointUseCase.earnPoint(point: point)
+            .sink(receiveCompletion: { _ in }) { point in
+                print("point \(point)")
+            }
+            .store(in: cancelBag)
     }
-    // 현재 유저 포인트 불러오기
+    
+    func pointStatus(index: Int) -> PointStatusEnum {
+        return state.pointStatues[index].getStatus()
+    }
+    
+    private func getEarnPoint() {
+        pointUseCase.getEarnPoint()
+            .sink { _ in } receiveValue: { [weak self] point in
+                self?.send(.setEarnPoint(point))
+            }
+            .store(in: cancelBag)
+    }
+    
+    private func getPointList() {
+        pointUseCase.getPointStatues()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }) { [weak self] statues in
+                self?.send(.setPointStatues(statues))
+                self?.send(.setPeriod(statues.count))
+            }
+            .store(in: cancelBag)
+    }
+    
+    private func getCurrentPoint() {
+        pointUseCase.getUsagePoint()
+            .sink(receiveCompletion: {_ in }) { [weak self] totalPoint in
+                self?.send(.setTotalPoint(totalPoint))
+            }
+            .store(in: cancelBag)
+    }
+    
 }

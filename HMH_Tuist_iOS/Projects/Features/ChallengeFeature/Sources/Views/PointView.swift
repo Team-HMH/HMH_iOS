@@ -8,107 +8,74 @@
 import SwiftUI
 
 import Core
+import Domain
 import DSKit
 
 struct PointView: View {
-    @StateObject var viewModel = PointViewModel()
+    @StateObject var viewModel: PointViewModel
+    
     
     public var body: some View {
-        main
-            .onAppear {
-                viewModel.getPointList()
-            }
-    }
-}
-
-extension PointView {
-    private var main: some View {
         ScrollView {
             listView
                 .padding(.vertical, 16)
                 .padding(.horizontal, 20)
         }
-        .showToast(toastType: .earnPoint, isPresented: $viewModel.isPresented)
-        .customNavigationBar(title: StringLiteral.NavigationBar.point,
-                             showBackButton: true,
-                             showPointButton: true,
-                             isPointView: true, point: viewModel.currentPoint)
+        .showToast(toastType: .earnPoint, isPresented: $viewModel.state.isPresented)
+        .customNavigationBar(
+            title: StringLiteral.NavigationBar.point,
+            showBackButton: true,
+            showPointButton: true,
+            isPointView: true,
+            point: viewModel.state.totalPoint
+        )
         .background(DSKitAsset.blackground.swiftUIColor)
         .navigationBarHidden(true)
     }
-    
+}
+
+extension PointView {
     private var listView: some View {
-        Spacer()
-        //TODO: 무슨 에러인지 일단 모르겟어서 고쳐봅시다
-//        ForEach(viewModel.pointList.indices, id: \.self) { index in
-//            let point = viewModel.pointList[index]
-//            HStack {
-//                VStack(alignment: .leading) {
-//                    Text("\(index + 1)" + StringLiteral.Challenge.pointTitle)
-//                        .font(.text4_semibold_16)
-//                        .foregroundColor(.whiteText)
-//                        .padding(.bottom, 2)
-//                    Text("\(viewModel.challengeDay)" + StringLiteral.Challenge.pointSubTitle)
-//                        .font(.detail4_medium_12)
-//                        .foregroundColor(.gray2)
-//                }
-//                Spacer()
-//                EarnPointButton(day: index, status: viewModel.statusList[index], viewModel: viewModel)
-//            }
-//            .frame(height: 80)
-//        }
+        ForEach(viewModel.state.pointStatues.indices, id: \.self) { index in
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("\(index + 1)" + StringLiteral.Challenge.pointTitle)
+                        .font(.text4_semibold_16)
+                        .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
+                        .padding(.bottom, 2)
+                    Text("\(viewModel.state.period)" + StringLiteral.Challenge.pointSubTitle)
+                        .font(.detail4_medium_12)
+                        .foregroundColor(DSKitAsset.gray2.swiftUIColor)
+                }
+                Spacer()
+                EarnPointButton(
+                    day: index,
+                    status: viewModel.pointStatus(index: index),
+                    viewModel: viewModel
+                )
+            }
+            .frame(height: 80)
+        }
     }
 }
 
-#Preview {
-    PointView(viewModel: .init())
-}
+
 struct EarnPointButton: View {
     let day: Int
-    let status: String
+    let status: PointStatusEnum // PointStatusEnum 타입으로 변경
     @ObservedObject var viewModel: PointViewModel
     
     var body: some View {
         Button(action: {
-            viewModel.patchEarnPoint(day: day)
+            viewModel.patchEarnPoint(index: day)
         }, label: {
-            Text(StringLiteral.Challenge.pointButton + " \(viewModel.earnPoint)P")
+            Text(StringLiteral.Challenge.pointButton + " \(viewModel.state.earnPoint)P")
                 .font(.text4_semibold_16)
-                .foregroundStyle(buttonTextColor)
+                .foregroundColor(status.titleColor) // 컬러값 설정
                 .frame(width: 73, height: 40)
-                .background(buttonColor)
+                .background(status.buttonColor) // 컬러값 설정
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 3, height: 3)))
         })
-        .disabled(status != "UNEARNED")
-    }
-    
-    private var buttonColor: Color {
-        switch status {
-        case "UNEARNED":
-            return DSKitAsset.bluePurpleButton.swiftUIColor
-        case "EARNED":
-            return DSKitAsset.bluePurpleOpacity22.swiftUIColor
-        case "FAILURE":
-            return DSKitAsset.gray6.swiftUIColor
-        case "NONE":
-            return DSKitAsset.gray7.swiftUIColor
-        default:
-            return DSKitAsset.gray7.swiftUIColor
-        }
-    }
-    
-    private var buttonTextColor: Color {
-        switch status {
-        case "UNEARNED":
-            return DSKitAsset.whiteBtn.swiftUIColor
-        case "EARNED":
-            return DSKitAsset.bluePurpleOpacity70.swiftUIColor
-        case "FAILURE":
-            return DSKitAsset.gray2.swiftUIColor
-        case "NONE":
-            return DSKitAsset.gray3.swiftUIColor
-        default:
-            return DSKitAsset.gray3.swiftUIColor
-        }
+        .disabled(status != .unearned) // 상태에 따라 버튼 활성화 설정
     }
 }
