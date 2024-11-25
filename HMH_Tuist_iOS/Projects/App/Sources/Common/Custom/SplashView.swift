@@ -30,7 +30,7 @@ struct SplashView: View {
         .background(DSKitAsset.blackground.swiftUIColor, ignoresSafeAreaEdges: .all)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, execute: {
-                viewModel.handleSplashScreen()
+//                viewModel.handleSplashScreen()
             })
         }
     }

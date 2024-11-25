@@ -6,20 +6,22 @@
 //
 
 import SwiftUI
-
 import DSKit
 
 struct SwipeView: View {
-    var imageNames: [ImageResource]
-    private let timer = Timer.publish(every: 3.0, on: .main, in: .common).autoconnect()
-    
-    @State private var selectedImageIndex: Int = 0
+    var swipeImages: [Image]
+    @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
         VStack {
-            TabView(selection: $selectedImageIndex) {
-                ForEach(0..<imageNames.count, id: \.self) { index in
-                    Image(imageNames[index])
+            TabView(selection: Binding(
+                get: { viewModel.state.swipeImageIndex },
+                set: { index in
+                    viewModel.send(action: .swipeButtonDidTap(index: index))
+                }
+            )) {
+                ForEach(0..<swipeImages.count, id: \.self) { index in
+                    swipeImages[index]
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -28,22 +30,17 @@ struct SwipeView: View {
             }
             .padding(.bottom, 30)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            
             HStack {
-                ForEach(0..<imageNames.count, id: \.self) { index in
+                ForEach(0..<swipeImages.count, id: \.self) { index in
                     Rectangle()
-                        .fill(selectedImageIndex == index ? Color(.white) : Color(DSKitAsset.gray2.swiftUIColor))
+                        .fill(viewModel.state.swipeImageIndex == index ? Color(.white) : Color(DSKitAsset.gray2.swiftUIColor))
                         .frame(width: 8, height: 8)
-                        .onTapGesture {
-                            selectedImageIndex = index
+                        .onTapGesture {                                viewModel.send(action: .swipeButtonDidTap(index: index))
                         }
                 }
             }
         }
         .frame(maxWidth: .infinity)
-        .onReceive(timer) { _ in
-            withAnimation(.default) {
-                selectedImageIndex = (selectedImageIndex + 1) % imageNames.count
-            }
-        }
     }
 }
