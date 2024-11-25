@@ -31,7 +31,7 @@ public final class BaseService<Target: URLRequestTargetType> {
             .flatMap { response in
                 self.validate(response: response, target: target)
                     .map { _ in response.data! }
-                    .mapError { ErrorHandler.handleError(target, error: $0) }
+                    .mapError { $0 }
             }
             .flatMap { data in
                 self.decode(data: data)
@@ -45,7 +45,7 @@ public final class BaseService<Target: URLRequestTargetType> {
             .flatMap { response in
                 self.validate(response: response, target: target)
                     .map { _ in response.data! }
-                    .mapError { ErrorHandler.handleError(target, error: $0) }
+                    .mapError { $0 }
             }
             .flatMap { data -> AnyPublisher<VoidResult, HMHNetworkError> in
                 self.decode(data: data)
@@ -67,7 +67,7 @@ extension BaseService {
                 }
                 return NetworkResponse(data: data, response: httpResponse, error: nil)
             }
-            .mapError { ($0 as? HMHNetworkError.ResponseError) ?? .unknown }
+            .mapError { $0 as! HMHNetworkError.ResponseError }
             .eraseToAnyPublisher()
     }
     
@@ -76,15 +76,12 @@ extension BaseService {
     private func fetchResponse(with target: API) -> AnyPublisher<NetworkResponse, HMHNetworkError> {
         return RequestHandler.createURLRequest(for: target)
             .map { $0 }
+            .handleEvents(receiveOutput: { NetworkLogHandler.requestLogging($0) })
             .flatMap { urlRequest in
                 self.performDataTask(with: urlRequest)
-                    .mapError { error in ErrorHandler.handleResponseError(target, error: error)}
+                    .mapError { ErrorHandler.handleNoResponseError(target, error: $0) }
             }
-            .handleEvents(receiveSubscription:  {  _ in
-                NetworkLogHandler.requestLogging(target)
-            }, receiveOutput:  {  response in
-                NetworkLogHandler.responseSuccess(target, result: response)
-            })
+            .handleEvents(receiveOutput: { NetworkLogHandler.responseLogging(target, result: $0) })
             .eraseToAnyPublisher()
     }
     
@@ -111,13 +108,14 @@ extension BaseService {
     private func decode<T: Decodable>(data: Data) -> AnyPublisher<T, HMHNetworkError.DecodeError> {
         return Just(data)
             .decode(type: GenericResponse<T>.self, decoder: JSONDecoder())
-            .mapError { _ in .failed }
+            .mapError { _ in .decodingFailed }
             .map { $0.data! }
             .eraseToAnyPublisher()
     }
     
     private func refreshTokenAndRetry(for target: API) -> AnyPublisher<Void, HMHNetworkError> {
         retryCnt += 1
+        NetworkLogHandler.tokenIntercepterRetryLogging(retryCnt: retryCnt)
         return TokenInterceptor.shared.retry(for: session, retryCnt: retryCnt)
             .flatMap { tokenResult -> AnyPublisher<Void, HMHNetworkError> in
                 UserManager.shared.accessToken = tokenResult.accessToken
@@ -135,7 +133,7 @@ extension BaseService {
             }
             .eraseToAnyPublisher()
     }
-
+    
 }
 
 // HTTP 상태코드 유효성 검사
@@ -143,7 +141,7 @@ extension HTTPURLResponse {
     func isValidateStatus() -> Bool {
         return (200...299).contains(self.statusCode)
     }
-
+    
     func unAuthorized() -> Bool {
         return self.statusCode == 401
     }

@@ -12,8 +12,8 @@ import DependencyPlugin
 //TODO: 나머지 4개의 모듈 여기로 주입
 let project = Project.makeModule(
     name: "ChallengeFeature",
-    targets: [.staticFramework, .demo, .interface],
-    interfaceDependencies: [
+    targets: [.staticFramework, .demo],
+    internalDependencies: [
         .Features.BaseFeatureDependency
     ]
 )

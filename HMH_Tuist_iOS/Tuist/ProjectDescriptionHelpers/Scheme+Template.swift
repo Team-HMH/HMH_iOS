@@ -8,64 +8,87 @@
 import ProjectDescription
 import EnvPlugin
 
-extension Scheme {
-    /// Scheme 생성하는 method
-    /// 어떤 타겟을 빌드할 것인지, 어떤 테스트를 실행할 것인지 또한 어떤 환경에서 빌드할 것인지 설정
-    ///
-    /// DEV : 실제 프로덕트 BaseURL을 사용하는 debug scheme
-    /// TEST : 테스트 BaseURL을 사용하는 debug scheme
-    /// QA : 테스트 BaseURL을 사용하는 release scheme
-    /// RELEASE : 실제 프로덕트 BaseURL을 사용하는 release scheme
-
-    static func makeScheme(configs: ConfigurationName, name: String) -> Scheme { // 일반앱
-        return Scheme(
-            name: name,
-            shared: true,
-            buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: .targets(
-                ["\(name)Tests"],
-                configuration: configs,
-                options: .options(coverage: true, codeCoverageTargets: ["\(name)"])
-            ),
-            runAction: .runAction(configuration: configs),
-            archiveAction: .archiveAction(configuration: configs),
-            profileAction: .profileAction(configuration: configs),
-            analyzeAction: .analyzeAction(configuration: configs)
-        )
+struct SchemeProvider {
+    static func makeProjectScheme(targets: Set<FeatureTarget>, name: String) -> [Scheme] {
+        if targets.contains(.app) {
+            return Scheme.appSchemes
+        } else {
+            var scheme: [Scheme] = [Scheme.makeScheme(name: name)]
+            if targets.contains(.demo) { scheme.append(Scheme.makeDemoScheme(name: name))}
+            return scheme
+        }
     }
+}
 
-    static func makeDemoScheme(configs: ConfigurationName, name: String) -> Scheme { // 데모앱
+extension Scheme {
+    static let appSchemes: [Scheme] = [
+        .init(
+            name: "\(env.workspaceName)-DEV",
+            shared: true,
+            buildAction: .buildAction(targets: ["\(env.workspaceName)"]),
+            testAction: .targets(
+                ["\(env.workspaceName)Tests", "\(env.workspaceName)UITests"],
+                configuration: "Development",
+                options: .options(coverage: true, codeCoverageTargets: ["\(env.workspaceName)"])
+            ),
+            runAction: .runAction(configuration: "Development"),
+            archiveAction: .archiveAction(configuration: "Development"),
+            profileAction: .profileAction(configuration: "Development"),
+            analyzeAction: .analyzeAction(configuration: "Development")
+        ),
+        .init(
+            name: "\(env.workspaceName)-QA",
+            shared: true,
+            buildAction: .buildAction(targets: ["\(env.workspaceName)"]),
+            runAction: .runAction(configuration: "QA"),
+            archiveAction: .archiveAction(configuration: "QA"),
+            profileAction: .profileAction(configuration: "QA"),
+            analyzeAction: .analyzeAction(configuration: "QA")
+        ),
+        .init(
+            name: "\(env.workspaceName)-PROD",
+            shared: true,
+            buildAction: .buildAction(targets: ["\(env.workspaceName)"]),
+            runAction: .runAction(configuration: "PROD"),
+            archiveAction: .archiveAction(configuration: "PROD"),
+            profileAction: .profileAction(configuration: "PROD"),
+            analyzeAction: .analyzeAction(configuration: "PROD")
+        ),
+    ]
+    
+    // makeDemoScheme은 개발환경에서 release로 (demo앱이기때문에!)
+    static func makeDemoScheme(name: String) -> Scheme { // 데모앱
         return Scheme(
             name: "\(name)Demo",
             shared: true,
             buildAction: .buildAction(targets: ["\(name)Demo"]),
             testAction: .targets(
                 ["\(name)Tests"],
-                configuration: configs,
+                configuration: "QA",
                 options: .options(coverage: true, codeCoverageTargets: ["\(name)Demo"])
             ),
-            runAction: .runAction(configuration: configs),
-            archiveAction: .archiveAction(configuration: configs),
-            profileAction: .profileAction(configuration: configs),
-            analyzeAction: .analyzeAction(configuration: configs)
+            runAction: .runAction(configuration: "QA"),
+            archiveAction: .archiveAction(configuration: "QA"),
+            profileAction: .profileAction(configuration: "QA"),
+            analyzeAction: .analyzeAction(configuration: "QA")
         )
     }
-
-    static func makeDemoAppTestScheme() -> Scheme { // 데모테스트앱
-        let targetName = "\(env.workspaceName)-Demo"
+    
+    // makeScheme은 개발환경에서 debug (그냥 개발 빌드이기 때문에)
+    static func makeScheme(name: String) -> Scheme { // 일반앱
         return Scheme(
-          name: "\(targetName)-Test",
-          shared: true,
-          buildAction: .buildAction(targets: ["\(targetName)"]),
-          testAction: .targets(
-              ["\(targetName)Tests"],
-              configuration: "Test",
-              options: .options(coverage: true, codeCoverageTargets: ["\(targetName)"])
-          ),
-          runAction: .runAction(configuration: "Test"),
-          archiveAction: .archiveAction(configuration: "Test"),
-          profileAction: .profileAction(configuration: "Test"),
-          analyzeAction: .analyzeAction(configuration: "Test")
+            name: name,
+            shared: true,
+            buildAction: .buildAction(targets: ["\(name)"]),
+            testAction: .targets(
+                ["\(name)Tests"],
+                configuration: "Development",
+                options: .options(coverage: true, codeCoverageTargets: ["\(name)"])
+            ),
+            runAction: .runAction(configuration: "Development"),
+            archiveAction: .archiveAction(configuration: "Development"),
+            profileAction: .profileAction(configuration: "Development"),
+            analyzeAction: .analyzeAction(configuration: "Development")
         )
     }
 }

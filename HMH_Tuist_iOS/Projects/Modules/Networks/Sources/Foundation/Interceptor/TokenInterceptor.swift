@@ -34,9 +34,10 @@ struct TokenInterceptor {
     
     
     func retry(for session: URLSession, retryCnt: Int) -> AnyPublisher<TokenResult, HMHNetworkError> {
-        print(retryCnt)
+        
         if retryCnt > retryLimit {
-            return Fail(error: .retryLimitExceeded).eraseToAnyPublisher()
+            let error = ErrorHandler.handleRetryLimitExceeded()
+            return Fail(error: error).eraseToAnyPublisher()
         } else {
             return service.tokenRefresh()
         }

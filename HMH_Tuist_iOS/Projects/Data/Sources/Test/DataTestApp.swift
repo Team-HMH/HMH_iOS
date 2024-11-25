@@ -16,9 +16,10 @@ import KakaoSDKAuth
 
 @main
 struct DataTestApp: App {
-    let kakaoAPIKey = "36f13382883fc31f22b7d34148a1be2b"
+    let kakaoAPIKey = Networks.Config.appKey
     init() {
         KakaoSDK.initSDK(appKey: kakaoAPIKey)
+        print(Networks.Config.baseURL)
     }
     
     var body: some Scene {

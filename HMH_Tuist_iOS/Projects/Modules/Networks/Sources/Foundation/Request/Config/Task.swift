@@ -29,12 +29,12 @@ extension Task {
                 
         case .requestParameters(let parameters, let urlEncoder):
             return urlEncoder.encode(request, with: parameters)
-                .mapError { .parameterEncodingFailed($0) }
+                .mapError { ErrorHandler.handleParameterEncodingError(request, parameters, error: $0) }
                 .eraseToAnyPublisher()
                 
         case .requestJSONEncodable(let encodable, let jsonEncoder):
             return jsonEncoder.encode(request, with: encodable)
-                .mapError { .parameterEncodingFailed($0) }
+                .mapError { ErrorHandler.handleParameterEncodingError(request, encodable, error: $0) }
                 .eraseToAnyPublisher()
         }
     }

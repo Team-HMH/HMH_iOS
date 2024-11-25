@@ -10,12 +10,12 @@ import Foundation
 
 extension HMHNetworkError {
     public enum DecodeError: Error, Equatable {
-        case failed
+        case decodingFailed
         case dataIsNil
         
         var description: String {
             switch self {
-            case .failed:
+            case .decodingFailed:
                 return "디코딩에 실패했습니다"
             case .dataIsNil:
                 return "데이터가 존재하지 않습니다."
