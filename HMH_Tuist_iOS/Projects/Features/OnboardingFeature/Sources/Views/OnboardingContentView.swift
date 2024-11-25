@@ -133,7 +133,7 @@ extension OnboardingContentView {
                     .cornerRadius(1.0)
                 Rectangle()
                     .foregroundColor(DSKitAsset.bluePurpleLine.swiftUIColor)
-                    .frame(width: CGFloat(onboardingViewModel.state.onboardingState.rawValue) / CGFloat(6) * 334, height: 4)
+                    .frame(width: CGFloat(onboardingViewModel.state.onboardingState.rawValue) / CGFloat(5) * 334, height: 4)
                     .cornerRadius(10.0)
                     .animation(Animation.spring(duration: 0.5), value: onboardingViewModel.state.onboardingState)
             }

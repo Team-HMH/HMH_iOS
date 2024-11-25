@@ -56,7 +56,7 @@ class PickerCoordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource 
      
      func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
          let time = UIColor(DSKitAsset.whiteText.swiftUIColor)
-         let font = UIFont(name: "Pretendard-Medium", size: 22)
+         let font = DSKitFontFamily.Pretendard.medium.font(size: 22)
 
          
          let attributes: [NSAttributedString.Key: Any] = [

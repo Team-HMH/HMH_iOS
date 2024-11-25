@@ -181,6 +181,7 @@ public final class OnboardingViewModel : ObservableObject {
     private func addOnboardingState() {
         guard let nextState = OnboardingState(rawValue: state.onboardingState.rawValue + 1) else { return }
         state.onboardingState = nextState
+        
         if nextState.rawValue <= 2 {
             state.surveyState = nextState.rawValue
         }
