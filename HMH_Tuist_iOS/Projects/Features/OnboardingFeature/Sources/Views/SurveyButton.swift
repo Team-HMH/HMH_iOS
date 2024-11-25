@@ -17,18 +17,18 @@ struct SurveyButton: View {
     
     var body: some View {
         Button {
-            viewModel.changeSurveyButtonStatus(num: numberOfRow)
-            viewModel.onIsCompleted()
+            viewModel.send(action: .surveyButtonTap(index: numberOfRow))
+//            viewModel.onIsCompleted()
         } label: {
-            Text(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].buttonTitle)
+            Text(viewModel.state.surveyButtonItems[viewModel.state.surveyState][numberOfRow].buttonTitle)
                 .font(.text4_semibold_16)
                 .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .center)
         }
         .frame(maxWidth: .infinity)
         .frame(height: 62)
         .foregroundColor(DSKitAsset.whiteBtn.swiftUIColor)
-        .background(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].isSelected ? DSKitAsset.bluePurpleOpacity22.swiftUIColor : DSKitAsset.gray7.swiftUIColor)
-        .border(viewModel.surveyButtonItems[viewModel.getSurveyState()][numberOfRow].isSelected ? DSKitAsset.bluePurpleLine.swiftUIColor : DSKitAsset.gray7.swiftUIColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+        .background(viewModel.state.surveyButtonItems[viewModel.state.surveyState][numberOfRow].isSelected ? DSKitAsset.bluePurpleOpacity22.swiftUIColor : DSKitAsset.gray7.swiftUIColor)
+        .border(viewModel.state.surveyButtonItems[viewModel.state.surveyState][numberOfRow].isSelected ? DSKitAsset.bluePurpleLine.swiftUIColor : DSKitAsset.gray7.swiftUIColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }

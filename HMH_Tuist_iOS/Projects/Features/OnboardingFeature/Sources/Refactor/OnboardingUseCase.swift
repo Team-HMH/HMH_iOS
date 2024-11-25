@@ -49,10 +49,9 @@ public final class OnboardingUseCase: OnboardingUseCaseType {
         .map { auth -> Void in
 //            UserManager.shared.accessToken = auth.accessToken
 //            UserManager.shared.refreshToken = auth.refreshToken
-            print("Sign-up successful with user: \(auth)")
         }
         .mapError { error -> Error in
-            print("Sign-up failed with error: \(error)")
+  
             return error
         }
         .eraseToAnyPublisher()

@@ -16,19 +16,19 @@ struct NextButtonView: View {
     var body: some View {
         VStack {
             Button {
-                viewModel.saveOnboardingData()
+                viewModel.send(action: .nextButtonTap)
             } label: {
-                Text(viewModel.getNextButton())
+                Text(viewModel.state.onboardingState.nextButtonTitle)
                     .font(.text4_semibold_16)
                     .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .center)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 52)
             .foregroundColor(
-                viewModel.isCompleted ? DSKitAsset.whiteBtn.swiftUIColor : DSKitAsset.gray2.swiftUIColor)
-            .background(viewModel.isCompleted ? DSKitAsset.bluePurpleButton.swiftUIColor : DSKitAsset.gray5.swiftUIColor)
+                viewModel.state.isNextAvailable ? DSKitAsset.whiteBtn.swiftUIColor : DSKitAsset.gray2.swiftUIColor)
+            .background(viewModel.state.isNextAvailable ? DSKitAsset.bluePurpleButton.swiftUIColor : DSKitAsset.gray5.swiftUIColor)
             .clipShape(RoundedRectangle(cornerRadius: 4))
-            .disabled(!viewModel.isCompleted)
+            .disabled(!viewModel.state.isNextAvailable)
         }
     }
 }

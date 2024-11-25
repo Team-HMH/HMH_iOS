@@ -1,398 +1,398 @@
+////
+////  OnboardingViewModel.swift
+////  HMH_iOS
+////
+////  Created by Seonwoo Kim on 3/24/24.
+////
 //
-//  OnboardingViewModel.swift
-//  HMH_iOS
+//import SwiftUI
+//import FamilyControls
+//import Foundation
 //
-//  Created by Seonwoo Kim on 3/24/24.
+//import Core
+//import DSKit
+//import Domain
 //
-
-import SwiftUI
-import FamilyControls
-import Foundation
-
-import Core
-import DSKit
-import Domain
-
-
-public class OnboardingViewModel: ObservableObject {
-    
-    //TODO: 말썽꾸러기 스크린뷰모델
-//    var screenViewModel: ScreenTimeViewModel
-    
-    @Published
-    var surveyButtonItems: [[SurveyButtonInfo]]
-    
-    var problems: [String]
-    
-    @Published
-    var onboardingState: Int
-    
-    @Published
-    public var isCompleted: Bool
-    
-    @Published
-    var isPickerPresented: Bool = false
-    
-    @Published
-    var isOnboardingError : Bool = false
-    
-    @Published
-    var isCompletePresented: Bool = false
-    
-    @Published
-    var selectedGoalTime: String
-    
-    @Published
-    var selectedAppHour: String
-    
-    @Published
-    var selectedAppMinute: String
-    
-    var averageUseTime: String
-    
-    var period: Int
-    
-    var isChallengeMode: Bool
-    
-    var goalTime: Int
-    
-    var appGoalTime: Int
-    
-    @AppStorage("socialPlatform") private var socialPlatform = ""
-    @AppStorage("userName") private var userName = ""
-    
-    @MainActor func saveOnboardingData() {
-        print(onboardingState)
-        switch onboardingState {
-        case 0:
-            for index in 0..<4{
-                if surveyButtonItems[onboardingState][index].isSelected {
-                    self.averageUseTime = surveyButtonItems[onboardingState][index].buttonTitle
-                }
-            }
-            addOnboardingState()
-            offIsCompleted()
-        case 1:
-            for index in 0..<4{
-                if surveyButtonItems[onboardingState][index].isSelected {
-                    self.problems.append(surveyButtonItems[onboardingState][index].buttonTitle)
-                }
-            }
-            addOnboardingState()
-            offIsCompleted()
-        case 2:
-            for index in 0..<4{
-                if surveyButtonItems[onboardingState] [index].isSelected {
-                    self.period = removeLastCharacterAndConvertToInt(from: surveyButtonItems[onboardingState] [index].buttonTitle) ?? 0
-                    
-                    print(surveyButtonItems[onboardingState] [index].buttonTitle)
-                    
-                }
-            }
-            if isChallengeMode {
-                onboardingState = 6
-            } else {
-                addOnboardingState()
-            }
-        case 3:
-            break
-            //TODO: 말썽꾸러기 스크린뷰모델
-//            screenViewModel.requestAuthorization()
-//            if screenViewModel.authorizationCenter.authorizationStatus == .approved {
-//                onboardingState += 1
+//
+//public class OnboardingViewModel_refactor: ObservableObject {
+//    
+//    //TODO: 말썽꾸러기 스크린뷰모델
+////    var screenViewModel: ScreenTimeViewModel
+//    
+//    @Published
+//    var surveyButtonItems: [[SurveyButtonInfo]]
+//    
+//    var problems: [String]
+//    
+//    @Published
+//    var onboardingState: Int
+//    
+//    @Published
+//    public var isCompleted: Bool
+//    
+//    @Published
+//    var isPickerPresented: Bool = false
+//    
+//    @Published
+//    var isOnboardingError : Bool = false
+//    
+//    @Published
+//    var isCompletePresented: Bool = false
+//    
+//    @Published
+//    var selectedGoalTime: String
+//    
+//    @Published
+//    var selectedAppHour: String
+//    
+//    @Published
+//    var selectedAppMinute: String
+//    
+//    var averageUseTime: String
+//    
+//    var period: Int
+//    
+//    var isChallengeMode: Bool
+//    
+//    var goalTime: Int
+//    
+//    var appGoalTime: Int
+//    
+//    @AppStorage("socialPlatform") private var socialPlatform = ""
+//    @AppStorage("userName") private var userName = ""
+//    
+//    @MainActor func saveOnboardingData() {
+//        print(onboardingState)
+//        switch onboardingState {
+//        case 0:
+//            for index in 0..<4{
+//                if surveyButtonItems[onboardingState][index].isSelected {
+//                    self.averageUseTime = surveyButtonItems[onboardingState][index].buttonTitle
+//                }
 //            }
-        case 4:
-            isPickerPresented = true
-        case 5:
-            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
-            if isChallengeMode {
-                //TODO: 말썽꾸러기 스크린뷰모델
-//                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
-                addOnboardingState()
-            } else {
-                addOnboardingState()
-            }
-            offIsCompleted()
-        case 6:
-            self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
-            //TODO: 말썽꾸러기 스크린뷰모델
-//            screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
-            if isChallengeMode {
-                postCreateChallengeData()
-                isCompletePresented = true
-            } else {
-                postSignUpLoginData()
-            }
-            offIsCompleted()
-        default:
-            break
-        }
-    }
-    
-    func alertAction() {
-        postCreateChallengeData()
-        addOnboardingState()
-        isCompletePresented = false
-    }
-    
-    func addOnboardingState() {
-        onboardingState += 1
-    }
-    
-    func backButtonTapped() {
-        switch onboardingState {
-        case 0:
-            UserManager.shared.appStateString = "login"
-            offIsCompleted()
-        case 1, 2, 3 :
-            onboardingState -= 1
-            offIsCompleted()
-            resetAllSelections()
-        case 6:
-            onboardingState -= 1
-            offIsCompleted()
-        default:
-            onIsCompleted()
-            onboardingState -= 1
-        }
-    }
-    
-    func onIsCompleted() {
-        isCompleted = true
-    }
-    
-    func offIsCompleted() {
-        isCompleted = false
-    }
-    
-    func resetOnboardingState() {
-        onboardingState = 0
-    }
-    
-    public func getSurveyState() -> Int {
-        return onboardingState <= 2 ? onboardingState : 0
-    }
-    
-    func pushToComplete() {
-        //        if onboardingState == 6 {
-        //            NavigationLink(PermissionView)
-        //        }
-    }
-    
-    func removeLastCharacterAndConvertToInt(from string: String) -> Int? {
-        guard !string.isEmpty else {
-            return nil
-        }
-        
-        let modifiedString = String(string.dropLast())
-        
-        return Int(modifiedString)
-    }
-    
-    
-    @MainActor func postSignUpLoginData() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        let appValues = [ Apps(
-//            appCode: "app goalTime",
-//            goalTime: appGoalTime
-//            )
-//        ]
-//        let request = SignUpRequestDTO(
-//            socialPlatform: socialPlatform,
-//            name: userName,
-//            onboarding: Onboarding(
-//                averageUseTime: self.averageUseTime,
-//                problem: self.problems
-//            ),
-//            challenge: Challenge(
-//                period: self.period,
-//                goalTime: self.goalTime,
-//                apps: appValues
-//            )
-//        )
-//        
-//        let provider = Providers.AuthProvider
-//        provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
-//            print(data.status)
-//            if data.status == 201 {
-//                UserManager.shared.appStateString = "onboardingComplete"
-//                UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
-//                UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
-//            } else if data.message == "이미 회원가입된 유저입니다." {
-//                self.isOnboardingError = true
+//            addOnboardingState()
+//            offIsCompleted()
+//        case 1:
+//            for index in 0..<4{
+//                if surveyButtonItems[onboardingState][index].isSelected {
+//                    self.problems.append(surveyButtonItems[onboardingState][index].buttonTitle)
+//                }
+//            }
+//            addOnboardingState()
+//            offIsCompleted()
+//        case 2:
+//            for index in 0..<4{
+//                if surveyButtonItems[onboardingState] [index].isSelected {
+//                    self.period = removeLastCharacterAndConvertToInt(from: surveyButtonItems[onboardingState] [index].buttonTitle) ?? 0
+//                    
+//                    print(surveyButtonItems[onboardingState] [index].buttonTitle)
+//                    
+//                }
+//            }
+//            if isChallengeMode {
+//                onboardingState = 6
 //            } else {
-//                self.isOnboardingError = true
+//                addOnboardingState()
+//            }
+//        case 3:
+//            break
+//            //TODO: 말썽꾸러기 스크린뷰모델
+////            screenViewModel.requestAuthorization()
+////            if screenViewModel.authorizationCenter.authorizationStatus == .approved {
+////                onboardingState += 1
+////            }
+//        case 4:
+//            isPickerPresented = true
+//        case 5:
+//            self.appGoalTime = convertToTotalMilliseconds(hour: selectedAppHour, minute: selectedAppMinute)
+//            if isChallengeMode {
+//                //TODO: 말썽꾸러기 스크린뷰모델
+////                screenViewModel.handleStartDeviceActivityMonitoring(interval: appGoalTime)
+//                addOnboardingState()
+//            } else {
+//                addOnboardingState()
+//            }
+//            offIsCompleted()
+//        case 6:
+//            self.goalTime = convertToTotalMilliseconds(hour: selectedGoalTime, minute: "0")
+//            //TODO: 말썽꾸러기 스크린뷰모델
+////            screenViewModel.handleTotalDeviceActivityMonitoring(interval: goalTime)
+//            if isChallengeMode {
+//                postCreateChallengeData()
+//                isCompletePresented = true
+//            } else {
+//                postSignUpLoginData()
+//            }
+//            offIsCompleted()
+//        default:
+//            break
+//        }
+//    }
+//    
+//    func alertAction() {
+//        postCreateChallengeData()
+//        addOnboardingState()
+//        isCompletePresented = false
+//    }
+//    
+//    func addOnboardingState() {
+//        onboardingState += 1
+//    }
+//    
+//    func backButtonTapped() {
+//        switch onboardingState {
+//        case 0:
+//            UserManager.shared.appStateString = "login"
+//            offIsCompleted()
+//        case 1, 2, 3 :
+//            onboardingState -= 1
+//            offIsCompleted()
+//            resetAllSelections()
+//        case 6:
+//            onboardingState -= 1
+//            offIsCompleted()
+//        default:
+//            onIsCompleted()
+//            onboardingState -= 1
+//        }
+//    }
+//    
+//    func onIsCompleted() {
+//        isCompleted = true
+//    }
+//    
+//    func offIsCompleted() {
+//        isCompleted = false
+//    }
+//    
+//    func resetOnboardingState() {
+//        onboardingState = 0
+//    }
+//    
+//    public func getSurveyState() -> Int {
+//        return onboardingState <= 2 ? onboardingState : 0
+//    }
+//    
+//    func pushToComplete() {
+//        //        if onboardingState == 6 {
+//        //            NavigationLink(PermissionView)
+//        //        }
+//    }
+//    
+//    func removeLastCharacterAndConvertToInt(from string: String) -> Int? {
+//        guard !string.isEmpty else {
+//            return nil
+//        }
+//        
+//        let modifiedString = String(string.dropLast())
+//        
+//        return Int(modifiedString)
+//    }
+//    
+//    
+//    @MainActor func postSignUpLoginData() {
+//        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+////        let appValues = [ Apps(
+////            appCode: "app goalTime",
+////            goalTime: appGoalTime
+////            )
+////        ]
+////        let request = SignUpRequestDTO(
+////            socialPlatform: socialPlatform,
+////            name: userName,
+////            onboarding: Onboarding(
+////                averageUseTime: self.averageUseTime,
+////                problem: self.problems
+////            ),
+////            challenge: Challenge(
+////                period: self.period,
+////                goalTime: self.goalTime,
+////                apps: appValues
+////            )
+////        )
+////        
+////        let provider = Providers.AuthProvider
+////        provider.request(target: .signUp(data: request), instance: BaseResponse<SignUpResponseDTO>.self) { data in
+////            print(data.status)
+////            if data.status == 201 {
+////                UserManager.shared.appStateString = "onboardingComplete"
+////                UserManager.shared.accessToken = data.data?.token.accessToken ?? ""
+////                UserManager.shared.refreshToken = data.data?.token.refreshToken ?? ""
+////            } else if data.message == "이미 회원가입된 유저입니다." {
+////                self.isOnboardingError = true
+////            } else {
+////                self.isOnboardingError = true
+////            }
+////        }
+//    }
+//    
+//    func postCreateChallengeData() {
+//        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+////        let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.goalTime)
+////        
+////        let provider = Providers.challengeProvider
+////        provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
+////            print(data.status)
+////        }
+//    }
+//    
+//    func patchApp(appGoalTime: Int) {
+//        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+////        let applist = [
+////            Apps(
+////                appCode: "#temp",
+////                goalTime: appGoalTime
+////            )
+////        ]
+////        let requestDTO = AddAppRequestDTO(apps: applist)
+////        Providers.challengeProvider.request(target: .addApp(data: requestDTO),
+////                                            instance: BaseResponse<AddAppResponseDTO>.self) { result in
+////            print("result: \(result)")
+////        }
+//    }
+//    
+//    @MainActor func createAppChallengeData(appGoalTime: Int) {
+//        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
+////        var applist: [Apps] = []
+////        //        screenViewModel.hashVaule
+////        applist = [Apps(appCode: "#24333", goalTime: appGoalTime)]
+////        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { [weak self] result in
+////            UserManager.shared.appStateString = "home"
+////            self?.screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: self?.appGoalTime ?? 0)
+////        }
+//    }
+//    
+//    func changeSurveyButtonStatus(num: Int) {
+//        if onboardingState == 1 {
+//            let selectedCount = surveyButtonItems[onboardingState].filter { $0.isSelected }.count
+//            if surveyButtonItems[onboardingState][num].isSelected {
+//                surveyButtonItems[onboardingState][num].isSelected.toggle()
+//            } else if selectedCount < 2 {
+//                surveyButtonItems[onboardingState][num].isSelected = true
+//            }
+//        } else {
+//            for index in 0..<4 {
+//                surveyButtonItems[onboardingState][index].isSelected = (index == num)
 //            }
 //        }
-    }
-    
-    func postCreateChallengeData() {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        let request = CreateChallengeRequestDTO(period: self.period, goalTime: self.goalTime)
+//    }
+//    
+//    
+//    func convertToTotalMilliseconds(hour: String?, minute: String?) -> Int {
+//        let hourInt = Int(hour ?? "") ?? 0
+//        let minuteInt = Int(minute ?? "") ?? 0
 //        
-//        let provider = Providers.challengeProvider
-//        provider.request(target: .createChallenge(data: request), instance: BaseResponse<EmptyResponseDTO>.self) { data in
-//            print(data.status)
+//        let totalMinutes = hourInt * 60 + minuteInt
+//        let totalMilliseconds = totalMinutes * 60 * 1000
+//        return totalMilliseconds
+//    }
+//    
+//    
+//    func getOnboardigMain() -> String {
+//        switch onboardingState {
+//        case 0:
+//            StringLiteral.OnboardigMain.timeSurveySelect
+//        case 1:
+//            StringLiteral.OnboardigMain.problemSurveySelect
+//        case 2:
+//            StringLiteral.OnboardigMain.periodSelect
+//        case 3:
+//            StringLiteral.OnboardigMain.permissionSelect
+//        case 4:
+//            StringLiteral.OnboardigMain.appSelect
+//        case 5:
+//            StringLiteral.OnboardigMain.appGoalTimeSelect
+//        case 6:
+//            StringLiteral.OnboardigMain.goalTimeSelect
+//        default:
+//            ""
 //        }
-    }
-    
-    func patchApp(appGoalTime: Int) {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        let applist = [
-//            Apps(
-//                appCode: "#temp",
-//                goalTime: appGoalTime
-//            )
+//    }
+//    
+//    func getOnboardigSub() -> String {
+//        switch onboardingState {
+//        case 0:
+//            ""
+//        case 1:
+//            StringLiteral.OnboardigSub.problemSurveySelect
+//        case 2:
+//            StringLiteral.OnboardigSub.periodSelect
+//        case 3:
+//            StringLiteral.OnboardigSub.permissionSelect
+//        case 4:
+//            StringLiteral.OnboardigSub.appSelect
+//        case 5:
+//            StringLiteral.OnboardigSub.appGoalTimeSelect
+//        case 6:
+//            StringLiteral.OnboardigSub.goalTimeSelect
+//        default:
+//            ""
+//        }
+//    }
+//    
+//    func getNextButton() -> String {
+//        switch onboardingState {
+//        case 0, 1, 2, 5:
+//            StringLiteral.OnboardingButton.next
+//        case 3:
+//            StringLiteral.OnboardingButton.permission
+//        case 4:
+//            StringLiteral.OnboardingButton.appSelect
+//        case 6:
+//            StringLiteral.OnboardingButton.complete
+//        default:
+//            ""
+//        }
+//    }
+//    
+//    func handleOnAppear() {
+//        if onboardingState == 3 && isChallengeMode {
+//            isPickerPresented = true
+//        }
+//    }
+//    
+//    func resetAllSelections() {
+//        for i in 0..<surveyButtonItems.count {
+//            for j in 0..<surveyButtonItems[i].count {
+//                surveyButtonItems[i][j].isSelected = false
+//            }
+//        }
+//    }
+//    
+//    //TODO: 말썽꾸러기 스크린뷰모델
+//    init(/*viewModel: ScreenTimeViewModel, */onboardingState: Int = 0, isChallengeMode: Bool = false) {
+//        self.surveyButtonItems = [
+//            [
+//                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.secondSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.thirdSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.fourthSelect, isSelected: false),
+//            ],
+//            [
+//                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.firstSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.secondSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.thirdSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.fourthSelect, isSelected: false),
+//            ],
+//            [
+//                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.firstSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.secondSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.thirdSelect, isSelected: false),
+//                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.fourthSelect, isSelected: false),
+//            ]
 //        ]
-//        let requestDTO = AddAppRequestDTO(apps: applist)
-//        Providers.challengeProvider.request(target: .addApp(data: requestDTO),
-//                                            instance: BaseResponse<AddAppResponseDTO>.self) { result in
-//            print("result: \(result)")
-//        }
-    }
-    
-    @MainActor func createAppChallengeData(appGoalTime: Int) {
-        //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-//        var applist: [Apps] = []
-//        //        screenViewModel.hashVaule
-//        applist = [Apps(appCode: "#24333", goalTime: appGoalTime)]
-//        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { [weak self] result in
-//            UserManager.shared.appStateString = "home"
-//            self?.screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: self?.appGoalTime ?? 0)
-//        }
-    }
-    
-    func changeSurveyButtonStatus(num: Int) {
-        if onboardingState == 1 {
-            let selectedCount = surveyButtonItems[onboardingState].filter { $0.isSelected }.count
-            if surveyButtonItems[onboardingState][num].isSelected {
-                surveyButtonItems[onboardingState][num].isSelected.toggle()
-            } else if selectedCount < 2 {
-                surveyButtonItems[onboardingState][num].isSelected = true
-            }
-        } else {
-            for index in 0..<4 {
-                surveyButtonItems[onboardingState][index].isSelected = (index == num)
-            }
-        }
-    }
-    
-    
-    func convertToTotalMilliseconds(hour: String?, minute: String?) -> Int {
-        let hourInt = Int(hour ?? "") ?? 0
-        let minuteInt = Int(minute ?? "") ?? 0
-        
-        let totalMinutes = hourInt * 60 + minuteInt
-        let totalMilliseconds = totalMinutes * 60 * 1000
-        return totalMilliseconds
-    }
-    
-    
-    func getOnboardigMain() -> String {
-        switch onboardingState {
-        case 0:
-            StringLiteral.OnboardigMain.timeSurveySelect
-        case 1:
-            StringLiteral.OnboardigMain.problemSurveySelect
-        case 2:
-            StringLiteral.OnboardigMain.periodSelect
-        case 3:
-            StringLiteral.OnboardigMain.permissionSelect
-        case 4:
-            StringLiteral.OnboardigMain.appSelect
-        case 5:
-            StringLiteral.OnboardigMain.appGoalTimeSelect
-        case 6:
-            StringLiteral.OnboardigMain.goalTimeSelect
-        default:
-            ""
-        }
-    }
-    
-    func getOnboardigSub() -> String {
-        switch onboardingState {
-        case 0:
-            ""
-        case 1:
-            StringLiteral.OnboardigSub.problemSurveySelect
-        case 2:
-            StringLiteral.OnboardigSub.periodSelect
-        case 3:
-            StringLiteral.OnboardigSub.permissionSelect
-        case 4:
-            StringLiteral.OnboardigSub.appSelect
-        case 5:
-            StringLiteral.OnboardigSub.appGoalTimeSelect
-        case 6:
-            StringLiteral.OnboardigSub.goalTimeSelect
-        default:
-            ""
-        }
-    }
-    
-    func getNextButton() -> String {
-        switch onboardingState {
-        case 0, 1, 2, 5:
-            StringLiteral.OnboardingButton.next
-        case 3:
-            StringLiteral.OnboardingButton.permission
-        case 4:
-            StringLiteral.OnboardingButton.appSelect
-        case 6:
-            StringLiteral.OnboardingButton.complete
-        default:
-            ""
-        }
-    }
-    
-    func handleOnAppear() {
-        if onboardingState == 3 && isChallengeMode {
-            isPickerPresented = true
-        }
-    }
-    
-    func resetAllSelections() {
-        for i in 0..<surveyButtonItems.count {
-            for j in 0..<surveyButtonItems[i].count {
-                surveyButtonItems[i][j].isSelected = false
-            }
-        }
-    }
-    
-    //TODO: 말썽꾸러기 스크린뷰모델
-    init(/*viewModel: ScreenTimeViewModel, */onboardingState: Int = 0, isChallengeMode: Bool = false) {
-        self.surveyButtonItems = [
-            [
-                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.firstSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.secondSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.thirdSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.TimeSurveySelect.fourthSelect, isSelected: false),
-            ],
-            [
-                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.firstSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.secondSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.thirdSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.ProblemSurveySelect.fourthSelect, isSelected: false),
-            ],
-            [
-                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.firstSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.secondSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.thirdSelect, isSelected: false),
-                SurveyButtonInfo(buttonTitle: StringLiteral.PeriodSelect.fourthSelect, isSelected: false),
-            ]
-        ]
-        self.onboardingState = onboardingState
-        self.isCompleted = false
-        self.selectedGoalTime = "1"
-        self.selectedAppHour = "0"
-        self.selectedAppMinute = "0"
-        self.problems = []
-        self.averageUseTime = ""
-        self.period = 0
-        self.goalTime = 0
-        self.appGoalTime = 0
-        //TODO: 말썽꾸러기 스크린뷰모델
-//        self.screenViewModel = viewModel
-        self.isChallengeMode = isChallengeMode
-    }
-}
+//        self.onboardingState = onboardingState
+//        self.isCompleted = false
+//        self.selectedGoalTime = "1"
+//        self.selectedAppHour = "0"
+//        self.selectedAppMinute = "0"
+//        self.problems = []
+//        self.averageUseTime = ""
+//        self.period = 0
+//        self.goalTime = 0
+//        self.appGoalTime = 0
+//        //TODO: 말썽꾸러기 스크린뷰모델
+////        self.screenViewModel = viewModel
+//        self.isChallengeMode = isChallengeMode
+//    }
+//}
