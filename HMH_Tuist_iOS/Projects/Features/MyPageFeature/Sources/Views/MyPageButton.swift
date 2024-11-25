@@ -11,21 +11,19 @@ import DSKit
 
 struct MyPageButton: View {
     
-    @ObservedObject var viewModel: MyPageViewModel
-    
     var buttonType: MyPageButtonType
     
     var body: some View {
         ZStack {
             HStack() {
-                if let image = viewModel.getButtonImage(type: buttonType) {
+                if let image = buttonType.imageName {
                     Image(image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                         .padding(.trailing, 15)
                 }
-                Text(viewModel.getButtonTitle(type: buttonType))
+                Text(buttonType.titleText)
                     .font(.text5_medium_16)
                 Spacer()
                 Image(uiImage: buttonType == .travel ? DSKitAsset.chevrongray.image : DSKitAsset.chevronRight.image)
@@ -36,8 +34,7 @@ struct MyPageButton: View {
         }
         .background(DSKitAsset.blackground.swiftUIColor)
         .onTapGesture {
-            viewModel.myPageButtonClick(type: buttonType)
+            buttonType.clickAction
         }
     }
 }
-

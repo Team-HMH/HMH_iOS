@@ -1,121 +1,66 @@
 //
 //  MyPageViewModel.swift
-//  HMH_iOS
+//  MyPageFeature
 //
-//  Created by Seonwoo Kim on 4/12/24.
+//  Created by 류희재 on 11/26/24.
+//  Copyright © 2024 HMH-iOS. All rights reserved.
 //
 
-import SwiftUI
+import Combine
 
 import Core
 import DSKit
 
-public enum MyPageButtonType {
-    case travel
-    case market
-    case term
-    case info
-}
-
-
 class MyPageViewModel: ObservableObject {
-    @Published var isPresented = false
-    @Published var alertType: CustomAlertType = .logout
-    @Published var name = ""
-    @Published var point = 0
-    @Published var navigateToPrepare = false
-
-    func getButtonTitle(type: MyPageButtonType) -> String {
-        switch type {
-        case .travel:
-            return StringLiteral.MyPageButton.travel
-        case .market:
-            return StringLiteral.MyPageButton.market
-        case .term:
-            return StringLiteral.MyPageButton.term
-        case .info:
-            return StringLiteral.MyPageButton.info
+    
+    private var useCase: MyPageUseCaseType
+    private var cancelBag = CancelBag()
+    
+    init(useCase: MyPageUseCaseType) {
+        self.useCase = useCase
+    }
+    
+    @Published private(set) var state = State(
+        alertType: .logout,
+        name: "",
+        point: 0
+    )
+    
+    //MARK: Action
+    
+    enum Action {
+        case onAppearEvent
+        case logoutButtonDidTap
+        case withdrawButtonDidTap
+        case confirmButtonDidTap
+    }
+    
+    //MARK: State
+    
+    struct State {
+        var alertType: CustomAlertType
+        var name: String
+        var point: Int
+    }
+    
+    func send(action: Action) {
+        switch action {
+        case .onAppearEvent:
+            useCase.getUserDate()
+                .sink { _ in
+                } receiveValue: { [weak self] data in
+                    self?.state.name = data.name
+                    self?.state.point = data.point
+                }.store(in: cancelBag)
+            
+        case .logoutButtonDidTap:
+            state.alertType = .logout
+            
+        case .withdrawButtonDidTap:
+            state.alertType = .withdraw
+            
+        case .confirmButtonDidTap:
+            state.alertType == .logout ? useCase.logout() : useCase.revokeUser()
         }
-    }
-    
-    func getButtonImage(type: MyPageButtonType) -> String? {
-        switch type {
-        case .travel:
-            return "map"
-        case .market:
-            return "market"
-        case .term, .info:
-            return nil
-        }
-    }
-    
-    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-    func getUserData() {
-//        let provider = Providers.myPageProvider
-//        provider.request(target: .getUserData, instance: BaseResponse<GetUserDataResponseDTO>.self) { data in
-//            self.name = data.data?.name ?? ""
-//            self.point = data.data?.point ?? 0
-//        }
-    }
-    
-    func myPageButtonClick(type: MyPageButtonType) {
-        switch type {
-        case .term:
-            guard let url = URL(string: StringLiteral.MyPageURL.term) else {return}
-            UIApplication.shared.open(url)
-        case .info:
-            guard let url = URL(string: StringLiteral.MyPageURL.info) else {return}
-            UIApplication.shared.open(url)
-        case .market:
-            navigateToPrepare = true
-        default:
-            return
-        }
-    }
-    
-    func backButtonClicked() {
-        navigateToPrepare = false
-    }
-    
-    func logoutButtonClicked() {
-        isPresented = true
-        alertType = .logout
-    }
-    
-    func withdrawButtonClicked() {
-        isPresented = true
-        alertType = .withdraw
-    }
-    
-    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-    func revokeUser() {
-//        let provider = Providers.AuthProvider
-//        provider.request(target: .revoke, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-//            UserManager.shared.revokeData()
-//        }
-    }
-    
-    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-    func logoutUser() {
-//        let provider = Providers.AuthProvider
-//        provider.request(target: .logout, instance: BaseResponse<EmptyResponseDTO>.self) { data in
-//            UserManager.shared.clearLogout()
-//        }
-    }
-    
-    func confirmAction() {
-        UserManager.shared.appStateString = "login"
-        if alertType == .logout {
-            logoutUser()
-            isPresented = false
-        } else {
-            revokeUser()
-            UserManager.shared.revokeData()
-            isPresented = false
-        }
-    }
-    
-    func cancelAction() {
-        isPresented = false
     }
 }

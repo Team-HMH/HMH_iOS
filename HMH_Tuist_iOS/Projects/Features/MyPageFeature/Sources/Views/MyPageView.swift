@@ -8,13 +8,11 @@
 import SwiftUI
 
 import DSKit
+import Core
 
 public struct MyPageView: View {
-    
-    public init() {}
-    
-    @StateObject
-    var viewModel = MyPageViewModel()
+    @State private var isPresented: Bool = false
+    @StateObject var viewModel: MyPageViewModel
     
     public var body: some View {
         VStack {
@@ -30,9 +28,33 @@ public struct MyPageView: View {
             Spacer()
             AccountControlView()
         }
+        .onAppear { viewModel.send(action: .onAppearEvent)}
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(DSKitAsset.blackground.swiftUIColor)
+        .customAlert(
+            isPresented: $isPresented,
+            customAlert: {
+                CustomAlertView(
+                    alertType: viewModel.state.alertType,
+                    confirmBtn: CustomAlertButtonView(
+                        buttonType: .Confirm,
+                        alertType: viewModel.state.alertType,
+                        isPresented: $isPresented,
+                        action: {
+                            UserManager.shared.appStateString = "login"
+                            viewModel.send(action: .confirmButtonDidTap)
+                        }
+                    ),
+                    cancelBtn: CustomAlertButtonView(
+                        buttonType: .Cancel,
+                        alertType: viewModel.state.alertType,
+                        isPresented: $isPresented,
+                        action: { isPresented = false }
+                    ), currentPoint: 0, usagePoint: 0
+                )
+            }
+        )
     }
 }
 
@@ -42,17 +64,15 @@ extension MyPageView {
             Image(uiImage: DSKitAsset.profile.image)
                 .frame(width: 54, height: 54)
                 .padding(10)
-            //TODO: 서버통신이랑 이어지는 부분이라서
-//            Text(viewModel.getUserName())
-//                .font(.title4_semibold_20)
+            Text(viewModel.state.name)
+                .font(.title4_semibold_20)
             Spacer()
                 .frame(height: 16)
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
-                //TODO: 서버통신이랑 이어지는 부분이라서
-//                Text(viewModel.getUserPoint())
-//                    .font(.text6_medium_14)
+                Text("\(viewModel.state.point)")
+                    .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 40)
@@ -62,44 +82,44 @@ extension MyPageView {
         .foregroundColor(DSKitAsset.whiteText.swiftUIColor)
         .frame(width: 133, height: 150)
     }
+    
     private func MyInfoView() -> some View {
         VStack(spacing: 0) {
-            MyPageButton(viewModel: viewModel, buttonType: .travel)
-            MyPageButton(viewModel: viewModel, buttonType: .market)
+            MyPageButton(buttonType: .travel)
+            MyPageButton(buttonType: .market)
         }
         .background(DSKitAsset.gray7.swiftUIColor)
     }
+    
     private func HMHInfoView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("정보")
                 .font(.text4_semibold_16)
                 .foregroundColor(DSKitAsset.gray2.swiftUIColor)
                 .padding(.vertical, 14)
-            MyPageButton(viewModel: viewModel, buttonType: .info)
-            MyPageButton(viewModel: viewModel, buttonType: .term)
+            MyPageButton(buttonType: .info)
+            MyPageButton(buttonType: .term)
         }
     }
+    
     private func AccountControlView() -> some View {
-        HStack(spacing: 19) {
-            Button(action: {
-                viewModel.logoutButtonClicked()
-            }) {
-                Text(StringLiteral.MyPageAccountControl.logout)
-                    .font(.text6_medium_14)
-            }
-            .foregroundColor(DSKitAsset.gray3.swiftUIColor)
-            
+        HStack {
+            Text(StringLiteral.MyPageAccountControl.logout)
+                .font(.text6_medium_14)
+                .onTapGesture {
+                    isPresented = true
+                    viewModel.send(action: .logoutButtonDidTap)
+                }
             Rectangle()
                 .frame(width: 1, height: 16)
-            
-            Button(action: {
-                viewModel.withdrawButtonClicked()
-            }) {
-                Text(StringLiteral.MyPageAccountControl.revoke)
-                    .font(.text6_medium_14)
-            }
-            .foregroundColor(DSKitAsset.gray3.swiftUIColor)
+            Text(StringLiteral.MyPageAccountControl.revoke)
+                .font(.text6_medium_14)
+                .onTapGesture {
+                    isPresented = true
+                    viewModel.send(action: .withdrawButtonDidTap)
+                }
         }
+        .foregroundColor(DSKitAsset.gray3.swiftUIColor)
         .frame(height: 77)
     }
 }
