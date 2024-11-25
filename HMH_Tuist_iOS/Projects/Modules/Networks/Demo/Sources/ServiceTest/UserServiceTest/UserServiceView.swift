@@ -51,7 +51,7 @@ struct UserServiceView: View {
             
             Rectangle()
                 .foregroundColor(.white)
-                .frame(width: .infinity, height: 3)
+                .frame(height: 3)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 25)
             
@@ -92,7 +92,7 @@ fileprivate struct ServiceListView: View {
                     ServiceCellView(apiTitle: api, index: index, viewModel: viewModel)
                     Rectangle()
                         .foregroundColor(.gray)
-                        .frame(width: .infinity, height: 1)
+                        .frame(height: 1)
                 }
             }
         }

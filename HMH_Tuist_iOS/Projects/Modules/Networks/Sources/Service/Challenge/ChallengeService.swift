@@ -28,7 +28,7 @@ extension ChallengeService: ChallengeServiceType {
     }
     
     public func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
-        return requestWithResult(.getSuccesChallenge)
+        return requestWithResult(.postSuccesChallenge)
     }
     
     public func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError> {
