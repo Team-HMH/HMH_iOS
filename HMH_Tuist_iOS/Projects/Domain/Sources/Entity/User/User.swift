@@ -9,8 +9,8 @@
 import Foundation
 
 public struct User: Equatable {
-    let name: String
-    let point: Int
+    public let name: String
+    public let point: Int
     
     public init(name: String, point: Int) {
         self.name = name

@@ -10,6 +10,7 @@ import Combine
 
 import Core
 import DSKit
+import Domain
 
 class MyPageViewModel: ObservableObject {
     
