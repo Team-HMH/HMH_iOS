@@ -504,6 +504,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3362BE21290F237818FBDE2C"
+               BuildableName = "NetworksDemo.app"
+               BlueprintName = "NetworksDemo"
+               ReferencedContainer = "container:Projects/Modules/Networks/Networks.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "F13A87E240A54270A150D681"
                BuildableName = "NetworksTests.xctest"
                BlueprintName = "NetworksTests"

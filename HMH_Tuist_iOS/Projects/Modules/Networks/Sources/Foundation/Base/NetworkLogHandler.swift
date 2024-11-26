@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NetworkLogHandler {
+public struct NetworkLogHandler {
     // 디코딩 로깅 함수
     static func responseDecodingError<T: Decodable>(
         data: Data,

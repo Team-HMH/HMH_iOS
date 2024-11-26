@@ -10,8 +10,9 @@ import Foundation
 import Combine
 import Core
 
-struct TokenInterceptor {
+class TokenInterceptor {
     
+    private var retryCnt = 0
     private var retryLimit = 3
     let cancelBag = CancelBag()
     
@@ -33,10 +34,12 @@ struct TokenInterceptor {
     }
     
     
-    func retry(for session: URLSession, retryCnt: Int) -> AnyPublisher<TokenResult, HMHNetworkError> {
-        
+    func retry(for session: URLSession) -> AnyPublisher<TokenResult, HMHNetworkError> {
+        NetworkLogHandler.tokenIntercepterRetryLogging(retryCnt: retryCnt)
+        self.retryCnt += 1
         if retryCnt > retryLimit {
             let error = ErrorHandler.handleRetryLimitExceeded()
+            retryCnt = 0
             return Fail(error: error).eraseToAnyPublisher()
         } else {
             return service.tokenRefresh()

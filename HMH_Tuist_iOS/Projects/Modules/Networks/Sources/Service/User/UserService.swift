@@ -38,26 +38,28 @@ extension UserService: UserServiceType {
     }
 }
 
-struct StubUserService: UserServiceType {
-    func logout() -> AnyPublisher<Void, HMHNetworkError> {
+public struct StubUserService: UserServiceType {
+    public init() {}
+    
+    public func logout() -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func deleteAccount() -> AnyPublisher<Void, HMHNetworkError> {
+    public func deleteAccount() -> AnyPublisher<Void, HMHNetworkError> {
         return Just(())
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func getUserData() -> AnyPublisher<UserResult, HMHNetworkError> {
+    public func getUserData() -> AnyPublisher<UserResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
     }
     
-    func getCurrentPoint() -> AnyPublisher<PointResult, HMHNetworkError> {
+    public func getCurrentPoint() -> AnyPublisher<PointResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()

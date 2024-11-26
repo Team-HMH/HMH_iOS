@@ -10,7 +10,7 @@ import Foundation
 
 public enum ChallengeAPI {
     case getdailyChallenge
-    case postSucessChallenge(request: ChallengeSuccessRequest)
+    case postSuccesChallenge
     case createChallenge(request: CreateChallengeRequest)
     case getLockChallenge
     case postLockChallenge
@@ -27,9 +27,9 @@ extension ChallengeAPI: BaseAPI {
     public var path: String? {
         switch self {
         case .getdailyChallenge:
-            return Paths.getChallenge
-        case .postSucessChallenge:
-            return Paths.getSuccesChallenge
+            return Paths.getdailyChallenge
+        case .postSuccesChallenge:
+            return Paths.postSuccesChallenge
         case .createChallenge:
             return Paths.createChallenge
         case .getLockChallenge:
@@ -49,7 +49,7 @@ extension ChallengeAPI: BaseAPI {
         switch self {
         case .getdailyChallenge:
             return .get
-        case .postSucessChallenge:
+        case .postSuccesChallenge:
             return .post
         case .createChallenge:
             return .post
@@ -70,8 +70,8 @@ extension ChallengeAPI: BaseAPI {
         switch self {
         case .getdailyChallenge:
             return .requestPlain
-        case .postSucessChallenge(let request):
-            return .requestJSONEncodable(request)
+        case .postSuccesChallenge:
+            return .requestPlain
         case .createChallenge(let request):
             return .requestJSONEncodable(request)
         case .getLockChallenge:
@@ -91,7 +91,7 @@ extension ChallengeAPI: BaseAPI {
         switch self {
         case .getdailyChallenge:
             return APIHeaders.hasTokenWithTimeZoneHeader
-        case .postSucessChallenge:
+        case .postSuccesChallenge:
             return APIHeaders.hasTokenWithTimeZoneHeader //안되면 contenttype 빼고
         case .createChallenge:
             return APIHeaders.hasTokenWithAllHeader

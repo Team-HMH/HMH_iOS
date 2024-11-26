@@ -8,7 +8,7 @@
 
 import Foundation
 
-@frozen public enum HMHNetworkError: Error, Equatable {
+@frozen public enum HMHNetworkError: Error, Equatable, LocalizedError {
     case invalidRequest(RequestError)
     case invalidResponse(ResponseError)
     case decodingFailed(DecodeError)
@@ -16,7 +16,7 @@ import Foundation
     case retryLimitExceeded
     case unknownError
     
-    var description: String {
+    public var description: String {
         switch self {
         case .invalidRequest(let requestError):
             return "요청 시 발생된" + requestError.description

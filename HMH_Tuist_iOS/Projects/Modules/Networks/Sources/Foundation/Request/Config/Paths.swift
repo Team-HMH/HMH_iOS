@@ -18,7 +18,7 @@ public enum Paths {
     
     static let logout = "api/v1/user/logout"
     static let deleteAccount = "api/v1/user"
-    static let getUserData = "api/v1//users"
+    static let getUserData = "api/v1/user"
     static let getCurrentPoint = "api/v1/user/point"
     
     
@@ -33,7 +33,7 @@ public enum Paths {
     //MARK: - Challenge
     
     static let getdailyChallenge =  "api/v2/challenge/home"
-    static let getSuccesChallenge = "api/v2/challenge/daily/success"
+    static let postSuccesChallenge = "api/v2/challenge/daily/success"
     static let createChallenge = "api/v2/challenge"
     static let getLockChallenge = "api/v2/user/daily/lock"
     static let postLockChallenge = "api/v2/user/daily/lock"
