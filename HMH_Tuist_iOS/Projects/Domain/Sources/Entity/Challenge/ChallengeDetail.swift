@@ -8,23 +8,43 @@
 
 import Foundation
 
-@frozen public enum ChallengeStatus: String {
-    case EARNED
-    case FAILURE
-    case UNEARNED
-}
-
-public struct ChallengeDetail: Equatable {
-    let statuses: [String]
+public struct ChallengeDetail {
+    let statuses: [PointStatusEnum]
     let todayIndex: Int
     let startDate: String
     let challengeInfo: ChallengeInfo
     
-    public init(statuses: [String], todayIndex: Int, startDate: String, challengeInfo: ChallengeInfo) {
+    public enum InfoType {
+        case period
+        case goalTime
+    }
+    
+    public init(statuses: [PointStatusEnum], todayIndex: Int, startDate: String, challengeInfo: ChallengeInfo) {
         self.statuses = statuses
         self.todayIndex = todayIndex
         self.startDate = startDate
         self.challengeInfo = challengeInfo
+    }
+    
+    public func getTodayIndex() -> Int {
+        return todayIndex
+    }
+    
+    public func getStatuses() -> [PointStatusEnum] {
+        return statuses
+    }
+    
+    public func getStartDate() -> String {
+        return startDate
+    }
+    
+    public func getChallengeInfo(_ infoType: InfoType) -> Int {
+        switch infoType {
+        case .period:
+            return challengeInfo.period
+        case .goalTime:
+            return challengeInfo.goalTime
+        }
     }
 }
 
@@ -37,5 +57,9 @@ public struct ChallengeInfo: Equatable {
         self.period = period
         self.goalTime = goalTime
         self.apps = apps
+    }
+    
+    public func getPeriod() -> Int {
+        return period
     }
 }

@@ -13,7 +13,7 @@ public typealias ChallengeService = BaseService<ChallengeAPI>
 
 public protocol ChallengeServiceType {
     func getDailyChallenge()  -> AnyPublisher<DailyChallengeResult, HMHNetworkError>
-    func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError>
+    func postSuccesChallenge(request: ChallengeSuccessRequest) -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError>
     func createChallenge(request: CreateChallengeRequest) -> AnyPublisher<Void, HMHNetworkError>
     func getLockChallenge() -> AnyPublisher<GetLockResult, HMHNetworkError>
     func postLockChallenge() -> AnyPublisher<Void, HMHNetworkError>

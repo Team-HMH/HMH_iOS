@@ -30,7 +30,7 @@ final public class MockChallengeService: ChallengeServiceType {
         return getDailyChallengeResult
     }
     
-    public func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
+    public func postSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
         return getSuccesChallengeResult
     }
     

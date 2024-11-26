@@ -22,6 +22,7 @@ class HomeViewModel: ObservableObject {
     
     @AppStorage("handleUsage") var isNotHandleUsage: Bool = true
     @ObservedObject var screenTimeVM = ScreenTimeViewModel()
+    @Published var homeBanner = homeBannerModel(title: "", subTitle: "", imageUrl: "", linkUrl: "", backgroundColors: [])
     
     init(){    }
     
@@ -34,6 +35,20 @@ class HomeViewModel: ObservableObject {
                     self.screenTimeVM.handleStartDeviceActivityMonitoring(interval: self.appGoalTimeDouble)
                     self.isNotHandleUsage = false
                 }
+            }
+        }
+    }
+    
+    func getBannerInfo() {
+        Providers.bannerProvider.request(target: .getBannerInfo, instance: BaseResponse<BannerResponseDTO>.self) { result in
+            if let data = result.data {
+                self.homeBanner = homeBannerModel(
+                    title: data.title,
+                    subTitle: data.subTitle,
+                    imageUrl: data.imageUrl,
+                    linkUrl: data.linkUrl,
+                    backgroundColors: data.backgroundColors.map{ Color(hex: $0) }
+                )
             }
         }
     }

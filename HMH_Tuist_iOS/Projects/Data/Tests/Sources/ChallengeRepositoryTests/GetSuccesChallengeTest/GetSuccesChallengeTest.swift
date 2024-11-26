@@ -25,7 +25,7 @@ extension ChallegeRepositoryTests {
                 .setFailureType(to: HMHNetworkError.self)
                 .eraseToAnyPublisher()
             
-            sut.getSuccesChallenge()
+            sut.postSuccesChallenge()
                 .sink(receiveCompletion: { completion in
                     if case .failure(let error) = completion {
                         XCTFail("챌린지 성공 여부 리스트 전송 API 변환 중 실패했습니다: 에러 \(error)")
@@ -45,7 +45,7 @@ extension ChallegeRepositoryTests {
         for expected in testCases {
             mockService.getSuccesChallengeResult = Fail(error: expected).eraseToAnyPublisher()
             
-            sut.getSuccesChallenge()
+            sut.postSuccesChallenge()
                 .sink(
                     receiveCompletion: handleCompletion(
                         expectedError: .networkError,
