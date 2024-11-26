@@ -13,6 +13,7 @@ struct Providers {
     static let myPageProvider = NetworkProvider<MyPageRouter>(withAuth: true)
     static let AuthProvider = NetworkProvider<AuthRouter>(withAuth: false)
     static let pointProvider = NetworkProvider<PointRouter>(withAuth: false)
+    static let bannerProvider = NetworkProvider<BannerRouter>(withAuth: true)
 }
 
 extension MoyaProvider {

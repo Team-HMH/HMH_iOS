@@ -4,6 +4,7 @@ import DeviceActivity
 
 import Amplitude
 import Lottie
+import Kingfisher
 
 struct HomeView: View {
     
@@ -67,6 +68,38 @@ extension HomeView {
     
     var listView: some View {
         VStack(alignment: .center) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 28)
+                    .fill(LinearGradient(colors: homeViewModel.homeBanner.backgroundColors, startPoint: .leading, endPoint: .trailing))
+                    .frame(height: 56)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(homeViewModel.homeBanner.subTitle)
+                            .font(.detail4_medium_12)
+                            .foregroundStyle(.whiteText)
+                        Text(homeViewModel.homeBanner.title)
+                            .font(.text4_semibold_16)
+                            .foregroundStyle(.whiteText)
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.leading, 24)
+                    Spacer()
+                    AsyncImage(url: URL(string: homeViewModel.homeBanner.imageUrl)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 124, height: 64)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.bottom, 16)
+            .contentShape(Rectangle()) // 전체 ZStack을 터치 영역으로 만듦
+            .onTapGesture {
+                if let url = URL(string: homeViewModel.homeBanner.linkUrl) {
+                    UIApplication.shared.open(url)
+                }
+            }
             HStack (alignment: .center) {
                 Text("잠금 앱")
                     .font(.text5_medium_16)
@@ -106,6 +139,7 @@ extension HomeView {
         }
         .onAppear() {
             homeViewModel.getDailyChallenge()
+            homeViewModel.getBannerInfo()
             filter = DeviceActivityFilter(
                 segment: .daily(
                     during: Calendar.current.dateInterval(
@@ -137,9 +171,3 @@ extension HomeView {
         )
     }
 }
-
-
-
-//#Preview {
-//    HomeView()
-//}
