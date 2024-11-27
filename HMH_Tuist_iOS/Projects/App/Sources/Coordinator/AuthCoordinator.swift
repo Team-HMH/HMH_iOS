@@ -11,19 +11,20 @@ import SwiftUI
 import LoginFeature
 
 final class AuthCoordinator: ObservableObject, CoordinatorType {
-    var parentCoordinator: (any CoordinatorType)?
-    
     var navigationPath: NavigationPath
-    
+    private let diContainer: AuthDIContainer
+
     init(
-        parentCoordinator: any CoordinatorType,
-        navigationPath: NavigationPath
+        navigationPath: NavigationPath,
+        diContainer: AuthDIContainer
     ) {
-        self.parentCoordinator = parentCoordinator
         self.navigationPath = navigationPath
+        self.diContainer = diContainer
     }
-    
+
     func start() -> AnyView {
-        return AnyView(LoginView(viewModel: LoginViewModel()))
+        let viewModel = diContainer.injectLoginViewModel()
+        let view = LoginView(viewModel: viewModel)
+        return AnyView(view)
     }
 }

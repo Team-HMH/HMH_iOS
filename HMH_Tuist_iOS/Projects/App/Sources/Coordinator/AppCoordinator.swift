@@ -15,14 +15,15 @@ import MyPageFeature
 
 
 final class AppCoordinator: ObservableObject, CoordinatorType {
-    @Published var currentView: AnyView = AnyView(SplashView(coordinator: AppCoordinator(navigationPath: .init())))
+    @Published var currentView: AnyView = AnyView(EmptyView())
     @Published var appState: AppState = .login
     
-    var navigationPath: NavigationPath
-    var parentCoordinator: (any CoordinatorType)?
+    
+    var navigationPath: NavigationPath = NavigationPath()
+    private let diContainer: AppDIContainer
 
-    init(navigationPath: NavigationPath) {
-        self.navigationPath = navigationPath
+    init(diContainer: AppDIContainer) {
+        self.diContainer = diContainer
     }
     
     func start() -> AnyView {
@@ -53,7 +54,8 @@ final class AppCoordinator: ObservableObject, CoordinatorType {
     }
     
     func startLogin() {
-        let authCoordinator = AuthCoordinator(parentCoordinator: self, navigationPath: navigationPath)
+        let authDIContainer = diContainer.injectAuthDIContainer()
+        let authCoordinator = AuthCoordinator(navigationPath: navigationPath, diContainer: authDIContainer)
         currentView = authCoordinator.start()
     }
     

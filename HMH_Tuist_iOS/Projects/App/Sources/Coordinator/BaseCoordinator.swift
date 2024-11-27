@@ -10,10 +10,10 @@ import Combine
 
 import Core
 
-// MARK: - BaseCoordinator 프로토콜
+// MARK: - BaseCoordinator
+
+/// NavigationStack을 사용할 경우 이전에 대한 정보를 모두 갖고 있기 때문에 부모 - 자식 코디네이터 불필요
 public protocol CoordinatorType: AnyObject {
-    
-    var parentCoordinator: (any CoordinatorType)? { get set }
     var navigationPath: NavigationPath { get set }
     
     func start() -> AnyView
