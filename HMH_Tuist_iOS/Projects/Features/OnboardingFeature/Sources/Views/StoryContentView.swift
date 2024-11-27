@@ -22,7 +22,7 @@ struct StoryContentView: View {
             Spacer()
                 .frame(height: 40)
             Text("아무데나 눌러서 이동")
-                .font(.text5_medium_16)
+                .font(DSKitFontFamily.Pretendard.medium.swiftUIFont(size: 16))
                 .foregroundColor(DSKitAsset.gray1.swiftUIColor)
             
         }

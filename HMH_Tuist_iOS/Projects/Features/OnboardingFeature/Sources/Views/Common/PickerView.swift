@@ -12,7 +12,6 @@ import DSKit
 struct PickerView: UIViewRepresentable {
     var times: [String]
     @Binding var selectedTimes: String
-    @ObservedObject var viewModel: OnboardingViewModel
     
     func makeUIView(context: Context) -> UIPickerView {
         let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -30,19 +29,17 @@ struct PickerView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> PickerCoordinator {
-        return PickerCoordinator(times: times, selectedTime: $selectedTimes, viewModel: viewModel)
+        return PickerCoordinator(times: times, selectedTime: $selectedTimes)
     }
 }
 
 class PickerCoordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
-    @ObservedObject var viewModel: OnboardingViewModel
     var times: [String]
     var selectedTime: Binding<String>
     
-    init(times: [String], selectedTime: Binding<String>, viewModel: OnboardingViewModel) {
+    init(times: [String], selectedTime: Binding<String>) {
         self.times = times
         self.selectedTime = selectedTime
-        self.viewModel = viewModel
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -59,7 +56,7 @@ class PickerCoordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource 
      
      func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
          let time = UIColor(DSKitAsset.whiteText.swiftUIColor)
-         let font = UIFont(name: "Pretendard-Medium", size: 22)
+         let font = DSKitFontFamily.Pretendard.medium.font(size: 22)
 
          
          let attributes: [NSAttributedString.Key: Any] = [
@@ -72,7 +69,7 @@ class PickerCoordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource 
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedTime.wrappedValue = times[row]
-        viewModel.isCompleted = true
+//        viewModel.state.isNextAvailable = true
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {

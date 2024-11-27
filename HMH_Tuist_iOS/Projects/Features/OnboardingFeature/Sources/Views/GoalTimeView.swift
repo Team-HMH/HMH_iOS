@@ -21,7 +21,7 @@ struct GoalTimeView: View {
 //                PickerView(times: times, selectedTimes: $viewModel.selectedGoalTime, viewModel: viewModel)
 //                    .frame(width: 67)
                 Text("시간")
-                    .font(.text2_medium_20)
+                    .font(DSKitFontFamily.Pretendard.medium.swiftUIFont(size: 20))
                     .foregroundColor(DSKitAsset.gray2.swiftUIColor)
             }
         }

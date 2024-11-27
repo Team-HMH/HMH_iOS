@@ -17,15 +17,15 @@ struct AppGoalTimeView: View {
     var body: some View {
         ZStack {
             HStack {
-                PickerView(times: timesHour, selectedTimes: $viewModel.selectedAppHour, viewModel: viewModel)
+                PickerView(times: timesHour, selectedTimes: $viewModel.selectedAppHour)
                     .frame(width: 67)
                 Text("시간")
-                    .font(.text2_medium_20)
+                    .font(DSKitFontFamily.Pretendard.medium.swiftUIFont(size: 20))
                     .foregroundColor(DSKitAsset.gray2.swiftUIColor)
-                PickerView(times: timesMinute, selectedTimes: $viewModel.selectedAppMinute, viewModel: viewModel)
+                PickerView(times: timesMinute, selectedTimes: $viewModel.selectedAppMinute)
                     .frame(width: 67)
                 Text("분")
-                    .font(.text2_medium_20)
+                    .font(DSKitFontFamily.Pretendard.medium.swiftUIFont(size: 20))
                     .foregroundColor(DSKitAsset.gray2.swiftUIColor)
             }
         }

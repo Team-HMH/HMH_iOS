@@ -23,11 +23,11 @@ public struct OnboardingCompleteView: View {
                     Spacer()
                         .frame(height: 25)
                     Text(StringLiteral.OnboardingComplete.title)
-                        .font(.title3_semibold_22)
+                        .font(DSKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 22))
                         .lineSpacing(1.5)
                         .foregroundStyle(DSKitAsset.whiteText.swiftUIColor)
                     Text(StringLiteral.OnboardingComplete.subTitle)
-                        .font(.detail1_regular_14)
+                        .font(DSKitFontFamily.Pretendard.regular.swiftUIFont(size: 14))
                         .lineSpacing(1.5)
                         .multilineTextAlignment(.center)
                         .foregroundStyle(DSKitAsset.gray2.swiftUIColor)
@@ -48,7 +48,7 @@ extension OnboardingCompleteView {
         VStack {
             NavigationLink(destination: StoryContentView()) {
                 Text(StringLiteral.OnboardingComplete.button)
-                    .font(.text4_semibold_16)
+                    .font(DSKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 16))
                     .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .center)
             }
             .frame(maxWidth: .infinity)
