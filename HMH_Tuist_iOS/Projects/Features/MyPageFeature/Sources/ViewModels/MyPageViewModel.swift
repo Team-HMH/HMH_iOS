@@ -26,8 +26,7 @@ class MyPageViewModel: ObservableObject {
     
     @Published private(set) var state = State(
         alertType: .logout,
-        name: "",
-        point: 0,
+        user: User(name: "유저정보를 불러오는 중입니다...", point: 0),
         showToast: ""
     )
     
@@ -44,8 +43,7 @@ class MyPageViewModel: ObservableObject {
     
     struct State {
         var alertType: CustomAlertType
-        var name: String
-        var point: Int
+        var user: User
         var showToast: String
     }
     
@@ -53,11 +51,10 @@ class MyPageViewModel: ObservableObject {
         switch action {
         case .onAppearEvent:
             useCase.getUserData()
-                .sink { _ in
-                } receiveValue: { [weak self] data in
-                    self?.state.name = data.name
-                    self?.state.point = data.point
-                }.store(in: cancelBag)
+                .catch { _ in Empty() }
+                .receive(on: RunLoop.main)
+                .assign(to: \.state.userData, on: self)
+                .store(in: cancelBag)
             
         case .logoutButtonDidTap:
             state.alertType = .logout
@@ -66,16 +63,36 @@ class MyPageViewModel: ObservableObject {
             state.alertType = .withdraw
             
         case .confirmButtonDidTap:
-            state.alertType == .logout ? useCase.logout() : useCase.revokeUser()
+            state.alertType == .logout
+            ? handleLogout()
+            : handleRevokeUser()
         }
     }
     
-    func bindState() {
-        useCase.loginFailed
+    private func bindState() {
+        useCase.logoutFailed
             .merge(with: useCase.revokeUserFailed)
             .receive(on: RunLoop.main)
             .assign(to: \.state.showToast, on: self)
             .store(in: cancelBag)
+    }
+}
+
+extension MyPageViewModel {
+    func handleLogout() {
+        useCase.logout()
+            .sink(receiveValue: {
+                //여기서 화면전환
+                UserManager.shared.appStateString = "login"
+            }).store(in: cancelBag)
+    }
+    
+    func handleRevokeUser() {
+        useCase.revokeUser()
+            .sink(receiveValue: {
+                //여기서 화면전환
+                UserManager.shared.appStateString = "login"
+            }).store(in: cancelBag)
     }
 }
 

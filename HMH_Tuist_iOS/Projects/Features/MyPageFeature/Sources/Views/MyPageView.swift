@@ -41,10 +41,7 @@ public struct MyPageView: View {
                         buttonType: .Confirm,
                         alertType: viewModel.state.alertType,
                         isPresented: $isPresented,
-                        action: {
-                            UserManager.shared.appStateString = "login"
-                            viewModel.send(action: .confirmButtonDidTap)
-                        }
+                        action: { viewModel.send(action: .confirmButtonDidTap) }
                     ),
                     cancelBtn: CustomAlertButtonView(
                         buttonType: .Cancel,
@@ -64,14 +61,14 @@ extension MyPageView {
             Image(uiImage: DSKitAsset.profile.image)
                 .frame(width: 54, height: 54)
                 .padding(10)
-            Text(viewModel.state.name)
+            Text(viewModel.state.user.name)
                 .font(.title4_semibold_20)
             Spacer()
                 .frame(height: 16)
             HStack {
                 Text(StringLiteral.MyPageAccountControl.point)
                     .font(.text6_medium_14)
-                Text("\(viewModel.state.point)")
+                Text("\(viewModel.state.user.point)")
                     .font(.text6_medium_14)
             }
             .frame(maxWidth: .infinity)
