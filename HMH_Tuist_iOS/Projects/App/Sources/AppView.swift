@@ -14,6 +14,7 @@ import DSKit
 import Core
 
 struct AppView: View {
+    @EnvironmentObject var appDIContainer: AppDIContainer
     @StateObject var coordinator = AppCoordinator(navigationPath: .init())
     
     var body: some View {

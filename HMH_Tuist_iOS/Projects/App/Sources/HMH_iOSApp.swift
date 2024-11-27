@@ -14,6 +14,7 @@ import KakaoSDKAuth
 struct HMH_iOSApp: App {
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var appDIContainer = AppDIContainer()
     @Environment(\.scenePhase) private var scenePhase
 
     init() {
@@ -23,6 +24,7 @@ struct HMH_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             AppView()
+                .environmentObject(appDIContainer)
         }
     }
 }
