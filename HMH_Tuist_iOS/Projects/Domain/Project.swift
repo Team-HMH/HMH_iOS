@@ -15,6 +15,7 @@ let project = Project.makeModule(
     name: "Domain",
     targets: [.dynamicFramework],
     internalDependencies: [
-        .core
+        .core,
+        .Modules.dsKit
     ]
 )
