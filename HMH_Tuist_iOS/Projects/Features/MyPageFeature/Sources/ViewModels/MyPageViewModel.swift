@@ -11,6 +11,7 @@ import Combine
 import Core
 import DSKit
 import Domain
+import Foundation
 
 class MyPageViewModel: ObservableObject {
     
@@ -19,12 +20,15 @@ class MyPageViewModel: ObservableObject {
     
     init(useCase: MyPageUseCaseType) {
         self.useCase = useCase
+        
+        bindState()
     }
     
     @Published private(set) var state = State(
         alertType: .logout,
         name: "",
-        point: 0
+        point: 0,
+        showToast: ""
     )
     
     //MARK: Action
@@ -42,6 +46,7 @@ class MyPageViewModel: ObservableObject {
         var alertType: CustomAlertType
         var name: String
         var point: Int
+        var showToast: String
     }
     
     func send(action: Action) {
@@ -64,4 +69,13 @@ class MyPageViewModel: ObservableObject {
             state.alertType == .logout ? useCase.logout() : useCase.revokeUser()
         }
     }
+    
+    func bindState() {
+        useCase.loginFailed
+            .merge(with: useCase.revokeUserFailed)
+            .receive(on: RunLoop.main)
+            .assign(to: \.state.showToast, on: self)
+            .store(in: cancelBag)
+    }
 }
+
