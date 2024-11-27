@@ -23,11 +23,12 @@ public protocol ChallengeServiceType {
 }
 
 extension ChallengeService: ChallengeServiceType {
+    
     public func getDailyChallenge() -> AnyPublisher<DailyChallengeResult, HMHNetworkError> {
         return requestWithResult(.getdailyChallenge)
     }
     
-    public func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
+    public func postSuccesChallenge(request: ChallengeSuccessRequest) -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
         return requestWithResult(.postSuccesChallenge)
     }
     
@@ -65,7 +66,7 @@ public struct StubChallengeService: ChallengeServiceType {
             .eraseToAnyPublisher()
     }
     
-    public func getSuccesChallenge() -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
+    public func postSuccesChallenge(request: ChallengeSuccessRequest) -> AnyPublisher<ChallengeSuccessResult, HMHNetworkError> {
         return Just(.stub)
             .setFailureType(to: HMHNetworkError.self)
             .eraseToAnyPublisher()
