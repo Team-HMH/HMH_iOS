@@ -47,7 +47,7 @@ class MyPageViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
         case .onAppearEvent:
-            useCase.getUserDate()
+            useCase.getUserData()
                 .sink { _ in
                 } receiveValue: { [weak self] data in
                     self?.state.name = data.name

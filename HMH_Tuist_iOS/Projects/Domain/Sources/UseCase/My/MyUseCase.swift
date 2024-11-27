@@ -11,7 +11,7 @@ import Combine
 import Core
 
 public protocol MyPageUseCaseType {
-    func getUserDate() -> AnyPublisher<User, UserError>
+    func getUserData() -> AnyPublisher<User, UserError>
     func logout()
     func revokeUser()
 }
@@ -24,7 +24,7 @@ final class MyPageUseCase: MyPageUseCaseType {
         self.userRepository = userRepository
     }
     
-    func getUserDate() -> AnyPublisher<User, UserError> {
+    func getUserData() -> AnyPublisher<User, UserError> {
         userRepository.getUserData()
             .map { $0 }
             .eraseToAnyPublisher()
