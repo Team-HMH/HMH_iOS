@@ -7,178 +7,85 @@
 
 import SwiftUI
 import FamilyControls
+
 import Domain
-
-enum ChallengeType {
-    case empty
-    case normal
-    case large
-}
-
+import DSKit
+import Core
 public final class ChallengeViewModel: ObservableObject {
-    @Published var startDate = ""
-    @Published var visableStartDate = ""
-    @Published var todayIndex = 0
-    @Published var days = 7
-    @Published var appList: [AppInfo] = []
-    @Published var statuses: [String] = []
-    @Published var titleString = ""
-    @Published var subTitleString = ""
-    @Published var challengeType: ChallengeType = .empty
-    @Published var remainEarnPoint = 0
-    @Published var navigateToCreate = false
-    @Published var isToastPresented = false
-    
-    @StateObject var screenViewModel = ScreenTimeViewModel()
-    
-    enum PointStatus {
-        static let unearned = "UNEARNED"
-        static let earned = "EARNED"
-        static let failure = "FAILURE"
+    // MARK: - State
+    public struct State {
+        var challenge: ChallengeDetail = .init(
+            statuses: [],
+            todayIndex: 0,
+            startDate: "",
+            challengeInfo: .init(period: 0, goalTime: 0, apps: [])
+        )
+        var isChallengeExisted: Bool = false
+        var titleString: String = ""
+        var subTitleString: String = ""
+        var navigateToCreate: Bool = false
+        var navigateToPoint: Bool = false
+        var isToastPresented: Bool = false
     }
     
-    public init() {
-        getChallengeInfo()
+    // MARK: - Action
+    public enum Action {
+        case fetchChallengeInfo
+        case challengeButtonTapped
+        case updateChallengeInfo(ChallengeDetail)
+        case setToastVisibility(Bool)
+        case navigateToPoint(Bool)
+        case navigateToCreate(Bool)
     }
     
-    func getChallengeType() {
-        if todayIndex < 0 {
-            challengeType = .empty
-        } else if 14 < days {
-            challengeType = .large
-        } else {
-            challengeType = .normal
+    // MARK: - Published State
+    @Published var state: State = .init()
+    
+    private let challengeUseCase: ChallngeUseCaseType
+    private let cancelBag: CancelBag = .init()
+    
+    // MARK: - Init
+    public init(challengeUseCase: ChallngeUseCaseType) {
+        self.challengeUseCase = challengeUseCase
+    }
+    
+    // MARK: - Dispatch Action
+    public func send(_ action: Action) {
+        switch action {
+        case .fetchChallengeInfo:
+            fetchChallengeInfo()
+        case .challengeButtonTapped:
+            handleChallengeButtonTapped()
+        case .updateChallengeInfo(let challenge):
+            state.challenge = challenge
+            checkChallengeExistence(todayIndex: challenge.getTodayIndex())
+        case .setToastVisibility(let isVisible):
+            state.isToastPresented = isVisible
+        case .navigateToPoint(let shouldNavigate):
+            state.navigateToPoint = shouldNavigate
+        case .navigateToCreate(let shouldNavigate):
+            state.navigateToCreate = shouldNavigate
         }
     }
     
-    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-    func getChallengeInfo() {
-//        Providers.challengeProvider.request(target: .getChallenge,
-//                                            instance: BaseResponse<GetChallengeResponseDTO>.self) { result in
-//            guard let data = result.data else { return }
-//            self.days = data.period
-//            self.appList = data.apps
-//            self.statuses = data.statuses
-//            self.todayIndex = data.todayIndex
-//            self.startDate = data.startDate
-//            self.visableStartDate = self.formatDateString(data.startDate) ?? ""
-//            
-//            self.sendSucessIfNeeded()
-//            self.getChallengeType()
-//        }
-    }
-    
-    func challengeButtonTapped() {
-        if !(statuses.contains("UNEARNED")) {
-            navigateToCreate = true
-        } else {
-            isToastPresented = true
-        }
-    }
-    
-    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-    func addApp(appGoalTime: Int) {
-//        var applist: [Apps] = []
-//        
-//        screenViewModel.selectedApp.applications.forEach { app in
-//            applist.append(Apps(appCode: app.localizedDisplayName ?? "basic name", goalTime: appGoalTime))
-//        }
-//        
-//        screenViewModel.handleStartDeviceActivityMonitoring(includeUsageThreshold: true, interval: appGoalTime)
-//        
-//        Providers.challengeProvider.request(target: .addApp(data: AddAppRequestDTO(apps: applist)), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-//            print(result)
-//        }
-        
-    }
-    
-    func formatDateString(_ dateString: String) -> String? {
-        let inputDateFormatter = DateFormatter()
-        inputDateFormatter.dateFormat = "yyyy-MM-dd"
-        guard let date = inputDateFormatter.date(from: dateString) else {
-            return nil
-        }
-        
-        let outputDateFormatter = DateFormatter()
-        outputDateFormatter.dateFormat = "M월 d일"
-        let formattedDateString = outputDateFormatter.string(from: date)
-        
-        return formattedDateString
-    }
-    
-    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-    func sendFailChallenge(date: String) {
-//        let midnightDTO = MidnightRequestDTO(finishedDailyChallenges: [FinishedDailyChallenge(challengeDate: date, isSuccess: false)])
-//        Providers.challengeProvider.request(target: .postDailyChallenge(data: midnightDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-//            print("Daily challenge data sent successfully.")
-//        }
-    }
-    
-    //TODO: 네트워크 부분은 의존성 정리한 뒤에 다시 연결해봅시다
-    func sendSucessIfNeeded() {
-//        let noneDates = findNoneDates(statuses: statuses, todayIndex: todayIndex, startDate: startDate)
-//        var finishChallenges: [FinishedDailyChallenge] = []
-//        
-//        noneDates.forEach { date in
-//            finishChallenges.append(FinishedDailyChallenge(challengeDate: date, isSuccess: true))
-//        }
-//        
-//        if !(finishChallenges.isEmpty) {
-//            let finishDateDTO = MidnightRequestDTO(finishedDailyChallenges: finishChallenges)
-//            
-//            Providers.challengeProvider.request(target: .postDailyChallenge(data: finishDateDTO), instance: BaseResponse<EmptyResponseDTO>.self) { result in
-//                print("Daily challenge data sent successfully.")
-//            }
-//        }
-    }
-    
-    func findNoneDates(statuses: [String], todayIndex: Int, startDate: String) -> [String] {
-        var dates: [String] = []
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        guard let start = dateFormatter.date(from: startDate) else {
-            print("Invalid start date format")
-            return dates
-        }
-        
-        let calendar = Calendar.current
-        
-        if todayIndex > 0 {
-            for index in 0..<todayIndex {
-                if statuses[index] == "NONE" {
-                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
-                        let formattedDate = dateFormatter.string(from: newDate)
-                        dates.append(formattedDate)
-                    }
-                }
+    // MARK: - Private Methods
+    private func fetchChallengeInfo() {
+        challengeUseCase.getChallenge()
+            .sink { _ in } receiveValue: { [weak self] challenge in
+                self?.send(.updateChallengeInfo(challenge))
             }
-        } else {
-            for index in 0..<days {
-                if statuses[index] == "NONE" {
-                    if let newDate = calendar.date(byAdding: .day, value: index, to: start) {
-                        let formattedDate = dateFormatter.string(from: newDate)
-                        dates.append(formattedDate)
-                    }
-                }
-            }
-        }
-        
-        return dates
+            .store(in: cancelBag)
     }
-}
-
-struct ChallengeDTO: Codable {
-    let period: Int
-    let statuses: [String]
-    let todayIndex: Int
-    let goalTime: Int
-    let apps: [AppInfo]
-}
-
-// MARK: - App
-struct AppInfo: Codable {
-    let appCode: String
-    let goalTime: Int
+    
+    private func handleChallengeButtonTapped() {
+        if state.challenge.getStatuses().contains(.unearned) {
+            send(.setToastVisibility(true))
+        } else {
+            send(.navigateToPoint(true))
+        }
+    }
+    
+    private func checkChallengeExistence(todayIndex: Int) {
+        state.isChallengeExisted = todayIndex > 0
+    }
 }

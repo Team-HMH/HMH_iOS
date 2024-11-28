@@ -16,8 +16,6 @@ public final class BaseService<Target: URLRequestTargetType> {
     
     public typealias API = Target
     
-    private var retryCnt = 0
-    
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 10
@@ -114,9 +112,7 @@ extension BaseService {
     }
     
     private func refreshTokenAndRetry(for target: API) -> AnyPublisher<Void, HMHNetworkError> {
-        retryCnt += 1
-        NetworkLogHandler.tokenIntercepterRetryLogging(retryCnt: retryCnt)
-        return TokenInterceptor.shared.retry(for: session, retryCnt: retryCnt)
+        return TokenInterceptor.shared.retry(for: session)
             .flatMap { tokenResult -> AnyPublisher<Void, HMHNetworkError> in
                 UserManager.shared.accessToken = tokenResult.accessToken
                 UserManager.shared.refreshToken = tokenResult.refreshToken

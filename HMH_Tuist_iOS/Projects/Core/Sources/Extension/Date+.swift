@@ -21,4 +21,20 @@ public extension String {
         formatter.dateFormat = format
         return formatter.date(from: self)
     }
+  
+  
+  func challengeHeaderFormattd() -> String? {
+    let inputDateFormatter = DateFormatter()
+    inputDateFormatter.dateFormat = "yyyy-MM-dd"
+    guard let date = inputDateFormatter.date(from: self) else {
+      return nil
+    }
+    
+    let outputDateFormatter = DateFormatter()
+    outputDateFormatter.dateFormat = "M월 d일"
+    let formattedDateString = outputDateFormatter.string(from: date)
+    
+    return formattedDateString
+  }
+  
 }

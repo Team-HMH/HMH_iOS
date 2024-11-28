@@ -26,8 +26,9 @@ public struct ChallengeRepository: ChallengeRepositoryType {
             .mapToDomainError(to: ChallengeError.self)
     }
     
-    public func getSuccesChallenge() -> AnyPublisher<[String], ChallengeError> {
-        service.getSuccesChallenge()
+    public func postSuccesChallenge(sucessInfo: [ChallengeSuccessInfo]) -> AnyPublisher<[String], ChallengeError> {
+        let request = ChallengeSuccessRequest(finishedDailyChallenges: sucessInfo.map { $0.toDTO() })
+        return service.postSuccesChallenge(request: request)
             .map { $0.statuses }
             .mapToDomainError(to: ChallengeError.self)
     }

@@ -109,7 +109,7 @@ extension TargetHandler {
         return TargetHandler.makeTarget(
             targetType: .demo,
             name: "\(name)Demo",
-            bundleID: "com.hmh.hamyeonham", //"\(env.bundlePrefix).\(name)Demo",
+            bundleID: "com.hmh.hamyeonham", //"\(env.bundlePrefix).\(name)Demo","com.hmh.hamyeonham.dev",
             infoPlist: .extendingDefault(with: Project.demoInfoPlist),
             resources: [.glob(pattern: "Demo/Resources/**", excluding: ["Demo/Resources/dummy.txt"])],
             dependencies: [.target(name:name)]

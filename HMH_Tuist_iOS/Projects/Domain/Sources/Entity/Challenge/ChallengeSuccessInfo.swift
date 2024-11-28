@@ -7,8 +7,8 @@
 //
 
 public struct ChallengeSuccessInfo {
-    let challengeDate: String
-    let isSuccess: Bool
+    public let challengeDate: String
+    public let isSuccess: Bool
     
     public init(challengeDate: String, isSuccess: Bool) {
         self.challengeDate = challengeDate
