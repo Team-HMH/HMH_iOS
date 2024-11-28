@@ -15,6 +15,10 @@ let project = Project.makeModule(
     targets: [.staticFramework, .demo],
     internalDependencies: [
         .Features.BaseFeatureDependency,
-        .HMHModules.hmhDeviceActivityReport
+        .HMHModules.hmhDeviceActivityReport,
+        .HMHModules.shieldActionExtension,
+        .HMHModules.shieldConfigureExtension,
+        .HMHModules.deviceActivityMonitor
+        
     ]
 )

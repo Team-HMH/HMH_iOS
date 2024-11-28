@@ -14,6 +14,6 @@ let project = Project.makeModule(
     name: "ShieldActionExtension",
     targets: [.dynamicFramework],
     internalDependencies: [
-        .core
+        .HMHModules.hmhModuleDependency
     ]
 )

@@ -39,6 +39,11 @@ public extension Dep {
 // MARK: - HMHModules: 하면함에서 직접 제작한 모듈에 대한 종속성 정의
 
 public extension Dep.HMHModules {
+    static let hmhModuleDependency = Dep.project(
+        target: "HMHModuleDependency",
+        path: .relativeToHMHModules("HMHModuleDependency")
+    )
+    
     static let deviceActivityMonitor = Dep.project(
         target: "DeviceActivityMonitor",
         path: .relativeToHMHModules("DeviceActivityMonitor")

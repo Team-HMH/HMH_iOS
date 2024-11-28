@@ -27,16 +27,15 @@ public extension Project {
         sources: SourceFilesList? = nil,
         hasResources: Bool = false
     ) -> Project {
-        let configurationName: ConfigurationName = "Development"
-        var dependencies: [TargetDependency] = internalDependencies + externalDependencies + interfaceDependencies
+        let dependencies: [TargetDependency] = internalDependencies + externalDependencies + interfaceDependencies
         
-        var projectTargets: [Target] = TargetHandler.makeProjectTargets(
+        let projectTargets: [Target] = TargetHandler.makeProjectTargets(
             name: name,
             hasResources: hasResources,
             with: dependencies,
             targets: targets
         )
-        var projcetScheme: [Scheme] = SchemeProvider.makeProjectScheme(targets: targets, name: name)
+        let projcetScheme: [Scheme] = SchemeProvider.makeProjectScheme(targets: targets, name: name)
         
         return Project(
             name: name,

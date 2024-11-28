@@ -14,9 +14,6 @@ let project = Project.makeModule(
     targets: [.staticFramework],
     internalDependencies: [
         .domain,
-        .Modules.dsKit,
-        .HMHModules.deviceActivityMonitor,
-        .HMHModules.shieldActionExtension,
-        .HMHModules.shieldConfigureExtension
+        .Modules.dsKit
     ]
 )

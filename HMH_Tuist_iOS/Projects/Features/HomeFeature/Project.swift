@@ -13,6 +13,9 @@ let project = Project.makeModule(
     name: "HomeFeature",
     targets: [.staticFramework, .demo],
     internalDependencies: [
-        .Features.BaseFeatureDependency
+        .Features.BaseFeatureDependency,
+        .HMHModules.shieldActionExtension,
+        .HMHModules.shieldConfigureExtension,
+        .HMHModules.deviceActivityMonitor
     ]
 )
