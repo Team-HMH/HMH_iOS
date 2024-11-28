@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "앱아이콘.png",
+      "filename" : "앱아이콘.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "앱아이콘 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "앱아이콘 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

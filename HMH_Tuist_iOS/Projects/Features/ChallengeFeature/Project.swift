@@ -14,6 +14,7 @@ let project = Project.makeModule(
     name: "ChallengeFeature",
     targets: [.staticFramework, .demo],
     internalDependencies: [
-        .Features.BaseFeatureDependency
+        .Features.BaseFeatureDependency,
+        .HMHModules.hmhDeviceActivityReport
     ]
 )

@@ -19,25 +19,25 @@ public protocol MyPageUseCaseType {
     func revokeUser() -> AnyPublisher<Void, Never>
 }
 
-final class MyPageUseCase: MyPageUseCaseType {
+final public class MyPageUseCase: MyPageUseCaseType {
     
     private let userRepository: UserRepositoryType
     private var cancelBag = CancelBag()
     
-    init(userRepository: UserRepositoryType) {
+    public init(userRepository: UserRepositoryType) {
         self.userRepository = userRepository
     }
     
-    var logoutFailed = PassthroughSubject<String, Never>()
-    var revokeUserFailed = PassthroughSubject<String, Never>()
+    public var logoutFailed = PassthroughSubject<String, Never>()
+    public var revokeUserFailed = PassthroughSubject<String, Never>()
     
-    func getUserData() -> AnyPublisher<User, UserError> {
+    public func getUserData() -> AnyPublisher<User, UserError> {
         userRepository.getUserData()
             .map { $0 }
             .eraseToAnyPublisher()
     }
     
-    func logout() -> AnyPublisher<Void, Never> {
+    public func logout() -> AnyPublisher<Void, Never> {
         userRepository.logout()
             .catch { [weak self] error in
                 self?.logoutFailed.send("로그아웃에 실패했습니다.")
@@ -46,7 +46,7 @@ final class MyPageUseCase: MyPageUseCaseType {
             .eraseToAnyPublisher()
     }
     
-    func revokeUser() -> AnyPublisher<Void, Never> {
+    public func revokeUser() -> AnyPublisher<Void, Never> {
         userRepository.deleteAccount()
             .catch { [weak self] error in
                 self?.revokeUserFailed.send("회원탈퇴에 실패했습니다.")

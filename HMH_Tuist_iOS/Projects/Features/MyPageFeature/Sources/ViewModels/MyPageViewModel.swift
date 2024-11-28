@@ -13,12 +13,12 @@ import DSKit
 import Domain
 import Foundation
 
-class MyPageViewModel: ObservableObject {
+public class MyPageViewModel: ObservableObject {
     
     private var useCase: MyPageUseCaseType
     private var cancelBag = CancelBag()
     
-    init(useCase: MyPageUseCaseType) {
+    public init(useCase: MyPageUseCaseType) {
         self.useCase = useCase
         
         bindState()
@@ -53,7 +53,7 @@ class MyPageViewModel: ObservableObject {
             useCase.getUserData()
                 .catch { _ in Empty() }
                 .receive(on: RunLoop.main)
-                .assign(to: \.state.userData, on: self)
+                .assign(to: \.state.user, on: self)
                 .store(in: cancelBag)
             
         case .logoutButtonDidTap:

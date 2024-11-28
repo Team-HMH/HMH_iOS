@@ -14,6 +14,11 @@ public struct MyPageView: View {
     @State private var isPresented: Bool = false
     @StateObject var viewModel: MyPageViewModel
     
+    public init(viewModel: MyPageViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
+    
     public var body: some View {
         VStack {
             Spacer()

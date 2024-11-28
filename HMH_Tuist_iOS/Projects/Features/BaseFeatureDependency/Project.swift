@@ -16,7 +16,6 @@ let project = Project.makeModule(
         .domain,
         .Modules.dsKit,
         .HMHModules.deviceActivityMonitor,
-        .HMHModules.hmhDeviceActivityReport,
         .HMHModules.shieldActionExtension,
         .HMHModules.shieldConfigureExtension
     ]
