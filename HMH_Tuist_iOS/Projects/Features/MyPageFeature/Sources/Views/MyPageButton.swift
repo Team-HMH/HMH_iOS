@@ -16,8 +16,8 @@ struct MyPageButton: View {
     var body: some View {
         ZStack {
             HStack() {
-                if let image = buttonType.imageName {
-                    Image(image)
+                if let image = buttonType.image {
+                    Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)

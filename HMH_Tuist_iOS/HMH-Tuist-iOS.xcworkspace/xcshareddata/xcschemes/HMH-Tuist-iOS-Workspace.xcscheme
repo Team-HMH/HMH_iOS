@@ -224,6 +224,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D1CE16B2FFB7DF723CED96D2"
+               BuildableName = "HMHModuleDependency.framework"
+               BlueprintName = "HMHModuleDependency"
+               ReferencedContainer = "container:Projects/HMHModules/HMHModuleDependency/HMHModuleDependency.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA63F18E567CF83B0B9CA9F6"
                BuildableName = "HomeFeature.framework"
                BlueprintName = "HomeFeature"

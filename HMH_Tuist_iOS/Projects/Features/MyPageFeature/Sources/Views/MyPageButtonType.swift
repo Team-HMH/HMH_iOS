@@ -30,12 +30,12 @@ enum MyPageButtonType {
         }
     }
     
-    var imageName: String? {
+    var image: UIImage? {
         switch self {
         case .travel:
-            return "map"
+            return DSKitAsset.map.image
         case .market:
-            return "market"
+            return DSKitAsset.market.image
         case .term, .info:
             return nil
         }
@@ -43,11 +43,11 @@ enum MyPageButtonType {
     
     var clickAction: Void {
         switch self {
-        case .travel:
-            let url = URL(string: StringLiteral.MyPageURL.term)!
-            UIApplication.shared.open(url)
-        case .market:
+        case .info:
             let url = URL(string: StringLiteral.MyPageURL.info)!
+            UIApplication.shared.open(url)
+        case .term:
+            let url = URL(string: StringLiteral.MyPageURL.term)!
             UIApplication.shared.open(url)
         default:
             break

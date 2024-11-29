@@ -51,6 +51,9 @@
             location = "group:HMHDeviceActivityReport/HMHDeviceActivityReport.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:HMHModuleDependency/HMHModuleDependency.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:ShieldActionExtension/ShieldActionExtension.xcodeproj">
          </FileRef>
          <FileRef
