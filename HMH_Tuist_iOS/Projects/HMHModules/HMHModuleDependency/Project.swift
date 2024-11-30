@@ -11,7 +11,7 @@ import DependencyPlugin
 
 let project = Project.makeModule(
     name: "HMHModuleDependency",
-    targets: [.staticFramework],
+    targets: [.dynamicFramework],
     internalDependencies: [
         .Modules.dsKit,
         .core
