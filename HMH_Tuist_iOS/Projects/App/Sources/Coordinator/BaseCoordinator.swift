@@ -14,9 +14,11 @@ import Core
 
 /// NavigationStack을 사용할 경우 이전에 대한 정보를 모두 갖고 있기 때문에 부모 - 자식 코디네이터 불필요
 public protocol CoordinatorType: AnyObject {
+    associatedtype View: SwiftUI.View
+    
     var navigationPath: NavigationPath { get set }
     
-    func start() -> AnyView
+    func start() -> View
     
     func push(to view: any Hashable)
     func pop()
