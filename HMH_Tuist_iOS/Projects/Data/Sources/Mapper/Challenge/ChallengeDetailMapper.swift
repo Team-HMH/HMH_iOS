@@ -14,7 +14,7 @@ import Networks
 extension GetChallengeResult {
     public func toEntity() -> ChallengeDetail {
         .init(
-            statuses: statuses,
+            statuses: statuses.map{ PointStatusEnum(rawValue: $0) ?? .none},
             todayIndex: todayIndex,
             startDate: startDate,
             challengeInfo: .init(

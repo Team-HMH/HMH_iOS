@@ -14,7 +14,7 @@ import KakaoSDKAuth
 struct HMH_iOSApp: App {
     let kakaoAPIKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as! String
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject private var scheduler = MidnightTaskScheduler()
+    @StateObject private var appDIContainer = AppDIContainer()
     @Environment(\.scenePhase) private var scenePhase
 
     init() {
@@ -23,16 +23,8 @@ struct HMH_iOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }
-        .onChange(of: scenePhase) { newPhase in
-            switch newPhase {
-            case .background:
-                print("App moved to background.")
-                scheduler.scheduleMidnightTask()
-            @unknown default:
-                break
-            }
+            AppView()
+                .environmentObject(appDIContainer)
         }
     }
 }

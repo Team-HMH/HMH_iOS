@@ -7,13 +7,13 @@
 
 import SwiftUI
 
+import DSKit
+import Core
+
 import Lottie
 
-import LoginFeature
-import DSKit
-
 struct SplashView: View {
-    @ObservedObject var viewModel: LoginViewModel
+    @ObservedObject var coordinator: AppCoordinator
     
     var body: some View {
         ZStack {
@@ -29,9 +29,9 @@ struct SplashView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(DSKitAsset.blackground.swiftUIColor, ignoresSafeAreaEdges: .all)
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, execute: {
-//                viewModel.handleSplashScreen()
-            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                coordinator.appState = .login // Splash에서 홈뷰 통신하면서 상태 판단 필요
+            }
         }
     }
 }
